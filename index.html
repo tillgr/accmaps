@@ -27,19 +27,38 @@
     <li><a href="settings.html">Settings</a></li>
   </ul>
 
+  <div class="container">
+    <ul class="buildings collection with-header">
+      <li class="collection-header">
+        <h4>Buildings</h4>
+      </li>
+    </ul>
+    <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+  </div>
+
   <!-- Modal Trigger -->
-  <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
 
   <!-- Modal Structure -->
-  <div id="modal1" class="modal">
+  <div id="modal1" class="modal add-building">
     <div class="modal-content">
-      <h4>Modal Header</h4>
-      <p>A bunch of text</p>
+      <h4>Search for a building</h4>
+      <form action="">
+        <input type="text" name="building" placeholder="building">
+        <button class="btn">Search</button>
+        <p class="error"></p>
+      </form>
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Abort</a>
     </div>
   </div>
+
+  <div class="fixed-action-btn">
+    <a class="btn-floating btn-large red">
+      <i class="large material-icons">mode_edit</i>
+    </a>
+  </div>
+
 
 </body>
 
