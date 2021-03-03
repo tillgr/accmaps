@@ -2,3 +2,12 @@
     height: 580px;
     border: solid 1px;
 }
+
+.leaflet-marker-icon {
+    display: none;
+    visibility: hidden;
+}
+.leaflet-marker-shadow {
+    display: none;
+    visibility: hidden;
+}
