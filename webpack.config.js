@@ -8,7 +8,22 @@ module.exports = {
         filename: "[name].js",
     },
     module: {
-        rules: [{test: /\.css$/, use: ["style-loader", "css-loader"]}]
+        rules: [
+            {
+                test: /\.css$/,
+                use: ["style-loader", "css-loader"]
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                use: [
+                    {
+                        loader: "file-loader",
+                        options: {
+                            name: "[path]/[name].[ext]",
+                        },
+                    },
+                ],
+            }]
     }
 };
 

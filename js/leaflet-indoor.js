@@ -1,3 +1,5 @@
+import * as L from 'leaflet/src/Leaflet';
+
 /**
  * A layer that will display indoor data
  *
