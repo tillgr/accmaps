@@ -1,4 +1,4 @@
-import * as L from 'leaflet/src/Leaflet';
+import 'leaflet/dist/leaflet';
 
 /**
  * A layer that will display indoor data
@@ -180,18 +180,18 @@ L.Indoor = L.Class.extend({
         this._level = level;
     },
     resetStyle: function (layer) {
-      // reset any custom styles
-      layer.options = layer.defaultOptions;
-      this._setLayerStyle(layer, this.options.style);
-      return this;
+        // reset any custom styles
+        layer.options = layer.defaultOptions;
+        this._setLayerStyle(layer, this.options.style);
+        return this;
     },
     _setLayerStyle: function (layer, style) {
-      if (typeof style === 'function') {
-        style = style(layer.feature);
-      }
-      if (layer.setStyle) {
-        layer.setStyle(style);
-      }
+        if (typeof style === 'function') {
+            style = style(layer.feature);
+        }
+        if (layer.setStyle) {
+            layer.setStyle(style);
+        }
     }
 });
 

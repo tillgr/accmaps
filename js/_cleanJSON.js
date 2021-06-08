@@ -1,6 +1,6 @@
-import osmtogeojson from "osmtogeojson";
+import osmtogeojson from "osmtogeojson/index";
 
-module.exports = function cleanjson(data) {
+export function cleanJSON(data) {
     let geoJSON = osmtogeojson(data, {
         polygonFeatures: {
             buildingpart: true
@@ -18,6 +18,10 @@ module.exports = function cleanjson(data) {
 }
 
 function filterFeatures(feature) {
+    if (feature.properties.tags === undefined) {
+        return null;
+    }
+
     let level = feature.properties.tags.level;
     level.trim();
 
@@ -68,7 +72,6 @@ function filterFeatures(feature) {
                 maxLevel = tempMin;
             }
         }
-
 
         if (level.charAt(0) !== "-" || dashCount > 1) // not [-5]
         {
