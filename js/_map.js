@@ -1,8 +1,10 @@
 import 'leaflet/src/Leaflet';
 import './leafletIndoor'
 
-import {cleanJSON} from "./_cleanJSON";
+import {filterGeoJsonData} from "./_filterGeoJsonData";
 import {getOSM} from "./_getOSM";
+
+import osmtogeojson from "osmtogeojson";
 
 const INDOOR_ZOOM_LEVEL = 17;
 const INDOOR_LEVEL = 0;
@@ -14,7 +16,7 @@ export function createMap() {
     const osmUrl = 'https://a.tile.openstreetmap.de/{z}/{x}/{y}.png ';
 
     const osmTileLayer = new L.TileLayer(osmUrl, {
-        maxZoom: 20,
+        maxZoom: 19,
     });
 
     map = new L.Map('map', {
@@ -31,7 +33,13 @@ export function createMap() {
 
 
 function createIndoorLayer(data) {
-    let geoJSON = cleanJSON(data);
+    let geoJSON = osmtogeojson(data, {
+        polygonFeatures: {
+            'building:part': true
+        }
+    });
+
+    geoJSON = filterGeoJsonData(geoJSON);
 
     const indoorLayer = new L.Indoor(geoJSON, {
         onEachFeature: (feature, layer) => {
