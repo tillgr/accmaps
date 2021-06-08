@@ -14,8 +14,7 @@ export function createMap() {
     const osmUrl = 'https://a.tile.openstreetmap.de/{z}/{x}/{y}.png ';
 
     const osmTileLayer = new L.TileLayer(osmUrl, {
-        maxZoom: 19,
-        attribution: "Map data &copy; OpenStreetMap contributors"
+        maxZoom: 20,
     });
 
     map = new L.Map('map', {
@@ -33,13 +32,17 @@ export function createMap() {
 
 function createIndoorLayer(data) {
     let geoJSON = cleanJSON(data);
-    console.log('create indoor layer');
 
     const indoorLayer = new L.Indoor(geoJSON, {
-        onEachFeature: function (feature, layer) {
-            layer.bindPopup(JSON.stringify(feature.properties, null, 10));
+        onEachFeature: (feature, layer) => {
+            let popUpText = feature.properties.ref ?? 'ohne Bezeichnung';
+            let cellName = feature.properties.name;
+            if (cellName !== undefined && cellName.lenght !== 0) {
+                popUpText += '&nbsp;(' + cellName + ')';
+            }
+            layer.bindPopup(popUpText);
         },
-        style: tagFilter
+        style: featureStyle
     });
 
     indoorLayer.setLevel(INDOOR_LEVEL);
@@ -59,9 +62,10 @@ function createLevelControl(indoorLayer) {
     levelControl.addTo(map);
 }
 
-function tagFilter(feature) {
+function featureStyle(feature) {
     let fill = 'white';
     let wallColor = '#000';
+
     const opacity = FILL_OPACITY;
     const wall_weight = -INDOOR_ZOOM_LEVEL + 1 + map.getZoom();
 
