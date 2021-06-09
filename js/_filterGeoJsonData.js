@@ -1,14 +1,15 @@
 export function filterGeoJsonData(geoJSON) {
-    geoJSON.features.map(filterFeatures);
+    geoJSON.features = geoJSON.features.filter(filterFeatures);
+    geoJSON.features.map(generateLevelDescriptors);
 
     return geoJSON;
 }
 
 function filterFeatures(feature) {
-    if (feature.properties.level === undefined) {
-        return feature;
-    }
+    return !(feature.properties === undefined || feature.properties.level === undefined);
+}
 
+function generateLevelDescriptors(feature) {
     let level = feature.properties.level;
 
     if (level.includes(";")) {

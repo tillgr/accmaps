@@ -6,14 +6,18 @@ import {getOSM} from "./_getOSM";
 
 import osmtogeojson from "osmtogeojson";
 
-const INDOOR_ZOOM_LEVEL = 17;
 const INDOOR_LEVEL = 0;
 const FILL_OPACITY = 1;
+const WALL_WEIGHT = 3;
+const WALL_COLOR = '#000000'
+const TOILET_COLOR = '#dfed64';
+const ROOM_COLOR = '#0A485B';
+const STAIR_COLOR = '#dddddd';
 
 let map;
 
 export function createMap() {
-    const osmUrl = 'https://a.tile.openstreetmap.de/{z}/{x}/{y}.png ';
+    const osmUrl = '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
     const osmTileLayer = new L.TileLayer(osmUrl, {
         maxZoom: 19,
@@ -71,27 +75,20 @@ function createLevelControl(indoorLayer) {
 }
 
 function featureStyle(feature) {
-    let fill = 'white';
-    let wallColor = '#000';
+    let fill = '#fff';
 
-    const opacity = FILL_OPACITY;
-    const wall_weight = -INDOOR_ZOOM_LEVEL + 1 + map.getZoom();
-
-    if (feature.properties.tags !== undefined) {
-        if (feature.properties.tags.amenity === 'toilets') {
-            fill = '#dfed64';
-        } else if (feature.properties.tags.indoor === "room") {
-            fill = '#0A485B';
-        }
-        if (feature.properties.tags.stairs) {
-            wallColor = '#000';
-        }
+    if (feature.properties.amenity === 'toilets') {
+        fill = TOILET_COLOR;
+    } else if (feature.properties.indoor === "room") {
+        fill = ROOM_COLOR;
+    } else if (feature.properties.stairs) {
+        fill = STAIR_COLOR;
     }
 
     return {
         fillColor: fill,
-        weight: wall_weight,
-        color: wallColor,
-        fillOpacity: opacity
+        weight: WALL_WEIGHT,
+        color: WALL_COLOR,
+        fillOpacity: FILL_OPACITY
     };
 }
