@@ -224,8 +224,6 @@ L.Control.Level = L.Control.extend({
     onAdd: function(map) {
         var div = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
 
-        div.style.font = "18px 'Lucida Console',Monaco,monospace";
-
         var buttons = this._buttons;
         var activeLevel = this._level;
         var self = this;
@@ -252,6 +250,8 @@ L.Control.Level = L.Control.extend({
             var originalLevel = levels[i].label;
 
             var levelBtn = L.DomUtil.create('a', 'leaflet-button-part', div);
+            levelBtn.setAttribute('role', 'button');
+            levelBtn.setAttribute('href', '#');
 
             if (level === activeLevel || originalLevel === activeLevel) {
                 levelBtn.style.backgroundColor = "#b0b0b0";
