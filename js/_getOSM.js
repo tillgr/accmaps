@@ -22,6 +22,6 @@ export function getOSM(map, callback) {
         }
     };
 
-    xhr.open('GET', 'http://overpass-api.de/api/interpreter?data=' + indoorQuery, true);
+    xhr.open('GET', 'https://overpass-api.de/api/interpreter?data=' + indoorQuery, true);
     xhr.send();
 }
