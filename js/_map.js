@@ -2,7 +2,7 @@ import 'leaflet/src/Leaflet';
 import './leafletIndoor'
 
 import {filterGeoJsonData} from "./_filterGeoJsonData";
-import {getOSM} from "./_getOSM";
+import {getOverpassData} from "./_getOverpassData";
 
 import osmtogeojson from "osmtogeojson";
 
@@ -24,7 +24,7 @@ export function createMap() {
     });
 
     map = new L.Map('map', {
-        center: new L.LatLng(51.0255439, 13.722259),
+        center: new L.LatLng(51.0255439, 13.722780),
         zoom: 19
     });
 
@@ -32,7 +32,7 @@ export function createMap() {
 
     osmTileLayer.addTo(map);
 
-    getOSM(map, createIndoorLayer);
+    getOverpassData(map, createIndoorLayer);
 
     mapAccessibility();
 }

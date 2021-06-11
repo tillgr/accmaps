@@ -2,56 +2,56 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AccMaps Mobile</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AccMaps Mobile</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
-  <nav class="teal darken-3">
-    <div class="nav-wrapper container">
-      <a href="#" class="brand-logo">AccMaps mobile</a>
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="profile.html">Profile</a></li>
-        <li><a href="settings.html">Settings</a></li>
-      </ul>
+<nav class="teal darken-3">
+    <div class="nav-wrapper center">
+        <a href="#" class="brand-logo">AccMaps mobile</a>
+        <a href="#" data-target="sidenav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="settings.html">Settings</a></li>
+        </ul>
     </div>
-  </nav>
+</nav>
 
-  <ul class="sidenav" id="mobile-demo">
+<ul class="sidenav" id="sidenav">
     <li><a href="profile.html">Profile</a></li>
     <li><a href="settings.html">Settings</a></li>
-  </ul>
+</ul>
 
-  <div class="container">
-    <ul class="buildings collection with-header">
-      <li class="collection-header">
-        Karte:
+<div class="progress" title="loading" id="loading_indicator">
+    <div class="indeterminate"></div>
+</div>
+
+<div class="card">
+    <div class="card-content">
         <div id="map"></div>
-      </li>
-    </ul>
-    <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
-  </div>
+    </div>
+    <div class="card-action">
+        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Search for buildings</a>
+    </div>
+</div>
 
-  <!-- Modal Trigger -->
-
-  <!-- Modal Structure -->
-  <div id="modal1" class="modal add-building">
+<!-- Modal Structure -->
+<div id="modal1" class="modal add-building">
     <div class="modal-content">
-      <h4>Search for a building</h4>
-      <form action="">
-        <input type="text" name="building" placeholder="building">
+        <h4>Search for a building</h4>
+        <input type="text" name="building" placeholder="Name">
         <button class="btn">Search</button>
         <p class="error"></p>
-      </form>
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Abort</a>
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Abort</a>
     </div>
-  </div>
+</div>
 
-  <script src="./js/dist/main.js"></script>
+<script src="./js/dist/main.js"></script>
 
 </body>
 </html>
