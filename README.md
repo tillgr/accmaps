@@ -12,3 +12,10 @@ Used technologies for the prototype:
 A server is needed to test the progressive web app. 
 In case of the Visual Studio Code IDE you may use the following plugin to easily start a server: 
 https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
+
+## Installation
+Install dependencies:
+`npm i`
+
+Build JS bundle:
+`webpack`
