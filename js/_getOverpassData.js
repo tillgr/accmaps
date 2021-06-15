@@ -1,3 +1,5 @@
+import {overpassUrl} from "./constants";
+
 export function getOverpassData(map, callback) {
     const loading_indicator = document.getElementById('loading_indicator');
     loading_indicator.style.display = 'block';
@@ -26,6 +28,6 @@ export function getOverpassData(map, callback) {
         }
     };
 
-    xhr.open('GET', 'https://overpass-api.de/api/interpreter?data=' + indoorQuery, true);
+    xhr.open('GET', overpassUrl + indoorQuery, true);
     xhr.send();
 }

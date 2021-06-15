@@ -6,22 +6,21 @@ import {getOverpassData} from "./_getOverpassData";
 
 import osmtogeojson from "osmtogeojson";
 
-const INDOOR_LEVEL = 0;
-const FILL_OPACITY = 1;
-const WALL_WEIGHT = 3;
-const WALL_COLOR = '#000000'
-const TOILET_COLOR = '#dfed64';
-const ROOM_COLOR = '#0A485B';
-const STAIR_COLOR = '#dddddd';
+import {
+    osmTileServer,
+    FILL_OPACITY,
+    ROOM_COLOR,
+    STAIR_COLOR,
+    WALL_COLOR,
+    WALL_WEIGHT,
+    INDOOR_LEVEL,
+    TOILET_COLOR
+} from "./constants";
 
 let map;
 
 export function createMap() {
-    const osmUrl = '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-
-    const osmTileLayer = new L.TileLayer(osmUrl, {
-        maxZoom: 19,
-    });
+    const osmTileLayer = new L.TileLayer(osmTileServer, {maxZoom: 19});
 
     map = new L.Map('map', {
         center: new L.LatLng(51.0255439, 13.722780),
