@@ -19,15 +19,17 @@ import {
 
 let map;
 
+L.Icon.Default.imagePath = '/assets/icons';
+
 export function createMap() {
     const osmTileLayer = new L.TileLayer(osmTileServer, {maxZoom: 19});
+    const mapIcon = L.divIcon(); // use Div instead of icon images
 
     map = new L.Map('map', {
         center: new L.LatLng(51.0255439, 13.722780),
-        zoom: 19
+        zoom: 19,
+        icon: mapIcon
     });
-
-    L.Icon.Default.imagePath = '/assets/icon';
 
     osmTileLayer.addTo(map);
 

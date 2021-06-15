@@ -5,17 +5,17 @@ export function getOverpassData(map, callback) {
     loading_indicator.style.display = 'block';
 
     let bounds = map.getBounds();
+    const south = bounds.getSouth();
+    const west = bounds.getWest();
+    const east = bounds.getEast();
+    const north = bounds.getNorth();
+
     let indoorQuery = "[timeout:25];" +
         "(nwr[indoor](" +
-        bounds.getSouth() + "," +
-        bounds.getWest() + "," +
-        bounds.getNorth() + "," +
-        bounds.getEast() + ");" +
-        "nwr[building](" +
-        bounds.getSouth() + "," +
-        bounds.getWest() + "," +
-        bounds.getNorth() + "," +
-        bounds.getEast() + "););" +
+        south + "," +
+        west + "," +
+        north + "," +
+        east + "););" +
         "(._;>;);" +
         "out;"
 
