@@ -231,7 +231,7 @@ L.Control.Level = L.Control.extend({
         var levels = [];
 
         for (var i=0; i<this.options.levels.length; i++) {
-            var level = this.options.levels[i];
+            let level = this.options.levels[i];
 
             var levelNum = self.options.parseLevel(level);
 
@@ -246,12 +246,13 @@ L.Control.Level = L.Control.extend({
         });
 
         for (i=levels.length-1; i>=0; i--) {
-            var level = levels[i].num;
+            let level = levels[i].num;
             var originalLevel = levels[i].label;
 
             var levelBtn = L.DomUtil.create('a', 'leaflet-button-part', div);
             levelBtn.setAttribute('role', 'button');
             levelBtn.setAttribute('href', '#');
+            levelBtn.setAttribute('title', 'change building level')
 
             if (level === activeLevel || originalLevel === activeLevel) {
                 levelBtn.style.backgroundColor = "#b0b0b0";
