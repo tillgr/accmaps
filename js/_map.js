@@ -19,6 +19,7 @@ import {
 } from "./constants";
 
 let map;
+let indoorLayer, levelControl;
 
 L.Icon.Default.imagePath = '/assets/icons';
 
@@ -35,6 +36,10 @@ export function createMap() {
     osmTileLayer.addTo(map);
 
     getOverpassData(map, createIndoorLayer);
+
+    map.on("moveend", function () {
+        getOverpassData(map, createIndoorLayer);
+    });
 }
 
 export {map};
@@ -49,7 +54,11 @@ function createIndoorLayer(data) {
 
     geoJSON = filterGeoJsonData(geoJSON);
 
-    const indoorLayer = new L.Indoor(geoJSON, {
+    if (indoorLayer !== undefined) {
+        map.removeLayer(indoorLayer);
+    }
+
+    indoorLayer = new L.Indoor(geoJSON, {
         onEachFeature: (feature, layer) => {
             let popUpText = feature.properties.ref ?? 'ohne Bezeichnung';
             let cellName = feature.properties.name;
@@ -57,7 +66,6 @@ function createIndoorLayer(data) {
                 popUpText += '&nbsp;(' + cellName + ')';
             }
             layer.bindPopup(popUpText);
-            layer.options.alt = popUpText;
         },
         style: featureStyle
     });
@@ -65,11 +73,15 @@ function createIndoorLayer(data) {
     indoorLayer.setLevel(INDOOR_LEVEL);
     indoorLayer.addTo(map);
 
-    createLevelControl(indoorLayer);
+    createLevelControl();
 }
 
-function createLevelControl(indoorLayer) {
-    const levelControl = new L.Control.Level({
+function createLevelControl() {
+    if (levelControl !== undefined) {
+        levelControl._container.remove();
+    }
+
+    levelControl = new L.Control.Level({
         level: "0",
         levels: indoorLayer.getLevels()
     });

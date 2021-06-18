@@ -29,18 +29,13 @@
     <div class="indeterminate"></div>
 </div>
 
-<div class="card">
-    <div class="card-content">
-        <label for="map" style="display: none">Karte</label>
-        <div id="map"></div>
-    </div>
-    <div class="card-action">
-        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Search for buildings</a>
-    </div>
-</div>
+
+<div id="map" aria-label="Map"></div>
+
+<a class="waves-effect waves-light btn modal-trigger" href="#modal1" role="button" style="margin: 10px">Search for buildings</a>
 
 <!-- Modal Structure -->
-<div id="modal1" class="modal add-building">
+<div id="modal1" class="modal" aria-disabled="true">
     <div class="modal-content">
         <label for="buildingSearch">Search for a building</label>
         <input type="text" id="buildingSearch" placeholder="Name">
@@ -48,7 +43,7 @@
         <p class="error"></p>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Abort</a>
+        <a href="#map" class="modal-close waves-effect waves-green btn-flat">Abort</a>
     </div>
 </div>
 

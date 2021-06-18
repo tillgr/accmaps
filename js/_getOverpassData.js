@@ -2,7 +2,7 @@ import {overpassUrl} from "./constants";
 
 export function getOverpassData(map, callback) {
     const loading_indicator = document.getElementById('loading_indicator');
-    loading_indicator.style.display = 'block';
+    loading_indicator.children[0].classList.add('indeterminate');
 
     let bounds = map.getBounds();
     const south = bounds.getSouth();
@@ -24,7 +24,7 @@ export function getOverpassData(map, callback) {
     xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
             callback(xhr.responseXML);
-            loading_indicator.style.display = 'none';
+            loading_indicator.children[0].classList.remove('indeterminate');
         }
     };
 

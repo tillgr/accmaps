@@ -39,4 +39,7 @@ export function mapAccessibility() {
     map.on('popupclose', (popup) => {
         popup.popup._source._path.focus();
     });
+
+    document.getElementById('map').focus();
+    document.getElementsByClassName('leaflet-control-attribution')[0].setAttribute('aria-disabled', 'true');
 }
