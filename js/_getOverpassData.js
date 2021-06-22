@@ -1,9 +1,8 @@
 import {overpassUrl} from "./constants";
+import {loading, loadingEnd, loadingError} from "./_loading_indicator";
 
 export function getOverpassData(map, callback) {
-    const loading_indicator = document.getElementById('loading_indicator');
-    loading_indicator.children[0].classList.add('indeterminate');
-
+    loading();
     let bounds = map.getBounds();
     const south = bounds.getSouth();
     const west = bounds.getWest();
@@ -22,9 +21,13 @@ export function getOverpassData(map, callback) {
     let xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            callback(xhr.responseXML);
-            loading_indicator.children[0].classList.remove('indeterminate');
+        if (xhr.readyState === 4) {
+            loadingEnd();
+            if (xhr.status === 200) {
+                callback(xhr.responseXML);
+            } else if (xhr.status > 400) {
+                loadingError();
+            }
         }
     };
 

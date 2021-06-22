@@ -1,6 +1,5 @@
 const overpassUrl = 'https://z.overpass-api.de/api/interpreter?data=';
 const osmTileServer = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-const nominantimUrl = 'https://nominatim.openstreetmap.org/search?q=';
 
 
 const INDOOR_LEVEL = 0;
@@ -14,7 +13,6 @@ const STAIR_COLOR = '#dddddd';
 export {
     overpassUrl,
     osmTileServer,
-    nominantimUrl,
     INDOOR_LEVEL,
     FILL_OPACITY,
     WALL_WEIGHT,

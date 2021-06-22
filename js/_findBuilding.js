@@ -1,9 +1,14 @@
-import {nominantimUrl} from "./constants";
+import {overpassUrl} from "./constants";
+import {loading} from "./_loading_indicator";
 
 const buildingSearchBox = document.getElementById('buildingSearch');
 
-export function findBuilding(){
+export function _findBuilding(){
+    loading();
     const searchTerm = buildingSearchBox.value;
+
+    const overpassQuery = '[timeout:60]; area["name"="Dresden"];node["name"~"'+searchTerm+'"](area);\n' +
+        '(._;>;); out;'
 
     let xhr = new XMLHttpRequest();
 
@@ -12,8 +17,6 @@ export function findBuilding(){
             console.log(data);
         }
     };
-    xhr.open('GET', nominantimUrl + searchTerm, true);
-    xhr.setRequestHeader('User-Agent', 'AccessibleMaps TU Dresden');
-
+    xhr.open('GET', overpassUrl + overpassQuery, true);
     xhr.send();
 }
