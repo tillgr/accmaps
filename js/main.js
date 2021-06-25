@@ -2,7 +2,7 @@ import {createMap} from './_map';
 import {_findBuilding} from "./_findBuilding";
 
 
-import {Modal, Sidenav} from 'materialize-css';
+import {Modal} from 'materialize-css';
 
 // == CSS ==
 import "materialize-css/dist/css/materialize.css";
@@ -19,8 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function initMaterialize() {
-    const sidenav = document.querySelectorAll('.sidenav');
     const modal = document.querySelectorAll('.modal');
     Modal.init(modal);
-    Sidenav.init(sidenav);
 }

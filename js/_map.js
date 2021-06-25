@@ -34,6 +34,7 @@ export function createMap() {
     });
 
     osmTileLayer.addTo(map);
+    mapAccessibility();
 
     getOverpassData(map, createIndoorLayer);
 

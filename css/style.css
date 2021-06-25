@@ -1,5 +1,9 @@
+html, body{
+    height: 100% !important;
+    margin: 0 !important;
+}
 #map {
-    height: 580px;
+    height: calc(100% - 150px);
 }
 
 .leaflet-marker-icon {
@@ -12,4 +16,9 @@
 
 .leaflet-marker-icon-poi {
     display: block !important;
+}
+
+.modal-trigger{
+    width: calc(100% - 20px);
+    margin: 10px;
 }
