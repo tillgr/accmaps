@@ -24,4 +24,3 @@ function initMaterialize() {
     Modal.init(modal);
     Sidenav.init(sidenav);
 }
-

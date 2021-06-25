@@ -2,6 +2,7 @@ const loading_indicator = document.getElementById('loading_indicator');
 
 function loading() {
     loading_indicator.children[0].classList.add('indeterminate');
+    loading_indicator.classList.remove('red');
 }
 
 function loadingEnd() {
