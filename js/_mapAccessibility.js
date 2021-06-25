@@ -20,12 +20,6 @@ export function mapAccessibility() {
         marker.setAttribute('role', 'button');
     });
 
-    const attribution = document.getElementsByClassName('leaflet-control-attribution')[0];
-
-    if(attribution !== undefined){
-        attribution.remove();
-    }
-
     map.on('popupopen', (popup) => {
         let popUpContent = popup.popup._container.getElementsByClassName('leaflet-popup-content')[0];
         let popUpCloseButton = popup.popup._container.getElementsByClassName('leaflet-popup-close-button')[0];
