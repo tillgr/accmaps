@@ -1,5 +1,7 @@
 import {createMap} from './_map';
-import {_findBuilding} from "./_findBuilding";
+import {findBuilding} from "./findBuilding";
+import {getOverpassData} from "./_getOverpassData";
+import {createIndoorLayer} from "./_indoorLayer";
 
 
 import {Modal} from 'materialize-css';
@@ -12,9 +14,10 @@ import "../css/style.css";
 const buildingSearchSubmit = document.getElementById('buildingSearchSubmit');
 
 document.addEventListener('DOMContentLoaded', function () {
-    createMap();
     initMaterialize();
-    buildingSearchSubmit.addEventListener('click', _findBuilding);
+    createMap();
+    getOverpassData(createIndoorLayer);
+    buildingSearchSubmit.addEventListener('click', findBuilding);
 
 });
 

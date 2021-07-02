@@ -4,7 +4,7 @@ import {map} from "./_map";
 
 const buildingSearchBox = document.getElementById('buildingSearch');
 
-export function _findBuilding() {
+export function findBuilding() {
     loading();
     const searchTerm = buildingSearchBox.value;
 

@@ -1,3 +1,5 @@
+import 'leaflet/src/layer/vector/Polygon';
+
 export function filterGeoJsonData(geoJSON) {
     geoJSON.features = geoJSON.features.filter(filterFeatures);
     geoJSON.features.map(generateLevelDescriptors);
