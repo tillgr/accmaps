@@ -252,7 +252,6 @@ L.Control.Level = L.Control.extend({
         }
     },
     setLevel: function (level) {
-
         if (level === this._level)
             return;
 

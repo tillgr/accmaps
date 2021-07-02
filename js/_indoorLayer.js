@@ -8,22 +8,24 @@ import {FILL_OPACITY, INDOOR_LEVEL, ROOM_COLOR, STAIR_COLOR, TOILET_COLOR, WALL_
 import {map} from "./_map";
 import {overpassIndoorData} from "./_getOverpassData";
 
-let indoorLayer, levelControl;
+let indoorLayer, levelControl, indoorDataGeoJSON;
 
 
 function createIndoorLayer() {
-    let geoJSON = osmtogeojson(overpassIndoorData, {});
-
-    geoJSON = filterGeoJsonData(geoJSON);
+    if (indoorDataGeoJSON === undefined) {
+        indoorDataGeoJSON = osmtogeojson(overpassIndoorData, {});
+        indoorDataGeoJSON = filterGeoJsonData(indoorDataGeoJSON);
+    }
 
     if (indoorLayer !== undefined) {
         map.removeLayer(indoorLayer);
     }
 
-    indoorLayer = new L.Indoor(geoJSON, {
+    indoorLayer = new L.Indoor(indoorDataGeoJSON, {
         onEachFeature: (feature, layer) => {
             let popUpText = feature.properties.ref ?? 'ohne Bezeichnung';
-            let cellName = feature.properties.name;
+            const cellName = feature.properties.name;
+
             if (cellName !== undefined && cellName.length !== 0) {
                 popUpText += '&nbsp;(' + cellName + ')';
             }
