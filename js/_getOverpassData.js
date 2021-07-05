@@ -1,34 +1,31 @@
-import {overpassUrl} from "./constants";
-import {loading, loadingEnd, loadingError} from "./_loading_indicator";
 import osmtogeojson from "osmtogeojson";
 import {filterGeoJsonData} from "./_filterGeoJsonData";
-import {createLevelControl} from "./_levelControl";
 
 const overpassInitialQuery = '(area["name"="Dresden"];)->.a;(nwr[indoor](area.a););(._;>;); out;';
 
 let indoorDataXML, indoorDataGeoJSON;
 
 function getOverpassData(callback) {
-    loading();
+    return new Promise((resolve, reject) => {
 
-    let xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4) {
-            loadingEnd();
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    indoorDataXML = xhr.responseXML
+                    indoorDataGeoJSON = osmtogeojson(indoorDataXML, {});
+                    indoorDataGeoJSON = filterGeoJsonData(indoorDataGeoJSON);
+                    resolve(indoorDataGeoJSON);
 
-            if (xhr.status === 200) {
-                indoorDataXML = xhr.responseXML
-                indoorDataGeoJSON = osmtogeojson(indoorDataXML, {});
-                indoorDataGeoJSON = filterGeoJsonData(indoorDataGeoJSON, callback);
-            } else if (xhr.status > 400) {
-                loadingError();
+                } else if (xhr.status > 400) {
+                    reject('an error occured.');
+                }
             }
-        }
-    };
-
-    // overpassUrl + overpassInitialQuery ######HACK for local dev!!!!
-    xhr.open('GET', 'https://localhost:8081/osm.xml', true);
-    xhr.send();
+        };
+        // overpassUrl + overpassInitialQuery ######HACK for local dev!!!!
+        xhr.open('GET', 'https://localhost:8081/osm.xml', true);
+        xhr.send();
+    });
 }
 
 export {getOverpassData, indoorDataXML, indoorDataGeoJSON};

@@ -1,21 +1,28 @@
-import {mapAccessibility} from "./_mapAccessibility";
-
 import {FILL_OPACITY, ROOM_COLOR, STAIR_COLOR, TOILET_COLOR, WALL_COLOR, WALL_WEIGHT} from "./constants";
 
 import {map} from "./_map";
-import {getCurrentLevelGeoJSON} from "./_levelControl";
+import {createLevelControl, getCurrentLevelGeoJSON, getLevelsFromGeoJSON} from "./_levelControl";
 
-let indoorLayer;
+let indoorLayerGroup;
 
 function createIndoorLayer() {
-    if (indoorLayer !== undefined) {
-        map.removeLayer(indoorLayer);
-    }
+    getLevelsFromGeoJSON();
+    createLevelControl();
+    indoorLayerGroup =  L.layerGroup();
+    drawIndoorLayer();
+    indoorLayerGroup.addTo(map);
+}
 
-    indoorLayer = L.geoJson(getCurrentLevelGeoJSON(), {
+function drawIndoorLayer(){
+    clearIndoorLayer();
+    const layer = L.geoJson(getCurrentLevelGeoJSON(),{
         style: featureStyle
     });
-    indoorLayer.addTo(map);
+    indoorLayerGroup.addLayer(layer);
+}
+
+function clearIndoorLayer(){
+    indoorLayerGroup.clearLayers();
 }
 
 function featureStyle(feature) {
@@ -37,4 +44,4 @@ function featureStyle(feature) {
     };
 }
 
-export {createIndoorLayer};
+export {createIndoorLayer, drawIndoorLayer, clearIndoorLayer};
