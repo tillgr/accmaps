@@ -1,12 +1,8 @@
-import 'leaflet/src/Leaflet';
-import './leafletIndoor'
+import 'leaflet/dist/leaflet';
 
 import {mapAccessibility} from "./_mapAccessibility";
 
-
-import {
-    osmTileServer,
-} from "./constants";
+import {osmTileServer} from "./constants";
 
 let map;
 

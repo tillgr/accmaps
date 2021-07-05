@@ -1,6 +1,8 @@
-export function filterGeoJsonData(geoJSON) {
+let buildingLevels = new Set();
+
+export function filterGeoJsonData(geoJSON, callback) {
     geoJSON.features = geoJSON.features.filter(filterFeatures);
-    geoJSON.features.map(generateLevelDescriptors);
+    geoJSON.features.map(generateLevelDescriptorAndAddToLevelList);
 
     return geoJSON;
 }
@@ -9,14 +11,18 @@ function filterFeatures(feature) {
     return !(feature.properties === undefined || feature.properties.level === undefined);
 }
 
-function generateLevelDescriptors(feature) {
-    let level = feature.properties.level;
+function generateLevelDescriptorAndAddToLevelList(feature) {
+    // some rooms may contain several levels, so split them up and handle each
+    let levelList = feature.properties.level.split(";");
+    levelList.map(cleanUpLevelNames);
 
-    if (level.includes(";")) {
-        feature.properties.level = level.split(";");
-    } else if (level.includes("-")) {
-        feature.properties.level = cleanUpLevelNames(level);
+    if (levelList.length > 1) {
+        feature.properties.level = levelList
+    } else {
+        feature.properties.level = levelList[0];
     }
+
+    levelList.forEach((i) => buildingLevels.add(i));
 
     return feature;
 }
@@ -72,3 +78,5 @@ function cleanUpLevelNames(level) {
 
     return finalArray;
 }
+
+export {buildingLevels}

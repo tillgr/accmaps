@@ -1,59 +1,21 @@
-import osmtogeojson from "osmtogeojson";
-
-import {filterGeoJsonData} from "./_filterGeoJsonData";
 import {mapAccessibility} from "./_mapAccessibility";
 
-import {FILL_OPACITY, INDOOR_LEVEL, ROOM_COLOR, STAIR_COLOR, TOILET_COLOR, WALL_COLOR, WALL_WEIGHT} from "./constants";
+import {FILL_OPACITY, ROOM_COLOR, STAIR_COLOR, TOILET_COLOR, WALL_COLOR, WALL_WEIGHT} from "./constants";
 
 import {map} from "./_map";
-import {overpassIndoorData} from "./_getOverpassData";
+import {getCurrentLevelGeoJSON} from "./_levelControl";
 
-let indoorLayer, levelControl, indoorDataGeoJSON;
-
+let indoorLayer;
 
 function createIndoorLayer() {
-    if (indoorDataGeoJSON === undefined) {
-        indoorDataGeoJSON = osmtogeojson(overpassIndoorData, {});
-        indoorDataGeoJSON = filterGeoJsonData(indoorDataGeoJSON);
-    }
-
     if (indoorLayer !== undefined) {
         map.removeLayer(indoorLayer);
     }
 
-    indoorLayer = new L.Indoor(indoorDataGeoJSON, {
-        onEachFeature: (feature, layer) => {
-            let popUpText = feature.properties.ref ?? 'ohne Bezeichnung';
-            const cellName = feature.properties.name;
-
-            if (cellName !== undefined && cellName.length !== 0) {
-                popUpText += '&nbsp;(' + cellName + ')';
-            }
-            layer.bindPopup(popUpText);
-        },
+    indoorLayer = L.geoJson(getCurrentLevelGeoJSON(), {
         style: featureStyle
     });
-
-    indoorLayer.setLevel(INDOOR_LEVEL);
     indoorLayer.addTo(map);
-
-    createLevelControl();
-}
-
-function createLevelControl() {
-    if (levelControl !== undefined) {
-        levelControl._container.remove();
-    }
-
-    levelControl = new L.Control.Level({
-        level: "0",
-        levels: indoorLayer.getLevels()
-    });
-
-    levelControl.addEventListener("levelchange", indoorLayer.setLevel, indoorLayer);
-    levelControl.addTo(map);
-
-    mapAccessibility();
 }
 
 function featureStyle(feature) {
