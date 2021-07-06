@@ -1,7 +1,7 @@
 const overpassUrl = 'https://z.overpass-api.de/api/interpreter?data=';
 const osmTileServer = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
-const INDOOR_LEVEL = 0;
+const INDOOR_LEVEL = '0';
 const FILL_OPACITY = 1;
 const WALL_WEIGHT = 3;
 const WALL_COLOR = '#000000'
