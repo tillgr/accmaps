@@ -3,6 +3,9 @@ import 'leaflet/dist/leaflet';
 import {mapAccessibility} from "./_mapAccessibility";
 
 import {osmTileServer} from "./constants";
+import {filterGeoJsonData} from "./_filterGeoJsonData";
+import {indoorDataOverpassGeoJSON} from "./_getOverpassData";
+import {createIndoorLayer} from "./_indoorLayer";
 
 let map;
 
@@ -19,6 +22,13 @@ export function createMap() {
     });
 
     osmTileLayer.addTo(map);
+
+    map.on('moveend', () =>{
+        filterGeoJsonData(indoorDataOverpassGeoJSON);
+        createIndoorLayer();
+        mapAccessibility();
+    })
+
     mapAccessibility();
 }
 

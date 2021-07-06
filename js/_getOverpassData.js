@@ -1,9 +1,8 @@
 import osmtogeojson from "osmtogeojson";
-import {filterGeoJsonData} from "./_filterGeoJsonData";
 
 const overpassInitialQuery = '(area["name"="Dresden"];)->.a;(nwr[indoor](area.a););(._;>;); out;';
 
-let indoorDataXML, indoorDataGeoJSON;
+let indoorDataOverpassXML, indoorDataOverpassGeoJSON;
 
 function getOverpassData(callback) {
     return new Promise((resolve, reject) => {
@@ -12,10 +11,9 @@ function getOverpassData(callback) {
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
-                    indoorDataXML = xhr.responseXML
-                    indoorDataGeoJSON = osmtogeojson(indoorDataXML, {});
-                    indoorDataGeoJSON = filterGeoJsonData(indoorDataGeoJSON);
-                    resolve(indoorDataGeoJSON);
+                    indoorDataOverpassXML = xhr.responseXML
+                    indoorDataOverpassGeoJSON = osmtogeojson(indoorDataOverpassXML, {});
+                    resolve(indoorDataOverpassGeoJSON);
 
                 } else if (xhr.status > 400) {
                     reject('an error occured.');
@@ -28,4 +26,4 @@ function getOverpassData(callback) {
     });
 }
 
-export {getOverpassData, indoorDataXML, indoorDataGeoJSON};
+export {getOverpassData, indoorDataOverpassXML, indoorDataOverpassGeoJSON};

@@ -1,6 +1,6 @@
-import {indoorDataGeoJSON} from "./_getOverpassData";
 import {INDOOR_LEVEL} from "./constants";
 import {clearIndoorLayer, drawIndoorLayer} from "./_indoorLayer";
+import {indoorDataOverpassGeoJSONFiltered} from "./_filterGeoJsonData";
 
 let currentLevel = INDOOR_LEVEL;
 let allLevels = new Set();
@@ -10,7 +10,7 @@ function getCurrentLevelGeoJSON() {
     if (geoJSONByLevel[currentLevel] !== undefined) {
         return geoJSONByLevel[currentLevel];
     }
-    geoJSONByLevel[currentLevel] = indoorDataGeoJSON.features.filter((f) => (f.properties.level === currentLevel || f.properties.level.includes(currentLevel)));
+    geoJSONByLevel[currentLevel] = indoorDataOverpassGeoJSONFiltered.features.filter((f) => (f.properties.level === currentLevel || f.properties.level.includes(currentLevel)));
 
     return geoJSONByLevel[currentLevel];
 }
@@ -37,10 +37,13 @@ function createLevelControl() {
 }
 
 function getLevelsFromGeoJSON() {
-    indoorDataGeoJSON.features.map(extractLevelDescriptorsAndAddToLevelList);
+    indoorDataOverpassGeoJSONFiltered.features.map(extractLevelDescriptorsAndAddToLevelList);
 }
 
 function extractLevelDescriptorsAndAddToLevelList(feature) {
+    if(Array.isArray(feature.properties.level)){
+        return;
+    }
     let level = feature.properties.level = feature.properties.level.trim();
 
     if (level.includes(";")) {
