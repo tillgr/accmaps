@@ -23,7 +23,7 @@ function getOverpassData(callback) {
             }
         };
         // overpassUrl + overpassInitialQuery ######HACK for local dev!!!!
-        xhr.open('GET', 'https://localhost:8081/osm.xml', true);
+        xhr.open('GET', '/osm.xml', true);
         xhr.send();
     });
 }
