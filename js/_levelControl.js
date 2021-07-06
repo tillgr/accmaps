@@ -10,11 +10,7 @@ function getCurrentLevelGeoJSON() {
     if (geoJSONByLevel[currentLevel] !== undefined) {
         return geoJSONByLevel[currentLevel];
     }
-
-    let tmpIndoorDataGeoJSON = indoorDataGeoJSON;
-
-    tmpIndoorDataGeoJSON.features = tmpIndoorDataGeoJSON.features.filter((f) => f.properties.level.includes(currentLevel));
-    geoJSONByLevel[currentLevel] = tmpIndoorDataGeoJSON;
+    geoJSONByLevel[currentLevel] = indoorDataGeoJSON.features.filter((f) => (f.properties.level === currentLevel || f.properties.level.includes(currentLevel)));
 
     return geoJSONByLevel[currentLevel];
 }
@@ -26,6 +22,7 @@ function changeCurrentLevel(newLevel) {
 }
 
 function createLevelControl() {
+    getLevelsFromGeoJSON();
     const levelControl = document.getElementById('levelControl');
 
     allLevels.forEach(level => {
@@ -40,75 +37,81 @@ function createLevelControl() {
 }
 
 function getLevelsFromGeoJSON() {
-    indoorDataGeoJSON.features.map(generateLevelDescriptorAndAddToLevelList);
-
+    indoorDataGeoJSON.features.map(extractLevelDescriptorsAndAddToLevelList);
 }
 
-function generateLevelDescriptorAndAddToLevelList(feature) {
+function extractLevelDescriptorsAndAddToLevelList(feature) {
     let level = feature.properties.level = feature.properties.level.trim();
 
     if (level.includes(";")) {
         feature.properties.level = level.split(";");
     } else if (level.includes("-")) {
-        let i;
-        let dashCount = 0;
-        const finalArray = [];
-        let minLevel = 0;
-        let maxLevel = 0;
-
-        let firstDash = -1;
-        let secondDash = -1;
-        let thirdDash = -1;
-
-        for (i = 0; i < level.length; i++) {
-            if (level.charAt(i) === "-") {
-                dashCount++;
-                if (firstDash === -1) {
-                    firstDash = i;
-                } else if (secondDash === -1) {
-                    secondDash = i;
-                } else if (thirdDash === -1) {
-                    thirdDash = i;
-                }
-            }
-        }
-        if (dashCount === 1 && firstDash !== 0) // [0-5] but not [-5]
-        {
-            minLevel = parseInt(level.slice(0, firstDash).trim());
-            maxLevel = parseInt(level.slice(firstDash + 1, level.length).trim())
-        } else if (dashCount === 2) // [-1-5]
-        {
-            minLevel = parseInt(level.slice(0, secondDash).trim());
-            maxLevel = parseInt(level.slice(secondDash + 1, level.length).trim());
-        } else if (dashCount === 3) // [-1--5] or [-5--1]
-        {
-            minLevel = parseInt(level.slice(0, secondDash).trim());
-            maxLevel = parseInt(level.slice(thirdDash, level.length).trim());
-
-            if (minLevel > maxLevel) // [-1--5]
-            {
-                var tempMin = minLevel;
-                minLevel = maxLevel;
-                maxLevel = tempMin;
-            }
-        }
-
-        if (level.charAt(0) !== "-" || dashCount > 1) // not [-5]
-        {
-            for (i = minLevel; i <= maxLevel; i++) {
-                finalArray.push(i);
-            }
-        }
-        feature.properties.level = finalArray;
+        feature.properties.level = _getLevelRange(level);
     }
+    _addLevelsToListOfLevels(feature.properties.level);
+}
 
-    if (Array.isArray(feature.properties.level)) {
-        feature.properties.level.forEach((level) => {
+function _getLevelRange(level) {
+    let i;
+    let dashCount = 0;
+    const finalArray = [];
+    let minLevel = 0;
+    let maxLevel = 0;
+
+    let firstDash = -1;
+    let secondDash = -1;
+    let thirdDash = -1;
+
+    for (i = 0; i < level.length; i++) {
+        if (level.charAt(i) === "-") {
+            dashCount++;
+            if (firstDash === -1) {
+                firstDash = i;
+            } else if (secondDash === -1) {
+                secondDash = i;
+            } else if (thirdDash === -1) {
+                thirdDash = i;
+            }
+        }
+    }
+    if (dashCount === 1 && firstDash !== 0) // [0-5] but not [-5]
+    {
+        minLevel = parseInt(level.slice(0, firstDash));
+        maxLevel = parseInt(level.slice(firstDash + 1, level.length))
+    } else if (dashCount === 2) // [-1-5]
+    {
+        minLevel = parseInt(level.slice(0, secondDash));
+        maxLevel = parseInt(level.slice(secondDash + 1, level.length));
+    } else if (dashCount === 3) // [-1--5] or [-5--1]
+    {
+        minLevel = parseInt(level.slice(0, secondDash));
+        maxLevel = parseInt(level.slice(thirdDash, level.length));
+
+        if (minLevel > maxLevel) // [-1--5]
+        {
+            let tempMin = minLevel;
+            minLevel = maxLevel;
+            maxLevel = tempMin;
+        }
+    }
+    if (level.charAt(0) !== "-" || dashCount > 1) // not [-5]
+    {
+        for (i = minLevel; i <= maxLevel; i++) {
+            finalArray.push(i.toString());
+        }
+    }
+    return finalArray;
+}
+
+function _addLevelsToListOfLevels(levels) {
+    if (Array.isArray(levels)) {
+        levels.forEach((level) => {
             allLevels.add(level);
         });
     } else {
-        allLevels.add(feature.properties.level);
+        allLevels.add(levels);
     }
 }
 
-export {getLevelsFromGeoJSON, getCurrentLevelGeoJSON, createLevelControl}
+
+export {getCurrentLevelGeoJSON, createLevelControl}

@@ -1,27 +1,26 @@
 import {FILL_OPACITY, ROOM_COLOR, STAIR_COLOR, TOILET_COLOR, WALL_COLOR, WALL_WEIGHT} from "./constants";
 
 import {map} from "./_map";
-import {createLevelControl, getCurrentLevelGeoJSON, getLevelsFromGeoJSON} from "./_levelControl";
+import {createLevelControl, getCurrentLevelGeoJSON} from "./_levelControl";
 
 let indoorLayerGroup;
 
 function createIndoorLayer() {
-    getLevelsFromGeoJSON();
     createLevelControl();
-    indoorLayerGroup =  L.layerGroup();
+    indoorLayerGroup = L.layerGroup();
     drawIndoorLayer();
     indoorLayerGroup.addTo(map);
 }
 
-function drawIndoorLayer(){
+function drawIndoorLayer() {
     clearIndoorLayer();
-    const layer = L.geoJson(getCurrentLevelGeoJSON(),{
+    const layer = L.geoJson(getCurrentLevelGeoJSON(), {
         style: featureStyle
     });
     indoorLayerGroup.addLayer(layer);
 }
 
-function clearIndoorLayer(){
+function clearIndoorLayer() {
     indoorLayerGroup.clearLayers();
 }
 
@@ -30,7 +29,7 @@ function featureStyle(feature) {
 
     if (feature.properties.amenity === 'toilets') {
         fill = TOILET_COLOR;
-    } else if (feature.properties.indoor === "room") {
+    } else if (feature.properties.indoor === 'room') {
         fill = ROOM_COLOR;
     } else if (feature.properties.stairs) {
         fill = STAIR_COLOR;
