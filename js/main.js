@@ -1,9 +1,9 @@
-import {createMap} from './_map';
 import {findBuilding} from "./findBuilding";
-import {getOverpassData, indoorDataOverpassGeoJSON, setIndoorDataGeoJSON} from "./_getOverpassData";
-import {createIndoorLayer} from "./_indoorLayer";
+import {getOverpassData} from "./_getOverpassData";
 import {loading, loadingEnd, loadingError} from "./_loading_indicator";
 import {filterGeoJsonData} from "./_filterGeoJsonData";
+import {LevelControl} from "./_levelControl";
+import {getMap} from "./_map";
 
 
 import {Modal} from 'materialize-css';
@@ -20,12 +20,12 @@ document.addEventListener('DOMContentLoaded', function () {
     loading();
 
     initMaterialize();
-    createMap();
+    getMap();
 
     getOverpassData().then((data) => {
         loadingEnd();
         filterGeoJsonData(data);
-        createIndoorLayer();
+        new LevelControl();
     }).catch((error) => {
         console.log(error)
         loadingError();

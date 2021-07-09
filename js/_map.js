@@ -1,35 +1,40 @@
 import 'leaflet/dist/leaflet';
 
 import {mapAccessibility} from "./_mapAccessibility";
-
 import {osmTileServer} from "./constants";
-import {filterGeoJsonData} from "./_filterGeoJsonData";
-import {indoorDataOverpassGeoJSON} from "./_getOverpassData";
-import {createIndoorLayer} from "./_indoorLayer";
-
-let map;
 
 L.Icon.Default.imagePath = '/assets/icons';
 
-export function createMap() {
-    const osmTileLayer = new L.TileLayer(osmTileServer, {maxZoom: 19});
-    const mapIcon = L.divIcon(); // use Div instead of icon images
+let mapInstance = null;
 
-    map = new L.Map('map', {
-        center: new L.LatLng(51.0255439, 13.722780),
-        zoom: 19,
-        icon: mapIcon
-    });
+export class Map {
+    constructor() {
+        if(mapInstance !== null){
+            return mapInstance;
+        }
 
-    osmTileLayer.addTo(map);
+        const osmTileLayer = new L.TileLayer(osmTileServer, {maxZoom: 19});
+        const mapIcon = L.divIcon(); // use Div instead of icon images
 
-    map.on('moveend', () =>{
-        filterGeoJsonData(indoorDataOverpassGeoJSON);
-        createIndoorLayer();
+        const map = new L.Map('map', {
+            center: new L.LatLng(51.0255439, 13.722780),
+            zoom: 19,
+            icon: mapIcon
+        });
+
+        osmTileLayer.addTo(map);
         mapAccessibility();
-    })
 
-    mapAccessibility();
+        return mapInstance = map;
+    }
+
+    static getMap() {
+        if (mapInstance === null) {
+            mapInstance = new Map();
+            console.log('erstellt3');
+        }
+        return mapInstance;
+    }
 }
 
-export {map};
+export const getMap = Map.getMap;

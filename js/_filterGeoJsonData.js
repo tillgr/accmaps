@@ -1,12 +1,12 @@
+import {getMap} from "./_map";
+
 const toBBox = require('geojson-bounding-box');
-
-import {map} from "./_map";
-
 let bounds;
-
 let indoorDataOverpassGeoJSONFiltered;
 
 function filterGeoJsonData(geoJSON) {
+    const map = getMap();
+
     bounds = map.getBounds();
     geoJSON.features = geoJSON.features.filter(filterFeatures);
     indoorDataOverpassGeoJSONFiltered = geoJSON;

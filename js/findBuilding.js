@@ -1,6 +1,6 @@
 import {overpassUrl} from "./constants";
 import {loading, loadingEnd, loadingError} from "./_loading_indicator";
-import {map} from "./_map";
+import {getMap} from "./_map";
 
 const buildingSearchBox = document.getElementById('buildingSearch');
 
@@ -39,6 +39,7 @@ function centerMapToMainEntrance(xmlResponse) {
                 lat = nodes[i].getAttribute('lat');
                 lon = nodes[i].getAttribute('lon');
 
+                const map = getMap();
                 map.panTo(new L.LatLng(lat, lon));
                 return;
             }

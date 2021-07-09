@@ -1,46 +1,49 @@
 import {FILL_OPACITY, ROOM_COLOR, STAIR_COLOR, TOILET_COLOR, WALL_COLOR, WALL_WEIGHT} from "./constants";
+import {getMap} from "./_map";
 
-import {map} from "./_map";
-import {createLevelControl, getCurrentLevelGeoJSON} from "./_levelControl";
 
-let indoorLayerGroup;
+export class IndoorLayer {
+    constructor(geoJSON) {
+        const map = getMap();
 
-function createIndoorLayer() {
-    createLevelControl();
-    indoorLayerGroup = L.layerGroup();
-    drawIndoorLayer();
-    indoorLayerGroup.addTo(map);
-}
+        this.indoorLayerGroup = L.layerGroup();
+        this.indoorLayerGroup.addTo(map);
 
-function drawIndoorLayer() {
-    clearIndoorLayer();
-    const layer = L.geoJson(getCurrentLevelGeoJSON(), {
-        style: featureStyle
-    });
-    indoorLayerGroup.addLayer(layer);
-}
-
-function clearIndoorLayer() {
-    indoorLayerGroup.clearLayers();
-}
-
-function featureStyle(feature) {
-    let fill = '#fff';
-
-    if (feature.properties.amenity === 'toilets') {
-        fill = TOILET_COLOR;
-    } else if (feature.properties.indoor === 'room') {
-        fill = ROOM_COLOR;
-    } else if (feature.properties.stairs) {
-        fill = STAIR_COLOR;
+        this.drawIndoorLayerByGeoJSON(geoJSON);
     }
 
-    return {
-        fillColor: fill,
-        weight: WALL_WEIGHT,
-        color: WALL_COLOR,
-        fillOpacity: FILL_OPACITY
-    };
-}
+    drawIndoorLayerByGeoJSON(geoJSON){
+        const layer = L.geoJson(geoJSON, {
+            style: this.featureStyle
+        });
+        this.indoorLayerGroup.addLayer(layer);
+    }
 
-export {createIndoorLayer, drawIndoorLayer, clearIndoorLayer};
+    clearIndoorLayer() {
+        this.indoorLayerGroup.clearLayers();
+    }
+
+    updateLayer(geoJSON){
+        this.clearIndoorLayer();
+        this.drawIndoorLayerByGeoJSON();
+    }
+
+    featureStyle(feature) {
+        let fill = '#fff';
+
+        if (feature.properties.amenity === 'toilets') {
+            fill = TOILET_COLOR;
+        } else if (feature.properties.indoor === 'room') {
+            fill = ROOM_COLOR;
+        } else if (feature.properties.stairs) {
+            fill = STAIR_COLOR;
+        }
+
+        return {
+            fillColor: fill,
+            weight: WALL_WEIGHT,
+            color: WALL_COLOR,
+            fillOpacity: FILL_OPACITY
+        };
+    }
+}

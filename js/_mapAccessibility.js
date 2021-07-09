@@ -1,6 +1,8 @@
-import {map} from "./_map";
+import {getMap} from "./_map";
 
 export function mapAccessibility() {
+    const map = getMap();
+
     const leafletShadows = document.getElementsByClassName('leaflet-shadow-pane');
 
     [].forEach.call(leafletShadows, (shadow) => {
