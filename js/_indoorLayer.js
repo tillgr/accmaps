@@ -51,7 +51,29 @@ export class IndoorLayer {
             popUpText += ' (' + cellName + ')';
         }
 
+        if (feature.properties.handrail !== undefined) {
+            popUpText += ', handrail available';
+        }
+
+        if (feature.properties.tactile_paving !== undefined) {
+            popUpText += ', tactile paving available';
+        }
+
+        if (feature.properties.amenity !== undefined && feature.properties.amenity === "toilets") {
+            popUpText += ', toilet';
+            if (feature.properties.female !== undefined && feature.properties.female === 'yes') {
+                popUpText += ' (female)';
+            } else if (feature.properties.male !== undefined && feature.properties.male === 'yes') {
+                popUpText += ' (male)';
+            } else {
+                popUpText += ' (unisex or unknown)';
+            }
+        }
+
+        console.log(feature.properties);
+
         popUpText = 'selected map object: ' + popUpText;
+
 
         updateDescriptionPopUp(popUpText);
     }
