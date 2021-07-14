@@ -25,7 +25,7 @@ export class IndoorLayer {
 
     updateLayer(geoJSON){
         this.clearIndoorLayer();
-        this.drawIndoorLayerByGeoJSON();
+        this.drawIndoorLayerByGeoJSON(geoJSON);
     }
 
     featureStyle(feature) {

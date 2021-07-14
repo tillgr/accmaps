@@ -18,7 +18,10 @@ export class LevelControl {
         if (this.geoJSONByLevel[this.currentLevel] !== undefined) {
             return this.geoJSONByLevel[this.currentLevel];
         }
-        this.geoJSONByLevel[this.currentLevel] = indoorDataOverpassGeoJSONFiltered.features.filter((f) => (f.properties.level === this.currentLevel || f.properties.level.includes(this.currentLevel)));
+
+        this.geoJSONByLevel[this.currentLevel] = indoorDataOverpassGeoJSONFiltered.features.filter((f) =>
+            (f.properties.level === this.currentLevel || f.properties.level.includes(this.currentLevel))
+        );
 
         return this.geoJSONByLevel[this.currentLevel];
     }
