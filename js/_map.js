@@ -10,17 +10,14 @@ let mapInstance = null;
 export class Map {
     static createMap() {
         const osmTileLayer = new L.TileLayer(osmTileServer, {maxZoom: 19});
-        const mapIcon = L.divIcon(); // use Div instead of icon images
 
         mapInstance = new L.Map('map', {
             center: new L.LatLng(51.0255439, 13.722780),
-            zoom: 19,
-            icon: mapIcon
+            zoom: 19
         });
 
         osmTileLayer.addTo(mapInstance);
         mapAccessibility();
-
         return mapInstance;
     }
 

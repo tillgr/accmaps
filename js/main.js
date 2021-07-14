@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
     loading();
 
     initMaterialize();
+    
     getMap();
 
     getOverpassData().then((data) => {

@@ -1,5 +1,6 @@
 import {FILL_OPACITY, ROOM_COLOR, STAIR_COLOR, TOILET_COLOR, WALL_COLOR, WALL_WEIGHT} from "./constants";
 import {getMap} from "./_map";
+import {updateDescriptionPopUp} from "./_descriptionPopup";
 
 
 export class IndoorLayer {
@@ -15,7 +16,11 @@ export class IndoorLayer {
     drawIndoorLayerByGeoJSON(geoJSON) {
         const layer = L.geoJson(geoJSON, {
             style: this.featureStyle,
-            onEachFeature: this.onEachFeature.bind(this)
+            onEachFeature: this.onEachFeature.bind(this),
+            pointToLayer: (feature, latlng) => {
+                // avoid icons to be drawn, instead create simple div
+                L.marker(latlng, {icon: L.divIcon()});
+            }
         });
         this.indoorLayerGroup.addLayer(layer);
     }
@@ -30,22 +35,25 @@ export class IndoorLayer {
     }
 
     onEachFeature(feature, layer) {
+        if (layer._path !== undefined) {
+            layer._path.setAttribute('role', 'button');
+        }
         layer.on('click', this.openDescriptionPopUp);
     }
 
     openDescriptionPopUp(e) {
-        const popUpArea = document.getElementById('descriptionArea');
         const feature = e.sourceTarget.feature;
 
         let popUpText = feature.properties.ref ?? 'ohne Bezeichnung';
         let cellName = feature.properties.name;
 
         if (cellName !== undefined && cellName.length !== 0) {
-            popUpText += '&nbsp;(' + cellName + ')';
+            popUpText += ' (' + cellName + ')';
         }
 
-        popUpArea.innerHTML = popUpText;
-        popUpArea.focus();
+        popUpText = 'selected map object: ' + popUpText;
+
+        updateDescriptionPopUp(popUpText);
     }
 
     featureStyle(feature) {

@@ -1,6 +1,7 @@
 import {INDOOR_LEVEL} from "./constants";
 import {indoorDataOverpassGeoJSONFiltered} from "./_filterGeoJsonData";
 import {IndoorLayer} from "./_indoorLayer";
+import {updateDescriptionPopUp} from "./_descriptionPopup";
 
 export class LevelControl {
     constructor() {
@@ -29,6 +30,7 @@ export class LevelControl {
     changeCurrentLevel(newLevel) {
         this.currentLevel = newLevel;
         this.indoorLayer.updateLayer(this.getCurrentLevelGeoJSON());
+        this.updateCurrentLevelDescription()
     }
 
     getAllLevelsFromGeoJSON() {
@@ -127,6 +129,10 @@ export class LevelControl {
         });
 
         levelControl.classList.add('scale-in');
+    }
+
+    updateCurrentLevelDescription() {
+        updateDescriptionPopUp('current level: ' + this.currentLevel + ', todo: level information');
     }
 
 }

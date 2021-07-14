@@ -19,22 +19,33 @@
     <div class="indeterminate"></div>
 </div>
 
-<div id="descriptionArea"></div>
+<div class="container">
+    <div class="row">
+        <div id="descriptionArea" class="col s12 scale-transition scale-out"></div>
+    </div>
+</div>
 
 <div id="map" aria-label="Map"></div>
 
 <div class="container">
-    <div id="levelControl" class="scale-transition scale-out"></div>
-
-    <a class="waves-effect waves-light btn modal-trigger" href="#modal1" role="button">Search for buildings</a>
+    <div class="row">
+        <div class="col s12">
+            <div id="levelControl" class="scale-transition scale-out"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <a class="waves-effect waves-light btn modal-trigger" href="#modal1" role="button">Search for buildings</a>
+        </div>
+    </div>
 </div>
+
 <!-- Modal Structure -->
 <div id="modal1" class="modal" aria-disabled="true">
     <div class="modal-content">
         <label for="buildingSearch">Search for a building</label>
         <input type="text" id="buildingSearch" placeholder="Name">
         <button class="btn" id="buildingSearchSubmit">Search</button>
-        <p class="error"></p>
     </div>
     <div class="modal-footer">
         <a href="#map" class="modal-close waves-effect waves-green btn-flat">Abort</a>
