@@ -13,9 +13,6 @@ import "materialize-css/dist/css/materialize.css";
 import "leaflet/dist/leaflet.css";
 import "../css/style.css";
 
-
-const buildingSearchSubmit = document.getElementById('buildingSearchSubmit');
-
 document.addEventListener('DOMContentLoaded', function () {
     loading();
 
@@ -31,11 +28,24 @@ document.addEventListener('DOMContentLoaded', function () {
         loadingError();
     });
 
-    buildingSearchSubmit.addEventListener('click', findBuilding);
-
+    handleSearchForm();
 });
 
 function initMaterialize() {
     const modal = document.querySelectorAll('.modal');
     Modal.init(modal);
+}
+
+
+function handleSearchForm() {
+    const buildingSearchSubmit = document.getElementById('buildingSearchSubmit');
+    const buildingSearch = document.getElementById('buildingSearch');
+
+    buildingSearchSubmit.addEventListener('click', findBuilding);
+    buildingSearch.addEventListener('keyup', (event) => {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            findBuilding()
+        }
+    })
 }

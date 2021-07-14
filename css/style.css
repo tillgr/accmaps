@@ -1,9 +1,10 @@
-html, body{
+html, body {
     height: 100% !important;
     margin: 0 !important;
 }
+
 #map {
-    height: calc(100% - 180px);
+    height: calc(100% - 220px);
 }
 
 .leaflet-marker-icon {
@@ -18,7 +19,13 @@ html, body{
     display: block !important;
 }
 
-.modal-trigger{
+.modal-trigger, #lvlControlFieldset {
     width: calc(100% - 20px);
-    margin: 10px;
+    margin: 10px 10px 0;
 }
+
+#lvlControlFieldset .btn {
+    margin-right: 3px
+}
+
+

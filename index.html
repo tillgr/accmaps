@@ -15,15 +15,19 @@
     </div>
 </nav>
 
-<div class="progress" title="loading" id="loading_indicator">
+<div class="progress" title="loading" id="loading_indicator" aria-disabled="true">
     <div class="indeterminate"></div>
 </div>
 
 
 <div id="map" aria-label="Map"></div>
 
+<fieldset id="lvlControlFieldset">
+    <legend>Change level to:</legend>
+    <div id="levelControl"></div>
+</fieldset>
+
 <a class="waves-effect waves-light btn modal-trigger" href="#modal1" role="button">Search for buildings</a>
-<div id="levelControl"></div>
 
 <!-- Modal Structure -->
 <div id="modal1" class="modal" aria-disabled="true">
