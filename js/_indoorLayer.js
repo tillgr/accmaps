@@ -12,9 +12,10 @@ export class IndoorLayer {
         this.drawIndoorLayerByGeoJSON(geoJSON);
     }
 
-    drawIndoorLayerByGeoJSON(geoJSON){
+    drawIndoorLayerByGeoJSON(geoJSON) {
         const layer = L.geoJson(geoJSON, {
-            style: this.featureStyle
+            style: this.featureStyle,
+            onEachFeature: this.onEachFeature.bind(this)
         });
         this.indoorLayerGroup.addLayer(layer);
     }
@@ -23,9 +24,28 @@ export class IndoorLayer {
         this.indoorLayerGroup.clearLayers();
     }
 
-    updateLayer(geoJSON){
+    updateLayer(geoJSON) {
         this.clearIndoorLayer();
         this.drawIndoorLayerByGeoJSON(geoJSON);
+    }
+
+    onEachFeature(feature, layer) {
+        layer.on('click', this.openDescriptionPopUp);
+    }
+
+    openDescriptionPopUp(e) {
+        const popUpArea = document.getElementById('descriptionArea');
+        const feature = e.sourceTarget.feature;
+
+        let popUpText = feature.properties.ref ?? 'ohne Bezeichnung';
+        let cellName = feature.properties.name;
+
+        if (cellName !== undefined && cellName.length !== 0) {
+            popUpText += '&nbsp;(' + cellName + ')';
+        }
+
+        popUpArea.innerHTML = popUpText;
+        popUpArea.focus();
     }
 
     featureStyle(feature) {

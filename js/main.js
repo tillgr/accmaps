@@ -33,7 +33,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function initMaterialize() {
     const modal = document.querySelectorAll('.modal');
-    Modal.init(modal);
+    Modal.init(modal, {
+        onOpenEnd: () => {
+            document.getElementById('buildingSearch').focus();
+        }
+    });
 }
 
 

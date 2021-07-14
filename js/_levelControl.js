@@ -111,14 +111,22 @@ export class LevelControl {
         const levelControl = document.getElementById('levelControl');
 
         this.allLevels.forEach(level => {
-            const newLevelBtn = document.createElement('a');
-            newLevelBtn.className = 'btn';
-            newLevelBtn.innerText = level;
-            newLevelBtn.addEventListener('click', () => {
+            const changeToLevel = 'change to level ' + level;
+            const levelBtn = document.createElement('a');
+            levelBtn.className = 'btn';
+            levelBtn.innerText = level;
+            levelBtn.setAttribute('role', 'button');
+            levelBtn.setAttribute('title', changeToLevel);
+            levelBtn.setAttribute('aria-label', changeToLevel);
+
+            levelBtn.addEventListener('click', () => {
                 this.changeCurrentLevel(level)
             });
-            levelControl.appendChild(newLevelBtn);
+
+            levelControl.appendChild(levelBtn);
         });
+
+        levelControl.classList.add('scale-in');
     }
 
 }
