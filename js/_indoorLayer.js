@@ -83,10 +83,10 @@ export class IndoorLayer {
 
         if (feature.properties.amenity === 'toilets') {
             fill = TOILET_COLOR;
-        } else if (feature.properties.indoor === 'room') {
-            fill = ROOM_COLOR;
         } else if (feature.properties.stairs) {
             fill = STAIR_COLOR;
+        } else if (feature.properties.indoor === 'room') {
+            fill = ROOM_COLOR;
         }
 
         return {
