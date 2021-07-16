@@ -1,20 +1,30 @@
-import {getMap} from "./_map";
+import {BuildingControl} from "./_buildingControl";
 
 const toBBox = require('geojson-bounding-box');
-let bounds;
+
+let currentBuildingBounds;
 
 function filterGeoJsonData(geoJSON) {
-    const map = getMap();
+    currentBuildingBounds = BuildingControl.getCurrentBuildingBoundingBox();
 
-    bounds = map.getBounds();
+    console.log(currentBuildingBounds);
     geoJSON.features = geoJSON.features.filter(filterFeatures);
     return geoJSON;
 }
 
 function filterFeatures(feature) {
-    let featureBounds = toBBox(feature)
-    return !(feature.properties === undefined || feature.properties.level === undefined) &&
-        (bounds._northEast.lat >= featureBounds[1] && bounds._northEast.lng >= featureBounds[0] && bounds._southWest.lat <= featureBounds[3] && bounds._southWest.lng <= featureBounds[2]);
+    let featureBounds = toBBox(feature);
+    let returnBool = !(feature.properties === undefined || feature.properties.level === undefined);
+
+    // check if building was found, otherwise do not filter for bounding box
+    if (currentBuildingBounds !== null) {
+        returnBool = returnBool && (currentBuildingBounds[1] >= featureBounds[1] &&
+            currentBuildingBounds[0] >= featureBounds[0] &&
+            currentBuildingBounds[3] <= featureBounds[3] &&
+            currentBuildingBounds[2] <= featureBounds[2]);
+    }
+
+    return returnBool;
 }
 
 export {filterGeoJsonData}

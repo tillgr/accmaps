@@ -1,7 +1,10 @@
 import osmtogeojson from "osmtogeojson";
+import {overpassUrl} from "./constants";
 
 // get all indoor data from Dresden
 const overpassIndoorQuery = '(area["name"="Dresden"];)->.a;(nwr[indoor](area.a););(._;>;); out;';
+
+// get all buildings that conform the SIT standard (min_level tag is set)
 const overpassBuildingQuery = '(area["name"="Dresden"];)->.a;(nwr[building][min_level](area.a););(._;>;); out;'
 
 let overpassData = {
@@ -39,8 +42,7 @@ export class OverpassData {
                     }
                 }
             };
-            // overpassUrl + overpassInitialQuery ######HACK for local dev!!!!
-            xhr.open('GET', '/osm.xml', true);
+            xhr.open('GET', overpassUrl + query, true);
             xhr.send();
         });
     }
