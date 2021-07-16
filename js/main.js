@@ -1,10 +1,6 @@
 import {findBuilding} from "./findBuilding";
-import {getOverpassData} from "./_getOverpassData";
 import {loading, loadingEnd, loadingError} from "./_loading_indicator";
-import {filterGeoJsonData} from "./_filterGeoJsonData";
-import {LevelControl} from "./_levelControl";
 import {getMap} from "./_map";
-
 
 import {Modal} from 'materialize-css';
 
@@ -12,19 +8,18 @@ import {Modal} from 'materialize-css';
 import "materialize-css/dist/css/materialize.css";
 import "leaflet/dist/leaflet.css";
 import "../css/style.css";
+import {OverpassData} from "./_getOverpassData";
+import {IndoorLayer} from "./_indoorLayer";
 
 document.addEventListener('DOMContentLoaded', function () {
     loading();
-
     initMaterialize();
 
     getMap();
 
-    getOverpassData().then((data) => {
+    OverpassData.fetchOverpassData().then(() => {
         loadingEnd();
-        filterGeoJsonData(data);
-        const lc = new LevelControl();
-        lc.updateCurrentLevelDescription();
+        new IndoorLayer();
     }).catch((error) => {
         console.log(error)
         loadingError();

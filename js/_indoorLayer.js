@@ -1,10 +1,13 @@
 import {FILL_OPACITY, ROOM_COLOR, STAIR_COLOR, TOILET_COLOR, WALL_COLOR, WALL_WEIGHT} from "./constants";
 import {getMap} from "./_map";
 import {updateDescriptionPopUp} from "./_descriptionPopup";
+import {filterGeoJsonData} from "./_filterGeoJsonData";
+import {OverpassData} from "./_getOverpassData";
 
 
 export class IndoorLayer {
-    constructor(geoJSON) {
+    constructor() {
+        const geoJSON = filterGeoJsonData(OverpassData.getIndoorData());
         const map = getMap();
 
         this.indoorLayerGroup = L.layerGroup();
