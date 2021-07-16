@@ -22,11 +22,11 @@ export class OverpassData {
     }
 
     static _fetchIndoorData() {
-        return this.getOverpassData(overpassIndoorQuery)
+        return this.getOverpassData('/osm.xml'); // overpassIndoorQuery
     }
 
     static _fetchBuildingData() {
-        return this.getOverpassData(overpassBuildingQuery);
+        return this.getOverpassData('/buildings.xml'); // overpassBuildingQuery
     }
 
     static getOverpassData(query) {
@@ -35,14 +35,15 @@ export class OverpassData {
             xhr.onreadystatechange = () => {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
-                        let returnValue = osmtogeojson(xhr.responseXML, {});
+                        let returnValue = osmtogeojson(xhr.responseXML);
                         resolve(returnValue);
                     } else if (xhr.status > 400) {
                         reject('an error occurred.');
                     }
                 }
             };
-            xhr.open('GET', overpassUrl + query, true);
+            // HACK: use offline data, for dev purposes only!
+            xhr.open('GET', query, true);
             xhr.send();
         });
     }
