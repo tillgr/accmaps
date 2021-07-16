@@ -8,7 +8,7 @@ import {Modal} from 'materialize-css';
 import "materialize-css/dist/css/materialize.css";
 import "leaflet/dist/leaflet.css";
 import "../css/style.css";
-import {OverpassData} from "./_getOverpassData";
+import {OverpassData} from "./_overpassData";
 import {IndoorLayer} from "./_indoorLayer";
 
 document.addEventListener('DOMContentLoaded', function () {

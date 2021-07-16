@@ -2,7 +2,7 @@ import {FILL_OPACITY, ROOM_COLOR, STAIR_COLOR, TOILET_COLOR, WALL_COLOR, WALL_WE
 import {getMap} from "./_map";
 import {updateDescriptionPopUp} from "./_descriptionPopup";
 import {filterGeoJsonData} from "./_filterGeoJsonData";
-import {OverpassData} from "./_getOverpassData";
+import {OverpassData} from "./_overpassData";
 
 
 export class IndoorLayer {
