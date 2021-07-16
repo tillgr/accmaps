@@ -2,6 +2,7 @@ import {INDOOR_LEVEL} from "./constants";
 import {indoorDataOverpassGeoJSONFiltered} from "./_filterGeoJsonData";
 import {IndoorLayer} from "./_indoorLayer";
 import {updateDescriptionPopUp} from "./_descriptionPopup";
+import {LevelInformation} from "./_levelInformation";
 
 export class LevelControl {
     constructor() {
@@ -132,7 +133,12 @@ export class LevelControl {
     }
 
     updateCurrentLevelDescription() {
-        updateDescriptionPopUp('current level: ' + this.currentLevel + ', todo: level information');
+        const levelProperties = LevelInformation.getPropertiesForLevel(this.currentLevel, this.getCurrentLevelGeoJSON());
+        let accessibilityInformation = '';
+        accessibilityInformation += (levelProperties['accessibleToilets']) ? 'there are accessible toilets' : 'no accessible toilets available';
+        // todo: ...
+
+        updateDescriptionPopUp('current level: ' + this.currentLevel + ', ' + accessibilityInformation);
     }
 
 }

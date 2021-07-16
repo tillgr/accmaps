@@ -17,13 +17,14 @@ document.addEventListener('DOMContentLoaded', function () {
     loading();
 
     initMaterialize();
-    
+
     getMap();
 
     getOverpassData().then((data) => {
         loadingEnd();
         filterGeoJsonData(data);
-        new LevelControl();
+        const lc = new LevelControl();
+        lc.updateCurrentLevelDescription();
     }).catch((error) => {
         console.log(error)
         loadingError();
