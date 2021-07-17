@@ -1,40 +1,43 @@
 import {BuildingControl} from "./_buildingControl";
+import {LatLng} from "leaflet/dist/leaflet-src.esm";
 
 const pointInPolygon = require("robust-point-in-polygon")
 
-let currentBuildingPolygon;
+let currentBuildingBBox;
 
 function filterGeoJsonData(geoJSON) {
-    currentBuildingPolygon = BuildingControl.getCurrentBuildingPolygon();
+    currentBuildingBBox = BuildingControl.getCurrentBuildingBoundingBox();
     const features = geoJSON.features.filter(filterFeatures);
 
     return {type: 'FeatureCollection', features: features};
 }
 
 function filterFeatures(feature) {
-    if (feature.properties === undefined || feature.properties.level === undefined) {
+    //todo: check if Lines/points should really be filtered!!!!
+    if (feature.properties === undefined || feature.properties.level === undefined || feature.geometry.type === 'Line' || feature.geometry.type === 'Point') {
         return false;
     }
 
     // no current building found, skip filtering
-    if (currentBuildingPolygon === null) {
+    if (currentBuildingBBox === null) {
         return true;
     }
 
     let inside = false;
 
-    feature.geometry.coordinates.forEach((f) => {
-        if (inside || !Array.isArray(f)) {
-            return;
-        }
-
-        f.some((point) => {
-            if (pointInPolygon(currentBuildingPolygon, point) !== 1) {
-                return inside = true;
-            }
-            return false;
+    if (feature.geometry.type === 'Polygon') {
+        feature.geometry.coordinates.forEach((c) => {
+            c.some((p) => {
+                const latLng = new LatLng(p[0], p[1]);
+                if (currentBuildingBBox.contains(latLng)) {
+                    return inside = true;
+                }
+                return false;
+            });
         });
-    });
+    } else if (feature.geometry.type === 'MultiPolygon') {
+        // ...
+    }
 
     return inside;
 }

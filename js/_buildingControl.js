@@ -1,15 +1,16 @@
 import {OverpassData} from "./_overpassData";
 import {IndoorLayer} from "./_indoorLayer";
 import {Map} from "./_map";
+import {LatLng} from "leaflet/dist/leaflet-src.esm";
 
 const toBBox = require('geojson-bounding-box');
 
 let currentBuilding = 'APB';
-let buildingPolygonsByBuildingName = [];
-let buildingFeaturesByBuildingName = [];
+let buildingBBoxesByBuildingName = [];
 
 export class BuildingControl {
-    static getCurrentBuildingPolygon() {
+
+    static getCurrentBuildingBoundingBox() {
         const buildings = OverpassData.getBuildingData();
         let foundBuilding = null;
 
@@ -24,9 +25,10 @@ export class BuildingControl {
         });
 
         if (foundBuilding !== null) {
-            buildingPolygonsByBuildingName[currentBuilding] = foundBuilding.geometry.coordinates[0];
-            buildingFeaturesByBuildingName[currentBuilding] = foundBuilding;
-            return buildingPolygonsByBuildingName[currentBuilding];
+            const BBox = toBBox(foundBuilding);
+            buildingBBoxesByBuildingName[currentBuilding] = new L.LatLngBounds(new LatLng(BBox[2], BBox[3]), new LatLng(BBox[0], BBox[1]),);
+
+            return buildingBBoxesByBuildingName[currentBuilding];
         }
 
         return null;
@@ -41,9 +43,8 @@ export class BuildingControl {
     }
 
     static centerMapToBuilding() {
-        //create a surrounding rectangle (aka bounding box) and calculate the center point afterwards
-        const currentBuildingBBox = toBBox(buildingFeaturesByBuildingName[currentBuilding]);
-        const center = new L.LatLng((((currentBuildingBBox[3] - currentBuildingBBox[1]) / 2) + currentBuildingBBox[1]), (((currentBuildingBBox[2] - currentBuildingBBox[0]) / 2) + currentBuildingBBox[0]));
-        Map.getMap().panTo(center);
+        //strange behaviour: getCenter returns values in wrong sequence - leaflet bug?
+        const center = buildingBBoxesByBuildingName[currentBuilding].getCenter();
+        Map.getMap().panTo(new LatLng(center.lng, center.lat));
     }
 }

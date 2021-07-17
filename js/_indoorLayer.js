@@ -91,8 +91,6 @@ export class IndoorLayer {
             }
         }
 
-        console.log(feature.properties);
-
         popUpText = 'selected map object: ' + popUpText;
 
 
