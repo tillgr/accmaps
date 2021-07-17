@@ -1,7 +1,6 @@
 import {loading, loadingEnd, loadingError} from "./_loading_indicator";
 import {Map} from "./_map";
 import {OverpassData} from "./_overpassData";
-import {IndoorLayer} from "./_indoorLayer";
 import {BuildingControl} from "./_buildingControl";
 
 
@@ -11,6 +10,7 @@ import {Modal} from 'materialize-css';
 import "materialize-css/dist/css/materialize.css";
 import "leaflet/dist/leaflet.css";
 import "../css/style.css";
+import {LevelControl} from "./_levelControl";
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     OverpassData.fetchOverpassData().then(() => {
         loadingEnd();
-        IndoorLayer.getInstance();
+        LevelControl.getInstance();
     }).catch((error) => {
         loadingError();
     });

@@ -1,8 +1,11 @@
 import {INDOOR_LEVEL} from "./constants";
-import {indoorDataOverpassGeoJSONFiltered} from "./_filterGeoJsonData";
+import {filterGeoJsonData} from "./_filterGeoJsonData";
 import {IndoorLayer} from "./_indoorLayer";
 import {updateDescriptionPopUp} from "./_descriptionPopup";
 import {LevelInformation} from "./_levelInformation";
+import {OverpassData} from "./_overpassData";
+
+let levelControlInstance = null;
 
 export class LevelControl {
     constructor() {
@@ -10,10 +13,26 @@ export class LevelControl {
         this.allLevels = new Set();
         this.geoJSONByLevel = [];
 
+        this.currentBuildingIndoorData = filterGeoJsonData(OverpassData.getIndoorData());
+
         this.getAllLevelsFromGeoJSON();
-        this.indoorLayer = new IndoorLayer(this.getCurrentLevelGeoJSON());
+        this.indoorLayer = new IndoorLayer();
+        this.indoorLayer.drawIndoorLayerByGeoJSON(this.getCurrentLevelGeoJSON());
 
         this.createLevelControlButtons();
+    }
+
+    static getInstance() {
+        if (levelControlInstance == null) {
+            return levelControlInstance = new LevelControl();
+        }
+        return levelControlInstance;
+    }
+
+    static removeInstance() {
+        levelControlInstance.removeLevelControlButtons();
+        levelControlInstance.removeIndoorLayer();
+        levelControlInstance = null;
     }
 
     getCurrentLevelGeoJSON() {
@@ -21,7 +40,7 @@ export class LevelControl {
             return this.geoJSONByLevel[this.currentLevel];
         }
 
-        this.geoJSONByLevel[this.currentLevel] = indoorDataOverpassGeoJSONFiltered.features.filter((f) =>
+        this.geoJSONByLevel[this.currentLevel] = this.currentBuildingIndoorData.features.filter((f) =>
             (f.properties.level === this.currentLevel || f.properties.level.includes(this.currentLevel))
         );
 
@@ -35,7 +54,7 @@ export class LevelControl {
     }
 
     getAllLevelsFromGeoJSON() {
-        indoorDataOverpassGeoJSONFiltered.features.map((feature) => {
+        this.currentBuildingIndoorData.features.map((feature) => {
             if (Array.isArray(feature.properties.level)) {
                 return;
             }
@@ -132,6 +151,15 @@ export class LevelControl {
         levelControl.classList.add('scale-in');
     }
 
+    removeLevelControlButtons() {
+        const levelControl = document.getElementById('levelControl');
+        levelControl.innerHTML = '';
+    }
+
+    removeIndoorLayer() {
+        this.indoorLayer.removeIndoorLayerFromMap();
+    }
+
     updateCurrentLevelDescription() {
         const levelProperties = LevelInformation.getPropertiesForLevel(this.currentLevel, this.getCurrentLevelGeoJSON());
         let accessibilityInformation = '';
@@ -140,5 +168,4 @@ export class LevelControl {
 
         updateDescriptionPopUp('current level: ' + this.currentLevel + ', ' + accessibilityInformation);
     }
-
 }

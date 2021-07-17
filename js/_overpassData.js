@@ -22,11 +22,11 @@ export class OverpassData {
     }
 
     static _fetchIndoorData() {
-        return this.getOverpassData('/osm.xml'); // overpassIndoorQuery
+        return this.getOverpassData('/osm.xml'); //overpassUrl + overpassIndoorQuery
     }
 
     static _fetchBuildingData() {
-        return this.getOverpassData('/buildings.xml'); // overpassBuildingQuery
+        return this.getOverpassData('/buildings.xml'); //overpassUrl + overpassBuildingQuery
     }
 
     static getOverpassData(query) {
@@ -42,7 +42,7 @@ export class OverpassData {
                     }
                 }
             };
-            // HACK: use offline data, for dev purposes only!
+
             xhr.open('GET', query, true);
             xhr.send();
         });

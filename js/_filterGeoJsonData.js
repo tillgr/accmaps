@@ -1,8 +1,6 @@
 import {BuildingControl} from "./_buildingControl";
 import {LatLng} from "leaflet/dist/leaflet-src.esm";
 
-const pointInPolygon = require("robust-point-in-polygon")
-
 let currentBuildingBBox;
 
 function filterGeoJsonData(geoJSON) {
@@ -36,7 +34,7 @@ function filterFeatures(feature) {
             });
         });
     } else if (feature.geometry.type === 'MultiPolygon') {
-        // ...
+        // todo
     }
 
     return inside;

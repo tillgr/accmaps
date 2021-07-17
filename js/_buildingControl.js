@@ -2,6 +2,7 @@ import {OverpassData} from "./_overpassData";
 import {IndoorLayer} from "./_indoorLayer";
 import {Map} from "./_map";
 import {LatLng} from "leaflet/dist/leaflet-src.esm";
+import {LevelControl} from "./_levelControl";
 
 const toBBox = require('geojson-bounding-box');
 
@@ -11,6 +12,10 @@ let buildingBBoxesByBuildingName = [];
 export class BuildingControl {
 
     static getCurrentBuildingBoundingBox() {
+        if (buildingBBoxesByBuildingName[currentBuilding] !== undefined) {
+            return buildingBBoxesByBuildingName[currentBuilding];
+        }
+
         const buildings = OverpassData.getBuildingData();
         let foundBuilding = null;
 
@@ -38,8 +43,13 @@ export class BuildingControl {
         const buildingSearchBox = document.getElementById('buildingSearch');
         currentBuilding = buildingSearchBox.value;
 
-        IndoorLayer.getInstance().createIndoorLayerFromCurrentIndoorData();
+        BuildingControl.getCurrentBuildingBoundingBox(); //todo: shouldn't be here, but is needed for search
         BuildingControl.centerMapToBuilding();
+
+        LevelControl.removeInstance();
+        LevelControl.getInstance();
+
+        document.querySelectorAll(".modal")[0].M_Modal.close();
     }
 
     static centerMapToBuilding() {
