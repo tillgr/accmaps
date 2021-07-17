@@ -1,19 +1,33 @@
 import {FILL_OPACITY, ROOM_COLOR, STAIR_COLOR, TOILET_COLOR, WALL_COLOR, WALL_WEIGHT} from "./constants";
-import {getMap} from "./_map";
+import {Map} from "./_map";
+import {OverpassData} from "./_overpassData";
 import {updateDescriptionPopUp} from "./_descriptionPopup";
 import {filterGeoJsonData} from "./_filterGeoJsonData";
-import {OverpassData} from "./_overpassData";
 
+let indoorLayerInstance = null;
 
 export class IndoorLayer {
     constructor() {
-        const geoJSON = filterGeoJsonData(OverpassData.getIndoorData());
-        const map = getMap();
+        this.createIndoorLayerFromCurrentIndoorData();
+    }
+
+    static getInstance() {
+        if (indoorLayerInstance === null) {
+            return indoorLayerInstance = new IndoorLayer();
+        }
+        return indoorLayerInstance;
+    }
+
+    createIndoorLayerFromCurrentIndoorData() {
+        this.currentGeoJSON = filterGeoJsonData(OverpassData.getIndoorData());
+
+        if (this.indoorLayerGroup !== undefined) {
+            this.removeIndoorLayerFromMap();
+        }
 
         this.indoorLayerGroup = L.layerGroup();
-        this.indoorLayerGroup.addTo(map);
-
-        this.drawIndoorLayerByGeoJSON(geoJSON);
+        this.indoorLayerGroup.addTo(Map.getMap());
+        this.drawIndoorLayerByGeoJSON(this.currentGeoJSON);
     }
 
     drawIndoorLayerByGeoJSON(geoJSON) {
@@ -26,6 +40,10 @@ export class IndoorLayer {
             }
         });
         this.indoorLayerGroup.addLayer(layer);
+    }
+
+    removeIndoorLayerFromMap() {
+        Map.getMap().removeLayer(this.indoorLayerGroup);
     }
 
     clearIndoorLayer() {

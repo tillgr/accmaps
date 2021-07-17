@@ -1,6 +1,12 @@
 import {OverpassData} from "./_overpassData";
+import {IndoorLayer} from "./_indoorLayer";
+import {Map} from "./_map";
+
+const toBBox = require('geojson-bounding-box');
 
 let currentBuilding = 'APB';
+let buildingPolygonsByBuildingName = [];
+let buildingFeaturesByBuildingName = [];
 
 export class BuildingControl {
     static getCurrentBuildingPolygon() {
@@ -18,10 +24,26 @@ export class BuildingControl {
         });
 
         if (foundBuilding !== null) {
-            return foundBuilding.geometry.coordinates[0];
+            buildingPolygonsByBuildingName[currentBuilding] = foundBuilding.geometry.coordinates[0];
+            buildingFeaturesByBuildingName[currentBuilding] = foundBuilding;
+            return buildingPolygonsByBuildingName[currentBuilding];
         }
 
         return null;
+    }
 
+    static searchForBuilding() {
+        const buildingSearchBox = document.getElementById('buildingSearch');
+        currentBuilding = buildingSearchBox.value;
+
+        IndoorLayer.getInstance().createIndoorLayerFromCurrentIndoorData();
+        BuildingControl.centerMapToBuilding();
+    }
+
+    static centerMapToBuilding() {
+        //create a surrounding rectangle (aka bounding box) and calculate the center point afterwards
+        const currentBuildingBBox = toBBox(buildingFeaturesByBuildingName[currentBuilding]);
+        const center = new L.LatLng((((currentBuildingBBox[3] - currentBuildingBBox[1]) / 2) + currentBuildingBBox[1]), (((currentBuildingBBox[2] - currentBuildingBBox[0]) / 2) + currentBuildingBBox[0]));
+        Map.getMap().panTo(center);
     }
 }

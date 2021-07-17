@@ -6,9 +6,9 @@ let currentBuildingPolygon;
 
 function filterGeoJsonData(geoJSON) {
     currentBuildingPolygon = BuildingControl.getCurrentBuildingPolygon();
-    geoJSON.features = geoJSON.features.filter(filterFeatures);
+    const features = geoJSON.features.filter(filterFeatures);
 
-    return geoJSON;
+    return {type: 'FeatureCollection', features: features};
 }
 
 function filterFeatures(feature) {

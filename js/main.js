@@ -1,6 +1,9 @@
-import {findBuilding} from "./findBuilding";
 import {loading, loadingEnd, loadingError} from "./_loading_indicator";
-import {getMap} from "./_map";
+import {Map} from "./_map";
+import {OverpassData} from "./_overpassData";
+import {IndoorLayer} from "./_indoorLayer";
+import {BuildingControl} from "./_buildingControl";
+
 
 import {Modal} from 'materialize-css';
 
@@ -8,20 +11,18 @@ import {Modal} from 'materialize-css';
 import "materialize-css/dist/css/materialize.css";
 import "leaflet/dist/leaflet.css";
 import "../css/style.css";
-import {OverpassData} from "./_overpassData";
-import {IndoorLayer} from "./_indoorLayer";
+
 
 document.addEventListener('DOMContentLoaded', function () {
     loading();
     initMaterialize();
 
-    getMap();
+    Map.getMap();
 
     OverpassData.fetchOverpassData().then(() => {
         loadingEnd();
-        new IndoorLayer();
+        IndoorLayer.getInstance();
     }).catch((error) => {
-        console.log(error)
         loadingError();
     });
 
@@ -42,11 +43,11 @@ function handleSearchForm() {
     const buildingSearchSubmit = document.getElementById('buildingSearchSubmit');
     const buildingSearch = document.getElementById('buildingSearch');
 
-    buildingSearchSubmit.addEventListener('click', findBuilding);
+    buildingSearchSubmit.addEventListener('click', BuildingControl.searchForBuilding);
     buildingSearch.addEventListener('keyup', (event) => {
         if (event.keyCode === 13) {
             event.preventDefault();
-            findBuilding()
+            BuildingControl.searchForBuilding();
         }
     })
 }
