@@ -18,6 +18,7 @@ export class Map {
 
         osmTileLayer.addTo(mapInstance);
         mapAccessibility();
+        mapInstance.on('moveend', mapAccessibility);
         return mapInstance;
     }
 

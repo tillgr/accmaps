@@ -22,26 +22,6 @@ export function mapAccessibility() {
         marker.setAttribute('role', 'button');
     });
 
-    map.on('popupopen', (popup) => {
-        let popUpContent = popup.popup._container.getElementsByClassName('leaflet-popup-content')[0];
-        let popUpCloseButton = popup.popup._container.getElementsByClassName('leaflet-popup-close-button')[0];
-
-        popUpContent.setAttribute('tabindex', '-1');
-        popUpContent.focus();
-
-        popUpCloseButton.setAttribute('title', 'Close item');
-        popUpCloseButton.setAttribute('aria-label', 'Close item');
-
-        //re-add close button to end of popup
-        popUpCloseButton.parentNode.removeChild(popUpCloseButton);
-        popup.popup._container.append(popUpCloseButton)
-    });
-
-    // return focus to the icon we started from before opening the pop up
-    map.on('popupclose', (popup) => {
-        popup.popup._source._path.focus();
-    });
-
     document.getElementById('map').focus();
     document.getElementsByClassName('leaflet-control-attribution')[0].setAttribute('aria-disabled', 'true');
 }
