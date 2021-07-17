@@ -1,5 +1,4 @@
 import osmtogeojson from "osmtogeojson";
-import {overpassUrl} from "./constants";
 
 // get all indoor data from Dresden
 const overpassIndoorQuery = '(area["name"="Dresden"];)->.a;(nwr[indoor](area.a););(._;>;); out;';

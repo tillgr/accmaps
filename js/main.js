@@ -45,7 +45,7 @@ function handleSearchForm() {
 
     buildingSearchSubmit.addEventListener('click', BuildingControl.searchForBuilding);
     buildingSearch.addEventListener('keyup', (event) => {
-        if (event.keyCode === 13) {
+        if (event.key === 'Enter') {
             event.preventDefault();
             BuildingControl.searchForBuilding();
         }

@@ -1,5 +1,4 @@
 import {OverpassData} from "./_overpassData";
-import {IndoorLayer} from "./_indoorLayer";
 import {Map} from "./_map";
 import {LatLng} from "leaflet/dist/leaflet-src.esm";
 import {LevelControl} from "./_levelControl";
@@ -53,7 +52,7 @@ export class BuildingControl {
     }
 
     static centerMapToBuilding() {
-        //strange behaviour: getCenter returns values in wrong sequence - leaflet bug?
+        //strange behaviour: getCenter returns values in wrong order - leaflet bug?
         const center = buildingBBoxesByBuildingName[currentBuilding].getCenter();
         Map.getMap().panTo(new LatLng(center.lng, center.lat));
     }

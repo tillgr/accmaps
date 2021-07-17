@@ -1,8 +1,4 @@
-import {getMap} from "./_map";
-
 export function mapAccessibility() {
-    const map = getMap();
-
     const leafletShadows = document.getElementsByClassName('leaflet-shadow-pane');
 
     [].forEach.call(leafletShadows, (shadow) => {
@@ -22,6 +18,5 @@ export function mapAccessibility() {
         marker.setAttribute('role', 'button');
     });
 
-    document.getElementById('map').focus();
     document.getElementsByClassName('leaflet-control-attribution')[0].setAttribute('aria-disabled', 'true');
 }

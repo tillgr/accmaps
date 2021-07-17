@@ -30,5 +30,3 @@ export class Map {
         return mapInstance;
     }
 }
-
-export const getMap = Map.getMap;
