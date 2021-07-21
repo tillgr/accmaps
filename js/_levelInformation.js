@@ -10,8 +10,8 @@ export class LevelInformation {
         };
 
         geoJSONFeatures.forEach((feature) => {
-            if (feature.properties.amenity !== undefined && feature.properties.amenity === 'toilet'
-                && feature.properties.wheelhair !== undefined && feature.properties.wheelhair !== 'no') {
+            if (feature.properties.amenity !== undefined && feature.properties.amenity === 'toilets'
+                && feature.properties.wheelchair !== undefined && feature.properties.wheelchair !== 'no') {
                 levelProperties.accessibleToilets = true;
             }
         });
