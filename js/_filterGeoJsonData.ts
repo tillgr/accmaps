@@ -1,16 +1,17 @@
 import {BuildingControl} from "./_buildingControl";
-import {LatLng} from "leaflet/dist/leaflet-src.esm";
+import {GeoJSON, LatLng, LatLngBounds} from "leaflet";
+import {Position} from "geojson";
 
-let currentBuildingBBox;
+let currentBuildingBBox: LatLngBounds;
 
-function filterGeoJsonData(geoJSON) {
+function filterGeoJsonData(geoJSON: GeoJSON.FeatureCollection<any>) {
     currentBuildingBBox = BuildingControl.getCurrentBuildingBoundingBox();
     const features = geoJSON.features.filter(filterFeatures);
 
     return {type: 'FeatureCollection', features: features};
 }
 
-function filterFeatures(feature) {
+function filterFeatures(feature: GeoJSON.Feature<any>) {
     //todo: check if Lines/points should really be filtered!!!!
     if (feature.properties === undefined || feature.properties.level === undefined || feature.geometry.type === 'Line' || feature.geometry.type === 'Point') {
         return false;
@@ -24,8 +25,8 @@ function filterFeatures(feature) {
     let inside = false;
 
     if (feature.geometry.type === 'Polygon') {
-        feature.geometry.coordinates.forEach((c) => {
-            c.some((p) => {
+        feature.geometry.coordinates.forEach((c: Position[][][] | Position[][] | Position[]) => {
+            c.some((p: any[]) => {
                 const latLng = new LatLng(p[0], p[1]);
                 if (currentBuildingBBox.contains(latLng)) {
                     return inside = true;

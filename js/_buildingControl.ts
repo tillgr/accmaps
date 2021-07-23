@@ -1,18 +1,19 @@
 import {OverpassData} from "./_overpassData";
-import {Map} from "./_map";
-import {LatLng} from "leaflet/dist/leaflet-src.esm";
+import {Map as M} from "./_map";
 import {LevelControl} from "./_levelControl";
+import {LatLng, LatLngBounds} from "leaflet";
 
 const toBBox = require('geojson-bounding-box');
 
-let currentBuilding = 'APB';
-let buildingBBoxesByBuildingName = [];
+
+let currentBuilding: string = 'APB';
+let buildingBBoxesByBuildingName: Map<string, LatLngBounds> = new Map<string, LatLngBounds>();
 
 export class BuildingControl {
 
     static getCurrentBuildingBoundingBox() {
-        if (buildingBBoxesByBuildingName[currentBuilding] !== undefined) {
-            return buildingBBoxesByBuildingName[currentBuilding];
+        if (buildingBBoxesByBuildingName.get(currentBuilding) !== undefined) {
+            return buildingBBoxesByBuildingName.get(currentBuilding);
         }
 
         const buildings = OverpassData.getBuildingData();
@@ -30,16 +31,17 @@ export class BuildingControl {
 
         if (foundBuilding !== null) {
             const BBox = toBBox(foundBuilding);
-            buildingBBoxesByBuildingName[currentBuilding] = new L.LatLngBounds(new LatLng(BBox[2], BBox[3]), new LatLng(BBox[0], BBox[1]),);
+            const BBox_Leaflet = new LatLngBounds(new LatLng(BBox[2], BBox[3]), new LatLng(BBox[0], BBox[1]));
+            buildingBBoxesByBuildingName.set(currentBuilding, BBox_Leaflet);
 
-            return buildingBBoxesByBuildingName[currentBuilding];
+            return BBox_Leaflet;
         }
 
         return null;
     }
 
     static searchForBuilding() {
-        const buildingSearchBox = document.getElementById('buildingSearch');
+        const buildingSearchBox = (<HTMLInputElement>document.getElementById('buildingSearch'));
         currentBuilding = buildingSearchBox.value;
 
         BuildingControl.getCurrentBuildingBoundingBox(); //todo: shouldn't be here, but is needed for search
@@ -47,13 +49,11 @@ export class BuildingControl {
 
         LevelControl.removeInstance();
         LevelControl.getInstance();
-
-        document.querySelectorAll(".modal")[0].M_Modal.close();
     }
 
     static centerMapToBuilding() {
         //strange behaviour: getCenter returns values in wrong order - leaflet bug?
-        const center = buildingBBoxesByBuildingName[currentBuilding].getCenter();
-        Map.getMap().panTo(new LatLng(center.lng, center.lat));
+        const center = buildingBBoxesByBuildingName.get(currentBuilding).getCenter();
+        M.getMap().panTo(new LatLng(center.lng, center.lat));
     }
 }

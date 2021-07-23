@@ -1,7 +1,9 @@
-const propertiesByLevel = [];
+import {GeoJSON} from "leaflet";
 
-export class LevelInformation {
-    static generateFromGeoJSON(geoJSONFeatures) {
+const propertiesByLevel: any[string] = [];
+
+export const LevelInformation = {
+    generateFromGeoJSON(geoJSONFeatures: GeoJSON.Feature<any, any>[]) {
 
         const levelProperties = {
             'accessibleToilets': false,
@@ -9,7 +11,7 @@ export class LevelInformation {
             // TODO: add more properties
         };
 
-        geoJSONFeatures.forEach((feature) => {
+        geoJSONFeatures.forEach((feature: GeoJSON.Feature<any, any>) => {
             if (feature.properties.amenity !== undefined && feature.properties.amenity === 'toilets'
                 && feature.properties.wheelchair !== undefined && feature.properties.wheelchair !== 'no') {
                 levelProperties.accessibleToilets = true;
@@ -17,9 +19,9 @@ export class LevelInformation {
         });
 
         return levelProperties;
-    }
+    },
 
-    static getPropertiesForLevel(level, geoJSONFeatures) {
+    getPropertiesForLevel(level: string, geoJSONFeatures: any) {
         if (propertiesByLevel[level] !== undefined) {
             return propertiesByLevel[level];
         }

@@ -4,10 +4,17 @@ import {IndoorLayer} from "./_indoorLayer";
 import {updateDescriptionPopUp} from "./_descriptionPopup";
 import {LevelInformation} from "./_levelInformation";
 import {OverpassData} from "./_overpassData";
+import {GeoJSON} from "leaflet";
 
-let levelControlInstance = null;
+let levelControlInstance: LevelControl = null;
 
 export class LevelControl {
+    public currentLevel: any;
+    public allLevels: any;
+    public geoJSONByLevel: any;
+    public currentBuildingIndoorData: any;
+    public indoorLayer: any;
+
     constructor() {
         this.currentLevel = INDOOR_LEVEL;
         this.allLevels = new Set();
@@ -40,21 +47,21 @@ export class LevelControl {
             return this.geoJSONByLevel[this.currentLevel];
         }
 
-        this.geoJSONByLevel[this.currentLevel] = this.currentBuildingIndoorData.features.filter((f) =>
+        this.geoJSONByLevel[this.currentLevel] = this.currentBuildingIndoorData.features.filter((f: GeoJSON.Feature<any, any>) =>
             (f.properties.level === this.currentLevel || f.properties.level.includes(this.currentLevel))
         );
 
         return this.geoJSONByLevel[this.currentLevel];
     }
 
-    changeCurrentLevel(newLevel) {
+    changeCurrentLevel(newLevel: string) {
         this.currentLevel = newLevel;
         this.indoorLayer.updateLayer(this.getCurrentLevelGeoJSON());
         this.updateCurrentLevelDescription()
     }
 
     getAllLevelsFromGeoJSON() {
-        this.currentBuildingIndoorData.features.map((feature) => {
+        this.currentBuildingIndoorData.features.map((feature: GeoJSON.Feature<any, any>) => {
             if (Array.isArray(feature.properties.level)) {
                 return;
             }
@@ -68,7 +75,7 @@ export class LevelControl {
             }
 
             if (Array.isArray(feature.properties.level)) {
-                feature.properties.level.forEach((level) => {
+                feature.properties.level.forEach((level: string) => {
                     this.allLevels.add(level);
                 });
             } else {
@@ -77,7 +84,7 @@ export class LevelControl {
         });
     }
 
-    _getLevelRange(level) {
+    _getLevelRange(level: string) {
         let i;
         let dashCount = 0;
         const finalArray = [];
@@ -132,7 +139,7 @@ export class LevelControl {
     createLevelControlButtons() {
         const levelControl = document.getElementById('levelControl');
 
-        this.allLevels.forEach(level => {
+        this.allLevels.forEach((level: string) => {
             const changeToLevel = 'change to level ' + level;
             const levelBtn = document.createElement('a');
             levelBtn.className = 'btn';

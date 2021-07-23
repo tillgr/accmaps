@@ -1,43 +1,22 @@
-import {loading, loadingEnd, loadingError} from "./_loading_indicator";
 import {Map} from "./_map";
 import {OverpassData} from "./_overpassData";
 import {BuildingControl} from "./_buildingControl";
-
-
-import {Modal} from 'materialize-css';
-
-// == CSS ==
-import "materialize-css/dist/css/materialize.css";
-import "leaflet/dist/leaflet.css";
-import "../css/style.css";
 import {LevelControl} from "./_levelControl";
-
+import {LoadingIndicator} from "./_loadingIndicator";
 
 document.addEventListener('DOMContentLoaded', function () {
-    loading();
-    initMaterialize();
-
+    LoadingIndicator.start()
     Map.getMap();
 
     OverpassData.fetchOverpassData().then(() => {
-        loadingEnd();
+        LoadingIndicator.end()
         LevelControl.getInstance();
     }).catch((error) => {
-        loadingError();
+        LoadingIndicator.error();
     });
 
     handleSearchForm();
 });
-
-function initMaterialize() {
-    const modal = document.querySelectorAll('.modal');
-    Modal.init(modal, {
-        onOpenEnd: () => {
-            document.getElementById('buildingSearch').focus();
-        }
-    });
-}
-
 
 function handleSearchForm() {
     const buildingSearchSubmit = document.getElementById('buildingSearchSubmit');

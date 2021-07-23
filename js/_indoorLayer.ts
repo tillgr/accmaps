@@ -1,9 +1,14 @@
 import {FILL_OPACITY, ROOM_COLOR, STAIR_COLOR, TOILET_COLOR, WALL_COLOR, WALL_WEIGHT} from "./constants";
 import {Map} from "./_map";
 import {updateDescriptionPopUp} from "./_descriptionPopup";
+import * as L from 'leaflet';
+import {GeoJsonObject} from "geojson";
+import {GeoJSON, LeafletEvent} from "leaflet";
 
 
 export class IndoorLayer {
+    public indoorLayerGroup: any;
+
     constructor() {
         this.createIndoorLayerFromCurrentIndoorData();
     }
@@ -17,13 +22,14 @@ export class IndoorLayer {
         this.indoorLayerGroup.addTo(Map.getMap());
     }
 
-    drawIndoorLayerByGeoJSON(geoJSON) {
-        const layer = L.geoJson(geoJSON, {
+    drawIndoorLayerByGeoJSON(geoJSON: GeoJsonObject) {
+        const layer = new L.GeoJSON(geoJSON, {
             style: this.featureStyle,
             onEachFeature: this.onEachFeature.bind(this),
             pointToLayer: (feature, latlng) => {
                 // avoid icons to be drawn, instead create simple div
                 L.marker(latlng, {icon: L.divIcon()});
+                return null;
             }
         });
         this.indoorLayerGroup.addLayer(layer);
@@ -42,19 +48,19 @@ export class IndoorLayer {
         this.indoorLayerGroup.clearLayers();
     }
 
-    updateLayer(geoJSON) {
+    updateLayer(geoJSON: GeoJsonObject) {
         this.clearIndoorLayer();
         this.drawIndoorLayerByGeoJSON(geoJSON);
     }
 
-    onEachFeature(feature, layer) {
+    onEachFeature(feature: GeoJSON.Feature<any, any>, layer?: any) {
         if (layer._path !== undefined) {
             layer._path.setAttribute('role', 'button');
         }
         layer.on('click', this.openDescriptionPopUp);
     }
 
-    openDescriptionPopUp(e) {
+    openDescriptionPopUp(e: LeafletEvent) {
         const feature = e.sourceTarget.feature;
 
         let popUpText = feature.properties.ref ?? 'ohne Bezeichnung';
@@ -89,7 +95,7 @@ export class IndoorLayer {
         updateDescriptionPopUp(popUpText);
     }
 
-    featureStyle(feature) {
+    featureStyle(feature: GeoJSON.Feature<any>) {
         let fill = '#fff';
 
         if (feature.properties.amenity === 'toilets') {

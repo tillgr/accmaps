@@ -1,14 +1,15 @@
-import 'leaflet/dist/leaflet';
+import * as L from 'leaflet';
 
 import {mapAccessibility} from "./_mapAccessibility";
 import {osmTileServer} from "./constants";
 
-L.Icon.Default.imagePath = '/assets/icons';
 
-let mapInstance = null;
+let mapInstance: L.Map = null;
 
-export class Map {
-    static createMap() {
+export const Map = {
+    createMap() {
+        L.Icon.Default.imagePath = '/assets/icons';
+
         const osmTileLayer = new L.TileLayer(osmTileServer, {maxZoom: 19});
 
         mapInstance = new L.Map('map', {
@@ -17,12 +18,11 @@ export class Map {
         });
 
         osmTileLayer.addTo(mapInstance);
-        mapAccessibility();
-        mapInstance.on('moveend', mapAccessibility);
+        mapInstance.on('load', mapAccessibility)
         return mapInstance;
-    }
+    },
 
-    static getMap() {
+    getMap() {
         if (mapInstance === null) {
             mapInstance = Map.createMap();
         }
