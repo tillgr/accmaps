@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     OverpassData.fetchOverpassData().then(() => {
         LoadingIndicator.end()
-        LevelControl.getInstance();
+        LevelControl.create();
     }).catch((error) => {
         LoadingIndicator.error();
     });

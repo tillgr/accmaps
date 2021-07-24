@@ -1,43 +1,19 @@
-import {FILL_OPACITY, ROOM_COLOR, STAIR_COLOR, TOILET_COLOR, WALL_COLOR, WALL_WEIGHT} from "./constants";
-import {Map} from "./_map";
-import {updateDescriptionPopUp} from "./_descriptionPopup";
 import * as L from 'leaflet';
 import {GeoJsonObject} from "geojson";
-import {GeoJSON, LeafletEvent} from "leaflet";
+import {GeoJSON, LayerGroup, LeafletEvent} from "leaflet";
+
+import {FILL_OPACITY, ROOM_COLOR, STAIR_COLOR, TOILET_COLOR, WALL_COLOR, WALL_WEIGHT} from "./constants";
+import {Map} from "./_map";
+import {DescriptionPopup} from "./_descriptionPopup";
 
 
 export class IndoorLayer {
-    public indoorLayerGroup: any;
+    private readonly indoorLayerGroup: LayerGroup;
 
-    constructor() {
-        this.createIndoorLayerFromCurrentIndoorData();
-    }
-
-    createIndoorLayerFromCurrentIndoorData() {
-        if (this.indoorLayerGroup !== undefined) {
-            this.removeIndoorLayerFromMap();
-        }
-
-        this.indoorLayerGroup = L.layerGroup();
+    constructor(geoJSON: GeoJSON.FeatureCollection<any>) {
+        this.indoorLayerGroup = new LayerGroup();
         this.indoorLayerGroup.addTo(Map.getMap());
-    }
-
-    drawIndoorLayerByGeoJSON(geoJSON: GeoJsonObject) {
-        const layer = new L.GeoJSON(geoJSON, {
-            style: this.featureStyle,
-            onEachFeature: this.onEachFeature.bind(this),
-            pointToLayer: (feature, latlng) => {
-                // avoid icons to be drawn, instead create simple div
-                L.marker(latlng, {icon: L.divIcon()});
-                return null;
-            }
-        });
-        this.indoorLayerGroup.addLayer(layer);
-
-        const featurePaths = document.getElementsByClassName('leaflet-interactive');
-        for (let i = 0; i < featurePaths.length; i++) {
-            featurePaths[i].setAttribute('role', 'button');
-        }
+        this.drawIndoorLayerByGeoJSON(geoJSON)
     }
 
     removeIndoorLayerFromMap() {
@@ -53,14 +29,48 @@ export class IndoorLayer {
         this.drawIndoorLayerByGeoJSON(geoJSON);
     }
 
-    onEachFeature(feature: GeoJSON.Feature<any, any>, layer?: any) {
+    private drawIndoorLayerByGeoJSON(geoJSON: GeoJsonObject) {
+        const layer = new L.GeoJSON(geoJSON, {
+            style: IndoorLayer.featureStyle,
+            onEachFeature: IndoorLayer.onEachFeature,
+            pointToLayer: (feature, latlng) => null
+        });
+
+        this.indoorLayerGroup.addLayer(layer);
+
+        const featurePaths = document.getElementsByClassName('leaflet-interactive');
+        for (let i = 0; i < featurePaths.length; i++) {
+            featurePaths[i].setAttribute('role', 'button');
+        }
+    }
+
+    private static onEachFeature(feature: GeoJSON.Feature<any, any>, layer?: any) {
         if (layer._path !== undefined) {
             layer._path.setAttribute('role', 'button');
         }
-        layer.on('click', this.openDescriptionPopUp);
+        layer.on('click', IndoorLayer.openDescriptionPopUp);
     }
 
-    openDescriptionPopUp(e: LeafletEvent) {
+    private static featureStyle(feature: GeoJSON.Feature<any>) {
+        let fill = '#fff';
+
+        if (feature.properties.amenity === 'toilets') {
+            fill = TOILET_COLOR;
+        } else if (feature.properties.stairs) {
+            fill = STAIR_COLOR;
+        } else if (feature.properties.indoor === 'room') {
+            fill = ROOM_COLOR;
+        }
+
+        return {
+            fillColor: fill,
+            weight: WALL_WEIGHT,
+            color: WALL_COLOR,
+            fillOpacity: FILL_OPACITY
+        };
+    }
+
+    private static openDescriptionPopUp(e: LeafletEvent) {
         const feature = e.sourceTarget.feature;
 
         let popUpText = feature.properties.ref ?? 'ohne Bezeichnung';
@@ -91,26 +101,6 @@ export class IndoorLayer {
 
         popUpText = 'selected map object: ' + popUpText;
 
-
-        updateDescriptionPopUp(popUpText);
-    }
-
-    featureStyle(feature: GeoJSON.Feature<any>) {
-        let fill = '#fff';
-
-        if (feature.properties.amenity === 'toilets') {
-            fill = TOILET_COLOR;
-        } else if (feature.properties.stairs) {
-            fill = STAIR_COLOR;
-        } else if (feature.properties.indoor === 'room') {
-            fill = ROOM_COLOR;
-        }
-
-        return {
-            fillColor: fill,
-            weight: WALL_WEIGHT,
-            color: WALL_COLOR,
-            fillOpacity: FILL_OPACITY
-        };
+        DescriptionPopup.update(popUpText);
     }
 }

@@ -1,14 +1,16 @@
 import {BuildingControl} from "./_buildingControl";
 import {GeoJSON, LatLng, LatLngBounds} from "leaflet";
-import {Position} from "geojson";
+import {GeoJsonObject, Position} from "geojson";
 
 let currentBuildingBBox: LatLngBounds;
 
-function filterGeoJsonData(geoJSON: GeoJSON.FeatureCollection<any>) {
-    currentBuildingBBox = BuildingControl.getCurrentBuildingBoundingBox();
-    const features = geoJSON.features.filter(filterFeatures);
+export function filterGeoJsonData(geoJSON: GeoJsonObject) {
+    let featureCollection = <GeoJSON.FeatureCollection<any>>geoJSON;
 
-    return {type: 'FeatureCollection', features: features};
+    currentBuildingBBox = BuildingControl.getCurrentBuildingBoundingBox();
+    featureCollection.features = featureCollection.features.filter(filterFeatures);
+
+    return featureCollection;
 }
 
 function filterFeatures(feature: GeoJSON.Feature<any>) {
@@ -40,5 +42,3 @@ function filterFeatures(feature: GeoJSON.Feature<any>) {
 
     return inside;
 }
-
-export {filterGeoJsonData}

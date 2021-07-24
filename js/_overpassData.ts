@@ -1,43 +1,36 @@
+import {GeoJsonObject} from "geojson";
 import osmtogeojson from "osmtogeojson";
-import {GeoJSON} from "leaflet";
 
-// get all indoor data from Dresden
-const overpassIndoorQuery = '(area["name"="Dresden"];)->.a;(nwr[indoor](area.a););(._;>;); out;';
-
-// get all buildings that conform the SIT standard (min_level tag is set)
-const overpassBuildingQuery = '(area["name"="Dresden"];)->.a;(nwr[building][min_level](area.a););(._;>;); out;'
-
-let indoorDataGeoJSON: GeoJSON.FeatureCollection<any>;
-let buildingDataGeoJSON: GeoJSON.FeatureCollection<any>;
+let indoorDataGeoJSON: GeoJsonObject;
+let buildingDataGeoJSON: GeoJsonObject;
 
 export const OverpassData = {
     fetchOverpassData(): Promise<boolean> {
-        return Promise.all([fetchIndoorData(), fetchBuildingData()]).then((values: [GeoJSON.FeatureCollection<any>, GeoJSON.FeatureCollection<any>]) => {
+        return Promise.all([fetchIndoorData(), fetchBuildingData()]).then((values: [GeoJsonObject, GeoJsonObject]) => {
             indoorDataGeoJSON = values[0];
             buildingDataGeoJSON = values[1];
             return true;
         });
     },
 
-    getIndoorData(): GeoJSON.FeatureCollection<any> {
+    getIndoorData(): GeoJsonObject {
         return indoorDataGeoJSON;
     },
 
-    getBuildingData(): GeoJSON.FeatureCollection<any> {
+    getBuildingData(): GeoJsonObject {
         return buildingDataGeoJSON;
     }
 };
 
-
 function fetchIndoorData() {
-    return getOverpassData('/osm.xml'); //overpassUrl + overpassIndoorQuery
+    return getOverpassData('/osm.xml');
 }
 
 function fetchBuildingData() {
-    return getOverpassData('/buildings.xml'); //overpassUrl + overpassBuildingQuery
+    return getOverpassData('/buildings.xml');
 }
 
-function getOverpassData(query: string) {
+function getOverpassData(overpassQuery: string) {
     return new Promise((resolve, reject) => {
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = () => {
@@ -51,7 +44,7 @@ function getOverpassData(query: string) {
             }
         };
 
-        xhr.open('GET', query, true);
+        xhr.open('GET', overpassQuery, true); //todo: correctly use overpass url here
         xhr.send();
     });
 }
