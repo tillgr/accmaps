@@ -43,13 +43,17 @@ export const BuildingControl = {
         return null;
     },
 
-    searchForBuilding(searchTerm: string): boolean {
+    searchForBuilding(searchTerm: string): Promise<string> {
         currentBuilding = searchTerm;
 
-        LevelControl.remove();
-        LevelControl.create();
-
-        return true; //todo: return false in case building wasn't found
+        return new Promise<string>((resolve, reject) => {
+            if (BuildingControl.getCurrentBuildingBoundingBox() === null) {
+                reject('Building "' + searchTerm + '" could not be found');
+            }
+            LevelControl.remove();
+            LevelControl.create();
+            resolve('');
+        });
     }
 }
 

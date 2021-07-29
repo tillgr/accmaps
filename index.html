@@ -42,12 +42,17 @@
 <!-- Modal Structure -->
 <div id="modal1" class="modal" aria-disabled="true">
     <div class="modal-content">
-        <label for="buildingSearch">Search for a building</label>
+        <h4>Search for buildings</h4>
+        <label for="buildingSearch">Search term</label>
         <input type="text" id="buildingSearch" placeholder="Name">
-        <button class="btn" id="buildingSearchSubmit">Search</button>
+
+        <div class="card-panel scale-transition scale-out">
+            <span class="red-text" id="searchErrorMessage">This is a card panel with dark blue text</span>
+        </div>
     </div>
     <div class="modal-footer">
-        <a href="#map" class="modal-close waves-effect waves-green btn-flat">Abort</a>
+        <a href="#map" class="modal-close waves-effect waves-teal btn-flat">Abort</a>
+        <button class="btn" id="buildingSearchSubmit">Search</button>
     </div>
 </div>
 
