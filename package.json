@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/leaflet": "^1.7.4",
+    "@types/materialize-css": "^1.0.11",
     "geojson-bounding-box": "^0.2.0",
     "leaflet": "^1.7.1",
     "materialize-css": "^1.0.0",

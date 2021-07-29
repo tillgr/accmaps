@@ -3,13 +3,17 @@ import {GeoJSON, LatLng, LatLngBounds} from "leaflet";
 const toBBox = require('geojson-bounding-box');
 
 import {OverpassData} from "./_overpassData";
-import {Map as M} from "./_map";
 import {LevelControl} from "./_levelControl";
+import {filterGeoJsonDataByBuildingBBox} from "./_filterGeoJsonDataByBuildingBBox";
 
 let currentBuilding: string = 'APB';
 let buildingBBoxesByBuildingName: Map<string, LatLngBounds> = new Map<string, LatLngBounds>();
 
 export const BuildingControl = {
+    getCurrentBuildingGeoJSON() {
+        return filterGeoJsonDataByBuildingBBox(OverpassData.getIndoorData(), BuildingControl.getCurrentBuildingBoundingBox());
+    },
+
     getCurrentBuildingBoundingBox(): LatLngBounds {
         if (buildingBBoxesByBuildingName.get(currentBuilding) !== undefined) {
             return buildingBBoxesByBuildingName.get(currentBuilding);
@@ -39,23 +43,13 @@ export const BuildingControl = {
         return null;
     },
 
-    searchForBuilding() {
-        const buildingSearchBox = (<HTMLInputElement>document.getElementById('buildingSearch'));
-        currentBuilding = buildingSearchBox.value;
-
-        centerMapToBuilding();
+    searchForBuilding(searchTerm: string): boolean {
+        currentBuilding = searchTerm;
 
         LevelControl.remove();
         LevelControl.create();
+
+        return true; //todo: return false in case building wasn't found
     }
 }
 
-function centerMapToBuilding() {
-    const currentBuildingBBox = BuildingControl.getCurrentBuildingBoundingBox();
-
-    if (currentBuildingBBox !== null) {
-        const center = currentBuildingBBox.getCenter();
-        //strange behaviour: getCenter returns values in wrong order - leaflet bug?
-        M.getMap().panTo(new LatLng(center.lng, center.lat));
-    }
-}

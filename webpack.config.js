@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
     mode: "development",
-    entry: [path.resolve(__dirname, "./js/main.ts"), path.resolve(__dirname, "./js/ui.js")],
+    entry: [path.resolve(__dirname, "./js/main.ts"), path.resolve(__dirname, "./js/ui.ts")],
     output: {
         path: path.resolve(__dirname, "./dist"),
         filename: "[name].js",

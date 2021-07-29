@@ -1,10 +1,9 @@
 import {GeoJSON} from "leaflet";
 
-import {filterGeoJsonData} from "./_filterGeoJsonData";
 import {IndoorLayer} from "./_indoorLayer";
 import {LevelInformation} from "./_levelInformation";
-import {OverpassData} from "./_overpassData";
 import {DescriptionPopup} from "./_descriptionPopup";
+import {BuildingControl} from "./_buildingControl";
 
 
 import {INDOOR_LEVEL} from "./constants";
@@ -20,7 +19,7 @@ export const LevelControl = {
         currentLevel = INDOOR_LEVEL;
         allLevels = new Set<string>();
         geoJSONByLevel = new Map<string, any>();
-        currentBuildingIndoorData = filterGeoJsonData(OverpassData.getIndoorData());
+        currentBuildingIndoorData = BuildingControl.getCurrentBuildingGeoJSON();
 
         indoorLayer = new IndoorLayer(LevelControl.getCurrentLevelGeoJSON());
         createLevelControlButtons();
