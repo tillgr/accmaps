@@ -4,18 +4,17 @@ import {GeoJsonObject, Position} from "geojson";
 
 let currentBuildingBBox: LatLngBounds;
 
-export function filterGeoJsonData(geoJSON: GeoJsonObject) {
-    let featureCollection = <GeoJSON.FeatureCollection<any>>geoJSON;
-
+export function filterGeoJsonData(geoJSON: GeoJsonObject): GeoJSON.FeatureCollection<any> {
+    const featureCollection = <GeoJSON.FeatureCollection<any>>geoJSON;
     currentBuildingBBox = BuildingControl.getCurrentBuildingBoundingBox();
-    featureCollection.features = featureCollection.features.filter(filterFeatures);
+    const featureCollectionFilteredFeatures = featureCollection.features.filter(filterFeatures);
 
-    return featureCollection;
+    //create a new object to avoid to original GeoJSON object to be modified
+    return {type: "FeatureCollection", features: featureCollectionFilteredFeatures} as GeoJSON.FeatureCollection<any>;
 }
 
 function filterFeatures(feature: GeoJSON.Feature<any>) {
-    //todo: check if Lines/points should really be filtered!!!!
-    if (feature.properties === undefined || feature.properties.level === undefined || feature.geometry.type === 'Line' || feature.geometry.type === 'Point') {
+    if (feature.properties === undefined || feature.properties.level === undefined) {
         return false;
     }
 
@@ -24,21 +23,33 @@ function filterFeatures(feature: GeoJSON.Feature<any>) {
         return true;
     }
 
-    let inside = false;
+    return isFeatureInsideCurrentBuilding(feature.geometry.coordinates);
+}
 
-    if (feature.geometry.type === 'Polygon') {
-        feature.geometry.coordinates.forEach((c: Position[][][] | Position[][] | Position[]) => {
-            c.some((p: any[]) => {
-                const latLng = new LatLng(p[0], p[1]);
-                if (currentBuildingBBox.contains(latLng)) {
-                    return inside = true;
-                }
-                return false;
+function isFeatureInsideCurrentBuilding(featureCoordinates: Position[][] | Position[] | Position): boolean {
+    switch (getArrayDepth(featureCoordinates)) {
+        case 1:
+            featureCoordinates = <Position>featureCoordinates;
+            const latLng = new LatLng(featureCoordinates[0], featureCoordinates[1]);
+            return currentBuildingBBox.contains(latLng);
+        case 2:
+            featureCoordinates = <Position[]>featureCoordinates;
+            return featureCoordinates.some((fc: Position) => {
+                const latLng = new LatLng(fc[0], fc[1]);
+                return currentBuildingBBox.contains(latLng);
             });
-        });
-    } else if (feature.geometry.type === 'MultiPolygon') {
-        // todo
+        case 3:
+            featureCoordinates = <Position[][]>featureCoordinates;
+            return featureCoordinates.some((fc: Position[]) => {
+                return fc.some((fc2: Position) => {
+                    const latLng = new LatLng(fc2[0], fc2[1]);
+                    return currentBuildingBBox.contains(latLng);
+                });
+            });
     }
+}
 
-    return inside;
+
+function getArrayDepth(value: any[]): number {
+    return Array.isArray(value) ? 1 + Math.max(...value.map(getArrayDepth)) : 0;
 }
