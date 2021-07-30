@@ -111,15 +111,24 @@ function createLevelControlButtons() {
 
     allLevels.forEach((level: string) => {
         const changeToLevel = 'change to level ' + level;
-        const levelBtn = document.createElement('a');
-        levelBtn.className = 'btn';
-        levelBtn.innerText = level;
+        const levelBtn = document.createElement('li');
+        levelBtn.className = 'waves-effect';
+        levelBtn.innerHTML = '<a>' + level + '</a>'; //todo: proper solution
         levelBtn.setAttribute('role', 'button');
         levelBtn.setAttribute('title', changeToLevel);
         levelBtn.setAttribute('aria-label', changeToLevel);
 
-        levelBtn.addEventListener('click', () => {
-            LevelControl.changeCurrentLevel(level)
+        if (level == INDOOR_LEVEL) {
+            levelBtn.classList.add('active');
+        }
+
+        levelBtn.addEventListener('click', (e: MouseEvent) => {
+            LevelControl.changeCurrentLevel(level);
+
+            for (let i = 0; i < levelControl.children.length; i++) {
+                levelControl.children[i].classList.remove('active');
+            }
+            (<HTMLElement>e.target).parentElement.classList.add('active');
         });
 
         levelControl.appendChild(levelBtn);
