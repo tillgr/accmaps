@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,23 +20,10 @@
 
 <div id="map" aria-label="Map"></div>
 
-<div class="container">
-    <div class="row">
-        <div class="col s12">
-            <ul class="pagination scale-transition scale-out" id="levelControl"></ul>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12">
-            <div id="descriptionArea" class="scale-transition scale-out" role="status"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12">
-            <a class="waves-effect waves-light btn modal-trigger" href="#modal1" role="button">Search for buildings</a>
-        </div>
-    </div>
-</div>
+<ul class="pagination scale-transition scale-out" id="levelControl"></ul>
+
+<div id="descriptionArea" class="card-panel scale-transition scale-out" role="status"></div>
+
 
 <!-- Modal Structure -->
 <div id="modal1" class="modal" aria-disabled="true">
@@ -54,6 +40,13 @@
         <a href="#map" class="modal-close waves-effect waves-teal btn-flat">Abort</a>
         <button class="btn" id="buildingSearchSubmit">Search</button>
     </div>
+</div>
+
+
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large red modal-trigger" href="#modal1" title="search for buildings" role="button">
+        <i class="large material-icons" aria-disabled="true">search</i>
+    </a>
 </div>
 
 <script src="./dist/main.js"></script>

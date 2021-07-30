@@ -27,4 +27,9 @@ html, body {
     margin-right: 3px
 }
 
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
