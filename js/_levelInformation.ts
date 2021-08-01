@@ -1,32 +1,30 @@
 import {GeoJSON} from "leaflet";
+import {LevelAccessibilityProperties} from "./interfaces/levelAccessibilityProperties";
 
-const propertiesByLevel: any[string] = [];
+const propertiesByLevel: Map<string, LevelAccessibilityProperties> = new Map<string, LevelAccessibilityProperties>();
 
 export const LevelInformation = {
-    generateFromGeoJSON(geoJSONFeatures: GeoJSON.Feature<any, any>[]) {
-
-        const levelProperties = {
-            'accessibleToilets': false,
-            'accessibleFloors': false
-            // TODO: add more properties
-        };
-
-        geoJSONFeatures.forEach((feature: GeoJSON.Feature<any, any>) => {
-            if (feature.properties.amenity !== undefined && feature.properties.amenity === 'toilets'
-                && feature.properties.wheelchair !== undefined && feature.properties.wheelchair !== 'no') {
-                levelProperties.accessibleToilets = true;
-            }
-        });
-
-        return levelProperties;
-    },
-
-    getPropertiesForLevel(level: string, geoJSONFeatures: any) {
-        if (propertiesByLevel[level] !== undefined) {
-            return propertiesByLevel[level];
+    getForLevel(level: string, featureCollection: GeoJSON.FeatureCollection<any, any>): LevelAccessibilityProperties {
+        if (propertiesByLevel.get(level) !== undefined) {
+            return propertiesByLevel.get(level);
         }
 
-        // save to array and return value
-        return propertiesByLevel[level] = this.generateFromGeoJSON(geoJSONFeatures);
+        propertiesByLevel.set(level, generateFromGeoJSON(featureCollection.features))
+        return propertiesByLevel.get(level);
     }
+}
+
+function generateFromGeoJSON(geoJSONFeatures: GeoJSON.Feature<any, any>[]) {
+    const levelProperties: LevelAccessibilityProperties = {
+        accessibleToilets: false,
+        accessibleFloors: false
+    };
+
+    geoJSONFeatures.forEach((feature: GeoJSON.Feature<any, any>) => {
+        if (feature.properties.amenity !== undefined && feature.properties.amenity === 'toilets'
+            && feature.properties.wheelchair !== undefined && feature.properties.wheelchair !== 'no') {
+            levelProperties.accessibleToilets = true;
+        }
+    });
+    return levelProperties;
 }

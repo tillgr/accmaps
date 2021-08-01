@@ -32,11 +32,11 @@ function fetchBuildingData() {
 
 function getOverpassData(overpassQuery: string) {
     return new Promise((resolve, reject) => {
-        let xhr = new XMLHttpRequest();
+        const xhr = new XMLHttpRequest();
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
-                    let returnValue = osmtogeojson(xhr.responseXML);
+                    const returnValue = osmtogeojson(xhr.responseXML);
                     resolve(returnValue);
                 } else if (xhr.status > 400) {
                     reject('an error occurred.');

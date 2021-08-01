@@ -1,5 +1,5 @@
 export const DescriptionPopup = {
-    update(message: string) {
+    update(message: string):void {
         const popUpArea = document.getElementById('descriptionArea');
         if (popUpArea.innerText === "") {
             popUpArea.classList.add('scale-in');

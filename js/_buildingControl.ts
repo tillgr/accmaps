@@ -1,16 +1,16 @@
 import {GeoJSON, LatLng, LatLngBounds} from "leaflet";
 
-const toBBox = require('geojson-bounding-box');
-
 import {OverpassData} from "./_overpassData";
 import {LevelControl} from "./_levelControl";
 import {filterGeoJsonDataByBuildingBBox} from "./_filterGeoJsonDataByBuildingBBox";
 
-let currentBuilding: string = 'APB';
-let buildingBBoxesByBuildingName: Map<string, LatLngBounds> = new Map<string, LatLngBounds>();
+const toBBox = require('geojson-bounding-box');
+
+const buildingBBoxesByBuildingName: Map<string, LatLngBounds> = new Map<string, LatLngBounds>();
+let currentBuilding = 'APB';
 
 export const BuildingControl = {
-    getCurrentBuildingGeoJSON() {
+    getCurrentBuildingGeoJSON():GeoJSON.FeatureCollection<any> {
         return filterGeoJsonDataByBuildingBBox(OverpassData.getIndoorData(), BuildingControl.getCurrentBuildingBoundingBox());
     },
 

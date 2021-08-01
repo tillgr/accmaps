@@ -12,19 +12,19 @@ export class IndoorLayer {
 
     constructor(geoJSON: GeoJSON.FeatureCollection<any>) {
         this.indoorLayerGroup = new LayerGroup();
-        this.indoorLayerGroup.addTo(Map.getMap());
+        this.indoorLayerGroup.addTo(Map.get());
         this.drawIndoorLayerByGeoJSON(geoJSON)
     }
 
-    removeIndoorLayerFromMap() {
-        Map.getMap().removeLayer(this.indoorLayerGroup);
+    removeIndoorLayerFromMap(): void {
+        Map.get().removeLayer(this.indoorLayerGroup);
     }
 
-    clearIndoorLayer() {
+    clearIndoorLayer(): void {
         this.indoorLayerGroup.clearLayers();
     }
 
-    updateLayer(geoJSON: GeoJsonObject) {
+    updateLayer(geoJSON: GeoJsonObject): void {
         this.clearIndoorLayer();
         this.drawIndoorLayerByGeoJSON(geoJSON);
     }
@@ -33,7 +33,7 @@ export class IndoorLayer {
         const layer = new L.GeoJSON(geoJSON, {
             style: IndoorLayer.featureStyle,
             onEachFeature: IndoorLayer.onEachFeature,
-            pointToLayer: (feature, latlng) => null
+            pointToLayer: () => null
         });
 
         this.indoorLayerGroup.addLayer(layer);
@@ -72,9 +72,9 @@ export class IndoorLayer {
 
     private static openDescriptionPopUp(e: LeafletEvent) {
         const feature = e.sourceTarget.feature;
+        const cellName = feature.properties.name;
 
         let popUpText = feature.properties.ref ?? 'ohne Bezeichnung';
-        let cellName = feature.properties.name;
 
         if (cellName !== undefined && cellName.length !== 0) {
             popUpText += ' (' + cellName + ')';

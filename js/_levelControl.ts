@@ -9,7 +9,7 @@ import {INDOOR_LEVEL} from "./constants";
 
 let currentLevel: string;
 let allLevels: Array<string>;
-let geoJSONByLevel: Map<string, any>;
+let geoJSONByLevel: Map<string, GeoJSON.FeatureCollection<any, any>>;
 let currentBuildingIndoorData: any;
 let indoorLayer: IndoorLayer;
 
@@ -24,18 +24,23 @@ export const LevelControl = {
         createLevelControlButtons();
     },
 
-    getCurrentLevelGeoJSON(): GeoJSON.FeatureCollection<any> {
+    getCurrentLevelGeoJSON: function (): GeoJSON.FeatureCollection<any> {
         if (geoJSONByLevel.get(currentLevel) !== undefined) {
             return geoJSONByLevel.get(currentLevel);
         }
 
-        const levelFilteredFeatureCollection = currentBuildingIndoorData.features.filter(filterByLevel);
+        const levelFilteredFeatures = currentBuildingIndoorData.features.filter(filterByLevel);
+        const levelFilteredFeatureCollection: GeoJSON.FeatureCollection<any, any> = {
+            type: 'FeatureCollection',
+            features: levelFilteredFeatures
+        };
+
         geoJSONByLevel.set(currentLevel, levelFilteredFeatureCollection);
 
         return geoJSONByLevel.get(currentLevel);
     },
 
-    changeCurrentLevel(newLevel: string) {
+    changeCurrentLevel(newLevel: string): void {
         currentLevel = newLevel;
         indoorLayer.updateLayer(LevelControl.getCurrentLevelGeoJSON());
         updateCurrentLevelDescription()
@@ -88,10 +93,7 @@ function _getLevelRange(level: string): string[] {
         maxLevel = parseInt(level.slice(thirdDash, level.length));
 
         if (minLevel > maxLevel) {
-            // [-1--5]
-            let tempMin = minLevel;
-            minLevel = maxLevel;
-            maxLevel = tempMin;
+            [minLevel, maxLevel] = [maxLevel, minLevel];
         }
     }
     if (level.charAt(0) !== "-" || dashCount > 1) {
@@ -142,7 +144,7 @@ function _getAllLevelsFromGeoJSON(): void {
             return;
         }
 
-        let level = feature.properties.level = feature.properties.level.trim();
+        const level = feature.properties.level = feature.properties.level.trim();
 
         if (level.includes(";")) {
             feature.properties.level = level.split(";");
@@ -166,7 +168,8 @@ function _getAllLevelsFromGeoJSON(): void {
 }
 
 function updateCurrentLevelDescription(): void {
-    const levelProperties = LevelInformation.getPropertiesForLevel(currentLevel, LevelControl.getCurrentLevelGeoJSON());
+    const levelProperties = LevelInformation.getForLevel(currentLevel, LevelControl.getCurrentLevelGeoJSON());
+
     let accessibilityInformation = '';
     accessibilityInformation += (levelProperties['accessibleToilets']) ? 'there are accessible toilets' : 'no accessible toilets available';
     // todo: ...

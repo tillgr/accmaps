@@ -1,4 +1,4 @@
-export function mapAccessibility() {
+export function mapAccessibility():void {
     removeShadowPane();
     silenceTileImages();
     silenceMapMarkers();

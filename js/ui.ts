@@ -58,12 +58,12 @@ function centerMapToBuilding() {
     if (currentBuildingBBox !== null) {
         const center = currentBuildingBBox.getCenter();
         //strange behaviour: getCenter returns values in wrong order - leaflet bug?
-        Map.getMap().panTo(new LatLng(center.lng, center.lat));
+        Map.get().panTo(new LatLng(center.lng, center.lat));
     }
 }
 
 function closeSearchModal() {
-    let elems = document.querySelectorAll(".modal");
+    const elems = document.querySelectorAll(".modal");
     Modal.getInstance(elems[0]).close();
 }
 

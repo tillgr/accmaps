@@ -5,7 +5,7 @@ import {LoadingIndicator} from "./_loadingIndicator";
 
 document.addEventListener('DOMContentLoaded', function () {
     LoadingIndicator.start()
-    Map.getMap();
+    Map.get();
 
     OverpassData.fetchOverpassData().then(() => {
         LoadingIndicator.end()
