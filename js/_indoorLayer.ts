@@ -5,6 +5,8 @@ import {GeoJSON, LayerGroup, LeafletEvent} from "leaflet";
 import {FILL_OPACITY, ROOM_COLOR, STAIR_COLOR, TOILET_COLOR, WALL_COLOR, WALL_WEIGHT} from "./constants";
 import {Map} from "./_map";
 import {DescriptionPopup} from "./_descriptionPopup";
+import {FeatureAccessibilityPropertiesInterface} from "./interfaces/featureAccessibilityPropertiesInterface";
+import {featureAccessibilityProperties} from "./data/featureAccessibilityProperties";
 
 
 export class IndoorLayer {
@@ -35,9 +37,11 @@ export class IndoorLayer {
             onEachFeature: IndoorLayer.onEachFeature,
             pointToLayer: () => null
         });
-
         this.indoorLayerGroup.addLayer(layer);
+        IndoorLayer.makeFeaturesAccessible();
+    }
 
+    private static makeFeaturesAccessible() {
         const featurePaths = document.getElementsByClassName('leaflet-interactive');
         for (let i = 0; i < featurePaths.length; i++) {
             featurePaths[i].setAttribute('role', 'button');
@@ -48,7 +52,10 @@ export class IndoorLayer {
         if (layer._path !== undefined) {
             layer._path.setAttribute('role', 'button');
         }
-        layer.on('click', IndoorLayer.openDescriptionPopUp);
+        layer.on('click', (e: LeafletEvent) => {
+            const accessibilityDescription = IndoorLayer.generateAccessibilityDescription(e);
+            DescriptionPopup.update(accessibilityDescription);
+        });
     }
 
     private static featureStyle(feature: GeoJSON.Feature<any>) {
@@ -56,7 +63,7 @@ export class IndoorLayer {
 
         if (feature.properties.amenity === 'toilets') {
             fill = TOILET_COLOR;
-        } else if (feature.properties.stairs) {
+        } else if (feature.properties.stairs || (feature.properties.highway && (feature.properties.highway == 'elevator' || feature.properties.highway == 'escalator'))) {
             fill = STAIR_COLOR;
         } else if (feature.properties.indoor === 'room') {
             fill = ROOM_COLOR;
@@ -70,37 +77,23 @@ export class IndoorLayer {
         };
     }
 
-    private static openDescriptionPopUp(e: LeafletEvent) {
+    private static generateAccessibilityDescription(e: LeafletEvent): string {
         const feature = e.sourceTarget.feature;
-        const cellName = feature.properties.name;
-
         let popUpText = feature.properties.ref ?? 'ohne Bezeichnung';
 
-        if (cellName !== undefined && cellName.length !== 0) {
-            popUpText += ' (' + cellName + ')';
+        if (feature.properties.name !== undefined && feature.properties.name.length !== 0) {
+            popUpText += ' (' + feature.properties.name + ')';
         }
 
-        if (feature.properties.handrail !== undefined) {
-            popUpText += ', handrail available';
-        }
-
-        if (feature.properties.tactile_paving !== undefined) {
-            popUpText += ', tactile paving available';
-        }
-
-        if (feature.properties.amenity !== undefined && feature.properties.amenity === "toilets") {
-            popUpText += ', toilet';
-            if (feature.properties.female !== undefined && feature.properties.female === 'yes') {
-                popUpText += ' (female)';
-            } else if (feature.properties.male !== undefined && feature.properties.male === 'yes') {
-                popUpText += ' (male)';
-            } else {
-                popUpText += ' (unisex or unknown)';
+        featureAccessibilityProperties.forEach((e: FeatureAccessibilityPropertiesInterface) => {
+            if (feature.properties[e.name] !== undefined &&
+                (e.value === true || feature.properties[e.name] === e.value)) {
+                popUpText += ', ' + (e.message ? e.message : feature.properties[e.name]);
             }
-        }
+        })
 
-        popUpText = 'selected map object: ' + popUpText;
+        console.log(feature.properties);
 
-        DescriptionPopup.update(popUpText);
+        return 'selected map object: ' + popUpText;
     }
 }
