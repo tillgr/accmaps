@@ -1,14 +1,17 @@
-const OVERPASS_API_URL = 'https://z.overpass-api.de/api/interpreter?data=';
-const OSM_TILE_SERVER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const URLS = {
+    OVERPASS_API: 'https://z.overpass-api.de/api/interpreter?data=',
+    OSM_TILE_SERVER: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+}
 
-// get all indoor data from Dresden
-const OVERPASS_INDOOR_QUERY = '(area["name"="Dresden"];)->.a;(nwr[indoor](area.a););(._;>;); out;';
-
-// get all buildings that conform the SIT standard (min_level tag is set)
-const OVERPASS_SIT_BUILDINGS_QUERY = '(area["name"="Dresden"];)->.a;(nwr[building][min_level](area.a););(._;>;); out;'
+const OVERPASS_QUERIES = {
+    // get all indoor data from Dresden
+    OVERPASS_INDOOR_QUERY: '(area["name"="Dresden"];)->.a;(nwr[indoor](area.a););(._;>;); out;',
+    // get all buildings that conform the SIT standard (min_level tag is set)
+    OVERPASS_SIT_BUILDINGS_QUERY: '(area["name"="Dresden"];)->.a;(nwr[building][min_level](area.a););(._;>;); out;'
+}
 
 const INDOOR_LEVEL = '0';
-const FILL_OPACITY = 1;
+const FILL_OPACITY = 0.9;
 const WALL_WEIGHT = 3;
 
 const COLORS = {
@@ -21,10 +24,8 @@ const COLORS = {
 }
 
 export {
-    OVERPASS_API_URL,
-    OSM_TILE_SERVER,
-    OVERPASS_SIT_BUILDINGS_QUERY,
-    OVERPASS_INDOOR_QUERY,
+    URLS,
+    OVERPASS_QUERIES,
     INDOOR_LEVEL,
     FILL_OPACITY,
     WALL_WEIGHT,
