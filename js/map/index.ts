@@ -1,7 +1,7 @@
 import {LatLng, Map as LeafletMap, TileLayer} from 'leaflet';
 
 import {mapAccessibility} from "./_mapAccessibility";
-import {URLS} from "./constants";
+import {URLS} from "../data/constants";
 
 
 let mapInstance: LeafletMap = null;

@@ -1,7 +1,7 @@
 import {Modal} from 'materialize-css';
-import {Map} from "./_map";
+import {Map} from "./map";
 import {LatLng} from "leaflet";
-import {BuildingControl} from "./_buildingControl";
+import {BuildingControl} from "./buildingControl";
 
 
 // == CSS ==

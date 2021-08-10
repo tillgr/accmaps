@@ -1,7 +1,7 @@
 import {GeoJSON, LatLng, LatLngBounds} from "leaflet";
 
-import {OverpassData} from "./_overpassData";
-import {LevelControl} from "./_levelControl";
+import {OverpassData} from "../overpassData";
+import {LevelControl} from "../levelControl";
 import {filterGeoJsonDataByBuildingBBox} from "./_filterGeoJsonDataByBuildingBBox";
 
 const toBBox = require('geojson-bounding-box');

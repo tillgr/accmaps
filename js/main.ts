@@ -1,7 +1,7 @@
-import {Map} from "./_map";
-import {OverpassData} from "./_overpassData";
-import {LevelControl} from "./_levelControl";
-import {LoadingIndicator} from "./_loadingIndicator";
+import {Map} from "./map";
+import {OverpassData} from "./overpassData";
+import {LevelControl} from "./levelControl";
+import {LoadingIndicator} from "./ui/_loadingIndicator";
 
 document.addEventListener('DOMContentLoaded', function () {
     LoadingIndicator.start()
