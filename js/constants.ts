@@ -10,10 +10,15 @@ const OVERPASS_SIT_BUILDINGS_QUERY = '(area["name"="Dresden"];)->.a;(nwr[buildin
 const INDOOR_LEVEL = '0';
 const FILL_OPACITY = 1;
 const WALL_WEIGHT = 3;
-const WALL_COLOR = '#000000'
-const TOILET_COLOR = '#dfed64';
-const ROOM_COLOR = '#0A485B';
-const STAIR_COLOR = '#dddddd';
+
+const COLORS = {
+    WALL: '#000000',
+    WALL_SELECTED: '#068288',
+    TOILET: '#dfed64',
+    STAIR: '#dddddd',
+    ROOM: '#025558',
+    ROOM_SELECTED: '#FF6F03',
+}
 
 export {
     OVERPASS_API_URL,
@@ -23,8 +28,5 @@ export {
     INDOOR_LEVEL,
     FILL_OPACITY,
     WALL_WEIGHT,
-    WALL_COLOR,
-    TOILET_COLOR,
-    ROOM_COLOR,
-    STAIR_COLOR
+    COLORS
 };

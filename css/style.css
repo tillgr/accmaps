@@ -33,3 +33,7 @@ html, body {
     justify-content: center;
 }
 
+svg path{
+    transition: fill 300ms;
+}
+

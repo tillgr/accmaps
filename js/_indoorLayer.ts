@@ -2,12 +2,14 @@ import * as L from 'leaflet';
 import {GeoJsonObject} from "geojson";
 import {GeoJSON, LayerGroup, LeafletEvent} from "leaflet";
 
-import {FILL_OPACITY, ROOM_COLOR, STAIR_COLOR, TOILET_COLOR, WALL_COLOR, WALL_WEIGHT} from "./constants";
+import {FILL_OPACITY, COLORS, WALL_WEIGHT} from "./constants";
+
 import {Map} from "./_map";
 import {DescriptionPopup} from "./_descriptionPopup";
 import {FeatureAccessibilityPropertiesInterface} from "./interfaces/featureAccessibilityPropertiesInterface";
 import {featureAccessibilityProperties} from "./data/featureAccessibilityProperties";
 
+let currentlySelectedFeaturePath: HTMLElement = null;
 
 export class IndoorLayer {
     private readonly indoorLayerGroup: LayerGroup;
@@ -55,6 +57,7 @@ export class IndoorLayer {
         layer.on('click', (e: LeafletEvent) => {
             const accessibilityDescription = IndoorLayer.generateAccessibilityDescription(e);
             DescriptionPopup.update(accessibilityDescription);
+            IndoorLayer.highlightCurrentFeature(e);
         });
     }
 
@@ -62,17 +65,17 @@ export class IndoorLayer {
         let fill = '#fff';
 
         if (feature.properties.amenity === 'toilets') {
-            fill = TOILET_COLOR;
+            fill = COLORS.TOILET;
         } else if (feature.properties.stairs || (feature.properties.highway && (feature.properties.highway == 'elevator' || feature.properties.highway == 'escalator'))) {
-            fill = STAIR_COLOR;
+            fill = COLORS.STAIR;
         } else if (feature.properties.indoor === 'room') {
-            fill = ROOM_COLOR;
+            fill = COLORS.ROOM;
         }
 
         return {
             fillColor: fill,
             weight: WALL_WEIGHT,
-            color: WALL_COLOR,
+            color: COLORS.WALL,
             fillOpacity: FILL_OPACITY
         };
     }
@@ -90,10 +93,18 @@ export class IndoorLayer {
                 (e.value === true || feature.properties[e.name] === e.value)) {
                 popUpText += ', ' + (e.message ? e.message : feature.properties[e.name]);
             }
-        })
-
-        console.log(feature.properties);
-
+        });
         return 'selected map object: ' + popUpText;
+    }
+
+    private static highlightCurrentFeature(e: LeafletEvent) {
+        if (currentlySelectedFeaturePath !== null) {
+            currentlySelectedFeaturePath.setAttribute('fill', COLORS.ROOM);
+            currentlySelectedFeaturePath.style.filter = '';
+        }
+
+        currentlySelectedFeaturePath = <HTMLElement>e.sourceTarget._path;
+        currentlySelectedFeaturePath.setAttribute('fill', COLORS.ROOM_SELECTED);
+        currentlySelectedFeaturePath.style.filter = 'drop-shadow(3px 3px 7px rgb(0 0 0 / 0.8))';
     }
 }
