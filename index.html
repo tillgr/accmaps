@@ -26,9 +26,9 @@
 
 
 <!-- Modal Structure -->
-<div id="modal1" class="modal" aria-disabled="true">
+<div id="buildingSearchModal" class="modal" aria-disabled="true">
     <div class="modal-content">
-        <h4>Search for buildings</h4>
+        <h3>Search for buildings</h3>
         <label for="buildingSearch">Search term</label>
         <input type="text" id="buildingSearch" placeholder="Name">
 
@@ -42,9 +42,25 @@
     </div>
 </div>
 
+<div id="userProfileModal" class="modal bottom-sheet " aria-disabled="true">
+    <div class="modal-content">
+        <h3 class="header">Select User Profile</h3>
+        <div class="collection">
+            <!-- todo: fill dynamically-->
+            <a class="collection-item" id="userProfileWheelchair" href="#map"><span>Wheelchair users <span
+                    class="secondary-content"><i class="material-icons">accessible</i></span></span></a>
+            <a class="collection-item" id="userProfileVI" href="#map"><span>Users with visual impairments <span
+                    class="secondary-content"><i class="material-icons">visibility_off</i></span></span></a>
+            <a class="collection-item" id="userProfileNormal" href="#map"><span>Users with no special needs<span
+                    class="secondary-content"><i class="material-icons">people</i></span></span></a>
+        </div>
+    </div>
+</div>
+
 
 <div class="fixed-action-btn">
-    <a class="btn-floating btn-large red modal-trigger" href="#modal1" title="search for buildings" role="button">
+    <a class="btn-floating btn-large red modal-trigger" href="#buildingSearchModal" title="search for buildings"
+       role="button">
         <i class="large material-icons" aria-disabled="true">search</i>
     </a>
 </div>
