@@ -39,7 +39,7 @@ function getOverpassData(overpassQuery: string) {
                     const returnValue = osmtogeojson(xhr.responseXML);
                     resolve(returnValue);
                 } else if (xhr.status > 400) {
-                    reject('an error occurred.');
+                    reject('An error occurred while fetching building data: ' + xhr.statusText);
                 }
             }
         };

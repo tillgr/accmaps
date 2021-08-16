@@ -11,6 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
         LoadingIndicator.end()
         LevelControl.create();
     }).catch((error) => {
-        LoadingIndicator.error();
+        LoadingIndicator.error(error);
     });
 });

@@ -10,8 +10,9 @@ export const LoadingIndicator = {
         loading_indicator.children[0].classList.remove('indeterminate');
     },
 
-    error(): void {
+    error(msg: string): void {
         LoadingIndicator.end();
         loading_indicator.classList.add('red');
+        M.toast({html: msg});
     }
 }

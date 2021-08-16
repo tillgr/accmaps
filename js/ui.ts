@@ -2,20 +2,17 @@ import {Modal} from 'materialize-css';
 import {Map} from "./map";
 import {LatLng} from "leaflet";
 import {BuildingControl} from "./buildingControl";
-
+import {UserProfileModal} from "./ui/_userProfileModal";
 
 // == CSS ==
 import "materialize-css/dist/css/materialize.css";
 import "leaflet/dist/leaflet.css";
 import "../css/style.css";
-import {UserProfile} from "./userProfile";
-import {UserGroup} from "./data/userGroup";
-
 
 document.addEventListener('DOMContentLoaded', function () {
     initMaterialize();
     handleSearchForm();
-    selectUserprofile();
+    UserProfileModal.create();
 });
 
 function initMaterialize() {
@@ -28,7 +25,7 @@ function initMaterialize() {
         }
     });
 
-    Modal.init(userProfileModal, {}).open();
+    Modal.init(userProfileModal, {});
 }
 
 function handleSearchForm() {
@@ -87,16 +84,4 @@ function showSearchErrorMsg(errorMessage: string) {
         buildSearchErrorMsgContainer.classList.remove('scale-in');
         buildSearchErrorMsgContainer.classList.add('scale-out');
     }, 5000)
-}
-
-function selectUserprofile(){
-    document.getElementById('userProfileNormal').addEventListener('click', ()=> setUserprofile(UserGroup.noImpairments));
-    document.getElementById('userProfileVI').addEventListener('click', ()=> setUserprofile(UserGroup.blindPeople));
-    document.getElementById('userProfileWheelchair').addEventListener('click', ()=> setUserprofile(UserGroup.blindPeople));
-}
-
-function setUserprofile(userGroup: UserGroup){
-    UserProfile.set(userGroup);
-    const modal = document.getElementById('userProfileModal');
-    Modal.getInstance(modal).close();
 }
