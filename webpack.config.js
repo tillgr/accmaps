@@ -2,7 +2,10 @@ const path = require('path');
 
 module.exports = {
     mode: "production",
-    entry: [path.resolve(__dirname, "./js/main.ts"), path.resolve(__dirname, "./js/ui.ts")],
+    entry: {
+        main: [path.resolve(__dirname, "./js/main.ts"), path.resolve(__dirname, "./js/ui.ts")],
+        style: path.resolve(__dirname, "./js/style.ts")
+    },
     output: {
         path: path.resolve(__dirname, "./dist"),
         filename: "[name].js",

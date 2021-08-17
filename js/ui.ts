@@ -4,11 +4,6 @@ import {LatLng} from "leaflet";
 import {BuildingControl} from "./buildingControl";
 import {UserProfileModal} from "./ui/_userProfileModal";
 
-// == CSS ==
-import "materialize-css/dist/css/materialize.css";
-import "leaflet/dist/leaflet.css";
-import "../css/style.css";
-
 document.addEventListener('DOMContentLoaded', function () {
     initMaterialize();
     handleSearchForm();
