@@ -1,6 +1,6 @@
 import {GeoJSON} from "leaflet";
 
-import {Index} from "../indoorLayer";
+import {IndoorLayer} from "../indoorLayer";
 import {LevelInformation} from "./_levelInformation";
 import {DescriptionPopup} from "../ui/_descriptionPopup";
 import {BuildingControl} from "../buildingControl";
@@ -12,7 +12,7 @@ let currentLevel: string;
 let allLevels: Array<string>;
 let geoJSONByLevel: Map<string, GeoJSON.FeatureCollection<any, any>>;
 let currentBuildingIndoorData: any;
-let indoorLayer: Index;
+let indoorLayer: IndoorLayer;
 
 export const LevelControl = {
     create(): void {
@@ -21,7 +21,7 @@ export const LevelControl = {
         geoJSONByLevel = new Map<string, any>();
         currentBuildingIndoorData = BuildingControl.getCurrentBuildingGeoJSON();
 
-        indoorLayer = new Index(LevelControl.getCurrentLevelGeoJSON());
+        indoorLayer = new IndoorLayer(LevelControl.getCurrentLevelGeoJSON());
         createLevelControlButtons();
     },
 
@@ -50,6 +50,11 @@ export const LevelControl = {
     remove(): void {
         document.getElementById('levelControl').innerHTML = '';
         indoorLayer.removeIndoorLayerFromMap();
+    },
+
+    reCreate() {
+        LevelControl.remove();
+        LevelControl.create();
     }
 }
 

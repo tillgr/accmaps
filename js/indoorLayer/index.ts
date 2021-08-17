@@ -10,7 +10,7 @@ import {featureStyle} from "./_featureStyle";
 import {featureAccessibilityDescription} from "./_featureAccessibilityDescription";
 import {featureScreenAccessibility} from "./_featureScreenAccessibility";
 
-export class Index {
+export class IndoorLayer {
     private readonly indoorLayerGroup: LayerGroup;
 
     constructor(geoJSON: GeoJSON.FeatureCollection<any>) {
@@ -35,7 +35,7 @@ export class Index {
     private drawIndoorLayerByGeoJSON(geoJSON: GeoJsonObject) {
         const layer = new L.GeoJSON(geoJSON, {
             style: featureStyle,
-            onEachFeature: Index.onEachFeature,
+            onEachFeature: IndoorLayer.onEachFeature,
             pointToLayer: () => null
         });
         this.indoorLayerGroup.addLayer(layer);
