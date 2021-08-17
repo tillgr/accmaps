@@ -1,5 +1,5 @@
 import {GeoJsonObject} from "geojson";
-import osmtogeojson from "osmtogeojson";
+import OsmToGeoJSON from "osmtogeojson";
 
 let indoorDataGeoJSON: GeoJsonObject;
 let buildingDataGeoJSON: GeoJsonObject;
@@ -36,7 +36,7 @@ function getOverpassData(overpassQuery: string) {
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
-                    const returnValue = osmtogeojson(xhr.responseXML);
+                    const returnValue = OsmToGeoJSON(xhr.responseXML);
                     resolve(returnValue);
                 } else if (xhr.status > 400) {
                     reject('An error occurred while fetching building data: ' + xhr.statusText);
