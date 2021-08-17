@@ -7,7 +7,7 @@ module.exports = {
         style: path.resolve(__dirname, "./js/style.ts")
     },
     output: {
-        path: path.resolve(__dirname, "./dist"),
+        path: path.resolve(__dirname, "./public/dist"),
         filename: "[name].js",
     },
     resolve: {

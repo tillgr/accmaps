@@ -1,5 +1,6 @@
 import {GeoJsonObject} from "geojson";
 import OsmToGeoJSON from "osmtogeojson";
+import {OVERPASS_DATA_URLS} from "../data/constants";
 
 let indoorDataGeoJSON: GeoJsonObject;
 let buildingDataGeoJSON: GeoJsonObject;
@@ -23,11 +24,11 @@ export const OverpassData = {
 };
 
 function fetchIndoorData() {
-    return getOverpassData('/osm.xml');
+    return getOverpassData(OVERPASS_DATA_URLS.INDOOR);
 }
 
 function fetchBuildingData() {
-    return getOverpassData('/buildings.xml');
+    return getOverpassData(OVERPASS_DATA_URLS.BUILDINGS);
 }
 
 function getOverpassData(overpassQuery: string) {
