@@ -49,7 +49,10 @@ export const LevelControl = {
 
     remove(): void {
         document.getElementById('levelControl').innerHTML = '';
-        indoorLayer.removeIndoorLayerFromMap();
+
+        if (indoorLayer) {
+            indoorLayer.removeIndoorLayerFromMap();
+        }
     },
 
     reCreate() {

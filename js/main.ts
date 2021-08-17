@@ -1,15 +1,14 @@
 import {Map} from "./map";
 import {OverpassData} from "./overpassData";
-import {LevelControl} from "./levelControl";
 import {LoadingIndicator} from "./ui/_loadingIndicator";
+import {BuildingControl} from "./buildingControl";
 
 document.addEventListener('DOMContentLoaded', function () {
     LoadingIndicator.start()
     Map.get();
 
     OverpassData.fetchOverpassData().then(() => {
-        LoadingIndicator.end()
-        LevelControl.create();
+        BuildingControl.searchForBuilding('APB').then(() => LoadingIndicator.end());
     }).catch((error) => {
         LoadingIndicator.error(error);
     });

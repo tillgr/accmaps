@@ -9,7 +9,7 @@ const toBBox = require('geojson-bounding-box');
 
 const buildingBBoxesByBuildingName: Map<string, LatLngBounds> = new Map<string, LatLngBounds>();
 const buildingFeaturesByBuildingName: Map<string, GeoJSON.Feature> = new Map<string, GeoJSON.Feature>();
-let currentBuilding = 'APB';
+let currentBuilding = '';
 
 export const BuildingControl = {
     getCurrentBuildingGeoJSON(): GeoJSON.FeatureCollection<any> {
