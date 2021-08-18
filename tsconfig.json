@@ -12,5 +12,5 @@
     "forceConsistentCasingInFileNames": true,
     "rootDir": "."
   },
-  "include": ["js"]
+  "include": ["src"]
 }
