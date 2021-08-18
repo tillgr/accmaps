@@ -27,8 +27,8 @@ function download(url, dest) {
 
 module.exports = function () {
     console.log("=== Downloading Overpass data ===");
-    const indoorDataRequest = download(URLS.OVERPASS_API + OVERPASS_QUERIES.INDOOR, '../public/indoor.xml');
-    const buildingDataRequest = download(URLS.OVERPASS_API + OVERPASS_QUERIES.INDOOR, '../public/buildings.xml');
+    const indoorDataRequest = download(URLS.OVERPASS_API + OVERPASS_QUERIES.INDOOR, '../public/overpass/indoor.xml');
+    const buildingDataRequest = download(URLS.OVERPASS_API + OVERPASS_QUERIES.SIT_BUILDINGS, '../public/overpass/buildings.xml');
 
     return Promise.all([indoorDataRequest, buildingDataRequest]);
 }

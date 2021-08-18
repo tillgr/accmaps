@@ -5,8 +5,8 @@ const WALL_WEIGHT = 3;
 const OSM_TILE_SERVER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
 const OVERPASS_DATA_URLS = {
-    INDOOR: '/indoor.xml',
-    BUILDINGS: '/buildings.xml'
+    INDOOR: '/overpass/indoor.xml',
+    BUILDINGS: '/overpass/buildings.xml'
 }
 
 const COLORS = {

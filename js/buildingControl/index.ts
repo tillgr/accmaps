@@ -33,7 +33,7 @@ export const BuildingControl = {
             return false;
         });
 
-        if (buildingFeaturesByBuildingName.get(currentBuilding) !== null) {
+        if (buildingFeaturesByBuildingName.get(currentBuilding) !== undefined) {
             const BBox = toBBox(buildingFeaturesByBuildingName.get(currentBuilding));
             const BBox_Leaflet = new LatLngBounds(new LatLng(BBox[2], BBox[3]), new LatLng(BBox[0], BBox[1]));
             buildingBBoxesByBuildingName.set(currentBuilding, BBox_Leaflet);
