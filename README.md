@@ -19,9 +19,5 @@ to build a webpack-bundled JS file, execute the following steps:
 2. Compile Typescript files and build JS bundle: `npm run build`
 
 ## Execution
-
-A server is needed to test the progressive web app. In case of the Visual Studio Code IDE you may use the following
-plugin to easily start a server:
-https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
-
-One other option is to execute `npx http-server ./` in the project's root directory, which will start a simple HTTP server.
+Run `node index.js` or `npm start` in order to start a small webserver. 
+Afterwards, the app is accessible via your browser under the displayed url.
