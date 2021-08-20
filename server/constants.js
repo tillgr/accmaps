@@ -10,4 +10,15 @@ const OVERPASS_QUERIES = {
     SIT_BUILDINGS: '(area["name"="Dresden"];)->.a;(nwr[building][min_level](area.a););(._;>;); out;'
 };
 
-module.exports = {URLS, OVERPASS_QUERIES};
+const RESOURCES_TO_DOWNLOAD = [
+    {
+        url: URLS.OVERPASS_API + OVERPASS_QUERIES.INDOOR,
+        dest: '../public/overpass/indoor.xml'
+    },
+    {
+        url: URLS.OVERPASS_API + OVERPASS_QUERIES.SIT_BUILDINGS,
+        dest: '../public/overpass/buildings.xml'
+    }
+]
+
+module.exports = {URLS, OVERPASS_QUERIES, RESOURCES_TO_DOWNLOAD};
