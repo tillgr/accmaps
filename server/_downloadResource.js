@@ -11,6 +11,11 @@ module.exports = function (url, dest) {
 
     return new Promise((resolve, reject) => {
         https.get(url, (response) => {
+
+            if (response.statusCode !== 200) {
+                console.error('#### Error: File could not be downloaded! ####');
+            }
+
             response.pipe(file);
             file.on('finish', () => {
                 file.close();

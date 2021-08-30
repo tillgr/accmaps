@@ -8,6 +8,7 @@ module.exports = function () {
     const downloadPromises = [];
 
     RESOURCES_TO_DOWNLOAD.forEach(resource => {
+        console.log('Checking ' + resource.dest);
         const downloadPromise = isSavedOverpassDataStillValid(resource.dest).then((isTooOld) => {
             if (isTooOld) {
                 return downloadResource(resource.url, resource.dest);
