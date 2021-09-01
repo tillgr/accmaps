@@ -1,4 +1,6 @@
 import {GeoJSON} from "leaflet";
+import {buildingAccessibilityProperties} from "../data/buildingAccessibilityProperties";
+import {featureDescription} from "../featureDescription";
 
 export function getBuildingDescription(currentBuildingFeature: GeoJSON.Feature): string {
     let description = ""
@@ -11,15 +13,7 @@ export function getBuildingDescription(currentBuildingFeature: GeoJSON.Feature):
         }
     }
 
-    if (currentBuildingFeature.properties.wheelchair !== undefined) {
-        description += (currentBuildingFeature.properties.wheelchair == "yes") ? ", accessible by wheelchair" : ", not accessible by wheelchair";
-    }
-
-    if (currentBuildingFeature.properties.opening_hours !== undefined) {
-        description += ", opening hours: " + currentBuildingFeature.properties.opening_hours;
-    }
-
-    //todo: ...
+    description += featureDescription(currentBuildingFeature, buildingAccessibilityProperties);
 
     return description;
 }

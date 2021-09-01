@@ -1,6 +1,6 @@
 import {LeafletEvent} from "leaflet";
 import {featureAccessibilityProperties} from "../data/featureAccessibilityProperties";
-import {FeatureAccessibilityPropertiesInterface} from "../interfaces/featureAccessibilityPropertiesInterface";
+import {featureDescription} from "../featureDescription";
 
 
 export function featureAccessibilityDescription(e: LeafletEvent): string {
@@ -11,11 +11,7 @@ export function featureAccessibilityDescription(e: LeafletEvent): string {
         popUpText += ' (' + feature.properties.name + ')';
     }
 
-    featureAccessibilityProperties.forEach((e: FeatureAccessibilityPropertiesInterface) => {
-        if (feature.properties[e.name] !== undefined &&
-            (e.value === true || feature.properties[e.name] === e.value)) {
-            popUpText += ', ' + (e.message ? e.message : feature.properties[e.name]);
-        }
-    });
+    popUpText += featureDescription(feature, featureAccessibilityProperties);
+
     return 'selected map object: ' + popUpText;
 }

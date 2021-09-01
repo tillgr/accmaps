@@ -1,6 +1,6 @@
 import {UserGroup} from "../data/userGroup";
 
-export interface FeatureAccessibilityPropertiesInterface {
+export interface AccessibilityPropertiesInterface {
     name: string,
     value: boolean | string,
     message: string | null,

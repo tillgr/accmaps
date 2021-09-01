@@ -1,9 +1,9 @@
-import {FeatureAccessibilityPropertiesInterface} from "../interfaces/featureAccessibilityPropertiesInterface";
+import {AccessibilityPropertiesInterface} from "../interfaces/accessibilityPropertiesInterface";
 import {UserGroup} from "./userGroup";
 
 const allGroups = [UserGroup.blindPeople, UserGroup.noImpairments, UserGroup.wheelchairUsers];
 
-export const featureAccessibilityProperties: FeatureAccessibilityPropertiesInterface[] = [
+export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] = [
     {name: 'handrail', value: true, message: 'handrail available', userGroups: [UserGroup.blindPeople]},
     {name: 'tactile_paving', value: true, message: 'tactile paving available', userGroups: [UserGroup.blindPeople]},
     {name: 'amenity', value: 'toilets', message: 'toilet', userGroups: allGroups},
