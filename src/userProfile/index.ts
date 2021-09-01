@@ -1,13 +1,12 @@
-import {UserGroup} from "../data/userGroup";
+import {UserGroupEnum} from "../interfaces/userGroupEnum";
 
-let selectedUserGroup: UserGroup = UserGroup.noImpairments;
-
+let selectedUserGroup: UserGroupEnum = UserGroupEnum.noImpairments;
 
 export const UserProfile = {
     get() {
         return selectedUserGroup;
     },
-    set(userGroup: UserGroup) {
+    set(userGroup: UserGroupEnum) {
         selectedUserGroup = userGroup;
     }
 }

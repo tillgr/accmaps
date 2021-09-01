@@ -1,22 +1,30 @@
-import {UserGroup} from "../data/userGroup";
 import {UserProfile} from "../userProfile";
 import {Modal} from "materialize-css";
-import {UserGroupName} from "../data/userGroupName";
+import {UserGroups} from "../data/userGroups";
+import {UserGroupEnum} from "../interfaces/userGroupEnum";
 
 export const UserProfileModal = {
     create() {
         const selectedUserProfile = localStorage.getItem('userProfile');
         if (selectedUserProfile !== null) {
             UserProfileModal.close();
-            M.toast({html: 'User profile already set: ' + UserGroupName.get(<UserGroup>parseInt(selectedUserProfile)) + '<button class="btn-flat toast-action" id="changeUserProfileBtn">change</button>'});
+            M.toast({
+                html: 'User profile already set: ' + UserGroups.get(<UserGroupEnum>parseInt(selectedUserProfile)).name + '<button class="btn-flat toast-action" id="changeUserProfileBtn">change</button>'
+            });
             document.getElementById('changeUserProfileBtn').onclick = UserProfileModal.show;
         } else {
             UserProfileModal.show();
         }
 
-        document.getElementById('userProfileNormal').onclick = () => setUserProfile(UserGroup.noImpairments);
-        document.getElementById('userProfileVI').onclick = () => setUserProfile(UserGroup.blindPeople);
-        document.getElementById('userProfileWheelchair').onclick = () => setUserProfile(UserGroup.wheelchairUsers);
+        UserGroups.forEach((v, k) => {
+            const button = document.createElement('a');
+            button.className = 'collection-item';
+            button.setAttribute('href', '#map');
+            button.innerHTML = '<span>' + v.name + ' <span class="secondary-content"><i class="material-icons">' + v.icon + '</i></span></span>';
+            button.onclick = () => UserProfileModal.setUserProfile(k);
+            document.getElementById('userProfileList').append(button);
+        });
+
     },
 
     show() {
@@ -27,12 +35,12 @@ export const UserProfileModal = {
     close() {
         const modal = document.getElementById('userProfileModal');
         Modal.getInstance(modal).close();
+    },
+
+    setUserProfile(userGroup: UserGroupEnum) {
+        UserProfile.set(userGroup);
+        localStorage.setItem('userProfile', userGroup.toString());
+        UserProfileModal.close();
+        M.toast({html: 'Set user profile to: ' + UserGroups.get(userGroup).name});
     }
 };
-
-function setUserProfile(userGroup: UserGroup) {
-    UserProfile.set(userGroup);
-    localStorage.setItem('userProfile', userGroup.toString());
-    UserProfileModal.close();
-    M.toast({html: 'Set user profile to:' + UserGroupName.get(userGroup)});
-}

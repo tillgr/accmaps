@@ -1,4 +1,4 @@
-export enum UserGroup{
+export enum UserGroupEnum{
     wheelchairUsers,
     blindPeople,
     noImpairments
