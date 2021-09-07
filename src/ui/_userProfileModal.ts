@@ -9,7 +9,10 @@ export const UserProfileModal = {
         if (selectedUserProfile !== null) {
             UserProfileModal.close();
             M.toast({
-                html: 'User profile already set: ' + UserGroups.get(<UserGroupEnum>parseInt(selectedUserProfile)).name + '<button class="btn-flat toast-action" id="changeUserProfileBtn">change</button>'
+                html: 'User profile already set:&nbsp;&nbsp;'
+                    + '<i class="material-icons tiny" aria-disabled="true">' + UserGroups.get(<UserGroupEnum>parseInt(selectedUserProfile)).icon + '</i>&nbsp;'
+                    + UserGroups.get(<UserGroupEnum>parseInt(selectedUserProfile)).name
+                    + '<button class="btn-flat toast-action" id="changeUserProfileBtn">change</button>'
             });
             document.getElementById('changeUserProfileBtn').onclick = UserProfileModal.show;
         } else {
@@ -41,6 +44,10 @@ export const UserProfileModal = {
         UserProfile.set(userGroup);
         localStorage.setItem('userProfile', userGroup.toString());
         UserProfileModal.close();
-        M.toast({html: 'Set user profile to: ' + UserGroups.get(userGroup).name});
+        M.toast({
+            html: 'Set user profile to:&nbsp;&nbsp;'
+                + '<i class="material-icons tiny" aria-disabled="true">' + UserGroups.get(userGroup).icon + '</i>&nbsp;'
+                + UserGroups.get(userGroup).name
+        });
     }
 };

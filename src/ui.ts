@@ -7,6 +7,7 @@ import {UserProfileModal} from "./ui/_userProfileModal";
 document.addEventListener('DOMContentLoaded', function () {
     initMaterialize();
     handleSearchForm();
+    initUserProfileChangeButtons();
     UserProfileModal.create();
 });
 
@@ -39,6 +40,20 @@ function handleSearchForm() {
     });
 }
 
+function initUserProfileChangeButtons() {
+    const sideNav = document.getElementById('sidenav');
+
+    M.Sidenav.init(sideNav, {});
+
+    document.getElementById('changeUserProfileBtn1').onclick = () => {
+        UserProfileModal.show();
+        M.Sidenav.getInstance(sideNav).close()
+    };
+    document.getElementById('changeUserProfileBtn2').onclick = () => {
+        UserProfileModal.show();
+        M.Sidenav.getInstance(sideNav).close()
+    };
+}
 
 function runBuildingSearch(buildingSearchInput: HTMLInputElement) {
     const searchString = buildingSearchInput.value;
