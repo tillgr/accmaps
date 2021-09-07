@@ -11,8 +11,8 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
     {name: 'female', value: true, message: 'female', userGroups: allGroups},
     {name: 'wheelchair', value: 'no', message: 'no wheelchair access', userGroups: [UserGroupEnum.wheelchairUsers]},
     {name: 'wheelchair', value: 'yes', message: 'wheelchair access possible', userGroups: [UserGroupEnum.wheelchairUsers]},
-    {name: 'wheelchair:description:en', value: true, message: null, userGroups: [UserGroupEnum.wheelchairUsers]},
-    {name: 'wheelchair:description:de', value: true, message: null, userGroups: [UserGroupEnum.wheelchairUsers]},
+    {name: 'wheelchair:description:en', value: true, message: false, userGroups: [UserGroupEnum.wheelchairUsers]},
+    {name: 'wheelchair:description:de', value: true, message: false, userGroups: [UserGroupEnum.wheelchairUsers]},
     {name: 'speech_output:de', value: true, message: 'speech output (German)', userGroups: [UserGroupEnum.blindPeople]},
     {name: 'speech_output:en', value: true, message: 'speech output (English)', userGroups: [UserGroupEnum.blindPeople]},
 ];

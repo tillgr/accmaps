@@ -1,7 +1,7 @@
 import {GeoJSON} from "leaflet";
 
 import {IndoorLayer} from "../indoorLayer";
-import {LevelInformation} from "./_levelInformation";
+import {LevelAccessibilityInformation} from "./_levelAccessibilityInformation";
 import {DescriptionPopup} from "../ui/_descriptionPopup";
 import {BuildingControl} from "../buildingControl";
 
@@ -129,11 +129,7 @@ function _getAllLevelsFromGeoJSON(): void {
 }
 
 function updateCurrentLevelDescription(): void {
-    const levelProperties = LevelInformation.getForLevel(currentLevel, LevelControl.getCurrentLevelGeoJSON());
+    const levelAccessibilityInformation = LevelAccessibilityInformation.getForLevel(currentLevel, LevelControl.getCurrentLevelGeoJSON());
 
-    let accessibilityInformation = '';
-    accessibilityInformation += (levelProperties['accessibleToilets']) ? 'there are accessible toilets' : 'no accessible toilets available';
-    // todo: ...
-
-    DescriptionPopup.update('current level: ' + currentLevel + ', ' + accessibilityInformation);
+    DescriptionPopup.update('current level: ' + currentLevel + ', ' + levelAccessibilityInformation);
 }
