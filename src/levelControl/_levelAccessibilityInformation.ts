@@ -12,6 +12,10 @@ export const LevelAccessibilityInformation = {
 
         propertiesByLevel.set(level, generateFromGeoJSON(featureCollection.features))
         return propertiesByLevel.get(level);
+    },
+
+    reset(){
+        propertiesByLevel.clear()
     }
 }
 
@@ -24,7 +28,7 @@ function generateFromGeoJSON(geoJSONFeatures: GeoJSON.Feature<any, any>[]) {
         }
 
         const foundAccessibilityFeature = geoJSONFeatures.some((feature: GeoJSON.Feature<any, any>) => {
-            return (levelAccessibilityProperty.accessibilityFunction);
+            return (levelAccessibilityProperty.accessibilityFunction(feature));
         });
 
         if (foundAccessibilityFeature) {

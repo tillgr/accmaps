@@ -25,17 +25,19 @@ function isFeatureValidAndInsideCurrentBuilding(feature: GeoJSON.Feature<any>, b
 
 function isFeatureInsideCurrentBuilding(featureCoordinates: Position[][] | Position[] | Position, buildingBBox: LatLngBounds): boolean {
     switch (getArrayDepth(featureCoordinates)) {
-        case 1:
+        case 1: {
             featureCoordinates = <Position>featureCoordinates;
             const latLng = new LatLng(featureCoordinates[0], featureCoordinates[1]);
             return buildingBBox.contains(latLng);
-        case 2:
+        }
+        case 2: {
             featureCoordinates = <Position[]>featureCoordinates;
             return featureCoordinates.some((fc: Position) => {
                 const latLng = new LatLng(fc[0], fc[1]);
                 return buildingBBox.contains(latLng);
             });
-        case 3:
+        }
+        case 3: {
             featureCoordinates = <Position[][]>featureCoordinates;
             return featureCoordinates.some((fc: Position[]) => {
                 return fc.some((fc2: Position) => {
@@ -43,6 +45,7 @@ function isFeatureInsideCurrentBuilding(featureCoordinates: Position[][] | Posit
                     return buildingBBox.contains(latLng);
                 });
             });
+        }
     }
 }
 

@@ -55,7 +55,8 @@ export const LevelControl = {
         }
     },
 
-    reCreate() {
+    reCreate(): void {
+        LevelAccessibilityInformation.reset();
         LevelControl.remove();
         LevelControl.create();
     }
