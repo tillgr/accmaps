@@ -3,18 +3,20 @@ import {AccessibilityPropertiesInterface} from "../interfaces/accessibilityPrope
 import {UserProfile} from "../userProfile";
 
 export function featureDescription(feature: GeoJSON.Feature, accessibilityProperties: AccessibilityPropertiesInterface[]) {
-    let description = '';
+    let description = ' [';
 
     accessibilityProperties.forEach((e: AccessibilityPropertiesInterface) => {
         if (!e.userGroups.includes(UserProfile.get())) {
             return; // only show properties for currently selected user profile
         }
-
-        if (feature.properties[e.name] !== undefined &&
-            (e.value === true || feature.properties[e.name] === e.value)) {
-            description += ', ' + (e.message ? e.message : feature.properties[e.name]);
+        if (e.accessibilityFunction(feature)) {
+            description += ((typeof e.msgTrue === 'string') ? e.msgTrue : e.msgTrue(feature)) + ', ';
+        } else if (e.msgFalse !== null) {
+            description += ((typeof e.msgFalse === 'string') ? e.msgFalse : e.msgFalse(feature)) + ', ';
         }
     });
+
+    description = description.slice(0, -2) + ']';
 
     return description;
 }

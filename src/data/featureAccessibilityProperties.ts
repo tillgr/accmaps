@@ -4,15 +4,46 @@ import {UserGroupEnum} from "../interfaces/userGroupEnum";
 const allGroups = [UserGroupEnum.blindPeople, UserGroupEnum.noImpairments, UserGroupEnum.wheelchairUsers];
 
 export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] = [
-    {name: 'handrail', value: true, message: 'handrail available', userGroups: [UserGroupEnum.blindPeople]},
-    {name: 'tactile_paving', value: true, message: 'tactile paving available', userGroups: [UserGroupEnum.blindPeople]},
-    {name: 'amenity', value: 'toilets', message: 'toilet', userGroups: allGroups},
-    {name: 'male', value: true, message: 'male', userGroups: allGroups},
-    {name: 'female', value: true, message: 'female', userGroups: allGroups},
-    {name: 'wheelchair', value: 'no', message: 'no wheelchair access', userGroups: [UserGroupEnum.wheelchairUsers]},
-    {name: 'wheelchair', value: 'yes', message: 'wheelchair access possible', userGroups: [UserGroupEnum.wheelchairUsers]},
-    {name: 'wheelchair:description:en', value: true, message: false, userGroups: [UserGroupEnum.wheelchairUsers]},
-    {name: 'wheelchair:description:de', value: true, message: false, userGroups: [UserGroupEnum.wheelchairUsers]},
-    {name: 'speech_output:de', value: true, message: 'speech output (German)', userGroups: [UserGroupEnum.blindPeople]},
-    {name: 'speech_output:en', value: true, message: 'speech output (English)', userGroups: [UserGroupEnum.blindPeople]},
+    {
+        accessibilityFunction: (f) => f.properties.handrail !== undefined,
+        msgTrue: 'handrail available',
+        msgFalse: 'no handrail available',
+        userGroups: [UserGroupEnum.blindPeople]
+    },
+    {
+        accessibilityFunction: (f) => f.properties.tactile_paving !== undefined,
+        msgTrue: 'tactile paving available',
+        msgFalse: 'no tactile paving available',
+        userGroups: [UserGroupEnum.blindPeople]
+    },
+    {
+        accessibilityFunction: (f) => (f.properties.amenity !== undefined && f.properties.amenity == 'toilets'),
+        msgTrue: (f) => ((f.properties.male !== undefined) ? 'male ' : (f.properties.female !== undefined) ? 'female ' : 'unisex ') + 'toilet',
+        msgFalse: null,
+        userGroups: [UserGroupEnum.blindPeople]
+    },
+    {
+        accessibilityFunction: (f) => (f.properties.wheelchair !== undefined && f.properties.wheelchair == 'yes'),
+        msgTrue: 'wheelchair access possible',
+        msgFalse: 'no wheelchair access',
+        userGroups: [UserGroupEnum.wheelchairUsers]
+    },
+    {
+        accessibilityFunction: (f) => f.properties['wheelchair:description:en'] !== undefined,
+        msgTrue: (f) => f.properties['wheelchair:description:en'],
+        msgFalse: null,
+        userGroups: [UserGroupEnum.wheelchairUsers]
+    },
+    {
+        accessibilityFunction: (f) => f.properties['wheelchair:description:de'] !== undefined,
+        msgTrue: (f) => f.properties['wheelchair:description:de'],
+        msgFalse: null,
+        userGroups: [UserGroupEnum.wheelchairUsers]
+    },
+    {
+        accessibilityFunction: (f) => f.properties['speech_output:de'] !== undefined || f.properties['speech_output:en'] !== undefined || f.properties['speech_output'] !== undefined,
+        msgTrue: 'speech output available',
+        msgFalse: null,
+        userGroups: [UserGroupEnum.blindPeople]
+    },
 ];

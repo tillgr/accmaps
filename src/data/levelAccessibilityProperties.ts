@@ -1,21 +1,20 @@
-import {GeoJSON} from "leaflet";
-import {LevelAccessibilityInterface} from "../interfaces/levelAccessibilityInterface";
 import {UserGroupEnum} from "../interfaces/userGroupEnum";
+import {AccessibilityPropertiesInterface} from "../interfaces/accessibilityPropertiesInterface";
 
-export const levelAccessibilityProperties: LevelAccessibilityInterface[] = [
+export const levelAccessibilityProperties: AccessibilityPropertiesInterface[] = [
     {
-        accessibilityFunction: (feature: GeoJSON.Feature<any, any>) =>
-            (feature.properties.amenity !== undefined && feature.properties.amenity === 'toilets'
-                && feature.properties.wheelchair !== undefined && feature.properties.wheelchair !== 'no'),
+        accessibilityFunction: (f) =>
+            (f.properties.amenity !== undefined && f.properties.amenity === 'toilets'
+                && f.properties.wheelchair !== undefined && f.properties.wheelchair !== 'no'),
         msgTrue: 'there are accessible toilets',
         msgFalse: 'no accessible toilets available',
         userGroups: [UserGroupEnum.wheelchairUsers]
     },
     {
-        accessibilityFunction: (feature: GeoJSON.Feature<any, any>) =>
-            (feature.properties.tactile_paving !== undefined && feature.properties.tactile_paving === 'yes'),
+        accessibilityFunction: (f) =>
+            (f.properties.tactile_paving !== undefined && f.properties.tactile_paving === 'yes'),
         msgTrue: 'tactile paving available',
         msgFalse: 'no tactile paving available',
         userGroups: [UserGroupEnum.blindPeople]
-    },
+    }
 ];
