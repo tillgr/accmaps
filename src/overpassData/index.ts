@@ -1,5 +1,4 @@
 import {GeoJsonObject} from "geojson";
-import OsmToGeoJSON from "osmtogeojson";
 import {OVERPASS_DATA_URLS} from "../data/constants";
 
 let indoorDataGeoJSON: GeoJsonObject;
@@ -37,7 +36,7 @@ function getOverpassData(overpassQuery: string) {
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
-                    const returnValue = OsmToGeoJSON(xhr.responseXML);
+                    const returnValue = JSON.parse(xhr.responseText);
                     resolve(returnValue);
                 } else if (xhr.status > 400) {
                     reject('An error occurred while fetching building data: ' + xhr.statusText);
@@ -45,7 +44,7 @@ function getOverpassData(overpassQuery: string) {
             }
         };
 
-        xhr.open('GET', overpassQuery, true); //todo: correctly use overpass url here
+        xhr.open('GET', overpassQuery, true);
         xhr.send();
     });
 }
