@@ -16,5 +16,13 @@ export const levelAccessibilityProperties: AccessibilityPropertiesInterface[] = 
         msgTrue: 'tactile paving available',
         msgFalse: 'no tactile paving available',
         userGroups: [UserGroupEnum.blindPeople]
+    },
+    {
+        accessibilityFunction: (f) =>
+            (f.properties.highway !== undefined && f.properties.highway === 'elevator' &&
+                f.properties.wheelchair !== undefined && f.properties.wheelchair !== 'no'),
+        msgTrue: 'accessible elevator available',
+        msgFalse: 'accessible elevator available',
+        userGroups: [UserGroupEnum.wheelchairUsers]
     }
 ];

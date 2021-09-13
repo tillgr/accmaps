@@ -26,7 +26,7 @@ module.exports = function downloadResource(url, dest) {
 }
 
 function transformToGeoJSONAndSaveFile(responseText, dest) {
-    console.log('saving transformed GeoJSON data to + ' + dest);
+    console.log('saving transformed GeoJSON data to ' + dest);
     const osmData = JSON.parse(responseText);
     let transformedData = osmtogeojson(osmData);
     transformedData = JSON.stringify(transformedData);
