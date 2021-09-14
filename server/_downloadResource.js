@@ -5,6 +5,11 @@ const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
 
 module.exports = function downloadResource(url, dest) {
+    if (fs.existsSync(path.resolve(__dirname, dest))) {
+        console.log('File already exists: ' + dest);
+        return new Promise(resolve => resolve());
+    }
+
     console.log('Downloading ' + url);
 
     return new Promise((resolve, reject) => {
