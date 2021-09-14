@@ -2,10 +2,11 @@ import {LeafletEvent} from "leaflet";
 import {COLORS} from "../data/constants";
 
 let currentlySelectedFeaturePath: HTMLElement = null;
+let currentlySelectedFeatureOriginalFillColor: string = '';
 
 export function highlightSelectedFeature(e: LeafletEvent) {
     if (currentlySelectedFeaturePath !== null) {
-        currentlySelectedFeaturePath.setAttribute('fill', COLORS.ROOM);
+        currentlySelectedFeaturePath.setAttribute('fill', currentlySelectedFeatureOriginalFillColor);
         currentlySelectedFeaturePath.style.filter = '';
     }
 
@@ -15,6 +16,7 @@ export function highlightSelectedFeature(e: LeafletEvent) {
         currentlySelectedFeaturePath = null;
         return;
     }
+    currentlySelectedFeatureOriginalFillColor = currentlySelectedFeaturePath.getAttribute('fill');
     currentlySelectedFeaturePath.setAttribute('fill', COLORS.ROOM_SELECTED);
     currentlySelectedFeaturePath.style.filter = 'drop-shadow(3px 3px 7px rgb(0 0 0 / 0.8))';
 }
