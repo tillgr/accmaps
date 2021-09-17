@@ -132,5 +132,5 @@ function _getAllLevelsFromGeoJSON(): void {
 function updateCurrentLevelDescription(): void {
     const levelAccessibilityInformation = LevelAccessibilityInformation.getForLevel(currentLevel, LevelControl.getCurrentLevelGeoJSON());
 
-    DescriptionPopup.update('current level: ' + currentLevel + ', ' + levelAccessibilityInformation);
+    DescriptionPopup.update('Current level: ' + currentLevel + ' ' + levelAccessibilityInformation);
 }

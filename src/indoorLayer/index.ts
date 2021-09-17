@@ -1,6 +1,6 @@
 import * as L from 'leaflet';
 import {GeoJsonObject} from "geojson";
-import {GeoJSON, Layer, LayerGroup, LeafletEvent} from "leaflet";
+import {GeoJSON, Layer, LayerGroup, LeafletMouseEvent} from "leaflet";
 
 import {Map} from "../map";
 import {DescriptionPopup} from "../ui/_descriptionPopup";
@@ -44,7 +44,7 @@ export class IndoorLayer {
     }
 
     private static onEachFeature(feature: GeoJSON.Feature<any, any>, layer?: Layer) {
-        layer.on('click', (e: LeafletEvent) => {
+        layer.on('click', (e: LeafletMouseEvent) => {
             const accessibilityDescription = featureAccessibilityDescription(e);
             DescriptionPopup.update(accessibilityDescription);
             highlightSelectedFeature(e);

@@ -1,6 +1,6 @@
 import {LeafletEvent} from "leaflet";
 import {featureAccessibilityProperties} from "../data/featureAccessibilityProperties";
-import {featureDescription} from "../featureDescription";
+import {featureDescriptionHelper} from "../helpers/featureDescriptionHelper";
 
 
 export function featureAccessibilityDescription(e: LeafletEvent): string {
@@ -11,7 +11,7 @@ export function featureAccessibilityDescription(e: LeafletEvent): string {
         popUpText += ' (' + feature.properties.name + ')';
     }
 
-    popUpText += featureDescription(feature, featureAccessibilityProperties);
+    popUpText += featureDescriptionHelper(feature, featureAccessibilityProperties);
 
-    return 'selected map object: ' + popUpText;
+    return 'Selected map object: ' + popUpText;
 }

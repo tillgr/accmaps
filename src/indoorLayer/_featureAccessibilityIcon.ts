@@ -13,7 +13,7 @@ export function featureAccessibilityIcon(feature: GeoJSON.Feature<any, any>, lat
         const iconDiv = L.divIcon({
             html: '<i class="material-icons" aria-disabled="true">' + UserGroups.get(UserProfile.get()).icon + '</i>'
         });
-        return L.marker(latLng, {icon: iconDiv, bubblingMouseEvents: true});
+        return L.marker(latLng, {icon: iconDiv});
     }
 
     return null;

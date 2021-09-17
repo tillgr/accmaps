@@ -14,13 +14,13 @@ export const LevelAccessibilityInformation = {
         return propertiesByLevel.get(level);
     },
 
-    reset(){
+    reset() {
         propertiesByLevel.clear()
     }
 }
 
 function generateFromGeoJSON(geoJSONFeatures: GeoJSON.Feature<any, any>[]) {
-    let returnString = "";
+    let returnString = '[';
 
     levelAccessibilityProperties.forEach((levelAccessibilityProperty) => {
         if (!levelAccessibilityProperty.userGroups.includes(UserProfile.get())) {
@@ -40,5 +40,6 @@ function generateFromGeoJSON(geoJSONFeatures: GeoJSON.Feature<any, any>[]) {
     });
 
     //remove last comma
-    return returnString.slice(0, -2);
+    returnString = returnString.slice(0, -2) + ']';
+    return returnString;
 }

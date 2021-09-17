@@ -17,7 +17,7 @@ export const Map = {
 }
 
 function createMap() {
-    const osmTileLayer = new TileLayer(OSM_TILE_SERVER, {maxZoom: 19});
+    const osmTileLayer = new TileLayer(OSM_TILE_SERVER, {maxZoom: 21});
 
     mapInstance = new LeafletMap('map', {
         center: new LatLng(51.0255439, 13.722780),
