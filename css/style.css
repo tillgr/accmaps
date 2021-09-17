@@ -7,13 +7,13 @@ html, body {
     height: calc(100% - 260px);
 }
 
-.leaflet-marker-icon {
-    display: none;
+.leaflet-div-icon {
+    background: none;
+    border: 0;
+    color: #FF6F03;
+    text-shadow: 0 0 4px #000;
 }
 
-.leaflet-marker-shadow {
-    display: none;
-}
 
 .leaflet-marker-icon-poi {
     display: block !important;
@@ -33,7 +33,7 @@ html, body {
     justify-content: center;
 }
 
-svg path{
+svg path {
     transition: fill 300ms;
 }
 

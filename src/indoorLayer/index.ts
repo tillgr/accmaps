@@ -1,6 +1,6 @@
 import * as L from 'leaflet';
 import {GeoJsonObject} from "geojson";
-import {GeoJSON, LayerGroup, LeafletEvent} from "leaflet";
+import {GeoJSON, Layer, LayerGroup, LeafletEvent} from "leaflet";
 
 import {Map} from "../map";
 import {DescriptionPopup} from "../ui/_descriptionPopup";
@@ -9,6 +9,7 @@ import {highlightSelectedFeature} from "./_highlightSelectedFeature";
 import {featureStyle} from "./_featureStyle";
 import {featureAccessibilityDescription} from "./_featureAccessibilityDescription";
 import {featureScreenAccessibility} from "./_featureScreenAccessibility";
+import {featureAccessibilityIcon} from "./_featureAccessibilityIcon";
 
 export class IndoorLayer {
     private readonly indoorLayerGroup: LayerGroup;
@@ -36,13 +37,13 @@ export class IndoorLayer {
         const layer = new L.GeoJSON(geoJSON, {
             style: featureStyle,
             onEachFeature: IndoorLayer.onEachFeature,
-            pointToLayer: () => null
+            pointToLayer: featureAccessibilityIcon
         });
         this.indoorLayerGroup.addLayer(layer);
         featureScreenAccessibility()
     }
 
-    private static onEachFeature(feature: GeoJSON.Feature<any, any>, layer?: any) {
+    private static onEachFeature(feature: GeoJSON.Feature<any, any>, layer?: Layer) {
         layer.on('click', (e: LeafletEvent) => {
             const accessibilityDescription = featureAccessibilityDescription(e);
             DescriptionPopup.update(accessibilityDescription);

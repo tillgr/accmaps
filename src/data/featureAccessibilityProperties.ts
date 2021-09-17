@@ -20,7 +20,7 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
         accessibilityFunction: (f) => (f.properties.amenity !== undefined && f.properties.amenity == 'toilets'),
         msgTrue: (f) => ((f.properties.male !== undefined) ? 'male ' : (f.properties.female !== undefined) ? 'female ' : 'unisex ') + 'toilet',
         msgFalse: null,
-        userGroups: [UserGroupEnum.blindPeople]
+        userGroups: allGroups
     },
     {
         accessibilityFunction: (f) => (f.properties.wheelchair !== undefined && f.properties.wheelchair == 'yes'),

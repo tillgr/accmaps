@@ -5,7 +5,7 @@ import {featureDescription} from "../featureDescription";
 
 export function featureAccessibilityDescription(e: LeafletEvent): string {
     const feature = e.sourceTarget.feature;
-    let popUpText = feature.properties.ref ?? 'ohne Bezeichnung';
+    let popUpText = feature.properties.ref ?? '(no name)';
 
     if (feature.properties.name !== undefined && feature.properties.name.length !== 0) {
         popUpText += ' (' + feature.properties.name + ')';

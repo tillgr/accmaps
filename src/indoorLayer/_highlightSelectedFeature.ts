@@ -5,6 +5,11 @@ let currentlySelectedFeaturePath: HTMLElement = null;
 let currentlySelectedFeatureOriginalFillColor: string = '';
 
 export function highlightSelectedFeature(e: LeafletEvent) {
+    if (e.sourceTarget.dragging !== undefined) {
+        // hack: the dragging attribute is only set on markers, but not on features - use this do distinguish them
+        return;
+    }
+
     if (currentlySelectedFeaturePath !== null) {
         currentlySelectedFeaturePath.setAttribute('fill', currentlySelectedFeatureOriginalFillColor);
         currentlySelectedFeaturePath.style.filter = '';
