@@ -4,10 +4,10 @@ import {LevelAccessibilityInformation} from "../levelControl/_levelAccessibility
 let selectedUserGroup: UserGroupEnum = <UserGroupEnum>parseInt(localStorage.getItem('userProfile')) ?? UserGroupEnum.noImpairments;
 
 export const UserProfile = {
-    get() {
+    get(): UserGroupEnum {
         return selectedUserGroup;
     },
-    set(userGroup: UserGroupEnum) {
+    set(userGroup: UserGroupEnum): void {
         selectedUserGroup = userGroup;
         LevelAccessibilityInformation.reset();
     }

@@ -14,7 +14,7 @@ export const LevelAccessibilityInformation = {
         return propertiesByLevel.get(level);
     },
 
-    reset() {
+    reset(): void {
         propertiesByLevel.clear()
     }
 }

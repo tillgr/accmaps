@@ -4,7 +4,7 @@ import {UserGroups} from "../data/userGroups";
 import {UserGroupEnum} from "../interfaces/userGroupEnum";
 
 export const UserProfileModal = {
-    create() {
+    create(): void {
         const selectedUserProfile = localStorage.getItem('userProfile');
         if (selectedUserProfile !== null) {
             UserProfileModal.close();
@@ -30,17 +30,17 @@ export const UserProfileModal = {
 
     },
 
-    show() {
+    show(): void {
         const modal = document.getElementById('userProfileModal');
         Modal.getInstance(modal).open();
     },
 
-    close() {
+    close(): void {
         const modal = document.getElementById('userProfileModal');
         Modal.getInstance(modal).close();
     },
 
-    setUserProfile(userGroup: UserGroupEnum) {
+    setUserProfile(userGroup: UserGroupEnum): void {
         UserProfile.set(userGroup);
         localStorage.setItem('userProfile', userGroup.toString());
         UserProfileModal.close();

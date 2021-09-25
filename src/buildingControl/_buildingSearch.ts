@@ -16,7 +16,7 @@ export function buildingSearch(searchString: string): Promise<BuildingInterface>
     let returnBuilding: BuildingInterface;
 
     const buildings = OverpassData.getBuildingData();
-    let found = buildings.features.some((building: GeoJSON.Feature<any, any>) => {
+    const found = buildings.features.some((building: GeoJSON.Feature<any, any>) => {
         if ((building.properties.name !== undefined && building.properties.name === searchString) ||
             (building.properties.loc_ref !== undefined && building.properties.loc_ref === searchString)) {
             const BBox = toBBox(building);

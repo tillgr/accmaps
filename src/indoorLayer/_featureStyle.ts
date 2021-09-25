@@ -1,7 +1,7 @@
 import {GeoJSON} from "leaflet";
 import {COLORS, FILL_OPACITY, WALL_WEIGHT} from "../data/constants";
 
-export function featureStyle(feature: GeoJSON.Feature<any>) {
+export function featureStyle(feature: GeoJSON.Feature<any>): any {
     let fill = '#fff';
 
     if (feature.properties.amenity === 'toilets') {

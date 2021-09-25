@@ -26,8 +26,8 @@ export const levelAccessibilityProperties: AccessibilityPropertiesInterface[] = 
         userGroups: [UserGroupEnum.wheelchairUsers]
     },
     {
-        accessibilityFunction: (f) => {
-            return ['de', 'en'].some((lng) =>
+        accessibilityFunction: (f) =>
+            ['de', 'en'].some((lng) =>
                 ((f.properties.tactile_writing !== undefined && f.properties.tactile_writing === 'yes') ||
                     (f.properties['tactile_writing:embossed_printed_letters:' + lng] !== undefined && f.properties['tactile_writing:embossed_printed_letters:' + lng] === 'yes') ||
                     (f.properties['tactile_writing:engraved_printed_letters:' + lng] !== undefined && f.properties['tactile_writing:engraved_printed_letters:' + lng] === 'yes') ||
@@ -35,8 +35,7 @@ export const levelAccessibilityProperties: AccessibilityPropertiesInterface[] = 
                     (f.properties['tactile_writing:computer_braille:' + lng] !== undefined && f.properties['tactile_writing:computer_braille:' + lng] === 'yes') ||
                     (f.properties['tactile_writing:fakoo:' + lng] !== undefined && f.properties['tactile_writing:fakoo:' + lng] === 'yes') ||
                     (f.properties['tactile_writing:moon:' + lng] !== undefined && f.properties['tactile_writing:moon:' + lng] === 'yes'))
-            );
-        },
+            ),
         msgTrue: 'there are objects with tactile writing on them',
         msgFalse: 'there are no objects with tactile writing on them',
         userGroups: [UserGroupEnum.blindPeople]

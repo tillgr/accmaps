@@ -2,9 +2,9 @@ import {LeafletMouseEvent} from "leaflet";
 import {COLORS} from "../data/constants";
 
 let currentlySelectedFeaturePath: HTMLElement = null;
-let currentlySelectedFeatureOriginalFillColor: string = '';
+let currentlySelectedFeatureOriginalFillColor = '';
 
-export function highlightSelectedFeature(e: LeafletMouseEvent) {
+export function highlightSelectedFeature(e: LeafletMouseEvent): void {
     if (e.sourceTarget.dragging !== undefined) {
         // hack: the dragging attribute is only set on markers, but not on features - use this do distinguish them
         return;

@@ -2,7 +2,7 @@ import {GeoJSON} from "leaflet";
 import {AccessibilityPropertiesInterface} from "../interfaces/accessibilityPropertiesInterface";
 import {UserProfile} from "../userProfile";
 
-export function featureDescriptionHelper(feature: GeoJSON.Feature, accessibilityProperties: AccessibilityPropertiesInterface[]) {
+export function featureDescriptionHelper(feature: GeoJSON.Feature, accessibilityProperties: AccessibilityPropertiesInterface[]): string {
     let description = ' [';
 
     accessibilityProperties.forEach((e: AccessibilityPropertiesInterface) => {
