@@ -19,7 +19,7 @@ export const LevelControl = {
         currentLevel = INDOOR_LEVEL;
         allLevels = new Array<string>();
         geoJSONByLevel = new Map<string, any>();
-        currentBuildingIndoorData = BuildingControl.getCurrentBuildingGeoJSON();
+        currentBuildingIndoorData = BuildingControl.getBuildingGeoJSON();
 
         indoorLayer = new IndoorLayer(LevelControl.getCurrentLevelGeoJSON());
         createLevelControlButtons();

@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 OverpassData.fetchOverpassData().then(() => {
-    BuildingControl.searchForBuilding('APB').then(() => LoadingIndicator.end()).catch(error => LoadingIndicator.error(error));
+    BuildingControl.searchAndShowBuilding('APB').then(() => LoadingIndicator.end()).catch(error => LoadingIndicator.error(error));
 }).catch((error) => {
     LoadingIndicator.error(error);
 });

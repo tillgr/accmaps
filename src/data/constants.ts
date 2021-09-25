@@ -3,6 +3,8 @@ const FILL_OPACITY = 0.9;
 const WALL_WEIGHT = 3;
 
 const OSM_TILE_SERVER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const NOMINATIM_SERVER = 'https://open.mapquestapi.com/nominatim/v1/search.php';
+const MAPQUEST_API_KEY = 'qjp4XJGBDGe98cl7QOPOgExZhNWX1lEx';
 
 const OVERPASS_DATA_URLS = {
     INDOOR: '/overpass/indoor.json',
@@ -19,6 +21,8 @@ const COLORS = {
 }
 
 export {
+    NOMINATIM_SERVER,
+    MAPQUEST_API_KEY,
     OSM_TILE_SERVER,
     OVERPASS_DATA_URLS,
     INDOOR_LEVEL,

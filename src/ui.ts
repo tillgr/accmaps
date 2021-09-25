@@ -58,7 +58,7 @@ function initUserProfileChangeButtons() {
 function runBuildingSearch(buildingSearchInput: HTMLInputElement) {
     const searchString = buildingSearchInput.value;
 
-    BuildingControl.searchForBuilding(searchString).then(() => {
+    BuildingControl.searchAndShowBuilding(searchString).then(() => {
         centerMapToBuilding();
         closeSearchModal();
     }).catch((errorMessage) => {
@@ -67,10 +67,9 @@ function runBuildingSearch(buildingSearchInput: HTMLInputElement) {
 }
 
 function centerMapToBuilding() {
-    const currentBuildingBBox = BuildingControl.getCurrentBuildingBoundingBox();
+    const center = BuildingControl.getCurrentBuildingCenter();
 
-    if (currentBuildingBBox !== null) {
-        const center = currentBuildingBBox.getCenter();
+    if (center !== null) {
         //strange behaviour: getCenter returns values in wrong order - leaflet bug?
         Map.get().panTo(new LatLng(center.lng, center.lat));
     }

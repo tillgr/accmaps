@@ -1,23 +1,23 @@
-import {GeoJsonObject} from "geojson";
 import {OVERPASS_DATA_URLS} from "../data/constants";
+import {GeoJSON} from "leaflet";
 
-let indoorDataGeoJSON: GeoJsonObject;
-let buildingDataGeoJSON: GeoJsonObject;
+let indoorDataGeoJSON: GeoJSON.FeatureCollection<any, any>;
+let buildingDataGeoJSON: GeoJSON.FeatureCollection<any, any>;
 
 export const OverpassData = {
     fetchOverpassData(): Promise<boolean> {
-        return Promise.all([fetchIndoorData(), fetchBuildingData()]).then((values: [GeoJsonObject, GeoJsonObject]) => {
+        return Promise.all([fetchIndoorData(), fetchBuildingData()]).then((values: [GeoJSON.FeatureCollection<any, any>, GeoJSON.FeatureCollection<any, any>]) => {
             indoorDataGeoJSON = values[0];
             buildingDataGeoJSON = values[1];
             return true;
         });
     },
 
-    getIndoorData(): GeoJsonObject {
+    getIndoorData(): GeoJSON.FeatureCollection<any, any> {
         return indoorDataGeoJSON;
     },
 
-    getBuildingData(): GeoJsonObject {
+    getBuildingData(): GeoJSON.FeatureCollection<any, any> {
         return buildingDataGeoJSON;
     }
 };

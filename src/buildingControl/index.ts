@@ -1,4 +1,4 @@
-import {GeoJSON, LatLng, LatLngBounds} from "leaflet";
+import {GeoJSON, LatLng} from "leaflet";
 
 import {OverpassData} from "../overpassData";
 import {LevelControl} from "../levelControl";
@@ -6,63 +6,39 @@ import {DescriptionPopup} from "../ui/_descriptionPopup";
 
 import {filterGeoJsonDataByBuildingBBox} from "./_filterGeoJsonDataByBuildingBBox";
 import {getBuildingDescription} from "./_getBuildingDescription";
+import {buildingSearch} from "./_buildingSearch";
+import {BuildingInterface} from "../interfaces/buildingInterface";
 
-const toBBox = require('geojson-bounding-box');
 
-const buildingBBoxesByBuildingName: Map<string, LatLngBounds> = new Map<string, LatLngBounds>();
-const buildingFeaturesByBuildingName: Map<string, GeoJSON.Feature> = new Map<string, GeoJSON.Feature>();
-
-let currentBuildingName = '';
+const buildingsBySearchString: Map<string, BuildingInterface> = new Map<string, BuildingInterface>();
+let currentSearchString = '';
 
 export const BuildingControl = {
-    getCurrentBuildingGeoJSON(): GeoJSON.FeatureCollection<any> {
-        return filterGeoJsonDataByBuildingBBox(OverpassData.getIndoorData(), BuildingControl.getCurrentBuildingBoundingBox());
-    },
-
-    getCurrentBuildingBoundingBox(): LatLngBounds {
-        if (buildingBBoxesByBuildingName.get(currentBuildingName) !== undefined) {
-            return buildingBBoxesByBuildingName.get(currentBuildingName);
+    getBuildingGeoJSON(): GeoJSON.FeatureCollection<any> {
+        const buildingInterface = buildingsBySearchString.get(currentSearchString);
+        if (buildingInterface !== undefined) {
+            return filterGeoJsonDataByBuildingBBox(OverpassData.getIndoorData(), buildingInterface.boundingBox);
         }
-
-        const buildings = <GeoJSON.FeatureCollection<any>>OverpassData.getBuildingData();
-
-        // some instead of forEach here, because it stops execution after first hit
-        buildings.features.some((building: GeoJSON.Feature<any>) => {
-            if ((building.properties.name !== undefined && building.properties.name === currentBuildingName) ||
-                (building.properties.loc_ref !== undefined && building.properties.loc_ref === currentBuildingName)) {
-                buildingFeaturesByBuildingName.set(currentBuildingName, building);
-                return true;
-            }
-            return false;
-        });
-
-        if (buildingFeaturesByBuildingName.get(currentBuildingName) !== undefined) {
-            const BBox = toBBox(buildingFeaturesByBuildingName.get(currentBuildingName));
-            const BBox_Leaflet = new LatLngBounds(new LatLng(BBox[2], BBox[3]), new LatLng(BBox[0], BBox[1]));
-            buildingBBoxesByBuildingName.set(currentBuildingName, BBox_Leaflet);
-
-            return BBox_Leaflet;
-        }
-
-        return null;
     },
 
-    getCurrentBuildingDescription(): string {
-        const currentBuildingFeature = buildingFeaturesByBuildingName.get(currentBuildingName);
-        return getBuildingDescription(currentBuildingFeature);
+    getCurrentBuildingCenter(): LatLng {
+        const boundingBox = buildingsBySearchString.get(currentSearchString).boundingBox;
+        return boundingBox.getCenter();
     },
 
-    searchForBuilding(searchTerm: string): Promise<string> {
-        currentBuildingName = searchTerm;
+    getBuildingDescription(): string {
+        return getBuildingDescription(buildingsBySearchString.get(currentSearchString).feature);
+    },
 
-        return new Promise<string>((resolve, reject) => {
-            if (BuildingControl.getCurrentBuildingBoundingBox() === null) {
-                reject('Building "' + searchTerm + '" could not be found');
-                return;
-            }
+    searchAndShowBuilding(searchString: string): Promise<string> {
+        return buildingSearch(searchString).then((bi: BuildingInterface) => {
+            buildingsBySearchString.set(searchString, bi);
+            currentSearchString = searchString;
+
             LevelControl.reCreate();
-            DescriptionPopup.update(BuildingControl.getCurrentBuildingDescription());
-            resolve('');
+            DescriptionPopup.update(BuildingControl.getBuildingDescription());
+
+            return new Promise((resolve => resolve('building found.')));
         });
     }
 }
