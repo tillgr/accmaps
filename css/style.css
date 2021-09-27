@@ -51,3 +51,7 @@ svg path {
 .leaflet-marker-icon-poi {
     display: block !important;
 }
+
+.leaflet-marker-pane img{
+    filter: drop-shadow(5px 5px 5px #444);
+}

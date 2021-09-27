@@ -1,5 +1,4 @@
 import * as L from 'leaflet';
-import {GeoJsonObject} from "geojson";
 import {GeoJSON, Layer, LayerGroup, LeafletMouseEvent} from "leaflet";
 
 import {Map} from "../map";
@@ -14,7 +13,7 @@ import {featureAccessibilityIcon} from "./_featureAccessibilityIcon";
 export class IndoorLayer {
     private readonly indoorLayerGroup: LayerGroup;
 
-    constructor(geoJSON: GeoJSON.FeatureCollection<any>) {
+    constructor(geoJSON: GeoJSON.FeatureCollection) {
         this.indoorLayerGroup = new LayerGroup();
         this.indoorLayerGroup.addTo(Map.get());
         this.drawIndoorLayerByGeoJSON(geoJSON)
@@ -28,22 +27,24 @@ export class IndoorLayer {
         this.indoorLayerGroup.clearLayers();
     }
 
-    updateLayer(geoJSON: GeoJsonObject): void {
+    updateLayer(geoJSON: GeoJSON.FeatureCollection): void {
         this.clearIndoorLayer();
         this.drawIndoorLayerByGeoJSON(geoJSON);
     }
 
-    private drawIndoorLayerByGeoJSON(geoJSON: GeoJsonObject) {
+    private drawIndoorLayerByGeoJSON(geoJSON: GeoJSON.FeatureCollection) {
         const layer = new L.GeoJSON(geoJSON, {
             style: featureStyle,
             onEachFeature: IndoorLayer.onEachFeature,
-            pointToLayer: featureAccessibilityIcon
+            pointToLayer: () => null
         });
         this.indoorLayerGroup.addLayer(layer);
         featureScreenAccessibility()
     }
 
     private static onEachFeature(feature: GeoJSON.Feature<any, any>, layer?: Layer) {
+        featureAccessibilityIcon(feature);
+
         layer.on('click', (e: LeafletMouseEvent) => {
             const accessibilityDescription = featureAccessibilityDescription(e);
             DescriptionPopup.update(accessibilityDescription);

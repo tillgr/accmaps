@@ -12,7 +12,6 @@ export function highlightSelectedFeature(e: LeafletMouseEvent): void {
 
     if (currentlySelectedFeaturePath !== null) {
         currentlySelectedFeaturePath.setAttribute('fill', currentlySelectedFeatureOriginalFillColor);
-        currentlySelectedFeaturePath.style.filter = '';
     }
 
     currentlySelectedFeaturePath = <HTMLElement>e.sourceTarget._path;
@@ -23,5 +22,4 @@ export function highlightSelectedFeature(e: LeafletMouseEvent): void {
     }
     currentlySelectedFeatureOriginalFillColor = currentlySelectedFeaturePath.getAttribute('fill');
     currentlySelectedFeaturePath.setAttribute('fill', COLORS.ROOM_SELECTED);
-    currentlySelectedFeaturePath.style.filter = 'drop-shadow(3px 3px 7px rgb(0 0 0 / 0.8))';
 }

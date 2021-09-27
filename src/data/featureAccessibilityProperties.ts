@@ -5,16 +5,18 @@ const allGroups = [UserGroupEnum.blindPeople, UserGroupEnum.noImpairments, UserG
 
 export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] = [
     {
-        accessibilityFunction: (f) => f.properties.handrail !== undefined,
+        accessibilityFunction: (f) => (f.properties.handrail !== undefined),
         msgTrue: 'handrail available',
         msgFalse: 'no handrail available',
-        userGroups: [UserGroupEnum.blindPeople]
+        userGroups: [UserGroupEnum.blindPeople],
+        iconFilename: 'handrail.png'
     },
     {
-        accessibilityFunction: (f) => f.properties.tactile_paving !== undefined,
+        accessibilityFunction: (f) => (f.properties.tactile_paving !== undefined),
         msgTrue: 'tactile paving available',
         msgFalse: 'no tactile paving available',
-        userGroups: [UserGroupEnum.blindPeople]
+        userGroups: [UserGroupEnum.blindPeople],
+        iconFilename: 'tactile_paving.png'
     },
     {
         accessibilityFunction: (f) => (f.properties.amenity !== undefined && f.properties.amenity == 'toilets'),
@@ -26,16 +28,17 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
         accessibilityFunction: (f) => (f.properties.wheelchair !== undefined && f.properties.wheelchair == 'yes'),
         msgTrue: 'wheelchair access possible',
         msgFalse: 'no wheelchair access',
-        userGroups: [UserGroupEnum.wheelchairUsers]
+        userGroups: [UserGroupEnum.wheelchairUsers],
+        iconFilename: 'wheelchair.png'
     },
     {
-        accessibilityFunction: (f) => f.properties['wheelchair:description:en'] !== undefined,
+        accessibilityFunction: (f) => (f.properties['wheelchair:description:en'] !== undefined),
         msgTrue: (f) => f.properties['wheelchair:description:en'],
         msgFalse: null,
         userGroups: [UserGroupEnum.wheelchairUsers]
     },
     {
-        accessibilityFunction: (f) => f.properties['wheelchair:description:de'] !== undefined,
+        accessibilityFunction: (f) => (f.properties['wheelchair:description:de'] !== undefined),
         msgTrue: (f) => f.properties['wheelchair:description:de'],
         msgFalse: null,
         userGroups: [UserGroupEnum.wheelchairUsers]
