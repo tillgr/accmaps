@@ -8,12 +8,13 @@ import {highlightSelectedFeature} from "./_highlightSelectedFeature";
 import {featureStyle} from "./_featureStyle";
 import {featureAccessibilityDescription} from "./_featureAccessibilityDescription";
 import {featureScreenAccessibility} from "./_featureScreenAccessibility";
-import {featureAccessibilityIcon} from "./_featureAccessibilityIcon";
+import {featureAccessibilityIcon, removeMarkers} from "./_featureAccessibilityIcon";
 
 export class IndoorLayer {
     private readonly indoorLayerGroup: LayerGroup;
 
     constructor(geoJSON: GeoJSON.FeatureCollection) {
+        removeMarkers();
         this.indoorLayerGroup = new LayerGroup();
         this.indoorLayerGroup.addTo(Map.get());
         this.drawIndoorLayerByGeoJSON(geoJSON)
@@ -33,6 +34,7 @@ export class IndoorLayer {
     }
 
     private drawIndoorLayerByGeoJSON(geoJSON: GeoJSON.FeatureCollection) {
+        removeMarkers();
         const layer = new L.GeoJSON(geoJSON, {
             style: featureStyle,
             onEachFeature: IndoorLayer.onEachFeature,

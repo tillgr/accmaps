@@ -5,6 +5,8 @@ import {Map} from "../map";
 
 const polygonCenter = require('geojson-polygon-center');
 
+let markers = new Array<Marker>();
+
 export function featureAccessibilityIcon(feature: GeoJSON.Feature): void {
     let iconFileName = '';
 
@@ -28,5 +30,14 @@ export function featureAccessibilityIcon(feature: GeoJSON.Feature): void {
             icon: icon
         });
         marker.addTo(Map.get());
+
+        markers.push(marker);
     }
+}
+
+export function removeMarkers() {
+    for (let i = 0; i < markers.length; i++) {
+        Map.get().removeLayer(markers[i]);
+    }
+    markers = [];
 }
