@@ -1,13 +1,11 @@
 import {GeoJSON, Icon, LatLng, Marker} from "leaflet";
 import {UserProfile} from "../userProfile";
 import {featureAccessibilityProperties} from "../data/featureAccessibilityProperties";
-import {Map} from "../map";
+import {MARKERS_IMG_DIR} from "../data/constants";
 
 const polygonCenter = require('geojson-polygon-center');
 
-let markers = new Array<Marker>();
-
-export function featureAccessibilityIcon(feature: GeoJSON.Feature): void {
+function featureAccessibilityMarker(feature: GeoJSON.Feature): Marker {
     let iconFileName = '';
 
     const isFeatureAccessible = featureAccessibilityProperties.some((property) => {
@@ -23,21 +21,16 @@ export function featureAccessibilityIcon(feature: GeoJSON.Feature): void {
         const featureCenterLatLng = new LatLng(featureCenter.coordinates[1], featureCenter.coordinates[0])
 
         const icon = new Icon({
-            iconUrl: 'images/' + iconFileName,
+            iconUrl: MARKERS_IMG_DIR + iconFileName,
             iconSize: [48, 48]
-        })
-        const marker = new Marker(featureCenterLatLng, {
+        });
+
+        return new Marker(featureCenterLatLng, {
             icon: icon
         });
-        marker.addTo(Map.get());
-
-        markers.push(marker);
     }
+    return null;
 }
 
-export function removeMarkers() {
-    for (let i = 0; i < markers.length; i++) {
-        Map.get().removeLayer(markers[i]);
-    }
-    markers = [];
-}
+
+export {featureAccessibilityMarker};

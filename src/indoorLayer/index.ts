@@ -1,5 +1,5 @@
 import * as L from 'leaflet';
-import {GeoJSON, Layer, LayerGroup, LeafletMouseEvent} from "leaflet";
+import {GeoJSON, Layer, LayerGroup, LeafletMouseEvent, Marker} from "leaflet";
 
 import {Map} from "../map";
 import {DescriptionPopup} from "../ui/_descriptionPopup";
@@ -8,13 +8,16 @@ import {highlightSelectedFeature} from "./_highlightSelectedFeature";
 import {featureStyle} from "./_featureStyle";
 import {featureAccessibilityDescription} from "./_featureAccessibilityDescription";
 import {featureScreenAccessibility} from "./_featureScreenAccessibility";
-import {featureAccessibilityIcon, removeMarkers} from "./_featureAccessibilityIcon";
+import {featureAccessibilityMarker} from "./_featureAccessibilityMarker";
+
+let accessibilityMarkers: Marker[] = [];
 
 export class IndoorLayer {
     private readonly indoorLayerGroup: LayerGroup;
 
     constructor(geoJSON: GeoJSON.FeatureCollection) {
-        removeMarkers();
+        IndoorLayer.removeAccessibilityMarkers();
+
         this.indoorLayerGroup = new LayerGroup();
         this.indoorLayerGroup.addTo(Map.get());
         this.drawIndoorLayerByGeoJSON(geoJSON)
@@ -34,7 +37,8 @@ export class IndoorLayer {
     }
 
     private drawIndoorLayerByGeoJSON(geoJSON: GeoJSON.FeatureCollection) {
-        removeMarkers();
+        IndoorLayer.removeAccessibilityMarkers();
+
         const layer = new L.GeoJSON(geoJSON, {
             style: featureStyle,
             onEachFeature: IndoorLayer.onEachFeature,
@@ -45,12 +49,24 @@ export class IndoorLayer {
     }
 
     private static onEachFeature(feature: GeoJSON.Feature<any, any>, layer?: Layer) {
-        featureAccessibilityIcon(feature);
+        const marker = featureAccessibilityMarker(feature);
+        if (marker) {
+            marker.addTo(Map.get());
+            accessibilityMarkers.push(marker);
+        }
 
         layer.on('click', (e: LeafletMouseEvent) => {
             const accessibilityDescription = featureAccessibilityDescription(e);
             DescriptionPopup.update(accessibilityDescription);
             highlightSelectedFeature(e);
         });
+    }
+
+
+    private static removeAccessibilityMarkers() {
+        for (let i = 0; i < accessibilityMarkers.length; i++) {
+            Map.get().removeLayer(accessibilityMarkers[i]);
+        }
+        accessibilityMarkers = [];
     }
 }

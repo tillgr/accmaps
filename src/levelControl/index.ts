@@ -7,7 +7,6 @@ import {BuildingControl} from "../buildingControl";
 
 import {INDOOR_LEVEL} from "../data/constants";
 import {getLevelsFromLevelString} from "./_getLevelsFromLevelString";
-import {removeMarkers} from "../indoorLayer/_featureAccessibilityIcon";
 
 let currentLevel: string;
 let allLevels: Array<string>;

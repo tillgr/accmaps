@@ -11,6 +11,11 @@ const OVERPASS_DATA_URLS = {
     BUILDINGS: '/overpass/buildings.json'
 }
 
+const MARKERS_IMG_DIR = '/images/';
+
+const MAP_START_LAT = 51.0255439;
+const MAP_START_LNG = 13.722780;
+
 const COLORS = {
     WALL: '#000000',
     WALL_SELECTED: '#068288',
@@ -25,6 +30,9 @@ export {
     MAPQUEST_API_KEY,
     OSM_TILE_SERVER,
     OVERPASS_DATA_URLS,
+    MARKERS_IMG_DIR,
+    MAP_START_LAT,
+    MAP_START_LNG,
     INDOOR_LEVEL,
     FILL_OPACITY,
     WALL_WEIGHT,

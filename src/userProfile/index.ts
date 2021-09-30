@@ -8,7 +8,10 @@ export const UserProfile = {
     },
     set(userGroup: UserGroupEnum): void {
         selectedUserGroup = userGroup;
-
+        /*
+         * Hack: reload window location to properly update all profile-specific information.
+         * Working, since the selected Profile is stored in LocalStorage.
+         */
         setTimeout(window.location.reload.bind(window.location), 200);
     }
 }

@@ -1,8 +1,7 @@
 import {LatLng, Map as LeafletMap, TileLayer} from 'leaflet';
 
 import {mapAccessibility} from "./_mapAccessibility";
-import {OSM_TILE_SERVER} from "../data/constants";
-
+import {MAP_START_LAT, MAP_START_LNG, OSM_TILE_SERVER} from "../data/constants";
 
 let mapInstance: LeafletMap = null;
 
@@ -20,7 +19,7 @@ function createMap() {
     const osmTileLayer = new TileLayer(OSM_TILE_SERVER, {maxZoom: 21});
 
     mapInstance = new LeafletMap('map', {
-        center: new LatLng(51.0255439, 13.722780),
+        center: new LatLng(MAP_START_LAT, MAP_START_LNG),
         zoom: 19
     });
 

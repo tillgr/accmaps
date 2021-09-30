@@ -19,6 +19,9 @@ export const BuildingControl = {
         if (buildingInterface !== undefined) {
             return filterGeoJsonDataByBuildingBBox(OverpassData.getIndoorData(), buildingInterface.boundingBox);
         }
+
+        console.error('Building not found');
+        return null;
     },
 
     getCurrentBuildingCenter(): LatLng {
@@ -27,18 +30,19 @@ export const BuildingControl = {
     },
 
     getBuildingDescription(): string {
-        return getBuildingDescription(buildingsBySearchString.get(currentSearchString).feature);
+        const currentBuildingFeature = buildingsBySearchString.get(currentSearchString).feature;
+        return getBuildingDescription(currentBuildingFeature);
     },
 
     searchAndShowBuilding(searchString: string): Promise<string> {
-        return buildingSearch(searchString).then((bi: BuildingInterface) => {
-            buildingsBySearchString.set(searchString, bi);
+        return buildingSearch(searchString).then((b: BuildingInterface) => {
+            buildingsBySearchString.set(searchString, b);
             currentSearchString = searchString;
 
             LevelControl.reCreate();
             DescriptionPopup.update(BuildingControl.getBuildingDescription());
 
-            return new Promise((resolve => resolve('building found.')));
+            return new Promise((resolve => resolve('Building found.')));
         });
     }
 }
