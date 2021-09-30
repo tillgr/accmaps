@@ -42,3 +42,6 @@ JS source files which are needed to run the Node-based webserver. Exported funct
 ### _src_
 
 The client application's source files, written in TypeScript.
+
+## Icons
+The icon images are taken from https://thenounproject.com/ (TODO: check licensing!)
