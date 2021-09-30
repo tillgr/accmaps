@@ -49,4 +49,11 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
         msgFalse: null,
         userGroups: [UserGroupEnum.blindPeople]
     },
+    {
+        accessibilityFunction: (f) => f.properties['information'] !== undefined && (f.properties['information'] === 'braille' || f.properties['information'] === 'tactile_letters'),
+        msgTrue: 'tactile information available',
+        msgFalse: null,
+        userGroups: [UserGroupEnum.blindPeople],
+        iconFilename: 'braille.png'
+    }
 ];
