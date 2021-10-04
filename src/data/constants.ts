@@ -1,6 +1,7 @@
 const INDOOR_LEVEL = '0';
 const FILL_OPACITY = 0.9;
-const WALL_WEIGHT = 3;
+const WALL_WEIGHT = 1;
+const WALL_WEIGHT_PAVING = 3;
 
 const OSM_TILE_SERVER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const NOMINATIM_SERVER = 'https://open.mapquestapi.com/nominatim/v1/search.php';
@@ -36,5 +37,6 @@ export {
     INDOOR_LEVEL,
     FILL_OPACITY,
     WALL_WEIGHT,
+    WALL_WEIGHT_PAVING,
     COLORS
 };

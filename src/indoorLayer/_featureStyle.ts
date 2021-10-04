@@ -1,5 +1,7 @@
 import {GeoJSON} from "leaflet";
-import {COLORS, FILL_OPACITY, WALL_WEIGHT} from "../data/constants";
+import {COLORS, FILL_OPACITY, WALL_WEIGHT, WALL_WEIGHT_PAVING} from "../data/constants";
+import {UserProfile} from "../userProfile";
+import {UserGroupEnum} from "../interfaces/userGroupEnum";
 
 export function featureStyle(feature: GeoJSON.Feature<any>): any {
     let fill = '#fff';
@@ -14,8 +16,12 @@ export function featureStyle(feature: GeoJSON.Feature<any>): any {
 
     return {
         fillColor: fill,
-        weight: WALL_WEIGHT,
+        weight: highlightTactilePavingLines(feature),
         color: COLORS.WALL,
         fillOpacity: FILL_OPACITY
     };
+}
+
+function highlightTactilePavingLines(feature: GeoJSON.Feature<any>) {
+    return (UserProfile.get() == UserGroupEnum.blindPeople && feature.geometry.type === "LineString" && feature.properties.tactile_paving === "yes") ? WALL_WEIGHT_PAVING : WALL_WEIGHT
 }
