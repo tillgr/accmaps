@@ -7,12 +7,8 @@ html, body {
     height: calc(100% - 260px);
 }
 
-.modal-trigger, #levelControl {
+#levelControl {
     margin-top: 10px;
-}
-
-#levelControl .btn {
-    margin-right: 3px;
 }
 
 #descriptionArea {
@@ -29,29 +25,10 @@ svg path {
     transition: fill 300ms;
 }
 
-.leaflet-interactive:hover {
+path.leaflet-interactive:hover {
     filter: brightness(150%);
 }
 
-.leaflet-interactive[fill="none"]:hover {
-    filter: brightness(150%);
-}
-
-.leaflet-div-icon {
-    background: none;
-    border: 0;
-    color: #4DEBF0;
-    text-shadow: 0 0 4px #000;
-}
-
-.leaflet-div-icon .material-icons {
-    font-size: 36px;
-}
-
-.leaflet-marker-icon-poi {
-    display: block !important;
-}
-
-.leaflet-marker-pane img{
-    filter: drop-shadow(5px 5px 5px #444);
+.leaflet-marker-pane img {
+    filter: drop-shadow(0 0 3px #222);
 }
