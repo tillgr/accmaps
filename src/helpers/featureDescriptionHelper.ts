@@ -17,7 +17,11 @@ export function featureDescriptionHelper(feature: GeoJSON.Feature, accessibility
         }
     });
 
-    description = description.slice(0, -2) + ']';
+    if (description.length > 2) {
+        description = description.slice(0, -2) + ']';
+    } else {
+        description = '';
+    }
 
     return description;
 }
