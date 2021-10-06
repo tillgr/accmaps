@@ -16,7 +16,7 @@ export const Map = {
 }
 
 function createMap() {
-    const osmTileLayer = new TileLayer(OSM_TILE_SERVER, {maxZoom: 21});
+    const osmTileLayer = new TileLayer(OSM_TILE_SERVER, {maxZoom: 21, attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',});
 
     mapInstance = new LeafletMap('map', {
         center: new LatLng(MAP_START_LAT, MAP_START_LNG),
