@@ -8,6 +8,7 @@ import {filterGeoJsonDataByBuildingBBox} from "./_filterGeoJsonDataByBuildingBBo
 import {getBuildingDescription} from "./_getBuildingDescription";
 import {buildingSearch} from "./_buildingSearch";
 import {BuildingInterface} from "../interfaces/buildingInterface";
+import {Map as M} from "../map";
 
 
 const buildingsBySearchString: Map<string, BuildingInterface> = new Map<string, BuildingInterface>();
@@ -38,12 +39,24 @@ export const BuildingControl = {
         return buildingSearch(searchString).then((b: BuildingInterface) => {
             buildingsBySearchString.set(searchString, b);
             currentSearchString = searchString;
+            localStorage.setItem('currentBuildingSearchString', searchString)
 
             LevelControl.reCreate();
             DescriptionPopup.update(BuildingControl.getBuildingDescription());
 
+            BuildingControl.centerMapToBuilding();
+
             return new Promise((resolve => resolve('Building found.')));
         });
+    },
+
+    centerMapToBuilding(): void {
+        const center = BuildingControl.getCurrentBuildingCenter();
+
+        if (center !== null) {
+            //strange behaviour: getCenter returns values in wrong order - leaflet bug?
+            M.get().panTo(new LatLng(center.lng, center.lat));
+        }
     }
 }
 

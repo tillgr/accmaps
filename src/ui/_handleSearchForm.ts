@@ -1,7 +1,5 @@
 import {BuildingControl} from "../buildingControl";
 import {showSearchErrorMsg} from "./_showSearchErrorMsg";
-import {Map} from "../map";
-import {LatLng} from "leaflet";
 import {Modal} from "materialize-css";
 
 export function handleSearchForm(): void {
@@ -24,21 +22,12 @@ function runBuildingSearch(buildingSearchInput: HTMLInputElement) {
     const searchString = buildingSearchInput.value;
 
     BuildingControl.searchAndShowBuilding(searchString).then(() => {
-        centerMapToBuilding();
         closeSearchModal();
     }).catch((errorMessage) => {
         showSearchErrorMsg(errorMessage);
     });
 }
 
-function centerMapToBuilding() {
-    const center = BuildingControl.getCurrentBuildingCenter();
-
-    if (center !== null) {
-        //strange behaviour: getCenter returns values in wrong order - leaflet bug?
-        Map.get().panTo(new LatLng(center.lng, center.lat));
-    }
-}
 
 function closeSearchModal() {
     const elems = document.querySelectorAll(".modal");
