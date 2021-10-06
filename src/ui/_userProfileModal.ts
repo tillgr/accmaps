@@ -25,6 +25,11 @@ export const UserProfileModal = {
             button.setAttribute('href', '#map');
             button.innerHTML = '<span>' + v.name + ' <span class="secondary-content"><i class="material-icons">' + v.icon + '</i></span></span>';
             button.onclick = () => UserProfileModal.setUserProfile(k);
+
+            if (UserProfile.get() === k) {
+                button.classList.add('active');
+            }
+
             document.getElementById('userProfileList').append(button);
         });
 
