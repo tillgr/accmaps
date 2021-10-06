@@ -23,7 +23,7 @@ export const UserProfileModal = {
             const button = document.createElement('a');
             button.className = 'collection-item';
             button.setAttribute('href', '#map');
-            button.innerHTML = '<span>' + v.name + ' <span class="secondary-content"><i class="material-icons">' + v.icon + '</i></span></span>';
+            button.innerHTML = v.name + ' <span class="secondary-content" aria-hidden="true"><i class="material-icons">' + v.icon + '</i></span>';
             button.onclick = () => UserProfileModal.setUserProfile(k);
 
             if (UserProfile.get() === k) {
@@ -38,6 +38,9 @@ export const UserProfileModal = {
     show(): void {
         const modal = document.getElementById('userProfileModal');
         Modal.getInstance(modal).open();
+        overlayAccessibility();
+
+        document.getElementById('userProfileList').focus();
     },
 
     close(): void {
@@ -56,3 +59,11 @@ export const UserProfileModal = {
         });
     }
 };
+
+function overlayAccessibility() {
+    const overlayDivs = document.getElementsByClassName('modal-overlay');
+
+    [].forEach.call(overlayDivs, (overlay: HTMLElement) => {
+        overlay.setAttribute('aria-disabled', 'true');
+    })
+}
