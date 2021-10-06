@@ -12,8 +12,12 @@ export function featureDescriptionHelper(feature: GeoJSON.Feature, accessibility
 
         if (e.accessibilityFunction(feature)) {
             description += ((typeof e.msgTrue === 'string') ? e.msgTrue : e.msgTrue(feature)) + ', ';
-        } else if (e.msgFalse !== null) {
-            description += ((typeof e.msgFalse === 'string') ? e.msgFalse : e.msgFalse(feature)) + ', ';
+        } else if (e.msgFalse !== null && (typeof e.msgFalse === 'string')) {
+            description += e.msgFalse + ', ';
+        } else if (e.msgFalse !== null && (typeof e.msgFalse === 'function')) {
+            if (e.msgFalse(feature)) {
+                description += e.msgFalse(feature) + ', ';
+            }
         }
     });
 

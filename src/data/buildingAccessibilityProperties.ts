@@ -7,12 +7,18 @@ export const buildingAccessibilityProperties: AccessibilityPropertiesInterface[]
     {
         accessibilityFunction: (f) => (f.properties.wheelchair !== undefined && f.properties.wheelchair === 'yes'),
         msgTrue: 'wheelchair access possible',
-        msgFalse: (f) => (f.properties.wheelchair !== undefined) ? '' : 'no wheelchair access possible',
+        msgFalse: (f) => (f.properties.wheelchair === undefined) ? null : (f.properties.wheelchair === 'limited' ? 'limited wheelchair access' : 'no wheelchair access possible'),
         userGroups: [UserGroupEnum.wheelchairUsers]
     },
     {
-        accessibilityFunction: (f) => (f.properties['wheelchair:description'] !== undefined),
-        msgTrue: (f) => f.properties['wheelchair:description'],
+        accessibilityFunction: (f) => (f.properties['wheelchair:description:de'] !== undefined),
+        msgTrue: (f) => f.properties['wheelchair:description:de'],
+        msgFalse: null,
+        userGroups: [UserGroupEnum.wheelchairUsers]
+    },
+    {
+        accessibilityFunction: (f) => (f.properties['wheelchair:description:en'] !== undefined),
+        msgTrue: (f) => f.properties['wheelchair:description:en'],
         msgFalse: null,
         userGroups: [UserGroupEnum.wheelchairUsers]
     },

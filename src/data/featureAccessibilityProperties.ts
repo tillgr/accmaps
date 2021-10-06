@@ -19,13 +19,13 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
         iconFilename: 'tactile_paving.png'
     },
     {
-        accessibilityFunction: (f) => (f.properties.amenity !== undefined && f.properties.amenity == 'toilets'),
+        accessibilityFunction: (f) => (f.properties.amenity !== undefined && f.properties.amenity === 'toilets'),
         msgTrue: (f) => ((f.properties.male !== undefined) ? 'male ' : (f.properties.female !== undefined) ? 'female ' : 'unisex ') + 'toilet',
         msgFalse: null,
         userGroups: allGroups
     },
     {
-        accessibilityFunction: (f) => (f.properties.wheelchair !== undefined && f.properties.wheelchair == 'yes'),
+        accessibilityFunction: (f) => (f.properties.wheelchair !== undefined && ['yes', 'designated'].includes(f.properties.wheelchair)),
         msgTrue: 'wheelchair access possible',
         msgFalse: 'no wheelchair access',
         userGroups: [UserGroupEnum.wheelchairUsers],
