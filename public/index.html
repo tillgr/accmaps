@@ -8,31 +8,32 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Accessible Maps mobile</a>
+        <a class="navbar-brand" href="#">
+            <img src="/images/icons-192.png" alt="" width="32" height="32" class="d-inline-block align-text-top">
+            Accessible Maps mobile</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="nav-link active" href="#" id="changeUserProfileBtn">Change user Profile</a>
                 </li>
             </ul>
-            <div class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search for buildings" aria-label="Search for buildings"
+            <div class="d-flex" id="buildingSearchWrapper">
+                <input class="form-control me-2" type="search" placeholder="Search for buildings"
+                       aria-label="Search for buildings"
                        id="buildingSearch">
-                <button class="btn btn-outline-success" role="button" id="buildingSearchSubmit">Search</button>
+                <button class="btn btn-outline-secondary" role="button" id="buildingSearchSubmit">Search</button>
             </div>
             <div class="spinner-border ms-3 d-none" role="status" id="loadingIndicator">
                 <span class="visually-hidden">Loading...</span>
             </div>
         </div>
-
     </div>
-
 </nav>
 
 <div id="map" aria-disabled="true"></div>
@@ -41,7 +42,7 @@
     <ul class="pagination justify-content-center" id="levelControl"></ul>
 </nav>
 
-<div class="card mx-3" id="descriptionAreaWrapper">
+<div class="card mx-3 shadow" id="descriptionAreaWrapper">
     <div class="card-body" id="descriptionArea" role="status"></div>
 </div>
 

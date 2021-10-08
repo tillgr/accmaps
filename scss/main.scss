@@ -1,24 +1,30 @@
 @import "bootstrap_imports";
 @import "map";
 
-nav{
+nav {
   z-index: 99;
 }
 
 #levelControlWrapper {
-  position: absolute;
-  bottom: 80px;
-  left: 0;
-  right: 0;
-}
-
-#descriptionAreaWrapper {
   position: absolute;
   bottom: 20px;
   left: 0;
   right: 0;
 }
 
+#descriptionAreaWrapper {
+  position: absolute;
+  bottom: 140px;
+  left: 0;
+  right: 0;
+  z-index: 20;
+}
+
 #descriptionArea {
   font-size: 120%;
+}
+
+#buildingSearchWrapper {
+  width: 800px;
+  max-width: 70vw;
 }
