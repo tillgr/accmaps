@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    mode: "production",
+    mode: "development",
     entry: {
         main: [path.resolve(__dirname, "./src/main.ts"), path.resolve(__dirname, "./src/ui.ts")],
         style: path.resolve(__dirname, "./src/style.ts")
@@ -16,8 +16,18 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.css$/,
-                use: ["style-loader", "css-loader"]
+                test: /\.(scss)$/,
+                use: [{loader: 'style-loader'}, {loader: 'css-loader'},
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                plugins: function () {
+                                    return [require('autoprefixer')];
+                                }
+                            }
+                        }
+                    }, {loader: 'sass-loader'}]
             },
             {
                 test: /\.(png|jpe?g|gif)$/i,

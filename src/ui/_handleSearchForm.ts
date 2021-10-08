@@ -1,6 +1,5 @@
 import {BuildingControl} from "../buildingControl";
-import {showSearchErrorMsg} from "./_showSearchErrorMsg";
-import {Modal} from "materialize-css";
+import {LoadingIndicator} from "./_loadingIndicator";
 
 export function handleSearchForm(): void {
     const buildingSearchSubmit = document.getElementById('buildingSearchSubmit');
@@ -19,17 +18,12 @@ export function handleSearchForm(): void {
 }
 
 function runBuildingSearch(buildingSearchInput: HTMLInputElement) {
+    LoadingIndicator.start();
     const searchString = buildingSearchInput.value;
 
     BuildingControl.searchAndShowBuilding(searchString).then(() => {
-        closeSearchModal();
+        LoadingIndicator.end()
     }).catch((errorMessage) => {
-        showSearchErrorMsg(errorMessage);
+        LoadingIndicator.error(errorMessage);
     });
-}
-
-
-function closeSearchModal() {
-    const elems = document.querySelectorAll(".modal");
-    Modal.getInstance(elems[0]).close();
 }

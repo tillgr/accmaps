@@ -1,19 +1,18 @@
 import {UserProfile} from "../userProfile";
-import {Modal} from "materialize-css";
 import {UserGroups} from "../data/userGroups";
 import {UserGroupEnum} from "../interfaces/userGroupEnum";
+
+import {Modal} from 'bootstrap';
+
+
+const userProfileModal = new Modal(document.getElementById('userProfileModal'), {backdrop: 'static', keyboard: false});
+userProfileModal.hide();
 
 export const UserProfileModal = {
     create(): void {
         const selectedUserProfile = localStorage.getItem('userProfile');
         if (selectedUserProfile !== null) {
             UserProfileModal.close();
-            M.toast({
-                html: 'User profile already set:&nbsp;&nbsp;'
-                    + '<i class="material-icons tiny" aria-disabled="true">' + UserGroups.get(<UserGroupEnum>parseInt(selectedUserProfile)).icon + '</i>&nbsp;'
-                    + UserGroups.get(<UserGroupEnum>parseInt(selectedUserProfile)).name
-                    + '<button class="btn-flat toast-action" id="changeUserProfileBtn">change</button>'
-            });
             document.getElementById('changeUserProfileBtn').onclick = UserProfileModal.show;
         } else {
             UserProfileModal.show();
@@ -21,9 +20,9 @@ export const UserProfileModal = {
 
         UserGroups.forEach((v, k) => {
             const button = document.createElement('a');
-            button.className = 'collection-item';
-            button.setAttribute('href', '#map');
-            button.innerHTML = v.name + ' <span class="secondary-content" aria-hidden="true"><i class="material-icons">' + v.icon + '</i></span>';
+            button.href = '#map';
+            button.className = 'list-group-item d-flex justify-content-between align-items-start';
+            button.innerHTML = v.name + ' <span aria-hidden="true"><i class="material-icons">' + v.icon + '</i></span>';
             button.onclick = () => UserProfileModal.setUserProfile(k);
 
             if (UserProfile.get() === k) {
@@ -36,27 +35,20 @@ export const UserProfileModal = {
     },
 
     show(): void {
-        const modal = document.getElementById('userProfileModal');
-        Modal.getInstance(modal).open();
+        userProfileModal.show();
         overlayAccessibility();
 
         document.getElementById('userProfileList').focus();
     },
 
     close(): void {
-        const modal = document.getElementById('userProfileModal');
-        Modal.getInstance(modal).close();
+        userProfileModal.hide();
     },
 
     setUserProfile(userGroup: UserGroupEnum): void {
         UserProfile.set(userGroup);
         localStorage.setItem('userProfile', userGroup.toString());
         UserProfileModal.close();
-        M.toast({
-            html: 'Set user profile to:&nbsp;&nbsp;'
-                + '<i class="material-icons tiny" aria-disabled="true">' + UserGroups.get(userGroup).icon + '</i>&nbsp;'
-                + UserGroups.get(userGroup).name
-        });
     }
 };
 

@@ -1,16 +1,20 @@
 @import "bootstrap_imports";
 @import "map";
 
+nav{
+  z-index: 99;
+}
+
 #levelControlWrapper {
   position: absolute;
-  bottom: 180px;
+  bottom: 80px;
   left: 0;
   right: 0;
 }
 
 #descriptionAreaWrapper {
   position: absolute;
-  bottom: 50px;
+  bottom: 20px;
   left: 0;
   right: 0;
 }

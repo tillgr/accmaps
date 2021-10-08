@@ -1,18 +1,19 @@
-const loading_indicator = document.getElementById('loading_indicator');
+const loadingIndicator = document.getElementById('loadingIndicator');
 
 export const LoadingIndicator = {
     start(): void {
-        loading_indicator.children[0].classList.add('indeterminate');
-        loading_indicator.classList.remove('red');
+        loadingIndicator.classList.remove('text-danger');
+        loadingIndicator.classList.add('text-primary');
+        loadingIndicator.classList.remove('d-none');
     },
 
     end(): void {
-        loading_indicator.children[0].classList.remove('indeterminate');
+        loadingIndicator.classList.add('d-none');
     },
 
     error(msg: string): void {
-        LoadingIndicator.end();
-        loading_indicator.classList.add('red');
-        M.toast({html: msg});
+        loadingIndicator.classList.remove('text-primary');
+        loadingIndicator.classList.add('text-danger');
+        setTimeout(LoadingIndicator.end, 2000);
     }
 }

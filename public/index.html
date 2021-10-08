@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AccessibleMaps Mobile</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -18,18 +18,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#" id="changeUserProfileBtn1" data-bs-toggle="modal"
-                       data-bs-target="#userProfileModal">Change user Profile</a>
+                    <a class="nav-link active" href="#" id="changeUserProfileBtn">Change user Profile</a>
                 </li>
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <div class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search for buildings" aria-label="Search for buildings"
+                       id="buildingSearch">
+                <button class="btn btn-outline-success" role="button" id="buildingSearchSubmit">Search</button>
+            </div>
+            <div class="spinner-border ms-3 d-none" role="status" id="loadingIndicator">
+                <span class="visually-hidden">Loading...</span>
+            </div>
         </div>
-        <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
+
     </div>
 
 </nav>
@@ -40,11 +41,11 @@
     <ul class="pagination justify-content-center" id="levelControl"></ul>
 </nav>
 
-<div class="card" id="descriptionAreaWrapper">
+<div class="card mx-3" id="descriptionAreaWrapper">
     <div class="card-body" id="descriptionArea" role="status"></div>
 </div>
 
-<div class="modal fade" id="userProfileModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="userProfileModal" tabindex="-1"
      aria-labelledby="userProfileModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -54,9 +55,6 @@
             </div>
             <div class="modal-body">
                 <div class="collection" id="userProfileList"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
