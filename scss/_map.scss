@@ -1,0 +1,9 @@
+@import "../node_modules/leaflet/dist/leaflet.css";
+
+#map {
+  position: absolute;
+  top: 60px;
+  bottom: 250px;
+  left: 0;
+  right: 0;
+}

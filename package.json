@@ -17,9 +17,9 @@
   "license": "ISC",
   "dependencies": {
     "@types/leaflet": "^1.7.4",
-    "@types/materialize-css": "^1.0.11",
     "@typescript-eslint/eslint-plugin": "^4.28.5",
     "@typescript-eslint/parser": "^4.28.5",
+    "bootstrap": "^5.1.2",
     "css-loader": "^5.2.6",
     "eslint": "^7.31.0",
     "express": "^4.17.1",
@@ -27,7 +27,6 @@
     "geojson-bounding-box": "^0.2.0",
     "geojson-polygon-center": "^0.0.0",
     "leaflet": "^1.7.1",
-    "materialize-css": "^1.0.0",
     "node-xml-stream": "^1.0.2",
     "osmtogeojson": "^3.0.0-beta.4",
     "style-loader": "^2.0.0",
@@ -35,6 +34,11 @@
     "typescript": "^4.3.5",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.0",
-    "xmlhttprequest": "^1.8.0"
+    "xmlhttprequest": "^1.8.0",
+    "@types/bootstrap": "^5.1.6",
+    "autoprefixer": "^10.3.7",
+    "node-sass": "^6.0.1",
+    "postcss-loader": "^6.1.1",
+    "sass-loader": "^12.1.0"
   }
 }

@@ -75,8 +75,8 @@ function createLevelControlButtons(): void {
     allLevels.forEach((level: string) => {
         const changeToLevel = 'change to level ' + level;
         const levelBtn = document.createElement('li');
-        levelBtn.className = 'waves-effect';
-        levelBtn.innerHTML = '<a>' + level + '</a>'; //todo: proper solution
+        levelBtn.className = 'page-item';
+        levelBtn.innerHTML = '<a class="page-link" href="#">' + level + '</a>'; //todo: proper solution
         levelBtn.setAttribute('role', 'button');
         levelBtn.setAttribute('title', changeToLevel);
         levelBtn.setAttribute('aria-label', changeToLevel);
