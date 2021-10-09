@@ -1,4 +1,4 @@
-import {GeoJSON, LatLng} from "leaflet";
+import {GeoJSON, LatLng, LatLngBounds} from "leaflet";
 
 import {OverpassData} from "../overpassData";
 import {LevelControl} from "../levelControl";
@@ -25,10 +25,6 @@ export const BuildingControl = {
         return null;
     },
 
-    getCurrentBuildingCenter(): LatLng {
-        const boundingBox = buildingsBySearchString.get(currentSearchString).boundingBox;
-        return boundingBox.getCenter();
-    },
 
     getBuildingDescription(): string {
         const currentBuildingFeature = buildingsBySearchString.get(currentSearchString).feature;
@@ -51,11 +47,16 @@ export const BuildingControl = {
     },
 
     centerMapToBuilding(): void {
-        const center = BuildingControl.getCurrentBuildingCenter();
+        const currentBuildingBBox = buildingsBySearchString.get(currentSearchString).boundingBox;
 
-        if (center !== null) {
-            //strange behaviour: getCenter returns values in wrong order - leaflet bug?
-            M.get().flyTo(new LatLng(center.lng, center.lat));
+        if (currentBuildingBBox !== null) {
+            /* seems to be a bug somewhere (in leaflet?):
+             * elements of returned bounding box are in wrong order (Lat and Lng are interchanged) */
+
+            const currentBuildingBBox_corrected = new LatLngBounds(new LatLng(currentBuildingBBox.getSouthWest().lng, currentBuildingBBox.getSouthWest().lat),
+                new LatLng(currentBuildingBBox.getNorthEast().lng, currentBuildingBBox.getNorthEast().lat));
+
+            M.get().flyToBounds(currentBuildingBBox_corrected);
         }
     }
 }
