@@ -18,6 +18,7 @@ const MAP_START_LAT = 51.0255439;
 const MAP_START_LNG = 13.722780;
 
 const DEFAULT_BUILDING_SEARCH_STRING = 'APB';
+const OSM_ATTRIBUTION = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 const COLORS = {
     WALL: '#000000',
@@ -38,6 +39,7 @@ export {
     MAP_START_LNG,
     DEFAULT_BUILDING_SEARCH_STRING,
     INDOOR_LEVEL,
+    OSM_ATTRIBUTION,
     FILL_OPACITY,
     WALL_WEIGHT,
     WALL_WEIGHT_PAVING,

@@ -1,8 +1,10 @@
-export function mapAccessibility():void {
+export function mapAccessibility(): void {
     removeShadowPane();
     silenceTileImages();
     silenceMapMarkers();
     silenceLeafletAttribution();
+    silenceZoomControls();
+    //TODO: simplify, since all functions use the same logic
 }
 
 function removeShadowPane() {
@@ -13,8 +15,16 @@ function removeShadowPane() {
     });
 }
 
+function silenceZoomControls() {
+    const controls = document.getElementsByClassName('leaflet-control-zoom');
+    [].forEach.call(controls, (contol: Element) => {
+        contol.setAttribute('role', 'presentation');
+        contol.setAttribute('aria-hidden', 'true'); // dont read them out
+    });
+}
+
 function silenceTileImages() {
-    const mapTiles = document.querySelectorAll('.leaflet-tile-container img, .leaflet-shadow-pane img');
+    const mapTiles = document.getElementsByClassName('leaflet-tile');
 
     [].forEach.call(mapTiles, (tile: Element) => {
         tile.setAttribute('role', 'presentation');
@@ -31,5 +41,5 @@ function silenceMapMarkers() {
 }
 
 function silenceLeafletAttribution() {
-    document.getElementsByClassName('leaflet-control-attribution')[0].setAttribute('aria-disabled', 'true');
+    document.getElementsByClassName('leaflet-control-attribution')[0].setAttribute('aria-hidden', 'true');
 }

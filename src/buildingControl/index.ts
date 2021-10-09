@@ -55,7 +55,7 @@ export const BuildingControl = {
 
         if (center !== null) {
             //strange behaviour: getCenter returns values in wrong order - leaflet bug?
-            M.get().panTo(new LatLng(center.lng, center.lat));
+            M.get().flyTo(new LatLng(center.lng, center.lat));
         }
     }
 }

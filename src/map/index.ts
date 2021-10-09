@@ -1,7 +1,7 @@
 import {LatLng, Map as LeafletMap, TileLayer} from 'leaflet';
 
 import {mapAccessibility} from "./_mapAccessibility";
-import {MAP_START_LAT, MAP_START_LNG, OSM_TILE_SERVER} from "../data/constants";
+import {MAP_START_LAT, MAP_START_LNG, OSM_ATTRIBUTION, OSM_TILE_SERVER} from "../data/constants";
 
 let mapInstance: LeafletMap = null;
 
@@ -16,14 +16,14 @@ export const Map = {
 }
 
 function createMap() {
-    const osmTileLayer = new TileLayer(OSM_TILE_SERVER, {maxZoom: 21, attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',});
+    const osmTileLayer = new TileLayer(OSM_TILE_SERVER, {maxZoom: 21, attribution: OSM_ATTRIBUTION});
 
     mapInstance = new LeafletMap('map', {
         center: new LatLng(MAP_START_LAT, MAP_START_LNG),
         zoom: 19
-    });
+    }).on('moveend', mapAccessibility).on('load', mapAccessibility).on('zoomend', mapAccessibility);
+    mapInstance.whenReady(mapAccessibility);
 
     osmTileLayer.addTo(mapInstance);
-    mapInstance.on('load', mapAccessibility)
     return mapInstance;
 }
