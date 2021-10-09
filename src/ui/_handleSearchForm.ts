@@ -22,7 +22,10 @@ function runBuildingSearch(buildingSearchInput: HTMLInputElement) {
     const searchString = buildingSearchInput.value;
 
     BuildingControl.searchAndShowBuilding(searchString).then(() => {
-        LoadingIndicator.end()
+        LoadingIndicator.end();
+        const navBar = document.getElementById('navbarSupportedContent')
+        navBar.classList.remove('show');
+        navBar.classList.add('hide');
     }).catch((errorMessage) => {
         LoadingIndicator.error(errorMessage);
     });

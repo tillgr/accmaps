@@ -2,7 +2,7 @@ import * as L from 'leaflet';
 import {GeoJSON, Layer, LayerGroup, LeafletMouseEvent, Marker} from "leaflet";
 
 import {Map} from "../map";
-import {DescriptionPopup} from "../ui/_descriptionPopup";
+import {DescriptionArea} from "../ui/_descriptionArea";
 
 import {highlightSelectedFeature} from "./_highlightSelectedFeature";
 import {featureStyle} from "./_featureStyle";
@@ -57,7 +57,7 @@ export class IndoorLayer {
 
         layer.on('click', (e: LeafletMouseEvent) => {
             const accessibilityDescription = featureAccessibilityDescription(e);
-            DescriptionPopup.update(accessibilityDescription);
+            DescriptionArea.update(accessibilityDescription);
             highlightSelectedFeature(e);
         });
     }

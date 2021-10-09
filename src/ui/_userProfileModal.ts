@@ -31,13 +31,10 @@ export const UserProfileModal = {
 
             document.getElementById('userProfileList').append(button);
         });
-
     },
 
     show(): void {
         userProfileModal.show();
-        overlayAccessibility();
-
         document.getElementById('userProfileList').focus();
     },
 
@@ -51,11 +48,3 @@ export const UserProfileModal = {
         UserProfileModal.close();
     }
 };
-
-function overlayAccessibility() {
-    const overlayDivs = document.getElementsByClassName('modal-overlay');
-
-    [].forEach.call(overlayDivs, (overlay: HTMLElement) => {
-        overlay.setAttribute('aria-disabled', 'true');
-    })
-}

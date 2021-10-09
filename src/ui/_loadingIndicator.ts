@@ -1,3 +1,5 @@
+import {toastMessage} from "./_toastMessage";
+
 const loadingIndicator = document.getElementById('loadingIndicator');
 
 export const LoadingIndicator = {
@@ -11,9 +13,11 @@ export const LoadingIndicator = {
         loadingIndicator.classList.add('d-none');
     },
 
-    error(msg: string): void {
+    error(message: string): void {
         loadingIndicator.classList.remove('text-primary');
         loadingIndicator.classList.add('text-danger');
         setTimeout(LoadingIndicator.end, 2000);
+
+        toastMessage(message)
     }
 }

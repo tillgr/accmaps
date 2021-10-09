@@ -18,16 +18,18 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto">
+            <ul class="navbar-nav ms-0 ms-lg-4 me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#" id="changeUserProfileBtn">Change user Profile</a>
+                    <a class="nav-link active" href="javascript:void(0)" id="changeUserProfileBtn">
+                        <span class="material-icons align-text-top me-1" aria-hidden="true">people</span> Change user
+                        Profile</a>
                 </li>
             </ul>
             <div class="d-flex" id="buildingSearchWrapper">
                 <input class="form-control me-2" type="search" placeholder="Search for buildings"
                        aria-label="Search for buildings"
                        id="buildingSearch">
-                <button class="btn btn-outline-secondary" role="button" id="buildingSearchSubmit">Search</button>
+                <button class="btn btn-outline-secondary" id="buildingSearchSubmit">Search</button>
             </div>
             <div class="spinner-border ms-3 d-none" role="status" id="loadingIndicator">
                 <span class="visually-hidden">Loading...</span>
@@ -35,6 +37,7 @@
         </div>
     </div>
 </nav>
+<div id="toastWrapper"></div>
 
 <div id="map" aria-disabled="true"></div>
 

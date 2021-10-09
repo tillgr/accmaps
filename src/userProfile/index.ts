@@ -10,7 +10,7 @@ export const UserProfile = {
         selectedUserGroup = userGroup;
         /*
          * Hack: reload window location to properly update all profile-specific information.
-         * Working, since the selected Profile is stored in LocalStorage.
+         * Relevant data is stored in localStorage and remains persistent after reload.
          */
         setTimeout(window.location.reload.bind(window.location), 200);
     }

@@ -46,15 +46,15 @@ function nominatimSearch(searchString: string): Promise<BuildingInterface> {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
                     const nominatimResponse = JSON.parse(xhr.responseText);
-                    if (nominatimResponse.length === 0) {
-                        reject('Building could not be found');
+                    if (nominatimResponse.length === 0 || nominatimResponse[0] === undefined) {
+                        return reject('Building could not be found');
                     }
 
                     const BBox = nominatimResponse[0]['boundingbox'];
                     const buildingFeature = findBuildingFeatureInDataset(nominatimResponse[0]['osm_type'] + '/' + nominatimResponse[0]['osm_id']);
 
                     if (buildingFeature === null) {
-                        reject('Building was found, but is not in the dataset of SIT-conform buildings');
+                        return reject('Building was found, but is not in the dataset of SIT-conform buildings');
                     }
 
                     if (BBox !== undefined) {
@@ -62,12 +62,12 @@ function nominatimSearch(searchString: string): Promise<BuildingInterface> {
                             boundingBox: new LatLngBounds(new LatLng(BBox[2], BBox[3]), new LatLng(BBox[0], BBox[1])),
                             feature: buildingFeature
                         };
-                        resolve(returnBuilding);
+                        return resolve(returnBuilding);
                     }
 
-                    reject(null);
+                    return reject(null);
                 } else if (xhr.status > 400) {
-                    reject(null);
+                    return reject(null);
                 }
             }
         };

@@ -20,11 +20,21 @@ nav {
   z-index: 20;
 }
 
+#toastWrapper {
+  position: absolute;
+  top: 70px;
+  left: 10px;
+  z-index: 50;
+  @include media-breakpoint-down(md) {
+      top: 200px;
+  }
+}
+
 #descriptionArea {
   font-size: 120%;
 }
 
 #buildingSearchWrapper {
   width: 800px;
-  max-width: 70vw;
+  max-width: 75vw;
 }

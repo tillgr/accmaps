@@ -2,7 +2,7 @@ import {GeoJSON} from "leaflet";
 
 import {IndoorLayer} from "../indoorLayer";
 import {LevelAccessibilityInformation} from "./_levelAccessibilityInformation";
-import {DescriptionPopup} from "../ui/_descriptionPopup";
+import {DescriptionArea} from "../ui/_descriptionArea";
 import {BuildingControl} from "../buildingControl";
 
 import {INDOOR_LEVEL} from "../data/constants";
@@ -132,5 +132,5 @@ function _getAllLevelsFromGeoJSON(): void {
 function updateCurrentLevelDescription(): void {
     const levelAccessibilityInformation = LevelAccessibilityInformation.getForLevel(currentLevel, LevelControl.getCurrentLevelGeoJSON());
 
-    DescriptionPopup.update('Current level: ' + currentLevel + ' ' + levelAccessibilityInformation);
+    DescriptionArea.update('Current level: ' + currentLevel + ' ' + levelAccessibilityInformation);
 }
