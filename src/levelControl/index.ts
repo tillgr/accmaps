@@ -7,9 +7,10 @@ import {BuildingControl} from "../buildingControl";
 
 import {INDOOR_LEVEL} from "../data/constants";
 import {getLevelsFromLevelString} from "./_getLevelsFromLevelString";
+import {createLevelControlButtons} from "./_createLevelControlButtons";
 
 let currentLevel: string;
-let allLevels: Array<string>;
+let allLevelNames: Array<string>;
 let geoJSONByLevel: Map<string, GeoJSON.FeatureCollection<any, any>>;
 let currentBuildingIndoorData: any;
 let indoorLayer: IndoorLayer;
@@ -17,12 +18,13 @@ let indoorLayer: IndoorLayer;
 export const LevelControl = {
     create(): void {
         currentLevel = INDOOR_LEVEL;
-        allLevels = new Array<string>();
+        allLevelNames = new Array<string>();
         geoJSONByLevel = new Map<string, any>();
         currentBuildingIndoorData = BuildingControl.getBuildingGeoJSON();
 
         indoorLayer = new IndoorLayer(LevelControl.getCurrentLevelGeoJSON());
-        createLevelControlButtons();
+        _getAllLevelNamesFromGeoJSON()
+        createLevelControlButtons(allLevelNames);
     },
 
     getCurrentLevelGeoJSON: function (): GeoJSON.FeatureCollection<any> {
@@ -30,15 +32,14 @@ export const LevelControl = {
             return geoJSONByLevel.get(currentLevel);
         }
 
-        const levelFilteredFeatures = currentBuildingIndoorData.features.filter(filterByLevel);
+        const levelFilteredFeatures = currentBuildingIndoorData.features.filter(filterByLevelFilter);
         const levelFilteredFeatureCollection: GeoJSON.FeatureCollection<any, any> = {
             type: 'FeatureCollection',
             features: levelFilteredFeatures
         };
 
         geoJSONByLevel.set(currentLevel, levelFilteredFeatureCollection);
-
-        return geoJSONByLevel.get(currentLevel);
+        return levelFilteredFeatureCollection;
     },
 
     changeCurrentLevel(newLevel: string): void {
@@ -62,45 +63,7 @@ export const LevelControl = {
     }
 }
 
-function filterByLevel(feature: GeoJSON.Feature<any>): boolean {
-    return (feature.properties.level === currentLevel || feature.properties.level.includes(currentLevel))
-}
-
-
-function createLevelControlButtons(): void {
-    _getAllLevelsFromGeoJSON();
-
-    const levelControl = document.getElementById('levelControl');
-
-    allLevels.forEach((level: string) => {
-        const changeToLevel = 'change to level ' + level;
-        const levelBtn = document.createElement('li');
-        levelBtn.className = 'page-item';
-        levelBtn.innerHTML = '<a class="page-link" href="#">' + level + '</a>'; //todo: proper solution
-        levelBtn.setAttribute('role', 'button');
-        levelBtn.setAttribute('title', changeToLevel);
-        levelBtn.setAttribute('aria-label', changeToLevel);
-
-        if (level == INDOOR_LEVEL) {
-            levelBtn.classList.add('active');
-        }
-
-        levelBtn.addEventListener('click', (e: MouseEvent) => {
-            LevelControl.changeCurrentLevel(level);
-
-            for (let i = 0; i < levelControl.children.length; i++) {
-                levelControl.children[i].classList.remove('active');
-            }
-            (<HTMLElement>e.target).parentElement.classList.add('active');
-        });
-
-        levelControl.appendChild(levelBtn);
-    });
-
-    levelControl.classList.add('scale-in');
-}
-
-function _getAllLevelsFromGeoJSON(): void {
+function _getAllLevelNamesFromGeoJSON(): void {
     currentBuildingIndoorData.features.map((feature: GeoJSON.Feature<any, any>) => {
         if (Array.isArray(feature.properties.level)) {
             return;
@@ -116,21 +79,25 @@ function _getAllLevelsFromGeoJSON(): void {
 
         if (Array.isArray(feature.properties.level)) {
             feature.properties.level.forEach((level: string) => {
-                if (!allLevels.includes(level)) {
-                    allLevels.push(level);
+                if (!allLevelNames.includes(level)) {
+                    allLevelNames.push(level);
                 }
             });
         } else {
-            if (!allLevels.includes(level)) {
-                allLevels.push(feature.properties.level);
+            if (!allLevelNames.includes(level)) {
+                allLevelNames.push(feature.properties.level);
             }
         }
     });
-    allLevels.sort();
+    allLevelNames.sort();
 }
+
+function filterByLevelFilter(feature: GeoJSON.Feature<any>): boolean {
+    return (feature.properties.level === currentLevel || feature.properties.level.includes(currentLevel))
+}
+
 
 function updateCurrentLevelDescription(): void {
     const levelAccessibilityInformation = LevelAccessibilityInformation.getForLevel(currentLevel, LevelControl.getCurrentLevelGeoJSON());
-
     DescriptionArea.update('Current level: ' + currentLevel + ' ' + levelAccessibilityInformation);
 }
