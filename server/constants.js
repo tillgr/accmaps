@@ -19,6 +19,8 @@ const RESOURCES_TO_DOWNLOAD = [
         url: URLS.OVERPASS_API + encodeURI(OVERPASS_QUERIES.SIT_BUILDINGS),
         dest: '../public/overpass/buildings.json'
     }
-]
+];
 
-module.exports = {URLS, OVERPASS_QUERIES, RESOURCES_TO_DOWNLOAD};
+const MAX_OVERPASS_FILE_AGE_IN_DAYS = 5;
+
+module.exports = {URLS, OVERPASS_QUERIES, RESOURCES_TO_DOWNLOAD, MAX_OVERPASS_FILE_AGE_IN_DAYS};
