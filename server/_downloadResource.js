@@ -6,8 +6,12 @@ const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
 module.exports = function downloadResource(url, dest) {
     if (fs.existsSync(path.resolve(__dirname, dest))) {
-        console.log('File already exists: ' + dest);
-        return new Promise(resolve => resolve());
+        console.log('File already exists: ' + dest + ', deleting...');
+        fs.unlink(path.resolve(__dirname, dest), (err) => {
+            if (err) {
+                console.error('ERROR: Unable to delete file!');
+            }
+        });
     }
 
     console.log('Downloading ' + url);
@@ -21,7 +25,7 @@ module.exports = function downloadResource(url, dest) {
                     transformToGeoJSONAndSaveFile(xhr.responseText, dest)
                     return resolve();
                 } else if (xhr.status > 400) {
-                    return reject('File could not be downloaded! (' + xhr.status + ')');
+                    return reject('File could not be downloaded! (' + xhr.status + ' - ' + xhr.statusText + ')');
                 }
             }
         };

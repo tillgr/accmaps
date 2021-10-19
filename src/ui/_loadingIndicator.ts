@@ -18,6 +18,6 @@ export const LoadingIndicator = {
         loadingIndicator.classList.add('text-danger');
         setTimeout(LoadingIndicator.end, 2000);
 
-        toastMessage(message)
+        toastMessage(message);
     }
 }
