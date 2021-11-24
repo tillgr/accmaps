@@ -12,6 +12,7 @@ module.exports = {
         "@typescript-eslint/no-explicit-any": "off",
     },
     env: {
-        "amd": true
+        "amd": true,
+        "node": true
     }
 };
