@@ -54,7 +54,9 @@ export class IndoorLayer {
             marker.addTo(Map.get());
 
             marker.on('click', () => {
-                IndoorLayer.clickOnFeature(feature)
+                IndoorLayer.clickOnFeature(feature);
+                // @ts-ignore: Compiler claims _path is no ember of layer, but it actually is
+                highlightSelectedFeature(<HTMLElement>layer._path);
             });
 
             accessibilityMarkers.push(marker);
@@ -63,7 +65,7 @@ export class IndoorLayer {
         layer.on('click', (e: LeafletMouseEvent) => {
             const feature = e.sourceTarget.feature;
             IndoorLayer.clickOnFeature(feature);
-            highlightSelectedFeature(e);
+            highlightSelectedFeature(<HTMLElement>e.sourceTarget._path);
         });
     }
 
