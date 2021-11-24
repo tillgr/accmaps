@@ -1,6 +1,6 @@
 import {Toast} from "bootstrap";
 
-export function toastMessage(message: string) {
+export function toastMessage(message: string): void {
     const toastDiv = document.createElement('div');
     toastDiv.classList.add('toast', 'align-items-center');
     toastDiv.setAttribute('role', 'alert');

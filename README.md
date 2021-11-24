@@ -31,7 +31,7 @@ Contains all the static files that are to be sent to clients, including:
 
 * index.html
 * compiled JavaScript bundle files (which also load css styles, included by webpack)
-* OverPass XML files (are downloaded on server start, if necessary)
+* OverPass XML files, transformed to GeoJSON (are downloaded and transformed on server start, if necessary)
 
 This directory doesn't contain any application logic!
 

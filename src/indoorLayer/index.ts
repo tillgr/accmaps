@@ -52,14 +52,24 @@ export class IndoorLayer {
         const marker = featureAccessibilityMarker(feature);
         if (marker) {
             marker.addTo(Map.get());
+
+            marker.on('click', () => {
+                IndoorLayer.clickOnFeature(feature)
+            });
+
             accessibilityMarkers.push(marker);
         }
 
         layer.on('click', (e: LeafletMouseEvent) => {
-            const accessibilityDescription = featureAccessibilityDescription(e);
-            DescriptionArea.update(accessibilityDescription);
+            const feature = e.sourceTarget.feature;
+            IndoorLayer.clickOnFeature(feature);
             highlightSelectedFeature(e);
         });
+    }
+
+    private static clickOnFeature(feature: GeoJSON.Feature){
+        const accessibilityDescription = featureAccessibilityDescription(feature);
+        DescriptionArea.update(accessibilityDescription);
     }
 
 

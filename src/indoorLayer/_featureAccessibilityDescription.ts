@@ -1,10 +1,9 @@
-import {LeafletEvent} from "leaflet";
+import {GeoJSON} from "leaflet";
 import {featureAccessibilityProperties} from "../data/featureAccessibilityProperties";
 import {featureDescriptionHelper} from "../helpers/featureDescriptionHelper";
 
 
-export function featureAccessibilityDescription(e: LeafletEvent): string {
-    const feature = e.sourceTarget.feature;
+export function featureAccessibilityDescription(feature: GeoJSON.Feature): string {
     let popUpText = feature.properties.ref ?? '(no name)';
 
     if (feature.properties.name !== undefined && feature.properties.name.length !== 0) {
