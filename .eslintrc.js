@@ -10,8 +10,8 @@ module.exports = {
     ],
     rules: {
         "@typescript-eslint/no-explicit-any": "off",
-        "env": {
-          "amd": true
-        }
+    },
+    env: {
+        "amd": true
     }
 };
