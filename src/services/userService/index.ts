@@ -1,6 +1,6 @@
 import {UserGroupEnum} from "../../models/userGroupEnum";
 
-let selectedUserGroup: UserGroupEnum = <UserGroupEnum>parseInt(localStorage.getItem('userProfile')) ?? UserGroupEnum.noImpairments;
+let selectedUserGroup: UserGroupEnum = <UserGroupEnum>parseInt(localStorage.getItem('userService')) ?? UserGroupEnum.noImpairments;
 
 export const UserProfile = {
     get(): UserGroupEnum {

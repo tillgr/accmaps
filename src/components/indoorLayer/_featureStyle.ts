@@ -1,6 +1,6 @@
 import {GeoJSON} from "leaflet";
 import {COLORS, FILL_OPACITY, WALL_WEIGHT, WALL_WEIGHT_PAVING} from "../../services/data/constants";
-import {UserProfile} from "../../services/userProfile";
+import {UserProfile} from "../../services/userService";
 import {UserGroupEnum} from "../../models/userGroupEnum";
 
 export function featureStyle(feature: GeoJSON.Feature<any>): any {

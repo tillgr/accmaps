@@ -1,4 +1,4 @@
-import {UserProfile} from "../../services/userProfile";
+import {UserProfile} from "../../services/userService";
 import {UserGroups} from "../../services/data/userGroups";
 import {UserGroupEnum} from "../../models/userGroupEnum";
 
@@ -10,7 +10,7 @@ userProfileModal.hide();
 
 export const UserProfileModal = {
     create(): void {
-        const selectedUserProfile = localStorage.getItem('userProfile');
+        const selectedUserProfile = localStorage.getItem('userService');
         if (selectedUserProfile !== null) {
             UserProfileModal.close();
             document.getElementById('changeUserProfileBtn').onclick = UserProfileModal.show;
@@ -44,7 +44,7 @@ export const UserProfileModal = {
 
     setUserProfile(userGroup: UserGroupEnum): void {
         UserProfile.set(userGroup);
-        localStorage.setItem('userProfile', userGroup.toString());
+        localStorage.setItem('userService', userGroup.toString());
         UserProfileModal.close();
     }
 };
