@@ -1,11 +1,11 @@
 import {GeoJSON} from "leaflet";
 
-import {IndoorLayer} from "../components/indoorLayer";
+import {IndoorLayer} from "../../components/indoorLayer";
 import {LevelAccessibilityInformation} from "./_levelAccessibilityInformation";
-import {DescriptionArea} from "../components/ui/_descriptionArea";
-import {BuildingControl} from "../services/buildingControl";
+import {DescriptionArea} from "../../components/ui/_descriptionArea";
+import {BuildingControl} from "../buildingControl";
 
-import {INDOOR_LEVEL} from "../services/data/constants";
+import {INDOOR_LEVEL} from "../data/constants";
 import {getLevelsFromLevelString} from "./_getLevelsFromLevelString";
 import {createLevelControlButtons} from "./_createLevelControlButtons";
 

@@ -1,6 +1,6 @@
 import {GeoJSON} from "leaflet";
-import {levelAccessibilityProperties} from "../services/data/levelAccessibilityProperties";
-import {UserProfile} from "../services/userProfile";
+import {levelAccessibilityProperties} from "../data/levelAccessibilityProperties";
+import {UserProfile} from "../userProfile";
 
 const propertiesByLevel: Map<string, string> = new Map<string, string>();
 

@@ -1,7 +1,7 @@
 import {GeoJSON, LatLng, LatLngBounds} from "leaflet";
 
 import {OverpassData} from "../overpassData";
-import {LevelControl} from "../../levelControl";
+import {LevelControl} from "../levelControl";
 import {DescriptionArea} from "../../components/ui/_descriptionArea";
 
 import {filterGeoJsonDataByBuildingBBox} from "./_filterGeoJsonDataByBuildingBBox";
