@@ -1,14 +1,14 @@
 import {GeoJSON, LatLng, LatLngBounds} from "leaflet";
 
 import {OverpassData} from "../overpassData";
-import {LevelControl} from "../levelControl";
-import {DescriptionArea} from "../ui/_descriptionArea";
+import {LevelControl} from "../../levelControl";
+import {DescriptionArea} from "../../ui/_descriptionArea";
 
 import {filterGeoJsonDataByBuildingBBox} from "./_filterGeoJsonDataByBuildingBBox";
 import {getBuildingDescription} from "./_getBuildingDescription";
 import {buildingSearch} from "./_buildingSearch";
-import {BuildingInterface} from "../interfaces/buildingInterface";
-import {Map as M} from "../map";
+import {BuildingInterface} from "../../interfaces/buildingInterface";
+import {Map as M} from "../../map";
 
 
 const buildingsBySearchString: Map<string, BuildingInterface> = new Map<string, BuildingInterface>();

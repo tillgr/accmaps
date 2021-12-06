@@ -1,4 +1,4 @@
-import {UserProfile} from "../userProfile";
+import {UserProfile} from "../services/userProfile";
 import {UserGroups} from "../data/userGroups";
 import {UserGroupEnum} from "../interfaces/userGroupEnum";
 

@@ -3,8 +3,8 @@ import {GeoJSON, LatLng, LatLngBounds} from "leaflet";
 const toBBox = require('geojson-bounding-box');
 
 import {OverpassData} from "../overpassData";
-import {BuildingInterface} from "../interfaces/buildingInterface";
-import {MAPQUEST_API_KEY, NOMINATIM_SERVER} from "../data/constants";
+import {BuildingInterface} from "../../interfaces/buildingInterface";
+import {MAPQUEST_API_KEY, NOMINATIM_SERVER} from "../../data/constants";
 
 /**
  * Finding a building by search string:

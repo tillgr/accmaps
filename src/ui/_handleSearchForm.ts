@@ -1,4 +1,4 @@
-import {BuildingControl} from "../buildingControl";
+import {BuildingControl} from "../services/buildingControl";
 import {LoadingIndicator} from "./_loadingIndicator";
 
 export function handleSearchForm(): void {

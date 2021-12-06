@@ -1,7 +1,7 @@
 import {Map} from "./map";
-import {OverpassData} from "./overpassData";
+import {OverpassData} from "./services/overpassData";
 import {LoadingIndicator} from "./ui/_loadingIndicator";
-import {BuildingControl} from "./buildingControl";
+import {BuildingControl} from "./services/buildingControl";
 import {DEFAULT_BUILDING_SEARCH_STRING} from "./data/constants";
 
 document.addEventListener('DOMContentLoaded', function () {

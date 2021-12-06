@@ -3,7 +3,7 @@ import {GeoJSON} from "leaflet";
 import {IndoorLayer} from "../indoorLayer";
 import {LevelAccessibilityInformation} from "./_levelAccessibilityInformation";
 import {DescriptionArea} from "../ui/_descriptionArea";
-import {BuildingControl} from "../buildingControl";
+import {BuildingControl} from "../services/buildingControl";
 
 import {INDOOR_LEVEL} from "../data/constants";
 import {getLevelsFromLevelString} from "./_getLevelsFromLevelString";
