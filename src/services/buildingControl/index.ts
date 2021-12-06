@@ -8,7 +8,7 @@ import {filterGeoJsonDataByBuildingBBox} from "./_filterGeoJsonDataByBuildingBBo
 import {getBuildingDescription} from "./_getBuildingDescription";
 import {buildingSearch} from "./_buildingSearch";
 import {BuildingInterface} from "../../interfaces/buildingInterface";
-import {Map as M} from "../../map";
+import {Map as M} from "../../components/map";
 
 
 const buildingsBySearchString: Map<string, BuildingInterface> = new Map<string, BuildingInterface>();
