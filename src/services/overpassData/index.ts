@@ -1,4 +1,4 @@
-import {OVERPASS_DATA_URLS} from "../../data/constants";
+import {OVERPASS_DATA_URLS} from "../data/constants";
 import {GeoJSON} from "leaflet";
 
 let indoorDataGeoJSON: GeoJSON.FeatureCollection<any, any>;

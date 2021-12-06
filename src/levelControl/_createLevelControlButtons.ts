@@ -1,4 +1,4 @@
-import {INDOOR_LEVEL} from "../data/constants";
+import {INDOOR_LEVEL} from "../services/data/constants";
 import {LevelControl} from "./index";
 
 export function createLevelControlButtons(allLevelNames: string[]): void {

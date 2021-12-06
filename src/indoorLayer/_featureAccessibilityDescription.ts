@@ -1,5 +1,5 @@
 import {GeoJSON} from "leaflet";
-import {featureAccessibilityProperties} from "../data/featureAccessibilityProperties";
+import {featureAccessibilityProperties} from "../services/data/featureAccessibilityProperties";
 import {featureDescriptionHelper} from "../helpers/featureDescriptionHelper";
 
 

@@ -1,7 +1,7 @@
 import {GeoJSON, Icon, LatLng, Marker} from "leaflet";
 import {UserProfile} from "../services/userProfile";
-import {featureAccessibilityProperties} from "../data/featureAccessibilityProperties";
-import {MARKERS_IMG_DIR} from "../data/constants";
+import {featureAccessibilityProperties} from "../services/data/featureAccessibilityProperties";
+import {MARKERS_IMG_DIR} from "../services/data/constants";
 
 const polygonCenter = require('geojson-polygon-center');
 

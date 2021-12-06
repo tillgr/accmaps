@@ -1,5 +1,5 @@
-import {UserGroupEnum} from "../interfaces/userGroupEnum";
-import {AccessibilityPropertiesInterface} from "../interfaces/accessibilityPropertiesInterface";
+import {UserGroupEnum} from "../../interfaces/userGroupEnum";
+import {AccessibilityPropertiesInterface} from "../../interfaces/accessibilityPropertiesInterface";
 
 export const levelAccessibilityProperties: AccessibilityPropertiesInterface[] = [
     {

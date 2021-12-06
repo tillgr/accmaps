@@ -5,7 +5,7 @@ import {LevelAccessibilityInformation} from "./_levelAccessibilityInformation";
 import {DescriptionArea} from "../ui/_descriptionArea";
 import {BuildingControl} from "../services/buildingControl";
 
-import {INDOOR_LEVEL} from "../data/constants";
+import {INDOOR_LEVEL} from "../services/data/constants";
 import {getLevelsFromLevelString} from "./_getLevelsFromLevelString";
 import {createLevelControlButtons} from "./_createLevelControlButtons";
 

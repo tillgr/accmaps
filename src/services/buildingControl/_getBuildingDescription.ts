@@ -1,5 +1,5 @@
 import {GeoJSON} from "leaflet";
-import {buildingAccessibilityProperties} from "../../data/buildingAccessibilityProperties";
+import {buildingAccessibilityProperties} from "../data/buildingAccessibilityProperties";
 import {featureDescriptionHelper} from "../../helpers/featureDescriptionHelper";
 
 export function getBuildingDescription(currentBuildingFeature: GeoJSON.Feature): string {

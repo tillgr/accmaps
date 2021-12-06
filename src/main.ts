@@ -2,7 +2,7 @@ import {Map} from "./map";
 import {OverpassData} from "./services/overpassData";
 import {LoadingIndicator} from "./ui/_loadingIndicator";
 import {BuildingControl} from "./services/buildingControl";
-import {DEFAULT_BUILDING_SEARCH_STRING} from "./data/constants";
+import {DEFAULT_BUILDING_SEARCH_STRING} from "./services/data/constants";
 
 document.addEventListener('DOMContentLoaded', function () {
     LoadingIndicator.start()
