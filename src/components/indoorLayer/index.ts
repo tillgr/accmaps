@@ -1,8 +1,8 @@
 import * as L from 'leaflet';
 import {GeoJSON, Layer, LayerGroup, LeafletMouseEvent, Marker} from "leaflet";
 
-import {Map} from "../components/map";
-import {DescriptionArea} from "../components/ui/_descriptionArea";
+import {Map} from "../map";
+import {DescriptionArea} from "../ui/_descriptionArea";
 
 import {highlightSelectedFeature} from "./_highlightSelectedFeature";
 import {featureStyle} from "./_featureStyle";
