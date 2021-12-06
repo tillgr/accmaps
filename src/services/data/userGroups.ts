@@ -1,4 +1,4 @@
-import {UserGroupEnum} from "../../interfaces/userGroupEnum";
+import {UserGroupEnum} from "../../models/userGroupEnum";
 
 const UserGroups: Map<UserGroupEnum, any> = new Map<UserGroupEnum, any>();
 UserGroups.set(UserGroupEnum.blindPeople, {name: 'Users with visual impairments', icon: 'visibility_off'});

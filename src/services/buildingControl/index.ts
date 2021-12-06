@@ -7,7 +7,7 @@ import {DescriptionArea} from "../../ui/_descriptionArea";
 import {filterGeoJsonDataByBuildingBBox} from "./_filterGeoJsonDataByBuildingBBox";
 import {getBuildingDescription} from "./_getBuildingDescription";
 import {buildingSearch} from "./_buildingSearch";
-import {BuildingInterface} from "../../interfaces/buildingInterface";
+import {BuildingInterface} from "../../models/buildingInterface";
 import {Map as M} from "../../components/map";
 
 

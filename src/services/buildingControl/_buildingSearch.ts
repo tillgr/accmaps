@@ -3,7 +3,7 @@ import {GeoJSON, LatLng, LatLngBounds} from "leaflet";
 const toBBox = require('geojson-bounding-box');
 
 import {OverpassData} from "../overpassData";
-import {BuildingInterface} from "../../interfaces/buildingInterface";
+import {BuildingInterface} from "../../models/buildingInterface";
 import {MAPQUEST_API_KEY, NOMINATIM_SERVER} from "../data/constants";
 
 /**

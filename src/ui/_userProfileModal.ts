@@ -1,6 +1,6 @@
 import {UserProfile} from "../services/userProfile";
 import {UserGroups} from "../services/data/userGroups";
-import {UserGroupEnum} from "../interfaces/userGroupEnum";
+import {UserGroupEnum} from "../models/userGroupEnum";
 
 import {Modal} from 'bootstrap';
 

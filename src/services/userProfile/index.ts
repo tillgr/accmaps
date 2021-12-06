@@ -1,4 +1,4 @@
-import {UserGroupEnum} from "../../interfaces/userGroupEnum";
+import {UserGroupEnum} from "../../models/userGroupEnum";
 
 let selectedUserGroup: UserGroupEnum = <UserGroupEnum>parseInt(localStorage.getItem('userProfile')) ?? UserGroupEnum.noImpairments;
 

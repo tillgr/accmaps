@@ -1,5 +1,5 @@
-import {AccessibilityPropertiesInterface} from "../../interfaces/accessibilityPropertiesInterface";
-import {UserGroupEnum} from "../../interfaces/userGroupEnum";
+import {AccessibilityPropertiesInterface} from "../../models/accessibilityPropertiesInterface";
+import {UserGroupEnum} from "../../models/userGroupEnum";
 
 const allGroups = [UserGroupEnum.blindPeople, UserGroupEnum.noImpairments, UserGroupEnum.wheelchairUsers];
 
