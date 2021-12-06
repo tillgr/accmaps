@@ -1,6 +1,6 @@
 import {GeoJSON} from "leaflet";
 import {featureAccessibilityProperties} from "../../services/data/featureAccessibilityProperties";
-import {featureDescriptionHelper} from "../../helpers/featureDescriptionHelper";
+import {featureDescriptionHelper} from "../../services/featureDescriptionHelper";
 
 
 export function featureAccessibilityDescription(feature: GeoJSON.Feature): string {

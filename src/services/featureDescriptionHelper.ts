@@ -1,6 +1,6 @@
 import {GeoJSON} from "leaflet";
 import {AccessibilityPropertiesInterface} from "../models/accessibilityPropertiesInterface";
-import {UserProfile} from "../services/userProfile";
+import {UserProfile} from "./userProfile";
 
 export function featureDescriptionHelper(feature: GeoJSON.Feature, accessibilityProperties: AccessibilityPropertiesInterface[]): string {
     let description = ' [';
