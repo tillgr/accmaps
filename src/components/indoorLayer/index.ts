@@ -6,9 +6,8 @@ import {DescriptionArea} from "../ui/_descriptionArea";
 
 import {highlightSelectedFeature} from "./_highlightSelectedFeature";
 import {featureStyle} from "./_featureStyle";
-import {featureAccessibilityDescription} from "./_featureAccessibilityDescription";
 import {featureScreenAccessibility} from "./_featureScreenAccessibility";
-import {featureAccessibilityMarker} from "./_featureAccessibilityMarker";
+import {getAccessibilityMarker, getAccessibilityDescription} from "../../services/featureService";
 
 let accessibilityMarkers: Marker[] = [];
 
@@ -49,7 +48,7 @@ export class IndoorLayer {
     }
 
     private static onEachFeature(feature: GeoJSON.Feature<any, any>, layer?: Layer) {
-        const marker = featureAccessibilityMarker(feature);
+        const marker = getAccessibilityMarker(feature);
         if (marker) {
             marker.addTo(Map.get());
 
@@ -70,7 +69,7 @@ export class IndoorLayer {
     }
 
     private static clickOnFeature(feature: GeoJSON.Feature){
-        const accessibilityDescription = featureAccessibilityDescription(feature);
+        const accessibilityDescription = getAccessibilityDescription(feature);
         DescriptionArea.update(accessibilityDescription);
     }
 

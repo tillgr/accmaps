@@ -1,7 +1,7 @@
 import {GeoJSON, LatLng, LatLngBounds} from "leaflet";
 
 import {OverpassData} from "../overpassData";
-import {LevelControl} from "../levelControl";
+import {LevelService} from "../levelService";
 import {DescriptionArea} from "../../components/ui/_descriptionArea";
 
 import {filterGeoJsonDataByBuildingBBox} from "./_filterGeoJsonDataByBuildingBBox";
@@ -37,7 +37,7 @@ export const BuildingControl = {
             currentSearchString = searchString;
             localStorage.setItem('currentBuildingSearchString', searchString)
 
-            LevelControl.reCreate();
+            LevelService.reCreate();
             DescriptionArea.update(BuildingControl.getBuildingDescription());
 
             BuildingControl.centerMapToBuilding();

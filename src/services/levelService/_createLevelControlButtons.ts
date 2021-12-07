@@ -1,5 +1,5 @@
 import {INDOOR_LEVEL} from "../data/constants";
-import {LevelControl} from "./index";
+import {LevelService} from "./index";
 
 export function createLevelControlButtons(allLevelNames: string[]): void {
     const levelControl = document.getElementById('levelControl');
@@ -18,7 +18,7 @@ export function createLevelControlButtons(allLevelNames: string[]): void {
         }
 
         levelBtn.addEventListener('click', (e: MouseEvent) => {
-            LevelControl.changeCurrentLevel(level);
+            LevelService.changeCurrentLevel(level);
 
             for (let i = 0; i < levelControl.children.length; i++) {
                 levelControl.children[i].classList.remove('active');

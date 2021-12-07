@@ -15,14 +15,14 @@ let geoJSONByLevel: Map<string, GeoJSON.FeatureCollection<any, any>>;
 let currentBuildingIndoorData: any;
 let indoorLayer: IndoorLayer;
 
-export const LevelControl = {
+export const LevelService = {
     create(): void {
         currentLevel = INDOOR_LEVEL;
         allLevelNames = new Array<string>();
         geoJSONByLevel = new Map<string, any>();
         currentBuildingIndoorData = BuildingControl.getBuildingGeoJSON();
 
-        indoorLayer = new IndoorLayer(LevelControl.getCurrentLevelGeoJSON());
+        indoorLayer = new IndoorLayer(LevelService.getCurrentLevelGeoJSON());
         _getAllLevelNamesFromGeoJSON()
         createLevelControlButtons(allLevelNames);
     },
@@ -44,7 +44,7 @@ export const LevelControl = {
 
     changeCurrentLevel(newLevel: string): void {
         currentLevel = newLevel;
-        indoorLayer.updateLayer(LevelControl.getCurrentLevelGeoJSON());
+        indoorLayer.updateLayer(LevelService.getCurrentLevelGeoJSON());
         updateCurrentLevelDescription();
     },
 
@@ -58,8 +58,8 @@ export const LevelControl = {
 
     reCreate(): void {
         LevelAccessibilityInformation.reset();
-        LevelControl.remove();
-        LevelControl.create();
+        LevelService.remove();
+        LevelService.create();
     }
 }
 
@@ -98,6 +98,6 @@ function filterByLevelFilter(feature: GeoJSON.Feature<any>): boolean {
 
 
 function updateCurrentLevelDescription(): void {
-    const levelAccessibilityInformation = LevelAccessibilityInformation.getForLevel(currentLevel, LevelControl.getCurrentLevelGeoJSON());
+    const levelAccessibilityInformation = LevelAccessibilityInformation.getForLevel(currentLevel, LevelService.getCurrentLevelGeoJSON());
     DescriptionArea.update('Current level: ' + currentLevel + ' ' + levelAccessibilityInformation);
 }
