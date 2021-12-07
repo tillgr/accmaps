@@ -57,26 +57,24 @@ export class IndoorLayer {
     const marker = getAccessibilityMarker(feature);
     if (marker) {
       marker.addTo(Map.get());
-
-      marker.on("click", () => {
-        IndoorLayer.clickOnFeature(feature);
-        // @ts-ignore: Compiler claims _path is no ember of layer, but it actually is
-        highlightSelectedFeature(<HTMLElement>layer._path);
-      });
-
       accessibilityMarkers.push(marker);
+
+      marker.on("click", (e: LeafletMouseEvent) => {
+        layer.fire("click");
+      });
     }
 
     layer.on("click", (e: LeafletMouseEvent) => {
-      const feature = e.sourceTarget.feature;
-      IndoorLayer.clickOnFeature(feature);
-      highlightSelectedFeature(<HTMLElement>e.sourceTarget._path);
+      IndoorLayer.clickOnFeature(e);
     });
   }
 
-  private static clickOnFeature(feature: GeoJSON.Feature) {
+  private static clickOnFeature(e: LeafletMouseEvent) {
+    const { feature, _path } = e.sourceTarget;
+
     const accessibilityDescription = getAccessibilityDescription(feature);
     DescriptionArea.update(accessibilityDescription);
+    highlightSelectedFeature(<HTMLElement>_path);
   }
 
   private static removeAccessibilityMarkers() {
