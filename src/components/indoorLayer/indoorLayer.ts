@@ -2,7 +2,7 @@ import * as L from "leaflet";
 import { GeoJSON, Layer, LayerGroup, LeafletMouseEvent, Marker } from "leaflet";
 
 import { Map } from "../map/map";
-import { DescriptionArea } from "../ui/_descriptionArea";
+import { DescriptionArea } from "../ui/descriptionArea";
 
 import { highlightSelectedFeature } from "./_highlightSelectedFeature";
 import { featureStyle } from "./_featureStyle";

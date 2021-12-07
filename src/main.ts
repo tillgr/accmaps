@@ -1,6 +1,6 @@
 import { Map } from "./components/map/map";
 import { OverpassData } from "./services/overpassData";
-import { LoadingIndicator } from "./components/ui/_loadingIndicator";
+import { LoadingIndicator } from "./components/ui/loadingIndicator";
 import { BuildingControl } from "./services/buildingService";
 import { DEFAULT_BUILDING_SEARCH_STRING } from "./services/data/constants";
 

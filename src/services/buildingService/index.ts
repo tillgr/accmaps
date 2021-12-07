@@ -2,7 +2,7 @@ import { GeoJSON, LatLng, LatLngBounds } from "leaflet";
 
 import { OverpassData } from "../overpassData";
 import { LevelService } from "../levelService";
-import { DescriptionArea } from "../../components/ui/_descriptionArea";
+import { DescriptionArea } from "../../components/ui/descriptionArea";
 
 import { filterGeoJsonDataByBuildingBBox } from "./_filterGeoJsonDataByBuildingBBox";
 import { getBuildingDescription } from "./_getBuildingDescription";

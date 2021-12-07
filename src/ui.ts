@@ -1,5 +1,5 @@
-import { UserProfileModal } from "./components/ui/_userProfileModal";
-import { handleSearchForm } from "./components/ui/navbar_handleSearchForm";
+import { UserProfileModal } from "./components/ui/userProfileModal";
+import { handleSearchForm } from "./components/ui/searchForm";
 
 document.addEventListener("DOMContentLoaded", function () {
   handleSearchForm();

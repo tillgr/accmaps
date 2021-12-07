@@ -2,7 +2,7 @@ import { GeoJSON } from "leaflet";
 
 import { IndoorLayer } from "../../components/indoorLayer/indoorLayer";
 import { LevelAccessibilityInformation } from "./_levelAccessibilityInformation";
-import { DescriptionArea } from "../../components/ui/_descriptionArea";
+import { DescriptionArea } from "../../components/ui/descriptionArea";
 import { BuildingControl } from "../buildingService";
 
 import { INDOOR_LEVEL } from "../data/constants";
