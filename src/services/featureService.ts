@@ -2,7 +2,14 @@ import { GeoJSON, Icon, LatLng, Marker } from "leaflet";
 import { featureDescriptionHelper } from "./featureDescriptionHelper";
 import { featureAccessibilityProperties } from "./data/featureAccessibilityProperties";
 import { UserProfile } from "./userService";
-import { MARKERS_IMG_DIR } from "./data/constants";
+import {
+  COLORS,
+  FILL_OPACITY,
+  MARKERS_IMG_DIR,
+  WALL_WEIGHT,
+  WALL_WEIGHT_PAVING,
+} from "./data/constants";
+import { UserGroupEnum } from "../models/userGroupEnum";
 
 const polygonCenter = require("geojson-polygon-center");
 
@@ -58,4 +65,38 @@ export function getAccessibilityMarker(feature: GeoJSON.Feature): Marker {
     });
   }
   return null;
+}
+
+export function getFeatureStyle(feature: GeoJSON.Feature<any>): any {
+  let fill = "#fff";
+
+  if (feature.properties.amenity === "toilets") {
+    fill = COLORS.TOILET;
+  } else if (
+    feature.properties.stairs ||
+    (feature.properties.highway &&
+      (feature.properties.highway == "elevator" ||
+        feature.properties.highway == "escalator"))
+  ) {
+    fill = COLORS.STAIR;
+  } else if (feature.properties.indoor === "room") {
+    fill = COLORS.ROOM;
+  }
+
+  return {
+    fillColor: fill,
+    weight: getWallWeight(feature),
+    color: COLORS.WALL,
+    fillOpacity: FILL_OPACITY,
+  };
+}
+
+function getWallWeight(feature: GeoJSON.Feature<any>) {
+  //highlight tactile paving lines
+  //decides wall weight based on the user profile and feature
+  return UserProfile.get() == UserGroupEnum.blindPeople &&
+    feature.geometry.type === "LineString" &&
+    feature.properties.tactile_paving === "yes"
+    ? WALL_WEIGHT_PAVING
+    : WALL_WEIGHT;
 }

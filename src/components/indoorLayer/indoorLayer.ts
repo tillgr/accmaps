@@ -5,11 +5,11 @@ import { Map } from "../map/map";
 import { DescriptionArea } from "../ui/descriptionArea";
 
 import { highlightSelectedFeature } from "./_highlightSelectedFeature";
-import { featureStyle } from "./_featureStyle";
 import { featureScreenAccessibility } from "./_featureScreenAccessibility";
 import {
   getAccessibilityMarker,
   getAccessibilityDescription,
+  getFeatureStyle,
 } from "../../services/featureService";
 
 let accessibilityMarkers: Marker[] = [];
@@ -42,7 +42,7 @@ export class IndoorLayer {
     IndoorLayer.removeAccessibilityMarkers();
 
     const layer = new L.GeoJSON(geoJSON, {
-      style: featureStyle,
+      style: getFeatureStyle,
       onEachFeature: IndoorLayer.onEachFeature,
       pointToLayer: () => null,
     });
