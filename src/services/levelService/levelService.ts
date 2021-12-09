@@ -5,8 +5,8 @@ import { LevelAccessibilityInformation } from "./_levelAccessibilityInformation"
 import { DescriptionArea } from "../../components/ui/descriptionArea";
 
 import { INDOOR_LEVEL } from "../data/constants";
-import { createLevelControlButtons } from "./_createLevelControlButtons";
 import { BuildingService } from "../buildingService";
+import { createLevelControlButtons } from "../../components/ui/levelControl";
 
 let currentLevel: string;
 let allLevelNames: Array<string>;
