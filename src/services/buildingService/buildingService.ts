@@ -202,28 +202,6 @@ function getBuilding(featureId: string): GeoJSON.Feature<any, any> {
   return foundBuilding;
 }
 
-/*export function getBuildingDescription(
-  currentBuildingFeature: GeoJSON.Feature
-): string {
-  let description = "";
-
-  if (currentBuildingFeature.properties.name !== undefined) {
-    description +=
-      "Current building: " + currentBuildingFeature.properties.name;
-
-    if (currentBuildingFeature.properties.loc_ref !== undefined) {
-      description += " (" + currentBuildingFeature.properties.loc_ref + ")";
-    }
-  }
-
-  description += featureDescriptionHelper(
-    currentBuildingFeature,
-    buildingAccessibilityProperties
-  );
-
-  return description;
-}*/
-
 //TODO propagate to class
 export const BuildingControl = {
   getBuildingGeoJSON(): GeoJSON.FeatureCollection<any> {

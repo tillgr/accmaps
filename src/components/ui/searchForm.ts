@@ -17,6 +17,7 @@ export function handleSearchForm(): void {
   });
 }
 
+//TODO muss in den map component
 function runBuildingSearch(buildingSearchInput: HTMLInputElement) {
   LoadingIndicator.start();
   const searchString = buildingSearchInput.value;

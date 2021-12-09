@@ -14,6 +14,7 @@ OverpassData.fetchOverpassData()
     const buildingSearchString =
       localStorage.getItem("currentBuildingSearchString") ??
       DEFAULT_BUILDING_SEARCH_STRING;
+    //TODO muss von map ausgeführt werden
     BuildingControl.searchAndShowBuilding(buildingSearchString)
       .then(() => LoadingIndicator.end())
       .catch((error) => LoadingIndicator.error(error));
