@@ -1,24 +1,25 @@
 import { COLORS } from "../../services/data/constants";
 
-let currentlySelectedFeaturePath: HTMLElement = null;
-let currentlySelectedFeatureOriginalFillColor = "";
+let path: HTMLElement = null; //currentlySelectedFeaturePath
+let fill = ""; //currentlySelectedFeatureOriginalFillColor
 
-export function highlightSelectedFeature(featurePath: HTMLElement): void {
-  if (currentlySelectedFeaturePath !== null) {
-    currentlySelectedFeaturePath.setAttribute(
-      "fill",
-      currentlySelectedFeatureOriginalFillColor
-    );
+export function highlightSelectedFeature(currentPath: HTMLElement): void {
+  //change
+  if (path !== null) {
+    path.setAttribute("fill", fill);
   }
 
-  currentlySelectedFeaturePath = featurePath;
+  path = currentPath;
 
-  if (currentlySelectedFeaturePath.getAttribute("fill") === "none") {
-    currentlySelectedFeaturePath = null;
+  //no fill available
+  if (path.getAttribute("fill") === "none") {
+    path = null;
     return;
   }
-  currentlySelectedFeatureOriginalFillColor =
-    currentlySelectedFeaturePath.getAttribute("fill");
 
-  currentlySelectedFeaturePath.setAttribute("fill", COLORS.ROOM_SELECTED);
+  //store
+  fill = path.getAttribute("fill");
+
+  //change
+  path.setAttribute("fill", COLORS.ROOM_SELECTED);
 }
