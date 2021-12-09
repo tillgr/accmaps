@@ -1,5 +1,5 @@
 import { GeoJSON, Icon, LatLng, Marker } from "leaflet";
-import { featureDescriptionHelper } from "./featureDescriptionHelper";
+import { featureDescriptionHelper } from "../utils/featureDescriptionHelper";
 import { featureAccessibilityProperties } from "./data/featureAccessibilityProperties";
 import { UserProfile } from "./userService";
 import {

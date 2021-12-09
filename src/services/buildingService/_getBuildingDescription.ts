@@ -1,19 +1,25 @@
-import {GeoJSON} from "leaflet";
-import {buildingAccessibilityProperties} from "../data/buildingAccessibilityProperties";
-import {featureDescriptionHelper} from "../featureDescriptionHelper";
+import { GeoJSON } from "leaflet";
+import { buildingAccessibilityProperties } from "../data/buildingAccessibilityProperties";
+import { featureDescriptionHelper } from "../../utils/featureDescriptionHelper";
 
-export function getBuildingDescription(currentBuildingFeature: GeoJSON.Feature): string {
-    let description = ""
+export function getBuildingDescription(
+  currentBuildingFeature: GeoJSON.Feature
+): string {
+  let description = "";
 
-    if (currentBuildingFeature.properties.name !== undefined) {
-        description += "Current building: " + currentBuildingFeature.properties.name;
+  if (currentBuildingFeature.properties.name !== undefined) {
+    description +=
+      "Current building: " + currentBuildingFeature.properties.name;
 
-        if (currentBuildingFeature.properties.loc_ref !== undefined) {
-            description += " (" + currentBuildingFeature.properties.loc_ref + ")";
-        }
+    if (currentBuildingFeature.properties.loc_ref !== undefined) {
+      description += " (" + currentBuildingFeature.properties.loc_ref + ")";
     }
+  }
 
-    description += featureDescriptionHelper(currentBuildingFeature, buildingAccessibilityProperties);
+  description += featureDescriptionHelper(
+    currentBuildingFeature,
+    buildingAccessibilityProperties
+  );
 
-    return description;
+  return description;
 }
