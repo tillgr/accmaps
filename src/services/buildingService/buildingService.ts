@@ -12,15 +12,21 @@ import { getArrayDepth } from "../../utils/getArrayDepth";
 
 const toBBox = require("geojson-bounding-box");
 
+let currentSearchString = "";
+const buildingsBySearchString: Map<string, BuildingInterface> = new Map<
+  string,
+  BuildingInterface
+>();
+
 /**
  * Finding a building by search string:
  * 1) Iterate through all building Features if there is a Feature with the given name. If so, return the building Feature.
  * 2) Otherwise, call Nominatim service to do a more advanced search. Since Nominatim does not return a GeoJSON Feature,
  *    we have to again iterate through all building Features to find the id returned by Nominatim.
  */
-export function buildingSearch(
-  searchString: string
-): Promise<BuildingInterface> {
+
+/*Search*/
+export function handleSearch(searchString: string): Promise<BuildingInterface> {
   let returnBuilding: BuildingInterface;
 
   const buildings = OverpassData.getBuildingData();
@@ -70,7 +76,7 @@ function nominatimSearch(searchString: string): Promise<BuildingInterface> {
           }
 
           const BBox = nominatimResponse[0]["boundingbox"];
-          const buildingFeature = findBuildingFeatureInDataset(
+          const buildingFeature = getBuilding(
             nominatimResponse[0]["osm_type"] +
               "/" +
               nominatimResponse[0]["osm_id"]
@@ -114,9 +120,74 @@ function nominatimSearch(searchString: string): Promise<BuildingInterface> {
   });
 }
 
-function findBuildingFeatureInDataset(
-  featureId: string
-): GeoJSON.Feature<any, any> {
+/*Filter*/
+export function filterByBounds(
+  geoJSON: GeoJsonObject,
+  buildingBBox: LatLngBounds
+): GeoJSON.FeatureCollection<any> {
+  const featureCollection = <GeoJSON.FeatureCollection<any>>geoJSON;
+
+  if (buildingBBox === null) {
+    return null;
+  }
+
+  const filteredFeatures = featureCollection.features.filter((f) =>
+    doFilterByBounds(f, buildingBBox)
+  );
+
+  //create a new object to avoid to original GeoJSON object to be modified
+  return {
+    type: "FeatureCollection",
+    features: filteredFeatures,
+  } as GeoJSON.FeatureCollection<any>;
+}
+
+function doFilterByBounds(
+  feature: GeoJSON.Feature<any>,
+  buildingBBox: LatLngBounds
+) {
+  const { coordinates } = feature.geometry;
+
+  return checkIfValid(feature) && checkIfInside(coordinates, buildingBBox);
+}
+
+function checkIfValid(feature: GeoJSON.Feature<any>): boolean {
+  return !(
+    feature.properties === undefined || feature.properties.level === undefined
+  );
+}
+
+function checkIfInside(
+  featureCoordinates: Position[][] | Position[] | Position,
+  buildingBBox: LatLngBounds
+): boolean {
+  switch (getArrayDepth(featureCoordinates)) {
+    case 1: {
+      featureCoordinates = <Position>featureCoordinates;
+      const latLng = new LatLng(featureCoordinates[0], featureCoordinates[1]);
+      return buildingBBox.contains(latLng);
+    }
+    case 2: {
+      featureCoordinates = <Position[]>featureCoordinates;
+      return featureCoordinates.some((fc: Position) => {
+        const latLng = new LatLng(fc[0], fc[1]);
+        return buildingBBox.contains(latLng);
+      });
+    }
+    case 3: {
+      featureCoordinates = <Position[][]>featureCoordinates;
+      return featureCoordinates.some((fc: Position[]) => {
+        return fc.some((fc2: Position) => {
+          const latLng = new LatLng(fc2[0], fc2[1]);
+          return buildingBBox.contains(latLng);
+        });
+      });
+    }
+  }
+}
+
+function getBuilding(featureId: string): GeoJSON.Feature<any, any> {
+  //findBuildingFeatureInDataset
   const buildings = OverpassData.getBuildingData();
   let foundBuilding: GeoJSON.Feature<any, any> = null;
 
@@ -131,18 +202,34 @@ function findBuildingFeatureInDataset(
   return foundBuilding;
 }
 
-const buildingsBySearchString: Map<string, BuildingInterface> = new Map<
-  string,
-  BuildingInterface
->();
-let currentSearchString = "";
+/*export function getBuildingDescription(
+  currentBuildingFeature: GeoJSON.Feature
+): string {
+  let description = "";
+
+  if (currentBuildingFeature.properties.name !== undefined) {
+    description +=
+      "Current building: " + currentBuildingFeature.properties.name;
+
+    if (currentBuildingFeature.properties.loc_ref !== undefined) {
+      description += " (" + currentBuildingFeature.properties.loc_ref + ")";
+    }
+  }
+
+  description += featureDescriptionHelper(
+    currentBuildingFeature,
+    buildingAccessibilityProperties
+  );
+
+  return description;
+}*/
 
 //TODO propagate to class
 export const BuildingControl = {
   getBuildingGeoJSON(): GeoJSON.FeatureCollection<any> {
     const buildingInterface = buildingsBySearchString.get(currentSearchString);
     if (buildingInterface !== undefined) {
-      return filterGeoJsonDataByBuildingBBox(
+      return filterByBounds(
         OverpassData.getIndoorData(),
         buildingInterface.boundingBox
       );
@@ -155,11 +242,28 @@ export const BuildingControl = {
   getBuildingDescription(): string {
     const currentBuildingFeature =
       buildingsBySearchString.get(currentSearchString).feature;
-    return getBuildingDescription(currentBuildingFeature);
+
+    let description = "";
+
+    if (currentBuildingFeature.properties.name !== undefined) {
+      description +=
+        "Current building: " + currentBuildingFeature.properties.name;
+
+      if (currentBuildingFeature.properties.loc_ref !== undefined) {
+        description += " (" + currentBuildingFeature.properties.loc_ref + ")";
+      }
+    }
+
+    description += featureDescriptionHelper(
+      currentBuildingFeature,
+      buildingAccessibilityProperties
+    );
+
+    return description;
   },
 
   searchAndShowBuilding(searchString: string): Promise<string> {
-    return buildingSearch(searchString).then((b: BuildingInterface) => {
+    return handleSearch(searchString).then((b: BuildingInterface) => {
       buildingsBySearchString.set(searchString, b);
       currentSearchString = searchString;
       localStorage.setItem("currentBuildingSearchString", searchString);
@@ -196,92 +300,3 @@ export const BuildingControl = {
     }
   },
 };
-
-export function getBuildingDescription(
-  currentBuildingFeature: GeoJSON.Feature
-): string {
-  let description = "";
-
-  if (currentBuildingFeature.properties.name !== undefined) {
-    description +=
-      "Current building: " + currentBuildingFeature.properties.name;
-
-    if (currentBuildingFeature.properties.loc_ref !== undefined) {
-      description += " (" + currentBuildingFeature.properties.loc_ref + ")";
-    }
-  }
-
-  description += featureDescriptionHelper(
-    currentBuildingFeature,
-    buildingAccessibilityProperties
-  );
-
-  return description;
-}
-
-export function filterGeoJsonDataByBuildingBBox(
-  geoJSON: GeoJsonObject,
-  buildingBBox: LatLngBounds
-): GeoJSON.FeatureCollection<any> {
-  const featureCollection = <GeoJSON.FeatureCollection<any>>geoJSON;
-
-  if (buildingBBox === null) {
-    return null;
-  }
-
-  const filteredFeatures = featureCollection.features.filter((f) =>
-    isFeatureValidAndInsideCurrentBuilding(f, buildingBBox)
-  );
-
-  //create a new object to avoid to original GeoJSON object to be modified
-  return {
-    type: "FeatureCollection",
-    features: filteredFeatures,
-  } as GeoJSON.FeatureCollection<any>;
-}
-
-function isFeatureValidAndInsideCurrentBuilding(
-  feature: GeoJSON.Feature<any>,
-  buildingBBox: LatLngBounds
-) {
-  if (
-    feature.properties === undefined ||
-    feature.properties.level === undefined
-  ) {
-    return false;
-  }
-
-  return isFeatureInsideCurrentBuilding(
-    feature.geometry.coordinates,
-    buildingBBox
-  );
-}
-
-function isFeatureInsideCurrentBuilding(
-  featureCoordinates: Position[][] | Position[] | Position,
-  buildingBBox: LatLngBounds
-): boolean {
-  switch (getArrayDepth(featureCoordinates)) {
-    case 1: {
-      featureCoordinates = <Position>featureCoordinates;
-      const latLng = new LatLng(featureCoordinates[0], featureCoordinates[1]);
-      return buildingBBox.contains(latLng);
-    }
-    case 2: {
-      featureCoordinates = <Position[]>featureCoordinates;
-      return featureCoordinates.some((fc: Position) => {
-        const latLng = new LatLng(fc[0], fc[1]);
-        return buildingBBox.contains(latLng);
-      });
-    }
-    case 3: {
-      featureCoordinates = <Position[][]>featureCoordinates;
-      return featureCoordinates.some((fc: Position[]) => {
-        return fc.some((fc2: Position) => {
-          const latLng = new LatLng(fc2[0], fc2[1]);
-          return buildingBBox.contains(latLng);
-        });
-      });
-    }
-  }
-}
