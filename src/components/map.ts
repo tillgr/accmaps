@@ -9,7 +9,6 @@ import {
 
 let mapInstance: LeafletMap = null;
 
-//TODO Map zu Wrapper
 export const Map = {
   get(): LeafletMap {
     if (mapInstance === null) {
@@ -43,7 +42,7 @@ export const Map = {
     silenceMapMarkers();
     silenceLeafletAttribution();
     silenceZoomControls();
-    //TODO: simplify, since all functions use the same logic
+    //TODO simplify, since all functions use the same logic
   },
 };
 

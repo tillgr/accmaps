@@ -239,7 +239,7 @@ export const BuildingService = {
     return description;
   },
 
-  //TODO gemischte verantwortlichkeiten (refresh und suche)
+  //TODO mixed responsibilities (refresh and search)
   searchAndShowBuilding(searchString: string): Promise<string> {
     return handleSearch(searchString).then((b: BuildingInterface) => {
       buildingsBySearchString.set(searchString, b);

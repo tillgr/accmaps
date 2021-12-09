@@ -43,14 +43,14 @@ export const LevelService = {
     return levelFilteredFeatureCollection;
   },
 
-  //TODO gemischte verantwortlichkeiten
+  //TODO mixed responsibilities
   changeCurrentLevel(newLevel: string): void {
     currentLevel = newLevel;
     indoorLayer.updateLayer(LevelService.getCurrentLevelGeoJSON());
     updateCurrentLevelDescription();
   },
 
-  //TODO levels componente extrahieren
+  //TODO move to levelControl component
   remove(): void {
     document.getElementById("levelControl").innerHTML = "";
 
