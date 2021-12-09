@@ -1,5 +1,5 @@
-import { BuildingControl } from "../../services/buildingService";
 import { LoadingIndicator } from "./loadingIndicator";
+import { BuildingControl } from "../../services/buildingService/buildingService";
 
 export function handleSearchForm(): void {
   const buildingSearchSubmit = document.getElementById("buildingSearchSubmit");

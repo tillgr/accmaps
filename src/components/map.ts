@@ -9,6 +9,7 @@ import {
 
 let mapInstance: LeafletMap = null;
 
+//TODO Map zu Wrapper Klasse
 export const Map = {
   get(): LeafletMap {
     if (mapInstance === null) {
