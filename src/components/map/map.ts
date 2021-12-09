@@ -12,40 +12,39 @@ let mapInstance: LeafletMap = null;
 export const Map = {
   get(): LeafletMap {
     if (mapInstance === null) {
-      mapInstance = createMap();
+      mapInstance = this.createMap();
     }
 
     return mapInstance;
   },
+
+  createMap(): LeafletMap {
+    const osmTileLayer = new TileLayer(OSM_TILE_SERVER, {
+      maxZoom: 21,
+      attribution: OSM_ATTRIBUTION,
+    });
+
+    mapInstance = new LeafletMap("map", {
+      center: new LatLng(MAP_START_LAT, MAP_START_LNG),
+      zoom: 19,
+    })
+      .on("moveend", this.makeAccessible)
+      .on("load", this.makeAccessible)
+      .on("zoomend", this.makeAccessible);
+    mapInstance.whenReady(this.makeAccessible);
+
+    osmTileLayer.addTo(mapInstance);
+    return mapInstance;
+  },
+  makeAccessible(): void {
+    removeShadowPane();
+    silenceTileImages();
+    silenceMapMarkers();
+    silenceLeafletAttribution();
+    silenceZoomControls();
+    //TODO: simplify, since all functions use the same logic
+  },
 };
-
-function createMap() {
-  const osmTileLayer = new TileLayer(OSM_TILE_SERVER, {
-    maxZoom: 21,
-    attribution: OSM_ATTRIBUTION,
-  });
-
-  mapInstance = new LeafletMap("map", {
-    center: new LatLng(MAP_START_LAT, MAP_START_LNG),
-    zoom: 19,
-  })
-    .on("moveend", mapAccessibility)
-    .on("load", mapAccessibility)
-    .on("zoomend", mapAccessibility);
-  mapInstance.whenReady(mapAccessibility);
-
-  osmTileLayer.addTo(mapInstance);
-  return mapInstance;
-}
-
-export function mapAccessibility(): void {
-  removeShadowPane();
-  silenceTileImages();
-  silenceMapMarkers();
-  silenceLeafletAttribution();
-  silenceZoomControls();
-  //TODO: simplify, since all functions use the same logic
-}
 
 function removeShadowPane() {
   const leafletShadows = document.getElementsByClassName("leaflet-shadow-pane");
