@@ -5,7 +5,7 @@ import {
   MAP_START_LNG,
   OSM_ATTRIBUTION,
   OSM_TILE_SERVER,
-} from "../../services/data/constants";
+} from "../services/data/constants";
 
 let mapInstance: LeafletMap = null;
 

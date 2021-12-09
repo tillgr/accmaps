@@ -1,7 +1,7 @@
 import * as L from "leaflet";
 import { GeoJSON, Layer, LayerGroup, LeafletMouseEvent, Marker } from "leaflet";
 
-import { Map } from "./map/map";
+import { Map } from "./map";
 import { DescriptionArea } from "./ui/descriptionArea";
 
 import { highlightSelectedFeature } from "../utils/highlightSelectedFeature";

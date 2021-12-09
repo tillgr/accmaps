@@ -1,4 +1,4 @@
-import { Map } from "./components/map/map";
+import { Map } from "./components/map";
 import { OverpassData } from "./services/overpassData";
 import { LoadingIndicator } from "./components/ui/loadingIndicator";
 import { BuildingControl } from "./services/buildingService";
