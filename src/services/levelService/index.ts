@@ -1,6 +1,6 @@
 import { GeoJSON } from "leaflet";
 
-import { IndoorLayer } from "../../components/indoorLayer/indoorLayer";
+import { IndoorLayer } from "../../components/indoorLayer";
 import { LevelAccessibilityInformation } from "./_levelAccessibilityInformation";
 import { DescriptionArea } from "../../components/ui/descriptionArea";
 import { BuildingControl } from "../buildingService";

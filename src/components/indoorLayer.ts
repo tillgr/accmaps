@@ -1,15 +1,15 @@
 import * as L from "leaflet";
 import { GeoJSON, Layer, LayerGroup, LeafletMouseEvent, Marker } from "leaflet";
 
-import { Map } from "../map/map";
-import { DescriptionArea } from "../ui/descriptionArea";
+import { Map } from "./map/map";
+import { DescriptionArea } from "./ui/descriptionArea";
 
-import { highlightSelectedFeature } from "../../utils/highlightSelectedFeature";
+import { highlightSelectedFeature } from "../utils/highlightSelectedFeature";
 import {
   getAccessibilityDescription,
   getAccessibilityMarker,
   getFeatureStyle,
-} from "../../services/featureService";
+} from "../services/featureService";
 
 let accessibilityMarkers: Marker[] = [];
 
