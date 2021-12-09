@@ -1,4 +1,4 @@
-import { UserGroupEnum } from "../../models/userGroupEnum";
+import { UserGroupEnum } from "../models/userGroupEnum";
 
 let selectedUserGroup: UserGroupEnum =
   <UserGroupEnum>parseInt(localStorage.getItem("userService")) ??
