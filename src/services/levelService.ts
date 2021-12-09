@@ -6,7 +6,7 @@ import { DescriptionArea } from "../components/ui/descriptionArea";
 
 import { INDOOR_LEVEL } from "./data/constants";
 import { BuildingService } from "./buildingService";
-import { createLevelControlButtons } from "../components/ui/levelControl";
+import { render } from "../components/ui/levelControl";
 
 let currentLevel: string;
 let allLevelNames: Array<string>;
@@ -23,7 +23,7 @@ export const LevelService = {
 
     indoorLayer = new IndoorLayer(LevelService.getCurrentLevelGeoJSON());
     _getAllLevelNamesFromGeoJSON();
-    createLevelControlButtons(allLevelNames);
+    render(allLevelNames);
   },
 
   getCurrentLevelGeoJSON: function (): GeoJSON.FeatureCollection<any> {

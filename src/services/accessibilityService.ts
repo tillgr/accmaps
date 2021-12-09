@@ -5,6 +5,7 @@ import { UserService } from "./userService";
 const propertiesByLevel: Map<string, string> = new Map<string, string>();
 
 export const AccessibilityService = {
+  //AccessibilityInformation
   getForLevel(
     level: string,
     featureCollection: GeoJSON.FeatureCollection<any, any>

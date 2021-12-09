@@ -202,7 +202,6 @@ function getBuilding(featureId: string): GeoJSON.Feature<any, any> {
   return foundBuilding;
 }
 
-//TODO propagate to class
 export const BuildingService = {
   getBuildingGeoJSON(): GeoJSON.FeatureCollection<any> {
     const buildingInterface = buildingsBySearchString.get(currentSearchString);
