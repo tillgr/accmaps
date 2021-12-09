@@ -1,12 +1,12 @@
 import { GeoJSON } from "leaflet";
 
-import { IndoorLayer } from "../../components/indoorLayer";
-import { LevelAccessibilityInformation } from "./_levelAccessibilityInformation";
-import { DescriptionArea } from "../../components/ui/descriptionArea";
+import { IndoorLayer } from "../components/indoorLayer";
+import { AccessibilityService } from "./accessibilityService";
+import { DescriptionArea } from "../components/ui/descriptionArea";
 
-import { INDOOR_LEVEL } from "../data/constants";
-import { BuildingService } from "../buildingService";
-import { createLevelControlButtons } from "../../components/ui/levelControl";
+import { INDOOR_LEVEL } from "./data/constants";
+import { BuildingService } from "./buildingService";
+import { createLevelControlButtons } from "../components/ui/levelControl";
 
 let currentLevel: string;
 let allLevelNames: Array<string>;
@@ -60,7 +60,7 @@ export const LevelService = {
   },
 
   reCreate(): void {
-    LevelAccessibilityInformation.reset();
+    AccessibilityService.reset();
     LevelService.remove();
     LevelService.create();
   },
@@ -155,11 +155,10 @@ function filterByLevelFilter(feature: GeoJSON.Feature<any>): boolean {
 }
 
 function updateCurrentLevelDescription(): void {
-  const levelAccessibilityInformation =
-    LevelAccessibilityInformation.getForLevel(
-      currentLevel,
-      LevelService.getCurrentLevelGeoJSON()
-    );
+  const levelAccessibilityInformation = AccessibilityService.getForLevel(
+    currentLevel,
+    LevelService.getCurrentLevelGeoJSON()
+  );
   DescriptionArea.update(
     "Current level: " + currentLevel + " " + levelAccessibilityInformation
   );

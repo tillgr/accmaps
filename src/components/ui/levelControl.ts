@@ -1,5 +1,5 @@
 import { INDOOR_LEVEL } from "../../services/data/constants";
-import { LevelService } from "../../services/levelService/levelService";
+import { LevelService } from "../../services/levelService";
 
 export function createLevelControlButtons(allLevelNames: string[]): void {
   const levelControl = document.getElementById("levelControl");
