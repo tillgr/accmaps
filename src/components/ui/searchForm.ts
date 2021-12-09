@@ -1,5 +1,5 @@
 import { LoadingIndicator } from "./loadingIndicator";
-import { BuildingControl } from "../../services/buildingService/buildingService";
+import { BuildingService } from "../../services/buildingService";
 
 export function handleSearchForm(): void {
   const buildingSearchSubmit = document.getElementById("buildingSearchSubmit");
@@ -22,7 +22,7 @@ function runBuildingSearch(buildingSearchInput: HTMLInputElement) {
   LoadingIndicator.start();
   const searchString = buildingSearchInput.value;
 
-  BuildingControl.searchAndShowBuilding(searchString)
+  BuildingService.searchAndShowBuilding(searchString)
     .then(() => {
       LoadingIndicator.end();
       const navBar = document.getElementById("navbarSupportedContent");

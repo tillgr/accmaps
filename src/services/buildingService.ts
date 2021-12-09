@@ -1,14 +1,14 @@
-import { BuildingInterface } from "../../models/buildingInterface";
-import { OverpassData } from "../overpassData";
+import { BuildingInterface } from "../models/buildingInterface";
+import { OverpassData } from "./overpassData";
 import { GeoJSON, LatLng, LatLngBounds } from "leaflet";
-import { MAPQUEST_API_KEY, NOMINATIM_SERVER } from "../data/constants";
-import { LevelService } from "../levelService";
-import { DescriptionArea } from "../../components/ui/descriptionArea";
-import { Map as M } from "../../components/map";
-import { featureDescriptionHelper } from "../../utils/featureDescriptionHelper";
-import { buildingAccessibilityProperties } from "../data/buildingAccessibilityProperties";
+import { MAPQUEST_API_KEY, NOMINATIM_SERVER } from "./data/constants";
+import { LevelService } from "./levelService";
+import { DescriptionArea } from "../components/ui/descriptionArea";
+import { Map as M } from "../components/map";
+import { featureDescriptionHelper } from "../utils/featureDescriptionHelper";
+import { buildingAccessibilityProperties } from "./data/buildingAccessibilityProperties";
 import { GeoJsonObject, Position } from "geojson";
-import { getArrayDepth } from "../../utils/getArrayDepth";
+import { getArrayDepth } from "../utils/getArrayDepth";
 
 const toBBox = require("geojson-bounding-box");
 
@@ -203,7 +203,7 @@ function getBuilding(featureId: string): GeoJSON.Feature<any, any> {
 }
 
 //TODO propagate to class
-export const BuildingControl = {
+export const BuildingService = {
   getBuildingGeoJSON(): GeoJSON.FeatureCollection<any> {
     const buildingInterface = buildingsBySearchString.get(currentSearchString);
     if (buildingInterface !== undefined) {
@@ -240,6 +240,7 @@ export const BuildingControl = {
     return description;
   },
 
+  //TODO gemischte aufgaben (refresh und suche)
   searchAndShowBuilding(searchString: string): Promise<string> {
     return handleSearch(searchString).then((b: BuildingInterface) => {
       buildingsBySearchString.set(searchString, b);
@@ -247,9 +248,9 @@ export const BuildingControl = {
       localStorage.setItem("currentBuildingSearchString", searchString);
 
       LevelService.reCreate();
-      DescriptionArea.update(BuildingControl.getBuildingDescription());
+      DescriptionArea.update(BuildingService.getBuildingDescription());
 
-      BuildingControl.centerMapToBuilding();
+      BuildingService.centerMapToBuilding();
 
       return new Promise((resolve) => resolve("Building found."));
     });
