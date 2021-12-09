@@ -2,7 +2,7 @@ import { BuildingInterface } from "../models/buildingInterface";
 import { HttpService } from "./httpService";
 import { GeoJSON, LatLng, LatLngBounds } from "leaflet";
 import { MAPQUEST_API_KEY, NOMINATIM_SERVER } from "./data/constants";
-import { LevelService } from "./levelService";
+import { LevelService } from "./levelService/levelService";
 import { DescriptionArea } from "../components/ui/descriptionArea";
 import { Map as M } from "../components/map";
 import { featureDescriptionHelper } from "../utils/featureDescriptionHelper";
@@ -240,7 +240,7 @@ export const BuildingService = {
     return description;
   },
 
-  //TODO gemischte aufgaben (refresh und suche)
+  //TODO gemischte verantwortlichkeiten (refresh und suche)
   searchAndShowBuilding(searchString: string): Promise<string> {
     return handleSearch(searchString).then((b: BuildingInterface) => {
       buildingsBySearchString.set(searchString, b);
