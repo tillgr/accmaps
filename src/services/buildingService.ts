@@ -1,5 +1,5 @@
 import { BuildingInterface } from "../models/buildingInterface";
-import { OverpassData } from "./overpassData";
+import { HttpService } from "./httpService";
 import { GeoJSON, LatLng, LatLngBounds } from "leaflet";
 import { MAPQUEST_API_KEY, NOMINATIM_SERVER } from "./data/constants";
 import { LevelService } from "./levelService";
@@ -29,7 +29,7 @@ const buildingsBySearchString: Map<string, BuildingInterface> = new Map<
 export function handleSearch(searchString: string): Promise<BuildingInterface> {
   let returnBuilding: BuildingInterface;
 
-  const buildings = OverpassData.getBuildingData();
+  const buildings = HttpService.getBuildingData();
   const found = buildings.features.some(
     (building: GeoJSON.Feature<any, any>) => {
       if (
@@ -188,7 +188,7 @@ function checkIfInside(
 
 function getBuilding(featureId: string): GeoJSON.Feature<any, any> {
   //findBuildingFeatureInDataset
-  const buildings = OverpassData.getBuildingData();
+  const buildings = HttpService.getBuildingData();
   let foundBuilding: GeoJSON.Feature<any, any> = null;
 
   buildings.features.some((b) => {
@@ -208,7 +208,7 @@ export const BuildingService = {
     const buildingInterface = buildingsBySearchString.get(currentSearchString);
     if (buildingInterface !== undefined) {
       return filterByBounds(
-        OverpassData.getIndoorData(),
+        HttpService.getIndoorData(),
         buildingInterface.boundingBox
       );
     }

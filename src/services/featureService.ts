@@ -1,7 +1,7 @@
 import { GeoJSON, Icon, LatLng, Marker } from "leaflet";
 import { featureDescriptionHelper } from "../utils/featureDescriptionHelper";
 import { featureAccessibilityProperties } from "./data/featureAccessibilityProperties";
-import { UserProfile } from "./userService";
+import { UserService } from "./userService/userService";
 import {
   COLORS,
   FILL_OPACITY,
@@ -37,7 +37,7 @@ export function getAccessibilityMarker(feature: GeoJSON.Feature): Marker {
   const isFeatureAccessible = featureAccessibilityProperties.some(
     ({ accessibilityFunction, iconFilename, userGroups }) => {
       if (
-        userGroups.includes(UserProfile.get()) &&
+        userGroups.includes(UserService.get()) &&
         accessibilityFunction(feature) &&
         iconFilename !== undefined
       ) {
@@ -94,7 +94,7 @@ export function getFeatureStyle(feature: GeoJSON.Feature<any>): any {
 function getWallWeight(feature: GeoJSON.Feature<any>) {
   //highlight tactile paving lines
   //decides wall weight based on the user profile and feature
-  return UserProfile.get() == UserGroupEnum.blindPeople &&
+  return UserService.get() == UserGroupEnum.blindPeople &&
     feature.geometry.type === "LineString" &&
     feature.properties.tactile_paving === "yes"
     ? WALL_WEIGHT_PAVING

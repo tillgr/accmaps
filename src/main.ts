@@ -1,5 +1,5 @@
 import { Map } from "./components/map";
-import { OverpassData } from "./services/overpassData";
+import { HttpService } from "./services/httpService";
 import { LoadingIndicator } from "./components/ui/loadingIndicator";
 import { DEFAULT_BUILDING_SEARCH_STRING } from "./services/data/constants";
 import { BuildingService } from "./services/buildingService";
@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
   Map.get();
 });
 
-OverpassData.fetchOverpassData()
+HttpService.fetchOverpassData()
   .then(() => {
     const buildingSearchString =
       localStorage.getItem("currentBuildingSearchString") ??

@@ -1,6 +1,6 @@
 import { GeoJSON } from "leaflet";
 import { AccessibilityPropertiesInterface } from "../models/accessibilityPropertiesInterface";
-import { UserProfile } from "../services/userService";
+import { UserService } from "../services/userService/userService";
 
 export function featureDescriptionHelper(
   feature: GeoJSON.Feature,
@@ -9,7 +9,7 @@ export function featureDescriptionHelper(
   let description = " [";
 
   accessibilityProperties.forEach((e: AccessibilityPropertiesInterface) => {
-    if (!e.userGroups.includes(UserProfile.get())) {
+    if (!e.userGroups.includes(UserService.get())) {
       return; // only show properties for currently selected user profile
     }
 
