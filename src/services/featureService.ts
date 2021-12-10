@@ -37,7 +37,7 @@ export function getAccessibilityMarker(feature: GeoJSON.Feature): Marker {
   const isFeatureAccessible = featureAccessibilityProperties.some(
     ({ accessibilityFunction, iconFilename, userGroups }) => {
       if (
-        userGroups.includes(UserService.get()) &&
+        userGroups.includes(UserService.getCurrentProfile()) &&
         accessibilityFunction(feature) &&
         iconFilename !== undefined
       ) {
@@ -94,7 +94,7 @@ export function getFeatureStyle(feature: GeoJSON.Feature<any>): any {
 function getWallWeight(feature: GeoJSON.Feature<any>) {
   //highlight tactile paving lines
   //decides wall weight based on the user profile and feature
-  return UserService.get() == UserGroupEnum.blindPeople &&
+  return UserService.getCurrentProfile() == UserGroupEnum.blindPeople &&
     feature.geometry.type === "LineString" &&
     feature.properties.tactile_paving === "yes"
     ? WALL_WEIGHT_PAVING

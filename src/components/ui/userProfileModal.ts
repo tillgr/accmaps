@@ -33,7 +33,7 @@ export const UserProfileModal = {
         "</i></span>";
       button.onclick = () => UserProfileModal.setUserProfile(k);
 
-      if (UserService.get() === k) {
+      if (UserService.getCurrentProfile() === k) {
         button.classList.add("active");
       }
 

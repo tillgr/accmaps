@@ -1,15 +1,15 @@
 import { UserGroupEnum } from "../models/userGroupEnum";
 
-let selectedUserGroup: UserGroupEnum =
+let currentProfile: UserGroupEnum =
   <UserGroupEnum>parseInt(localStorage.getItem("userService")) ??
   UserGroupEnum.noImpairments;
 
 export const UserService = {
-  get(): UserGroupEnum {
-    return selectedUserGroup;
+  getCurrentProfile(): UserGroupEnum {
+    return currentProfile;
   },
-  set(userGroup: UserGroupEnum): void {
-    selectedUserGroup = userGroup;
+  set(profile: UserGroupEnum): void {
+    currentProfile = profile;
     /*
      * Hack: reload window location to properly update all profile-specific information.
      * Relevant data is stored in localStorage and remains persistent after reload.

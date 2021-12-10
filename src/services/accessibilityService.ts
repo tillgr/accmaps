@@ -31,7 +31,11 @@ export const AccessibilityService = {
     let returnString = "[";
 
     levelAccessibilityProperties.forEach((levelAccessibilityProperty) => {
-      if (!levelAccessibilityProperty.userGroups.includes(UserService.get())) {
+      if (
+        !levelAccessibilityProperty.userGroups.includes(
+          UserService.getCurrentProfile()
+        )
+      ) {
         return; // only show properties for currently selected user profile
       }
 

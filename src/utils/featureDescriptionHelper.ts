@@ -9,7 +9,7 @@ export function featureDescriptionHelper(
   let description = " [";
 
   accessibilityProperties.forEach((e: AccessibilityPropertiesInterface) => {
-    if (!e.userGroups.includes(UserService.get())) {
+    if (!e.userGroups.includes(UserService.getCurrentProfile())) {
       return; // only show properties for currently selected user profile
     }
 
