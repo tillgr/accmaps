@@ -8,17 +8,17 @@ import { INDOOR_LEVEL } from "./data/constants";
 import { BuildingService } from "./buildingService";
 import { render } from "../components/ui/levelControl";
 
-let currentLevel = INDOOR_LEVEL;
-const allLevelNames = new Array<string>();
-const geoJSONByLevel = new Map<string, GeoJSON.FeatureCollection<any, any>>();
-let currentBuildingIndoorData = BuildingService.getBuildingGeoJSON();
+let currentLevel: string;
+let allLevelNames: Array<string>;
+let geoJSONByLevel: Map<string, GeoJSON.FeatureCollection<any, any>>;
+let currentBuildingIndoorData: any;
 let indoorLayer: IndoorLayer;
 
 export const LevelService = {
   create(): void {
-    //currentLevel = INDOOR_LEVEL;
-    //allLevelNames = new Array<string>();
-    //geoJSONByLevel = new Map<string, any>();
+    currentLevel = INDOOR_LEVEL;
+    allLevelNames = new Array<string>();
+    geoJSONByLevel = new Map<string, any>();
     currentBuildingIndoorData = BuildingService.getBuildingGeoJSON();
 
     _getAllLevelNamesFromGeoJSON();
