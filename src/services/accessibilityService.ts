@@ -54,3 +54,5 @@ export const AccessibilityService = {
     return returnString;
   },
 };
+
+//TODO create export default object

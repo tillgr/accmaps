@@ -11,6 +11,7 @@ import {
   getFeatureStyle,
 } from "../services/featureService";
 
+//TODO move into class
 let accessibilityMarkers: Marker[] = [];
 
 export function featureScreenAccessibility(): void {

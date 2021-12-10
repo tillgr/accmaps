@@ -8,21 +8,22 @@ import { INDOOR_LEVEL } from "./data/constants";
 import { BuildingService } from "./buildingService";
 import { render } from "../components/ui/levelControl";
 
-let currentLevel: string;
-let allLevelNames: Array<string>;
-let geoJSONByLevel: Map<string, GeoJSON.FeatureCollection<any, any>>;
-let currentBuildingIndoorData: any;
+let currentLevel = INDOOR_LEVEL;
+const allLevelNames = new Array<string>();
+const geoJSONByLevel = new Map<string, GeoJSON.FeatureCollection<any, any>>();
+let currentBuildingIndoorData = BuildingService.getBuildingGeoJSON();
 let indoorLayer: IndoorLayer;
 
 export const LevelService = {
   create(): void {
-    currentLevel = INDOOR_LEVEL;
-    allLevelNames = new Array<string>();
-    geoJSONByLevel = new Map<string, any>();
+    //currentLevel = INDOOR_LEVEL;
+    //allLevelNames = new Array<string>();
+    //geoJSONByLevel = new Map<string, any>();
     currentBuildingIndoorData = BuildingService.getBuildingGeoJSON();
 
-    indoorLayer = new IndoorLayer(LevelService.getCurrentLevelGeoJSON());
     _getAllLevelNamesFromGeoJSON();
+    //TODO call in map comoponent
+    indoorLayer = new IndoorLayer(LevelService.getCurrentLevelGeoJSON());
     render(allLevelNames);
   },
 
@@ -58,7 +59,7 @@ export const LevelService = {
       indoorLayer.removeIndoorLayerFromMap();
     }
   },
-
+  //TODO move to levelControl component
   reCreate(): void {
     AccessibilityService.reset();
     LevelService.remove();
@@ -115,6 +116,7 @@ export function getLevels(level: string): string[] {
   return finalArray;
 }
 
+//TODO refactor
 function _getAllLevelNamesFromGeoJSON(): void {
   currentBuildingIndoorData.features.map(
     (feature: GeoJSON.Feature<any, any>) => {
@@ -163,3 +165,5 @@ function updateCurrentLevelDescription(): void {
     "Current level: " + currentLevel + " " + levelAccessibilityInformation
   );
 }
+
+//TODO create export default object

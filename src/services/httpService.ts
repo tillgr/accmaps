@@ -57,3 +57,5 @@ function getOverpassData(overpassQuery: string) {
     xhr.send();
   });
 }
+
+//TODO create export default object

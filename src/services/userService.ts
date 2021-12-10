@@ -17,3 +17,5 @@ export const UserService = {
     setTimeout(window.location.reload.bind(window.location), 200);
   },
 };
+
+//TODO create export default object

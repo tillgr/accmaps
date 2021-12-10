@@ -100,3 +100,5 @@ function getWallWeight(feature: GeoJSON.Feature<any>) {
     ? WALL_WEIGHT_PAVING
     : WALL_WEIGHT;
 }
+
+//TODO create export default object

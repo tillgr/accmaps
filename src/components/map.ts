@@ -9,6 +9,7 @@ import {
 
 let mapInstance: LeafletMap = null;
 
+//TODO maybe propagate to class component in the future
 export const Map = {
   get(): LeafletMap {
     if (mapInstance === null) {
@@ -36,51 +37,54 @@ export const Map = {
     osmTileLayer.addTo(mapInstance);
     return mapInstance;
   },
+
   makeAccessible(): void {
-    removeShadowPane();
-    silenceTileImages();
-    silenceMapMarkers();
-    silenceLeafletAttribution();
-    silenceZoomControls();
+    Map.removeShadowPane();
+    Map.silenceTileImages();
+    Map.silenceMapMarkers();
+    Map.silenceLeafletAttribution();
+    Map.silenceZoomControls();
     //TODO simplify, since all functions use the same logic
   },
+
+  removeShadowPane(): void {
+    const leafletShadows = document.getElementsByClassName(
+      "leaflet-shadow-pane"
+    );
+
+    [].forEach.call(leafletShadows, (shadow: Element) => {
+      shadow.setAttribute("aria-hidden", "true");
+    });
+  },
+
+  silenceZoomControls(): void {
+    const controls = document.getElementsByClassName("leaflet-control-zoom");
+    [].forEach.call(controls, (contol: Element) => {
+      contol.setAttribute("role", "presentation");
+      contol.setAttribute("aria-hidden", "true"); // dont read them out
+    });
+  },
+
+  silenceTileImages(): void {
+    const mapTiles = document.getElementsByClassName("leaflet-tile");
+
+    [].forEach.call(mapTiles, (tile: Element) => {
+      tile.setAttribute("role", "presentation");
+      tile.setAttribute("aria-hidden", "true"); // dont read them out
+    });
+  },
+
+  silenceMapMarkers(): void {
+    const leafletMarkers = document.getElementsByClassName("leaflet-clickable");
+
+    [].forEach.call(leafletMarkers, (marker: Element) => {
+      marker.setAttribute("role", "button");
+    });
+  },
+
+  silenceLeafletAttribution(): void {
+    document
+      .getElementsByClassName("leaflet-control-attribution")[0]
+      .setAttribute("aria-hidden", "true");
+  },
 };
-
-function removeShadowPane() {
-  const leafletShadows = document.getElementsByClassName("leaflet-shadow-pane");
-
-  [].forEach.call(leafletShadows, (shadow: Element) => {
-    shadow.setAttribute("aria-hidden", "true");
-  });
-}
-
-function silenceZoomControls() {
-  const controls = document.getElementsByClassName("leaflet-control-zoom");
-  [].forEach.call(controls, (contol: Element) => {
-    contol.setAttribute("role", "presentation");
-    contol.setAttribute("aria-hidden", "true"); // dont read them out
-  });
-}
-
-function silenceTileImages() {
-  const mapTiles = document.getElementsByClassName("leaflet-tile");
-
-  [].forEach.call(mapTiles, (tile: Element) => {
-    tile.setAttribute("role", "presentation");
-    tile.setAttribute("aria-hidden", "true"); // dont read them out
-  });
-}
-
-function silenceMapMarkers() {
-  const leafletMarkers = document.getElementsByClassName("leaflet-clickable");
-
-  [].forEach.call(leafletMarkers, (marker: Element) => {
-    marker.setAttribute("role", "button");
-  });
-}
-
-function silenceLeafletAttribution() {
-  document
-    .getElementsByClassName("leaflet-control-attribution")[0]
-    .setAttribute("aria-hidden", "true");
-}
