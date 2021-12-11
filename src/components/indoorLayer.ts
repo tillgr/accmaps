@@ -1,7 +1,7 @@
 import * as L from "leaflet";
 import { GeoJSON, Layer, LayerGroup, LeafletMouseEvent, Marker } from "leaflet";
 
-import { Map } from "./map";
+import { leafletMap } from "./leafletMap";
 import { DescriptionArea } from "./ui/descriptionArea";
 
 import { highlightSelectedFeature } from "../utils/highlightSelectedFeature";
@@ -34,12 +34,12 @@ export class IndoorLayer {
     IndoorLayer.removeAccessibilityMarkers();
 
     this.indoorLayerGroup = new LayerGroup();
-    this.indoorLayerGroup.addTo(Map.get());
+    this.indoorLayerGroup.addTo(leafletMap.get());
     this.drawIndoorLayerByGeoJSON(geoJSON);
   }
 
   removeIndoorLayerFromMap(): void {
-    Map.get().removeLayer(this.indoorLayerGroup);
+    leafletMap.get().removeLayer(this.indoorLayerGroup);
   }
 
   clearIndoorLayer(): void {
@@ -69,7 +69,7 @@ export class IndoorLayer {
   ) {
     const marker = getAccessibilityMarker(feature);
     if (marker) {
-      marker.addTo(Map.get());
+      marker.addTo(leafletMap.get());
       accessibilityMarkers.push(marker);
 
       marker.on("click", (e: LeafletMouseEvent) => {
@@ -92,7 +92,7 @@ export class IndoorLayer {
 
   private static removeAccessibilityMarkers() {
     for (let i = 0; i < accessibilityMarkers.length; i++) {
-      Map.get().removeLayer(accessibilityMarkers[i]);
+      leafletMap.get().removeLayer(accessibilityMarkers[i]);
     }
     accessibilityMarkers = [];
   }

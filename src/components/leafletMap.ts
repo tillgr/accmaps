@@ -10,7 +10,7 @@ import {
 let mapInstance: LeafletMap = null;
 
 //TODO maybe propagate to class component in the future
-export const Map = {
+export const leafletMap = {
   get(): LeafletMap {
     if (mapInstance === null) {
       mapInstance = this.createMap();
@@ -39,11 +39,11 @@ export const Map = {
   },
 
   makeAccessible(): void {
-    Map.removeShadowPane();
-    Map.silenceTileImages();
-    Map.silenceMapMarkers();
-    Map.silenceLeafletAttribution();
-    Map.silenceZoomControls();
+    leafletMap.removeShadowPane();
+    leafletMap.silenceTileImages();
+    leafletMap.silenceMapMarkers();
+    leafletMap.silenceLeafletAttribution();
+    leafletMap.silenceZoomControls();
     //TODO simplify, since all functions use the same logic
   },
 

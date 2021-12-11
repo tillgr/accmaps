@@ -1,4 +1,4 @@
-import { Map } from "./components/map";
+import { leafletMap } from "./components/leafletMap";
 import { HttpService } from "./services/httpService";
 import { LoadingIndicator } from "./components/ui/loadingIndicator";
 import { DEFAULT_BUILDING_SEARCH_STRING } from "./services/data/constants";
@@ -6,7 +6,7 @@ import { BuildingService } from "./services/buildingService";
 
 document.addEventListener("DOMContentLoaded", function () {
   LoadingIndicator.start();
-  Map.get();
+  leafletMap.get();
 });
 
 HttpService.fetchOverpassData()
