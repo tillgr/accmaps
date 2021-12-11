@@ -9,6 +9,7 @@ import { featureDescriptionHelper } from "../utils/featureDescriptionHelper";
 import { buildingAccessibilityProperties } from "./data/buildingAccessibilityProperties";
 import { GeoJsonObject, Position } from "geojson";
 import { getArrayDepth } from "../utils/getArrayDepth";
+import { reCreate } from "../components/ui/levelControl";
 
 const toBBox = require("geojson-bounding-box");
 
@@ -247,7 +248,8 @@ export const BuildingService = {
       currentSearchString = searchString;
       localStorage.setItem("currentBuildingSearchString", searchString);
 
-      LevelService.reCreate();
+      /*LevelService.reCreate();*/
+      reCreate();
       DescriptionArea.update(BuildingService.getBuildingDescription());
 
       BuildingService.centerMapToBuilding();

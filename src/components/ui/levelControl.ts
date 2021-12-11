@@ -1,7 +1,14 @@
 import { INDOOR_LEVEL } from "../../services/data/constants";
-import { LevelService } from "../../services/levelService";
+import {
+  _getAllLevelNamesFromGeoJSON,
+  LevelService,
+  updateCurrentLevelDescription,
+} from "../../services/levelService";
+import { AccessibilityService } from "../../services/accessibilityService";
+import { IndoorLayer } from "../indoorLayer";
 
-export const levelControl = {};
+let indoorLayer: IndoorLayer;
+let currentLevel = INDOOR_LEVEL;
 
 export function render(allLevelNames: string[]): void {
   const levelControl = document.getElementById("levelControl");
@@ -20,7 +27,8 @@ export function render(allLevelNames: string[]): void {
     }
 
     levelBtn.addEventListener("click", (e: MouseEvent) => {
-      LevelService.changeCurrentLevel(level);
+      /*LevelService.changeCurrentLevel(level);*/
+      changeCurrentLevel(level);
 
       for (let i = 0; i < levelControl.children.length; i++) {
         levelControl.children[i].classList.remove("active");
@@ -32,4 +40,41 @@ export function render(allLevelNames: string[]): void {
   });
 
   levelControl.classList.add("scale-in");
+}
+
+//TODO move to levelControl component
+export function reCreate(): void {
+  AccessibilityService.reset();
+  remove();
+  create();
+}
+
+function create(): void {
+  /*currentLevel = INDOOR_LEVEL;*/
+  /*allLevelNames = new Array<string>();*/
+  /*geoJSONByLevel = new Map<string, any>();*/
+
+  _getAllLevelNamesFromGeoJSON();
+  //TODO call in map comoponent
+  indoorLayer = new IndoorLayer(LevelService.getCurrentLevelGeoJSON());
+  const levelNames = _getAllLevelNamesFromGeoJSON();
+  render(levelNames);
+}
+
+function remove(): void {
+  document.getElementById("levelControl").innerHTML = "";
+
+  if (indoorLayer) {
+    indoorLayer.removeIndoorLayerFromMap();
+  }
+}
+
+function changeCurrentLevel(newLevel: string): void {
+  currentLevel = newLevel;
+  indoorLayer.updateLayer(LevelService.getCurrentLevelGeoJSON());
+  updateCurrentLevelDescription();
+}
+
+export function getCurrentLevel(): string {
+  return currentLevel;
 }

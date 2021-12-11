@@ -6,31 +6,38 @@ import { DescriptionArea } from "../components/ui/descriptionArea";
 
 import { INDOOR_LEVEL } from "./data/constants";
 import { BuildingService } from "./buildingService";
-import { render } from "../components/ui/levelControl";
+import { getCurrentLevel, render } from "../components/ui/levelControl";
 
-let currentLevel: string;
-let allLevelNames: Array<string>;
-let geoJSONByLevel: Map<string, GeoJSON.FeatureCollection<any, any>>;
+/*let currentLevel: string;*/
+/*const currentLevel = INDOOR_LEVEL;*/
+/*let currentLevel = getCurrentLevel();*/
+/*let allLevelNames: Array<string>;*/
+const allLevelNames = new Array<string>();
+/*let geoJSONByLevel: Map<string, GeoJSON.FeatureCollection<any, any>>;*/
+const geoJSONByLevel = new Map<string, any>();
 let currentBuildingIndoorData: any;
 let indoorLayer: IndoorLayer;
 
 export const LevelService = {
-  create(): void {
-    currentLevel = INDOOR_LEVEL;
-    allLevelNames = new Array<string>();
-    geoJSONByLevel = new Map<string, any>();
-    currentBuildingIndoorData = BuildingService.getBuildingGeoJSON();
+  /*create(): void {
+    /!*currentLevel = INDOOR_LEVEL;*!/
+    /!*allLevelNames = new Array<string>();*!/
+    /!*geoJSONByLevel = new Map<string, any>();*!/
 
     _getAllLevelNamesFromGeoJSON();
     //TODO call in map comoponent
     indoorLayer = new IndoorLayer(LevelService.getCurrentLevelGeoJSON());
-    render(allLevelNames);
-  },
+    const levelNames = _getAllLevelNamesFromGeoJSON();
+    render(levelNames);
+  },*/
 
   getCurrentLevelGeoJSON: function (): GeoJSON.FeatureCollection<any> {
+    const currentLevel = getCurrentLevel();
+
     if (geoJSONByLevel.get(currentLevel) !== undefined) {
       return geoJSONByLevel.get(currentLevel);
     }
+    currentBuildingIndoorData = BuildingService.getBuildingGeoJSON();
 
     const levelFilteredFeatures =
       currentBuildingIndoorData.features.filter(filterByLevelFilter);
@@ -45,26 +52,26 @@ export const LevelService = {
   },
 
   //TODO mixed responsibilities
-  changeCurrentLevel(newLevel: string): void {
+  /*changeCurrentLevel(newLevel: string): void {
     currentLevel = newLevel;
     indoorLayer.updateLayer(LevelService.getCurrentLevelGeoJSON());
     updateCurrentLevelDescription();
-  },
+  },*/
 
   //TODO move to levelControl component
-  remove(): void {
+  /*remove(): void {
     document.getElementById("levelControl").innerHTML = "";
 
     if (indoorLayer) {
       indoorLayer.removeIndoorLayerFromMap();
     }
   },
-  //TODO move to levelControl component
-  reCreate(): void {
+  //TODO move to levelControl component*/
+  /*reCreate(): void {
     AccessibilityService.reset();
     LevelService.remove();
     LevelService.create();
-  },
+  },*/
 };
 
 export function getLevels(level: string): string[] {
@@ -117,7 +124,9 @@ export function getLevels(level: string): string[] {
 }
 
 //TODO refactor
-function _getAllLevelNamesFromGeoJSON(): void {
+export function _getAllLevelNamesFromGeoJSON(): string[] {
+  currentBuildingIndoorData = BuildingService.getBuildingGeoJSON();
+
   currentBuildingIndoorData.features.map(
     (feature: GeoJSON.Feature<any, any>) => {
       if (Array.isArray(feature.properties.level)) {
@@ -147,16 +156,20 @@ function _getAllLevelNamesFromGeoJSON(): void {
     }
   );
   allLevelNames.sort();
+
+  return allLevelNames;
 }
 
 function filterByLevelFilter(feature: GeoJSON.Feature<any>): boolean {
+  const currentLevel = getCurrentLevel();
   return (
     feature.properties.level === currentLevel ||
     feature.properties.level.includes(currentLevel)
   );
 }
 
-function updateCurrentLevelDescription(): void {
+export function updateCurrentLevelDescription(): void {
+  const currentLevel = getCurrentLevel();
   const levelAccessibilityInformation = AccessibilityService.getForLevel(
     currentLevel,
     LevelService.getCurrentLevelGeoJSON()
