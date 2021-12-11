@@ -2,22 +2,16 @@ import { BuildingInterface } from "../models/buildingInterface";
 import { HttpService } from "./httpService";
 import { GeoJSON, LatLng, LatLngBounds } from "leaflet";
 import { MAPQUEST_API_KEY, NOMINATIM_SERVER } from "./data/constants";
-import { DescriptionArea } from "../components/ui/descriptionArea";
-import { leafletMap as M } from "../components/leafletMap";
+import {
+  buildingsBySearchString,
+  currentSearchString,
+} from "../components/leafletMap";
 import { featureDescriptionHelper } from "../utils/featureDescriptionHelper";
 import { buildingAccessibilityProperties } from "./data/buildingAccessibilityProperties";
 import { GeoJsonObject, Position } from "geojson";
 import { getArrayDepth } from "../utils/getArrayDepth";
-import { reCreate } from "../components/ui/levelControl";
 
 const toBBox = require("geojson-bounding-box");
-
-let currentSearchString = "";
-//TODO move to map
-const buildingsBySearchString: Map<string, BuildingInterface> = new Map<
-  string,
-  BuildingInterface
->();
 
 /**
  * Finding a building by search string:
@@ -240,47 +234,6 @@ export const BuildingService = {
 
     return description;
   },
-
-  //TODO mixed responsibilities (refresh and search)
-  searchAndShowBuilding(searchString: string): Promise<string> {
-    return handleSearch(searchString).then((b: BuildingInterface) => {
-      buildingsBySearchString.set(searchString, b);
-      currentSearchString = searchString;
-
-      localStorage.setItem("currentBuildingSearchString", searchString);
-
-      reCreate();
-
-      const message = BuildingService.getBuildingDescription();
-      DescriptionArea.update(message);
-
-      centerMapToBuilding();
-
-      return new Promise((resolve) => resolve("Building found."));
-    });
-  },
 };
 
-export function centerMapToBuilding(): void {
-  const currentBuildingBBox =
-    buildingsBySearchString.get(currentSearchString).boundingBox;
-
-  if (currentBuildingBBox !== null) {
-    /* seems to be a bug somewhere (in leaflet?):
-     * elements of returned bounding box are in wrong order (Lat and Lng are interchanged) */
-
-    const currentBuildingBBox_corrected = new LatLngBounds(
-      new LatLng(
-        currentBuildingBBox.getSouthWest().lng,
-        currentBuildingBBox.getSouthWest().lat
-      ),
-      new LatLng(
-        currentBuildingBBox.getNorthEast().lng,
-        currentBuildingBBox.getNorthEast().lat
-      )
-    );
-
-    M.get().flyToBounds(currentBuildingBBox_corrected);
-  }
-}
 //TODO create export default object

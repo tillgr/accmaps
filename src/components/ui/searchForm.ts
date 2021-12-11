@@ -1,5 +1,5 @@
 import { LoadingIndicator } from "./loadingIndicator";
-import { BuildingService } from "../../services/buildingService";
+import { showBuilding } from "../leafletMap";
 
 export function handleSearchForm(): void {
   const buildingSearchSubmit = document.getElementById("buildingSearchSubmit");
@@ -22,7 +22,7 @@ function runBuildingSearch(buildingSearchInput: HTMLInputElement) {
   LoadingIndicator.start();
   const searchString = buildingSearchInput.value;
 
-  BuildingService.searchAndShowBuilding(searchString)
+  showBuilding(searchString)
     .then(() => {
       LoadingIndicator.end();
       const navBar = document.getElementById("navbarSupportedContent");
