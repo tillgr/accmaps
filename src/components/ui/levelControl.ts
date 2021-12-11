@@ -27,7 +27,6 @@ export function render(allLevelNames: string[]): void {
     }
 
     levelBtn.addEventListener("click", (e: MouseEvent) => {
-      /*LevelService.changeCurrentLevel(level);*/
       changeCurrentLevel(level);
 
       for (let i = 0; i < levelControl.children.length; i++) {
@@ -42,7 +41,6 @@ export function render(allLevelNames: string[]): void {
   levelControl.classList.add("scale-in");
 }
 
-//TODO move to levelControl component
 export function reCreate(): void {
   AccessibilityService.reset();
   remove();
@@ -50,10 +48,6 @@ export function reCreate(): void {
 }
 
 function create(): void {
-  /*currentLevel = INDOOR_LEVEL;*/
-  /*allLevelNames = new Array<string>();*/
-  /*geoJSONByLevel = new Map<string, any>();*/
-
   _getAllLevelNamesFromGeoJSON();
   //TODO call in map comoponent
   indoorLayer = new IndoorLayer(LevelService.getCurrentLevelGeoJSON());

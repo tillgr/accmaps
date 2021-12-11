@@ -248,7 +248,6 @@ export const BuildingService = {
       currentSearchString = searchString;
       localStorage.setItem("currentBuildingSearchString", searchString);
 
-      /*LevelService.reCreate();*/
       reCreate();
       DescriptionArea.update(BuildingService.getBuildingDescription());
 
