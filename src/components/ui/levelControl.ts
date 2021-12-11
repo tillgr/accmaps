@@ -27,7 +27,7 @@ export function render(allLevelNames: string[]): void {
     }
 
     levelBtn.addEventListener("click", (e: MouseEvent) => {
-      changeCurrentLevel(level);
+      handleLevelChange(level);
 
       for (let i = 0; i < levelControl.children.length; i++) {
         levelControl.children[i].classList.remove("active");
@@ -63,7 +63,8 @@ function remove(): void {
   }
 }
 
-function changeCurrentLevel(newLevel: string): void {
+//TODO call in map comoponent
+function handleLevelChange(newLevel: string): void {
   currentLevel = newLevel;
   indoorLayer.updateLayer(LevelService.getCurrentLevelGeoJSON());
   updateCurrentLevelDescription();

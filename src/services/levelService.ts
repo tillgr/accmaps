@@ -4,6 +4,7 @@ import { DescriptionArea } from "../components/ui/descriptionArea";
 import { BuildingService } from "./buildingService";
 import { getCurrentLevel } from "../components/ui/levelControl";
 import { extractLevels } from "../utils/extractLevels";
+import { hasCurrentLevel } from "../utils/hasCurrentLevel";
 
 const geoJSONByLevel = new Map<string, any>();
 let currentBuildingIndoorData: any;
@@ -18,7 +19,7 @@ export const LevelService = {
     currentBuildingIndoorData = BuildingService.getBuildingGeoJSON();
 
     const levelFilteredFeatures =
-      currentBuildingIndoorData.features.filter(filterByLevelFilter);
+      currentBuildingIndoorData.features.filter(hasCurrentLevel);
     const levelFilteredFeatureCollection: GeoJSON.FeatureCollection<any, any> =
       {
         type: "FeatureCollection",
@@ -32,8 +33,8 @@ export const LevelService = {
 
 //TODO refactor
 export function _getAllLevelNamesFromGeoJSON(): string[] {
-  const allLevelNames = new Array<string>();
   currentBuildingIndoorData = BuildingService.getBuildingGeoJSON();
+  const allLevelNames = new Array<string>();
 
   currentBuildingIndoorData.features.map(
     (feature: GeoJSON.Feature<any, any>) => {
@@ -67,14 +68,7 @@ export function _getAllLevelNamesFromGeoJSON(): string[] {
   return allLevelNames.sort();
 }
 
-function filterByLevelFilter(feature: GeoJSON.Feature<any>): boolean {
-  const currentLevel = getCurrentLevel();
-  return (
-    feature.properties.level === currentLevel ||
-    feature.properties.level.includes(currentLevel)
-  );
-}
-
+//TODO move to description area
 export function updateCurrentLevelDescription(): void {
   const currentLevel = getCurrentLevel();
   const levelAccessibilityInformation = AccessibilityService.getForLevel(
