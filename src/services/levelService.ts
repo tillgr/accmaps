@@ -1,10 +1,10 @@
 import { GeoJSON } from "leaflet";
-import { AccessibilityService } from "./accessibilityService";
-import { DescriptionArea } from "../components/ui/descriptionArea";
 import { BuildingService } from "./buildingService";
 import { getCurrentLevel } from "../components/ui/levelControl";
 import { extractLevels } from "../utils/extractLevels";
 import { hasCurrentLevel } from "../utils/hasCurrentLevel";
+import { AccessibilityService } from "./accessibilityService";
+import { DescriptionArea } from "../components/ui/descriptionArea";
 
 const geoJSONByLevel = new Map<string, any>();
 
@@ -66,16 +66,12 @@ export function getLevelNames(): string[] {
   return allLevelNames.sort();
 }
 
-//TODO move to description area
-export function updateCurrentLevelDescription(): void {
+//TODO create export default object
+export function getCurrentLevelDescription(): string {
   const currentLevel = getCurrentLevel();
   const levelAccessibilityInformation = AccessibilityService.getForLevel(
     currentLevel,
     LevelService.getCurrentLevelGeoJSON()
   );
-  DescriptionArea.update(
-    "Current level: " + currentLevel + " " + levelAccessibilityInformation
-  );
+  return "Current level: " + currentLevel + " " + levelAccessibilityInformation;
 }
-
-//TODO create export default object

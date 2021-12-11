@@ -1,11 +1,12 @@
 import { INDOOR_LEVEL } from "../../services/data/constants";
 import {
+  getCurrentLevelDescription,
   getLevelNames,
   LevelService,
-  updateCurrentLevelDescription,
 } from "../../services/levelService";
 import { AccessibilityService } from "../../services/accessibilityService";
 import { IndoorLayer } from "../indoorLayer";
+import { DescriptionArea } from "./descriptionArea";
 
 let indoorLayer: IndoorLayer;
 let currentLevel = INDOOR_LEVEL;
@@ -66,7 +67,9 @@ export function render(allLevelNames: string[]): void {
 function handleLevelChange(newLevel: string): void {
   currentLevel = newLevel;
   indoorLayer.updateLayer(LevelService.getCurrentLevelGeoJSON());
-  updateCurrentLevelDescription();
+
+  const message = getCurrentLevelDescription();
+  DescriptionArea.update(message);
 }
 
 export function getCurrentLevel(): string {

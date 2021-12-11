@@ -249,6 +249,7 @@ export const BuildingService = {
       localStorage.setItem("currentBuildingSearchString", searchString);
 
       reCreate();
+
       DescriptionArea.update(BuildingService.getBuildingDescription());
 
       BuildingService.centerMapToBuilding();
