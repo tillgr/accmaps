@@ -7,16 +7,15 @@ import { extractLevels } from "../utils/extractLevels";
 import { hasCurrentLevel } from "../utils/hasCurrentLevel";
 
 const geoJSONByLevel = new Map<string, any>();
-let currentBuildingIndoorData: any;
 
 export const LevelService = {
   getCurrentLevelGeoJSON: function (): GeoJSON.FeatureCollection<any> {
+    const currentBuildingIndoorData = BuildingService.getBuildingGeoJSON();
     const currentLevel = getCurrentLevel();
 
     if (geoJSONByLevel.get(currentLevel) !== undefined) {
       return geoJSONByLevel.get(currentLevel);
     }
-    currentBuildingIndoorData = BuildingService.getBuildingGeoJSON();
 
     const levelFilteredFeatures =
       currentBuildingIndoorData.features.filter(hasCurrentLevel);
@@ -31,9 +30,8 @@ export const LevelService = {
   },
 };
 
-//TODO refactor
-export function _getAllLevelNamesFromGeoJSON(): string[] {
-  currentBuildingIndoorData = BuildingService.getBuildingGeoJSON();
+export function getLevelNames(): string[] {
+  const currentBuildingIndoorData = BuildingService.getBuildingGeoJSON();
   const allLevelNames = new Array<string>();
 
   currentBuildingIndoorData.features.map(

@@ -1,6 +1,6 @@
 import { INDOOR_LEVEL } from "../../services/data/constants";
 import {
-  _getAllLevelNamesFromGeoJSON,
+  getLevelNames,
   LevelService,
   updateCurrentLevelDescription,
 } from "../../services/levelService";
@@ -9,6 +9,27 @@ import { IndoorLayer } from "../indoorLayer";
 
 let indoorLayer: IndoorLayer;
 let currentLevel = INDOOR_LEVEL;
+
+export function reCreate(): void {
+  AccessibilityService.reset();
+  remove();
+  create();
+}
+
+function create(): void {
+  //TODO call in map comoponent
+  indoorLayer = new IndoorLayer(LevelService.getCurrentLevelGeoJSON());
+  const levelNames = getLevelNames();
+  render(levelNames);
+}
+
+function remove(): void {
+  document.getElementById("levelControl").innerHTML = "";
+
+  if (indoorLayer) {
+    indoorLayer.removeIndoorLayerFromMap();
+  }
+}
 
 export function render(allLevelNames: string[]): void {
   const levelControl = document.getElementById("levelControl");
@@ -39,28 +60,6 @@ export function render(allLevelNames: string[]): void {
   });
 
   levelControl.classList.add("scale-in");
-}
-
-export function reCreate(): void {
-  AccessibilityService.reset();
-  remove();
-  create();
-}
-
-function create(): void {
-  _getAllLevelNamesFromGeoJSON();
-  //TODO call in map comoponent
-  indoorLayer = new IndoorLayer(LevelService.getCurrentLevelGeoJSON());
-  const levelNames = _getAllLevelNamesFromGeoJSON();
-  render(levelNames);
-}
-
-function remove(): void {
-  document.getElementById("levelControl").innerHTML = "";
-
-  if (indoorLayer) {
-    indoorLayer.removeIndoorLayerFromMap();
-  }
 }
 
 //TODO call in map comoponent
