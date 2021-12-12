@@ -13,7 +13,6 @@ HttpService.fetchOverpassData()
     const buildingSearchString =
       localStorage.getItem("currentBuildingSearchString") ??
       DEFAULT_BUILDING_SEARCH_STRING;
-    //TODO needs to move to map component
     showBuilding(buildingSearchString)
       .then(() => LoadingIndicator.end())
       .catch((error) => LoadingIndicator.error(error));

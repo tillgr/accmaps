@@ -100,7 +100,6 @@ export const buildingsBySearchString: Map<string, BuildingInterface> = new Map<
   BuildingInterface
 >();
 
-//TODO mixed responsibilities (refresh and search)
 export function showBuilding(searchString: string): Promise<string> {
   //searchAndShowBuilding
 
@@ -109,16 +108,22 @@ export function showBuilding(searchString: string): Promise<string> {
     currentSearchString = searchString;
     localStorage.setItem("currentBuildingSearchString", searchString);
 
+    handleBuildingChange();
     centerMapToBuilding();
 
     //TODO create method: handleBuildingChange
-    const message = BuildingService.getBuildingDescription();
-    DescriptionArea.update(message);
+    /* const message = BuildingService.getBuildingDescription();
+    DescriptionArea.update(message);*/
 
     reCreate();
 
     return new Promise((resolve) => resolve("Building found."));
   });
+}
+
+export function handleBuildingChange(): void {
+  const message = BuildingService.getBuildingDescription();
+  DescriptionArea.update(message);
 }
 
 export function centerMapToBuilding(): void {
@@ -140,11 +145,12 @@ export function centerMapToBuilding(): void {
       )
     );
 
+    console.log(currentBuildingBBox_corrected);
+
     leafletMap.get().flyToBounds(currentBuildingBBox_corrected);
   }
 }
 
-//TODO needs to move to the map component
 export function runBuildingSearch(buildingSearchInput: HTMLInputElement): void {
   LoadingIndicator.start();
   const searchString = buildingSearchInput.value;

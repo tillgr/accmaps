@@ -20,7 +20,6 @@ const toBBox = require("geojson-bounding-box");
  *    we have to again iterate through all building Features to find the id returned by Nominatim.
  */
 
-//TODO move into object
 /*Search*/
 export function handleSearch(searchString: string): Promise<BuildingInterface> {
   let returnBuilding: BuildingInterface;

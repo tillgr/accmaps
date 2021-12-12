@@ -66,7 +66,6 @@ export function getLevelNames(): string[] {
   return allLevelNames.sort();
 }
 
-//TODO create export default object
 export function getCurrentLevelDescription(): string {
   const currentLevel = getCurrentLevel();
   const levelAccessibilityInformation = AccessibilityService.getForLevel(
@@ -75,3 +74,5 @@ export function getCurrentLevelDescription(): string {
   );
   return "Current level: " + currentLevel + " " + levelAccessibilityInformation;
 }
+
+//TODO create export default object
