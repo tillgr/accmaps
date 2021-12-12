@@ -1,6 +1,6 @@
 import { GeoJSON, Icon, LatLng, Marker } from "leaflet";
 import { featureDescriptionHelper } from "../utils/featureDescriptionHelper";
-import { featureAccessibilityProperties } from "./data/featureAccessibilityProperties";
+import { featureAccessibilityProperties } from "../data/featureAccessibilityProperties";
 import { UserService } from "./userService";
 import {
   COLORS,
@@ -8,7 +8,7 @@ import {
   MARKERS_IMG_DIR,
   WALL_WEIGHT,
   WALL_WEIGHT_PAVING,
-} from "./data/constants";
+} from "../data/constants";
 import { UserGroupEnum } from "../models/userGroupEnum";
 
 const polygonCenter = require("geojson-polygon-center");

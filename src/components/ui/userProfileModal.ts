@@ -1,5 +1,5 @@
 import { UserService } from "../../services/userService";
-import { UserGroups } from "../../services/data/userGroups";
+import { UserGroups } from "../../data/userGroups";
 import { UserGroupEnum } from "../../models/userGroupEnum";
 
 import { Modal } from "bootstrap";

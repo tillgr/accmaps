@@ -1,9 +1,9 @@
 import { BuildingInterface } from "../models/buildingInterface";
 import { HttpService } from "./httpService";
 import { GeoJSON, LatLng, LatLngBounds } from "leaflet";
-import { MAPQUEST_API_KEY, NOMINATIM_SERVER } from "./data/constants";
+import { MAPQUEST_API_KEY, NOMINATIM_SERVER } from "../data/constants";
 import { featureDescriptionHelper } from "../utils/featureDescriptionHelper";
-import { buildingAccessibilityProperties } from "./data/buildingAccessibilityProperties";
+import { buildingAccessibilityProperties } from "../data/buildingAccessibilityProperties";
 import { GeoJsonObject, Position } from "geojson";
 import { getArrayDepth } from "../utils/getArrayDepth";
 import { GeoMap } from "../components/geoMap";

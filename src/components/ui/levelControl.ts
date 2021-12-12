@@ -1,4 +1,4 @@
-import { INDOOR_LEVEL } from "../../services/data/constants";
+import { INDOOR_LEVEL } from "../../data/constants";
 import { getLevelNames, LevelService } from "../../services/levelService";
 import { IndoorLayer } from "../indoorLayer";
 import { geoMap } from "../../main";

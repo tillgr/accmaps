@@ -13,7 +13,7 @@ import {
   MAP_START_LNG,
   OSM_ATTRIBUTION,
   OSM_TILE_SERVER,
-} from "../services/data/constants";
+} from "../data/constants";
 import { BuildingInterface } from "../models/buildingInterface";
 import { handleChange } from "./ui/levelControl";
 import { DescriptionArea } from "./ui/descriptionArea";

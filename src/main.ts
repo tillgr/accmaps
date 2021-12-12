@@ -1,7 +1,7 @@
 import { GeoMap } from "./components/geoMap";
 import { HttpService } from "./services/httpService";
 import { LoadingIndicator } from "./components/ui/loadingIndicator";
-import { DEFAULT_BUILDING_SEARCH_STRING } from "./services/data/constants";
+import { DEFAULT_BUILDING_SEARCH_STRING } from "./data/constants";
 
 export let geoMap: GeoMap = null;
 document.addEventListener("DOMContentLoaded", function () {
