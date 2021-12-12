@@ -1,6 +1,5 @@
 import { INDOOR_LEVEL } from "../../data/constants";
-import { getLevelNames, LevelService } from "../../services/levelService";
-import { IndoorLayer } from "../indoorLayer";
+import { getLevelNames } from "../../services/levelService";
 import { geoMap } from "../../main";
 
 export function handleChange(): void {
@@ -12,7 +11,6 @@ export function handleChange(): void {
 
 //TODO call in map comoponent
 function create(): void {
-  geoMap.indoorLayer = new IndoorLayer(LevelService.getCurrentLevelGeoJSON());
   const levelNames = getLevelNames();
   render(levelNames);
 }
