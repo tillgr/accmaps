@@ -2,14 +2,11 @@ import { BuildingInterface } from "../models/buildingInterface";
 import { HttpService } from "./httpService";
 import { GeoJSON, LatLng, LatLngBounds } from "leaflet";
 import { MAPQUEST_API_KEY, NOMINATIM_SERVER } from "./data/constants";
-import {
-  buildingsBySearchString,
-  currentSearchString,
-} from "../components/leafletMap";
 import { featureDescriptionHelper } from "../utils/featureDescriptionHelper";
 import { buildingAccessibilityProperties } from "./data/buildingAccessibilityProperties";
 import { GeoJsonObject, Position } from "geojson";
 import { getArrayDepth } from "../utils/getArrayDepth";
+import { geoMap } from "../components/geoMap";
 
 const toBBox = require("geojson-bounding-box");
 
@@ -199,7 +196,9 @@ function getBuilding(featureId: string): GeoJSON.Feature<any, any> {
 
 export const BuildingService = {
   getBuildingGeoJSON(): GeoJSON.FeatureCollection<any> {
-    const buildingInterface = buildingsBySearchString.get(currentSearchString);
+    const buildingInterface = geoMap.buildingsBySearchString.get(
+      geoMap.currentSearchString
+    );
     if (buildingInterface !== undefined) {
       return filterByBounds(
         HttpService.getIndoorData(),
@@ -212,8 +211,9 @@ export const BuildingService = {
   },
 
   getBuildingDescription(): string {
-    const currentBuildingFeature =
-      buildingsBySearchString.get(currentSearchString).feature;
+    const currentBuildingFeature = geoMap.buildingsBySearchString.get(
+      geoMap.currentSearchString
+    ).feature;
 
     let description = "";
 

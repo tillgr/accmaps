@@ -1,17 +1,17 @@
-import { runBuildingSearch } from "../leafletMap";
+import { geoMap } from "../geoMap";
 
 export function handleChange(): void {
   const buildingSearchSubmit = document.getElementById("buildingSearchSubmit");
   const buildingSearchInput = document.getElementById("buildingSearch");
 
   buildingSearchSubmit.addEventListener("click", () => {
-    runBuildingSearch(<HTMLInputElement>buildingSearchInput);
+    geoMap.runBuildingSearch(<HTMLInputElement>buildingSearchInput);
   });
 
   buildingSearchInput.addEventListener("keyup", (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      runBuildingSearch(<HTMLInputElement>buildingSearchInput);
+      geoMap.runBuildingSearch(<HTMLInputElement>buildingSearchInput);
     }
   });
 }

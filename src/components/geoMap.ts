@@ -15,7 +15,10 @@ import { LoadingIndicator } from "./ui/loadingIndicator";
 let mapInstance: LeafletMap = null;
 
 //TODO maybe propagate to class component in the future
-export const leafletMap = {
+export const geoMap = {
+  currentSearchString: "",
+  buildingsBySearchString: new Map<string, BuildingInterface>(),
+
   get(): LeafletMap {
     if (mapInstance === null) {
       mapInstance = this.createMap();
@@ -44,11 +47,11 @@ export const leafletMap = {
   },
 
   makeAccessible(): void {
-    leafletMap.removeShadowPane();
-    leafletMap.silenceTileImages();
-    leafletMap.silenceMapMarkers();
-    leafletMap.silenceLeafletAttribution();
-    leafletMap.silenceZoomControls();
+    geoMap.removeShadowPane();
+    geoMap.silenceTileImages();
+    geoMap.silenceMapMarkers();
+    geoMap.silenceLeafletAttribution();
+    geoMap.silenceZoomControls();
     //TODO simplify, since all functions use the same logic
   },
 
@@ -92,73 +95,73 @@ export const leafletMap = {
       .getElementsByClassName("leaflet-control-attribution")[0]
       .setAttribute("aria-hidden", "true");
   },
+
+  showBuilding(searchString: string): Promise<string> {
+    //searchAndShowBuilding
+
+    return handleSearch(searchString).then((b: BuildingInterface) => {
+      geoMap.buildingsBySearchString.set(searchString, b);
+      geoMap.currentSearchString = searchString;
+      localStorage.setItem("currentBuildingSearchString", searchString);
+
+      this.handleBuildingChange();
+      this.centerMapToBuilding();
+
+      reCreate();
+
+      return new Promise((resolve) => resolve("Building found."));
+    });
+  },
+
+  handleBuildingChange(): void {
+    const message = BuildingService.getBuildingDescription();
+    DescriptionArea.update(message);
+  },
+
+  centerMapToBuilding(): void {
+    const currentBuildingBBox = geoMap.buildingsBySearchString.get(
+      geoMap.currentSearchString
+    ).boundingBox;
+
+    if (currentBuildingBBox !== null) {
+      /* seems to be a bug somewhere (in leaflet?):
+       * elements of returned bounding box are in wrong order (Lat and Lng are interchanged) */
+
+      const currentBuildingBBox_corrected = new LatLngBounds(
+        new LatLng(
+          currentBuildingBBox.getSouthWest().lng,
+          currentBuildingBBox.getSouthWest().lat
+        ),
+        new LatLng(
+          currentBuildingBBox.getNorthEast().lng,
+          currentBuildingBBox.getNorthEast().lat
+        )
+      );
+
+      geoMap.get().flyToBounds(currentBuildingBBox_corrected);
+    }
+  },
+
+  runBuildingSearch(buildingSearchInput: HTMLInputElement): void {
+    LoadingIndicator.start();
+    const searchString = buildingSearchInput.value;
+
+    geoMap
+      .showBuilding(searchString)
+      .then(() => {
+        LoadingIndicator.end();
+        const navBar = document.getElementById("navbarSupportedContent");
+        navBar.classList.remove("show");
+        navBar.classList.add("hide");
+      })
+      .catch((errorMessage) => {
+        LoadingIndicator.error(errorMessage);
+      });
+  },
 };
 
-export let currentSearchString = "";
+/*export let currentSearchString = "";
 export const buildingsBySearchString: Map<string, BuildingInterface> = new Map<
   string,
   BuildingInterface
->();
-
-export function showBuilding(searchString: string): Promise<string> {
-  //searchAndShowBuilding
-
-  return handleSearch(searchString).then((b: BuildingInterface) => {
-    buildingsBySearchString.set(searchString, b);
-    currentSearchString = searchString;
-    localStorage.setItem("currentBuildingSearchString", searchString);
-
-    handleBuildingChange();
-    centerMapToBuilding();
-
-    reCreate();
-
-    return new Promise((resolve) => resolve("Building found."));
-  });
-}
-
-export function handleBuildingChange(): void {
-  const message = BuildingService.getBuildingDescription();
-  DescriptionArea.update(message);
-}
-
-export function centerMapToBuilding(): void {
-  const currentBuildingBBox =
-    buildingsBySearchString.get(currentSearchString).boundingBox;
-
-  if (currentBuildingBBox !== null) {
-    /* seems to be a bug somewhere (in leaflet?):
-     * elements of returned bounding box are in wrong order (Lat and Lng are interchanged) */
-
-    const currentBuildingBBox_corrected = new LatLngBounds(
-      new LatLng(
-        currentBuildingBBox.getSouthWest().lng,
-        currentBuildingBBox.getSouthWest().lat
-      ),
-      new LatLng(
-        currentBuildingBBox.getNorthEast().lng,
-        currentBuildingBBox.getNorthEast().lat
-      )
-    );
-
-    console.log(currentBuildingBBox_corrected);
-
-    leafletMap.get().flyToBounds(currentBuildingBBox_corrected);
-  }
-}
-
-export function runBuildingSearch(buildingSearchInput: HTMLInputElement): void {
-  LoadingIndicator.start();
-  const searchString = buildingSearchInput.value;
-
-  showBuilding(searchString)
-    .then(() => {
-      LoadingIndicator.end();
-      const navBar = document.getElementById("navbarSupportedContent");
-      navBar.classList.remove("show");
-      navBar.classList.add("hide");
-    })
-    .catch((errorMessage) => {
-      LoadingIndicator.error(errorMessage);
-    });
-}
+>();*/
