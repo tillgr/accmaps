@@ -33,12 +33,12 @@ export class IndoorLayer {
     IndoorLayer.removeAccessibilityMarkers();
 
     this.indoorLayerGroup = new LayerGroup();
-    this.indoorLayerGroup.addTo(geoMap.get());
+    geoMap.add(this.indoorLayerGroup);
     this.drawIndoorLayerByGeoJSON(geoJSON);
   }
 
   removeIndoorLayerFromMap(): void {
-    geoMap.get().removeLayer(this.indoorLayerGroup);
+    geoMap.remove(this.indoorLayerGroup);
   }
 
   clearIndoorLayer(): void {
@@ -68,10 +68,10 @@ export class IndoorLayer {
   ) {
     const marker = getAccessibilityMarker(feature);
     if (marker) {
-      marker.addTo(geoMap.get());
+      geoMap.add(marker);
       accessibilityMarkers.push(marker);
 
-      marker.on("click", (e: LeafletMouseEvent) => {
+      marker.on("click", () => {
         layer.fire("click");
       });
     }
@@ -91,7 +91,7 @@ export class IndoorLayer {
 
   private static removeAccessibilityMarkers() {
     for (let i = 0; i < accessibilityMarkers.length; i++) {
-      geoMap.get().removeLayer(accessibilityMarkers[i]);
+      geoMap.remove(accessibilityMarkers[i]);
     }
     accessibilityMarkers = [];
   }

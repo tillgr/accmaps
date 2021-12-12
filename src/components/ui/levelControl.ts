@@ -17,13 +17,13 @@ export function reCreate(): void {
   create();
 }
 
+//TODO call in map comoponent
 function create(): void {
-  //TODO call in map comoponent
   indoorLayer = new IndoorLayer(LevelService.getCurrentLevelGeoJSON());
   const levelNames = getLevelNames();
   render(levelNames);
 }
-
+//TODO call in map comoponent
 function remove(): void {
   document.getElementById("levelControl").innerHTML = "";
 
