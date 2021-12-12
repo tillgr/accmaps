@@ -26,6 +26,7 @@ import {
 import { IndoorLayer } from "./indoorLayer";
 import { geoMap } from "../main";
 import { AccessibilityService } from "../services/accessibilityService";
+import accessibility from "../utils/makeAccessible";
 
 export class GeoMap {
   currentSearchString = "";
@@ -66,54 +67,12 @@ export class GeoMap {
   }
 
   makeAccessible = (): void => {
-    this.removeShadowPane();
-    this.silenceTileImages();
-    this.silenceMapMarkers();
-    this.silenceLeafletAttribution();
-    this.silenceZoomControls();
-    //TODO simplify, since all functions use the same logic
+    accessibility.removeShadowPane();
+    accessibility.silenceTileImages();
+    accessibility.silenceMapMarkers();
+    accessibility.silenceLeafletAttribution();
+    accessibility.silenceZoomControls();
   };
-
-  removeShadowPane(): void {
-    const leafletShadows = document.getElementsByClassName(
-      "leaflet-shadow-pane"
-    );
-
-    [].forEach.call(leafletShadows, (shadow: Element) => {
-      shadow.setAttribute("aria-hidden", "true");
-    });
-  }
-
-  silenceZoomControls(): void {
-    const controls = document.getElementsByClassName("leaflet-control-zoom");
-    [].forEach.call(controls, (contol: Element) => {
-      contol.setAttribute("role", "presentation");
-      contol.setAttribute("aria-hidden", "true"); // dont read them out
-    });
-  }
-
-  silenceTileImages(): void {
-    const mapTiles = document.getElementsByClassName("leaflet-tile");
-
-    [].forEach.call(mapTiles, (tile: Element) => {
-      tile.setAttribute("role", "presentation");
-      tile.setAttribute("aria-hidden", "true"); // dont read them out
-    });
-  }
-
-  silenceMapMarkers(): void {
-    const leafletMarkers = document.getElementsByClassName("leaflet-clickable");
-
-    [].forEach.call(leafletMarkers, (marker: Element) => {
-      marker.setAttribute("role", "button");
-    });
-  }
-
-  silenceLeafletAttribution(): void {
-    document
-      .getElementsByClassName("leaflet-control-attribution")[0]
-      .setAttribute("aria-hidden", "true");
-  }
 
   showBuilding(searchString: string): Promise<string> {
     //searchAndShowBuilding
