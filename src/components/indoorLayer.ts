@@ -1,7 +1,5 @@
 import * as L from "leaflet";
 import { GeoJSON, Layer, LayerGroup, LeafletMouseEvent, Marker } from "leaflet";
-
-import { geoMap } from "./geoMap";
 import { DescriptionArea } from "./ui/descriptionArea";
 
 import { highlightSelectedFeature } from "../utils/highlightSelectedFeature";
@@ -10,6 +8,7 @@ import {
   getAccessibilityMarker,
   getFeatureStyle,
 } from "../services/featureService";
+import { geoMap } from "../main";
 
 //TODO move into class
 let accessibilityMarkers: Marker[] = [];

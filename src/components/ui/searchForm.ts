@@ -1,4 +1,4 @@
-import { geoMap } from "../geoMap";
+import { geoMap } from "../../main";
 
 export function handleChange(): void {
   const buildingSearchSubmit = document.getElementById("buildingSearchSubmit");

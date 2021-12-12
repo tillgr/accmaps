@@ -6,7 +6,8 @@ import { featureDescriptionHelper } from "../utils/featureDescriptionHelper";
 import { buildingAccessibilityProperties } from "./data/buildingAccessibilityProperties";
 import { GeoJsonObject, Position } from "geojson";
 import { getArrayDepth } from "../utils/getArrayDepth";
-import { geoMap } from "../components/geoMap";
+import { GeoMap } from "../components/geoMap";
+import { geoMap } from "../main";
 
 const toBBox = require("geojson-bounding-box");
 
