@@ -100,8 +100,8 @@ export const geoMap = {
     //searchAndShowBuilding
 
     return handleSearch(searchString).then((b: BuildingInterface) => {
-      geoMap.buildingsBySearchString.set(searchString, b);
-      geoMap.currentSearchString = searchString;
+      this.buildingsBySearchString.set(searchString, b);
+      this.currentSearchString = searchString;
       localStorage.setItem("currentBuildingSearchString", searchString);
 
       this.handleBuildingChange();
@@ -119,8 +119,8 @@ export const geoMap = {
   },
 
   centerMapToBuilding(): void {
-    const currentBuildingBBox = geoMap.buildingsBySearchString.get(
-      geoMap.currentSearchString
+    const currentBuildingBBox = this.buildingsBySearchString.get(
+      this.currentSearchString
     ).boundingBox;
 
     if (currentBuildingBBox !== null) {
@@ -138,7 +138,7 @@ export const geoMap = {
         )
       );
 
-      geoMap.get().flyToBounds(currentBuildingBBox_corrected);
+      this.get().flyToBounds(currentBuildingBBox_corrected);
     }
   },
 
@@ -146,22 +146,15 @@ export const geoMap = {
     LoadingIndicator.start();
     const searchString = buildingSearchInput.value;
 
-    geoMap
-      .showBuilding(searchString)
+    this.showBuilding(searchString)
       .then(() => {
         LoadingIndicator.end();
         const navBar = document.getElementById("navbarSupportedContent");
         navBar.classList.remove("show");
         navBar.classList.add("hide");
       })
-      .catch((errorMessage) => {
+      .catch((errorMessage: string) => {
         LoadingIndicator.error(errorMessage);
       });
   },
 };
-
-/*export let currentSearchString = "";
-export const buildingsBySearchString: Map<string, BuildingInterface> = new Map<
-  string,
-  BuildingInterface
->();*/
