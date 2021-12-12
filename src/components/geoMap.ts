@@ -37,39 +37,18 @@ export class GeoMap {
       .on("moveend", this.makeAccessible)
       .on("load", this.makeAccessible)
       .on("zoomend", this.makeAccessible);
+
     this.mapInstance.whenReady(this.makeAccessible);
-
-    osmTileLayer.addTo(this.mapInstance);
-
-    /*    this.createMap();*/
+    this.add(osmTileLayer);
   }
 
-  add(obj: LayerGroup | Marker): void {
+  add(obj: LayerGroup | Marker | TileLayer): void {
     obj.addTo(this.mapInstance);
   }
 
   remove(layerGroup: LayerGroup | Marker): void {
     this.mapInstance.removeLayer(layerGroup);
   }
-
-  /*  createMap(): LeafletMap {
-    const osmTileLayer = new TileLayer(OSM_TILE_SERVER, {
-      maxZoom: 21,
-      attribution: OSM_ATTRIBUTION,
-    });
-
-    this.mapInstance = new LeafletMap("map", {
-      center: new LatLng(MAP_START_LAT, MAP_START_LNG),
-      zoom: 19,
-    })
-      .on("moveend", this.makeAccessible)
-      .on("load", this.makeAccessible)
-      .on("zoomend", this.makeAccessible);
-    this.mapInstance.whenReady(this.makeAccessible);
-
-    osmTileLayer.addTo(this.mapInstance);
-    return this.mapInstance;
-  }*/
 
   makeAccessible = (): void => {
     this.removeShadowPane();
