@@ -10,9 +10,6 @@ import {
 } from "../services/featureService";
 import { geoMap } from "../main";
 
-//TODO move into class
-/*let accessibilityMarkers: Marker[] = [];*/
-
 export class IndoorLayer {
   private readonly indoorLayerGroup: LayerGroup;
   accessibilityMarkers: Marker[] = [];
@@ -25,9 +22,10 @@ export class IndoorLayer {
     geoMap.add(this.indoorLayerGroup);
   }
 
-  removeIndoorLayerFromMap(): void {
+  //TODO
+  /*  removeIndoorLayerFromMap(): void {
     geoMap.remove(this.indoorLayerGroup);
-  }
+  }*/
 
   clearIndoorLayer(): void {
     this.indoorLayerGroup.clearLayers();
@@ -95,5 +93,9 @@ export class IndoorLayer {
       markerIcons[i].setAttribute("aria-disabled", "true");
       markerIcons[i].removeAttribute("tabindex");
     }
+  }
+
+  getIndoorLayerGroup(): LayerGroup {
+    return this.indoorLayerGroup;
   }
 }

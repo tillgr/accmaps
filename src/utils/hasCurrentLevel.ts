@@ -1,8 +1,8 @@
 import { GeoJSON } from "leaflet";
-import { getCurrentLevel } from "../components/ui/levelControl";
+import { geoMap } from "../main";
 
 export function hasCurrentLevel(feature: GeoJSON.Feature<any>): boolean {
-  const currentLevel = getCurrentLevel();
+  const currentLevel = geoMap.getCurrentLevel();
   return (
     feature.properties.level === currentLevel ||
     feature.properties.level.includes(currentLevel)

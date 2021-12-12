@@ -1,34 +1,27 @@
 import { INDOOR_LEVEL } from "../../services/data/constants";
-import {
-  getCurrentLevelDescription,
-  getLevelNames,
-  LevelService,
-} from "../../services/levelService";
-import { AccessibilityService } from "../../services/accessibilityService";
+import { getLevelNames, LevelService } from "../../services/levelService";
 import { IndoorLayer } from "../indoorLayer";
-import { DescriptionArea } from "./descriptionArea";
+import { geoMap } from "../../main";
 
-let indoorLayer: IndoorLayer;
-let currentLevel = INDOOR_LEVEL;
+export function handleChange(): void {
+  //reCreate
 
-export function reCreate(): void {
-  AccessibilityService.reset();
   remove();
   create();
 }
 
 //TODO call in map comoponent
 function create(): void {
-  indoorLayer = new IndoorLayer(LevelService.getCurrentLevelGeoJSON());
+  geoMap.indoorLayer = new IndoorLayer(LevelService.getCurrentLevelGeoJSON());
   const levelNames = getLevelNames();
   render(levelNames);
 }
-//TODO call in map comoponent
+
 function remove(): void {
   document.getElementById("levelControl").innerHTML = "";
 
-  if (indoorLayer) {
-    indoorLayer.removeIndoorLayerFromMap();
+  if (geoMap.indoorLayer) {
+    geoMap.removeIndoorLayerFromMap();
   }
 }
 
@@ -49,7 +42,7 @@ export function render(allLevelNames: string[]): void {
     }
 
     levelBtn.addEventListener("click", (e: MouseEvent) => {
-      handleLevelChange(level);
+      geoMap.handleLevelChange(level);
 
       for (let i = 0; i < levelControl.children.length; i++) {
         levelControl.children[i].classList.remove("active");
@@ -63,15 +56,4 @@ export function render(allLevelNames: string[]): void {
   levelControl.classList.add("scale-in");
 }
 
-//TODO call in map comoponent
-function handleLevelChange(newLevel: string): void {
-  currentLevel = newLevel;
-  indoorLayer.updateLayer(LevelService.getCurrentLevelGeoJSON());
-
-  const message = getCurrentLevelDescription();
-  DescriptionArea.update(message);
-}
-
-export function getCurrentLevel(): string {
-  return currentLevel;
-}
+//TODO create export default object

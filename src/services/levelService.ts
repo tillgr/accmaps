@@ -1,17 +1,16 @@
 import { GeoJSON } from "leaflet";
 import { BuildingService } from "./buildingService";
-import { getCurrentLevel } from "../components/ui/levelControl";
 import { extractLevels } from "../utils/extractLevels";
 import { hasCurrentLevel } from "../utils/hasCurrentLevel";
 import { AccessibilityService } from "./accessibilityService";
-import { DescriptionArea } from "../components/ui/descriptionArea";
+import { geoMap } from "../main";
 
 const geoJSONByLevel = new Map<string, any>();
 
 export const LevelService = {
   getCurrentLevelGeoJSON: function (): GeoJSON.FeatureCollection<any> {
     const currentBuildingIndoorData = BuildingService.getBuildingGeoJSON();
-    const currentLevel = getCurrentLevel();
+    const currentLevel = geoMap.getCurrentLevel();
 
     if (geoJSONByLevel.get(currentLevel) !== undefined) {
       return geoJSONByLevel.get(currentLevel);
@@ -67,7 +66,7 @@ export function getLevelNames(): string[] {
 }
 
 export function getCurrentLevelDescription(): string {
-  const currentLevel = getCurrentLevel();
+  const currentLevel = geoMap.getCurrentLevel();
   const levelAccessibilityInformation = AccessibilityService.getForLevel(
     currentLevel,
     LevelService.getCurrentLevelGeoJSON()

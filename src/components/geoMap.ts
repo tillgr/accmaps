@@ -8,21 +8,31 @@ import {
 } from "leaflet";
 
 import {
+  INDOOR_LEVEL,
   MAP_START_LAT,
   MAP_START_LNG,
   OSM_ATTRIBUTION,
   OSM_TILE_SERVER,
 } from "../services/data/constants";
 import { BuildingInterface } from "../models/buildingInterface";
-import { reCreate } from "./ui/levelControl";
+import { handleChange } from "./ui/levelControl";
 import { DescriptionArea } from "./ui/descriptionArea";
 import { BuildingService, handleSearch } from "../services/buildingService";
 import { LoadingIndicator } from "./ui/loadingIndicator";
+import {
+  getCurrentLevelDescription,
+  LevelService,
+} from "../services/levelService";
+import { IndoorLayer } from "./indoorLayer";
+import { geoMap } from "../main";
+import { AccessibilityService } from "../services/accessibilityService";
 
 export class GeoMap {
   currentSearchString = "";
   buildingsBySearchString = new Map<string, BuildingInterface>();
   mapInstance: LeafletMap = null;
+  currentLevel = INDOOR_LEVEL;
+  indoorLayer: IndoorLayer;
 
   constructor() {
     const osmTileLayer = new TileLayer(OSM_TILE_SERVER, {
@@ -48,6 +58,11 @@ export class GeoMap {
 
   remove(layerGroup: LayerGroup | Marker): void {
     this.mapInstance.removeLayer(layerGroup);
+  }
+
+  removeIndoorLayerFromMap(): void {
+    const group = this.indoorLayer.getIndoorLayerGroup();
+    geoMap.remove(group);
   }
 
   makeAccessible = (): void => {
@@ -111,13 +126,14 @@ export class GeoMap {
       this.handleBuildingChange();
       this.centerMapToBuilding();
 
-      reCreate();
-
       return new Promise((resolve) => resolve("Building found."));
     });
   }
 
   handleBuildingChange(): void {
+    handleChange(); //TODO import via default
+    AccessibilityService.reset();
+
     const message = BuildingService.getBuildingDescription();
     DescriptionArea.update(message);
   }
@@ -161,4 +177,18 @@ export class GeoMap {
         LoadingIndicator.error(errorMessage);
       });
   }
+
+  handleLevelChange(newLevel: string): void {
+    this.currentLevel = newLevel;
+    this.indoorLayer.updateLayer(LevelService.getCurrentLevelGeoJSON());
+
+    const message = getCurrentLevelDescription();
+    DescriptionArea.update(message);
+  }
+
+  getCurrentLevel(): string {
+    return this.currentLevel;
+  }
 }
+
+//TODO call in map comoponent
