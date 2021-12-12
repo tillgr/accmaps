@@ -90,9 +90,9 @@ export class GeoMap {
   }
 
   handleBuildingChange(): void {
+    handleChange(); //TODO import via default
     this.indoorLayer = new IndoorLayer(LevelService.getCurrentLevelGeoJSON());
 
-    handleChange(); //TODO import via default
     AccessibilityService.reset();
 
     const message = BuildingService.getBuildingDescription();
