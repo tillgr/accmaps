@@ -14,7 +14,7 @@ import {
 //TODO move into class
 let accessibilityMarkers: Marker[] = [];
 
-export function featureScreenAccessibility(): void {
+export function makeFeaturesAccessible(): void {
   const featurePaths = document.getElementsByClassName("leaflet-interactive");
   for (let i = 0; i < featurePaths.length; i++) {
     featurePaths[i].setAttribute("aria-disabled", "true");
@@ -60,7 +60,7 @@ export class IndoorLayer {
       pointToLayer: () => null,
     });
     this.indoorLayerGroup.addLayer(layer);
-    featureScreenAccessibility();
+    makeFeaturesAccessible();
   }
 
   private static onEachFeature(

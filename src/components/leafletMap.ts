@@ -111,10 +111,6 @@ export function showBuilding(searchString: string): Promise<string> {
     handleBuildingChange();
     centerMapToBuilding();
 
-    //TODO create method: handleBuildingChange
-    /* const message = BuildingService.getBuildingDescription();
-    DescriptionArea.update(message);*/
-
     reCreate();
 
     return new Promise((resolve) => resolve("Building found."));
