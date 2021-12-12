@@ -10,6 +10,7 @@ import { BuildingInterface } from "../models/buildingInterface";
 import { reCreate } from "./ui/levelControl";
 import { DescriptionArea } from "./ui/descriptionArea";
 import { BuildingService, handleSearch } from "../services/buildingService";
+import { LoadingIndicator } from "./ui/loadingIndicator";
 
 let mapInstance: LeafletMap = null;
 
@@ -141,4 +142,21 @@ export function centerMapToBuilding(): void {
 
     leafletMap.get().flyToBounds(currentBuildingBBox_corrected);
   }
+}
+
+//TODO needs to move to the map component
+export function runBuildingSearch(buildingSearchInput: HTMLInputElement): void {
+  LoadingIndicator.start();
+  const searchString = buildingSearchInput.value;
+
+  showBuilding(searchString)
+    .then(() => {
+      LoadingIndicator.end();
+      const navBar = document.getElementById("navbarSupportedContent");
+      navBar.classList.remove("show");
+      navBar.classList.add("hide");
+    })
+    .catch((errorMessage) => {
+      LoadingIndicator.error(errorMessage);
+    });
 }
