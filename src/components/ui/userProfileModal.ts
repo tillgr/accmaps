@@ -10,49 +10,53 @@ const userProfileModal = new Modal(
 );
 userProfileModal.hide();
 
-export const UserProfileModal = {
-  create(): void {
-    const selectedUserProfile = localStorage.getItem("userService");
-    if (selectedUserProfile !== null) {
-      UserProfileModal.close();
-      document.getElementById("changeUserProfileBtn").onclick =
-        UserProfileModal.show;
-    } else {
-      UserProfileModal.show();
+function render(): void {
+  const selectedUserProfile = localStorage.getItem("userService");
+  if (selectedUserProfile !== null) {
+    hide();
+    document.getElementById("changeUserProfileBtn").onclick = show;
+  } else {
+    show();
+  }
+
+  UserGroups.forEach((v, k) => {
+    const button = document.createElement("a");
+    button.href = "#map";
+    button.className =
+      "list-group-item d-flex justify-content-between align-items-start";
+    button.innerHTML =
+      v.name +
+      ' <span aria-hidden="true"><i class="material-icons">' +
+      v.icon +
+      "</i></span>";
+    button.onclick = () => setUserProfile(k);
+
+    if (UserService.getCurrentProfile() === k) {
+      button.classList.add("active");
     }
 
-    UserGroups.forEach((v, k) => {
-      const button = document.createElement("a");
-      button.href = "#map";
-      button.className =
-        "list-group-item d-flex justify-content-between align-items-start";
-      button.innerHTML =
-        v.name +
-        ' <span aria-hidden="true"><i class="material-icons">' +
-        v.icon +
-        "</i></span>";
-      button.onclick = () => UserProfileModal.setUserProfile(k);
+    document.getElementById("userProfileList").append(button);
+  });
+}
 
-      if (UserService.getCurrentProfile() === k) {
-        button.classList.add("active");
-      }
+function show(): void {
+  userProfileModal.show();
+  document.getElementById("userProfileList").focus();
+}
 
-      document.getElementById("userProfileList").append(button);
-    });
-  },
+function hide(): void {
+  userProfileModal.hide();
+}
 
-  show(): void {
-    userProfileModal.show();
-    document.getElementById("userProfileList").focus();
-  },
+function setUserProfile(userGroup: UserGroupEnum): void {
+  UserService.set(userGroup);
+  localStorage.setItem("userService", userGroup.toString());
+  hide();
+}
 
-  close(): void {
-    userProfileModal.hide();
-  },
-
-  setUserProfile(userGroup: UserGroupEnum): void {
-    UserService.set(userGroup);
-    localStorage.setItem("userService", userGroup.toString());
-    UserProfileModal.close();
-  },
+export default {
+  render,
+  show,
+  hide,
+  setUserProfile,
 };
