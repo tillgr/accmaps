@@ -1,4 +1,4 @@
-import { toastMessage } from "./toast";
+import Toast from "./toast";
 
 const loadingIndicator = document.getElementById("loadingIndicator");
 
@@ -17,7 +17,7 @@ function error(message: string): void {
   loadingIndicator.classList.add("text-danger");
   setTimeout(end, 2000);
 
-  toastMessage(message);
+  Toast.render(message);
 }
 
 export default {
