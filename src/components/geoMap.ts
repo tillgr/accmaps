@@ -16,7 +16,7 @@ import {
 } from "../data/constants";
 import { BuildingInterface } from "../models/buildingInterface";
 import { handleChange } from "./ui/levelControl";
-import { DescriptionArea } from "./ui/descriptionArea";
+import DescriptionArea from "./ui/descriptionArea";
 import { BuildingService, handleSearch } from "../services/buildingService";
 import { LoadingIndicator } from "./ui/loadingIndicator";
 import {
