@@ -13,7 +13,7 @@ import { UserGroupEnum } from "../models/userGroupEnum";
 
 const polygonCenter = require("geojson-polygon-center");
 
-export function getAccessibilityDescription(feature: GeoJSON.Feature): string {
+function getAccessibilityDescription(feature: GeoJSON.Feature): string {
   let popUpText = feature.properties.ref ?? "(no name)";
 
   if (
@@ -31,7 +31,7 @@ export function getAccessibilityDescription(feature: GeoJSON.Feature): string {
   return "Selected map object: " + popUpText;
 }
 
-export function getAccessibilityMarker(feature: GeoJSON.Feature): Marker {
+function getAccessibilityMarker(feature: GeoJSON.Feature): Marker {
   let iconFileName = "";
 
   const isFeatureAccessible = featureAccessibilityProperties.some(
@@ -67,7 +67,7 @@ export function getAccessibilityMarker(feature: GeoJSON.Feature): Marker {
   return null;
 }
 
-export function getFeatureStyle(feature: GeoJSON.Feature<any>): any {
+function getFeatureStyle(feature: GeoJSON.Feature<any>): any {
   let fill = "#fff";
 
   if (feature.properties.amenity === "toilets") {
@@ -101,4 +101,8 @@ function getWallWeight(feature: GeoJSON.Feature<any>) {
     : WALL_WEIGHT;
 }
 
-//TODO create export default object
+export default {
+  getAccessibilityDescription,
+  getAccessibilityMarker,
+  getFeatureStyle,
+};

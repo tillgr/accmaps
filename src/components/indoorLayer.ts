@@ -3,11 +3,7 @@ import { GeoJSON, Layer, LayerGroup, LeafletMouseEvent, Marker } from "leaflet";
 import DescriptionArea from "./ui/descriptionArea";
 
 import { highlightSelectedFeature } from "../utils/highlightSelectedFeature";
-import {
-  getAccessibilityDescription,
-  getAccessibilityMarker,
-  getFeatureStyle,
-} from "../services/featureService";
+import FeatureService from "../services/featureService";
 import { geoMap } from "../main";
 
 export class IndoorLayer {
@@ -40,7 +36,7 @@ export class IndoorLayer {
     this.removeAccessibilityMarkers();
 
     const layer = new L.GeoJSON(geoJSON, {
-      style: getFeatureStyle,
+      style: FeatureService.getFeatureStyle,
       onEachFeature: this.onEachFeature,
       pointToLayer: () => null,
     });
@@ -52,7 +48,7 @@ export class IndoorLayer {
     feature: GeoJSON.Feature<any, any>,
     layer?: Layer
   ) => {
-    const marker = getAccessibilityMarker(feature);
+    const marker = FeatureService.getAccessibilityMarker(feature);
     if (marker) {
       geoMap.add(marker);
       this.accessibilityMarkers.push(marker);
@@ -70,7 +66,8 @@ export class IndoorLayer {
   private clickOnFeature = (e: LeafletMouseEvent) => {
     const { feature, _path } = e.sourceTarget;
 
-    const accessibilityDescription = getAccessibilityDescription(feature);
+    const accessibilityDescription =
+      FeatureService.getAccessibilityDescription(feature);
     DescriptionArea.update(accessibilityDescription);
     highlightSelectedFeature(<HTMLElement>_path);
   };
