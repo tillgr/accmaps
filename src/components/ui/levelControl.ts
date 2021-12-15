@@ -2,14 +2,13 @@ import { INDOOR_LEVEL } from "../../data/constants";
 import { getLevelNames } from "../../services/levelService";
 import { geoMap } from "../../main";
 
-export function handleChange(): void {
+function handleChange(): void {
   //reCreate
 
   remove();
   create();
 }
 
-//TODO call in map comoponent
 function create(): void {
   const levelNames = getLevelNames();
   render(levelNames);
@@ -23,7 +22,7 @@ function remove(): void {
   }
 }
 
-export function render(allLevelNames: string[]): void {
+function render(allLevelNames: string[]): void {
   const levelControl = document.getElementById("levelControl");
 
   allLevelNames.forEach((level: string) => {
@@ -54,4 +53,6 @@ export function render(allLevelNames: string[]): void {
   levelControl.classList.add("scale-in");
 }
 
-//TODO create export default object
+export default {
+  handleChange,
+};
