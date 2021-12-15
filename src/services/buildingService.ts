@@ -6,7 +6,6 @@ import { featureDescriptionHelper } from "../utils/featureDescriptionHelper";
 import { buildingAccessibilityProperties } from "../data/buildingAccessibilityProperties";
 import { GeoJsonObject, Position } from "geojson";
 import { getArrayDepth } from "../utils/getArrayDepth";
-import { GeoMap } from "../components/geoMap";
 import { geoMap } from "../main";
 
 const toBBox = require("geojson-bounding-box");
@@ -19,7 +18,7 @@ const toBBox = require("geojson-bounding-box");
  */
 
 /*Search*/
-export function handleSearch(searchString: string): Promise<BuildingInterface> {
+function handleSearch(searchString: string): Promise<BuildingInterface> {
   let returnBuilding: BuildingInterface;
 
   const buildings = HttpService.getBuildingData();
@@ -195,7 +194,7 @@ function getBuilding(featureId: string): GeoJSON.Feature<any, any> {
   return foundBuilding;
 }
 
-export const BuildingService = {
+/*export const BuildingService = {
   getBuildingGeoJSON(): GeoJSON.FeatureCollection<any> {
     const buildingInterface = geoMap.buildingsBySearchString.get(
       geoMap.currentSearchString
@@ -234,6 +233,49 @@ export const BuildingService = {
 
     return description;
   },
-};
+};*/
 
-//TODO create export default object
+function getBuildingGeoJSON(): GeoJSON.FeatureCollection<any> {
+  const buildingInterface = geoMap.buildingsBySearchString.get(
+    geoMap.currentSearchString
+  );
+  if (buildingInterface !== undefined) {
+    return filterByBounds(
+      HttpService.getIndoorData(),
+      buildingInterface.boundingBox
+    );
+  }
+
+  console.error("Building not found");
+  return null;
+}
+
+function getBuildingDescription(): string {
+  const currentBuildingFeature = geoMap.buildingsBySearchString.get(
+    geoMap.currentSearchString
+  ).feature;
+
+  let description = "";
+
+  if (currentBuildingFeature.properties.name !== undefined) {
+    description +=
+      "Current building: " + currentBuildingFeature.properties.name;
+
+    if (currentBuildingFeature.properties.loc_ref !== undefined) {
+      description += " (" + currentBuildingFeature.properties.loc_ref + ")";
+    }
+  }
+
+  description += featureDescriptionHelper(
+    currentBuildingFeature,
+    buildingAccessibilityProperties
+  );
+
+  return description;
+}
+
+export default {
+  getBuildingGeoJSON,
+  getBuildingDescription,
+  handleSearch,
+};

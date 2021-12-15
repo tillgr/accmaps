@@ -17,7 +17,7 @@ import {
 import { BuildingInterface } from "../models/buildingInterface";
 import levelControl from "./ui/levelControl";
 import DescriptionArea from "./ui/descriptionArea";
-import { BuildingService, handleSearch } from "../services/buildingService";
+import BuildingService from "../services/buildingService";
 import LoadingIndicator from "./ui/loadingIndicator";
 import {
   getCurrentLevelDescription,
@@ -27,6 +27,7 @@ import { IndoorLayer } from "./indoorLayer";
 import { geoMap } from "../main";
 import AccessibilityService from "../services/accessibilityService";
 import accessibility from "../utils/makeAccessible";
+import buildingService from "../services/buildingService";
 
 export class GeoMap {
   currentSearchString = "";
@@ -77,16 +78,18 @@ export class GeoMap {
   showBuilding(searchString: string): Promise<string> {
     //searchAndShowBuilding
 
-    return handleSearch(searchString).then((b: BuildingInterface) => {
-      this.buildingsBySearchString.set(searchString, b);
-      this.currentSearchString = searchString;
-      localStorage.setItem("currentBuildingSearchString", searchString);
+    return buildingService
+      .handleSearch(searchString)
+      .then((b: BuildingInterface) => {
+        this.buildingsBySearchString.set(searchString, b);
+        this.currentSearchString = searchString;
+        localStorage.setItem("currentBuildingSearchString", searchString);
 
-      this.handleBuildingChange();
-      this.centerMapToBuilding();
+        this.handleBuildingChange();
+        this.centerMapToBuilding();
 
-      return new Promise((resolve) => resolve("Building found."));
-    });
+        return new Promise((resolve) => resolve("Building found."));
+      });
   }
 
   handleBuildingChange(): void {
