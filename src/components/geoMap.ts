@@ -25,7 +25,7 @@ import {
 } from "../services/levelService";
 import { IndoorLayer } from "./indoorLayer";
 import { geoMap } from "../main";
-import { AccessibilityService } from "../services/accessibilityService";
+import AccessibilityService from "../services/accessibilityService";
 import accessibility from "../utils/makeAccessible";
 
 export class GeoMap {
@@ -66,13 +66,13 @@ export class GeoMap {
     geoMap.remove(group);
   }
 
-  makeAccessible = (): void => {
+  makeAccessible(): void {
     accessibility.removeShadowPane();
     accessibility.silenceTileImages();
     accessibility.silenceMapMarkers();
     accessibility.silenceLeafletAttribution();
     accessibility.silenceZoomControls();
-  };
+  }
 
   showBuilding(searchString: string): Promise<string> {
     //searchAndShowBuilding
@@ -151,5 +151,3 @@ export class GeoMap {
     return this.currentLevel;
   }
 }
-
-//TODO call in map comoponent

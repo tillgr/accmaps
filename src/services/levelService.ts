@@ -2,7 +2,7 @@ import { GeoJSON } from "leaflet";
 import { BuildingService } from "./buildingService";
 import { extractLevels } from "../utils/extractLevels";
 import { hasCurrentLevel } from "../utils/hasCurrentLevel";
-import { AccessibilityService } from "./accessibilityService";
+import AccessibilityService from "./accessibilityService";
 import { geoMap } from "../main";
 
 const geoJSONByLevel = new Map<string, any>();
