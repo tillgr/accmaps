@@ -18,7 +18,7 @@ import { BuildingInterface } from "../models/buildingInterface";
 import levelControl from "./ui/levelControl";
 import DescriptionArea from "./ui/descriptionArea";
 import { BuildingService, handleSearch } from "../services/buildingService";
-import { LoadingIndicator } from "./ui/loadingIndicator";
+import LoadingIndicator from "./ui/loadingIndicator";
 import {
   getCurrentLevelDescription,
   LevelService,
