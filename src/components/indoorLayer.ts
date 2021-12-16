@@ -18,11 +18,6 @@ export class IndoorLayer {
     geoMap.add(this.indoorLayerGroup);
   }
 
-  //TODO
-  /*  removeIndoorLayerFromMap(): void {
-    geoMap.remove(this.indoorLayerGroup);
-  }*/
-
   clearIndoorLayer(): void {
     this.indoorLayerGroup.clearLayers();
   }

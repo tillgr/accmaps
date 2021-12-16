@@ -194,47 +194,6 @@ function getBuilding(featureId: string): GeoJSON.Feature<any, any> {
   return foundBuilding;
 }
 
-/*export const BuildingService = {
-  getBuildingGeoJSON(): GeoJSON.FeatureCollection<any> {
-    const buildingInterface = geoMap.buildingsBySearchString.get(
-      geoMap.currentSearchString
-    );
-    if (buildingInterface !== undefined) {
-      return filterByBounds(
-        HttpService.getIndoorData(),
-        buildingInterface.boundingBox
-      );
-    }
-
-    console.error("Building not found");
-    return null;
-  },
-
-  getBuildingDescription(): string {
-    const currentBuildingFeature = geoMap.buildingsBySearchString.get(
-      geoMap.currentSearchString
-    ).feature;
-
-    let description = "";
-
-    if (currentBuildingFeature.properties.name !== undefined) {
-      description +=
-        "Current building: " + currentBuildingFeature.properties.name;
-
-      if (currentBuildingFeature.properties.loc_ref !== undefined) {
-        description += " (" + currentBuildingFeature.properties.loc_ref + ")";
-      }
-    }
-
-    description += featureDescriptionHelper(
-      currentBuildingFeature,
-      buildingAccessibilityProperties
-    );
-
-    return description;
-  },
-};*/
-
 function getBuildingGeoJSON(): GeoJSON.FeatureCollection<any> {
   const buildingInterface = geoMap.buildingsBySearchString.get(
     geoMap.currentSearchString
