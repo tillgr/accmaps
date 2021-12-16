@@ -1,7 +1,7 @@
 import { GeoJSON, Icon, LatLng, Marker } from "leaflet";
 import { featureDescriptionHelper } from "../utils/featureDescriptionHelper";
 import { featureAccessibilityProperties } from "../data/featureAccessibilityProperties";
-import { UserService } from "./userService";
+import UserService from "../services/userService";
 import {
   COLORS,
   FILL_OPACITY,

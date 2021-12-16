@@ -1,4 +1,4 @@
-import { UserService } from "../../services/userService";
+import UserService from "../../services/userService";
 import { UserGroups } from "../../data/userGroups";
 import { UserGroupEnum } from "../../models/userGroupEnum";
 
