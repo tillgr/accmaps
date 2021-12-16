@@ -19,10 +19,7 @@ import levelControl from "./ui/levelControl";
 import DescriptionArea from "./ui/descriptionArea";
 import BuildingService from "../services/buildingService";
 import LoadingIndicator from "./ui/loadingIndicator";
-import {
-  getCurrentLevelDescription,
-  LevelService,
-} from "../services/levelService";
+import LevelService from "../services/levelService";
 import { IndoorLayer } from "./indoorLayer";
 import { geoMap } from "../main";
 import AccessibilityService from "../services/accessibilityService";
@@ -146,7 +143,7 @@ export class GeoMap {
     this.currentLevel = newLevel;
     this.indoorLayer.updateLayer(LevelService.getCurrentLevelGeoJSON());
 
-    const message = getCurrentLevelDescription();
+    const message = LevelService.getCurrentLevelDescription();
     DescriptionArea.update(message);
   }
 

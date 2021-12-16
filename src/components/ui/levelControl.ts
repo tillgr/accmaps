@@ -1,5 +1,5 @@
 import { INDOOR_LEVEL } from "../../data/constants";
-import { getLevelNames } from "../../services/levelService";
+import LevelService from "../../services/levelService";
 import { geoMap } from "../../main";
 
 function handleChange(): void {
@@ -10,7 +10,7 @@ function handleChange(): void {
 }
 
 function create(): void {
-  const levelNames = getLevelNames();
+  const levelNames = LevelService.getLevelNames();
   render(levelNames);
 }
 

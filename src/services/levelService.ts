@@ -7,29 +7,26 @@ import { geoMap } from "../main";
 
 const geoJSONByLevel = new Map<string, any>();
 
-export const LevelService = {
-  getCurrentLevelGeoJSON: function (): GeoJSON.FeatureCollection<any> {
-    const currentBuildingIndoorData = BuildingService.getBuildingGeoJSON();
-    const currentLevel = geoMap.getCurrentLevel();
+function getCurrentLevelGeoJSON(): GeoJSON.FeatureCollection<any> {
+  const currentBuildingIndoorData = BuildingService.getBuildingGeoJSON();
+  const currentLevel = geoMap.getCurrentLevel();
 
-    if (geoJSONByLevel.get(currentLevel) !== undefined) {
-      return geoJSONByLevel.get(currentLevel);
-    }
+  if (geoJSONByLevel.get(currentLevel) !== undefined) {
+    return geoJSONByLevel.get(currentLevel);
+  }
 
-    const levelFilteredFeatures =
-      currentBuildingIndoorData.features.filter(hasCurrentLevel);
-    const levelFilteredFeatureCollection: GeoJSON.FeatureCollection<any, any> =
-      {
-        type: "FeatureCollection",
-        features: levelFilteredFeatures,
-      };
+  const levelFilteredFeatures =
+    currentBuildingIndoorData.features.filter(hasCurrentLevel);
+  const levelFilteredFeatureCollection: GeoJSON.FeatureCollection<any, any> = {
+    type: "FeatureCollection",
+    features: levelFilteredFeatures,
+  };
 
-    geoJSONByLevel.set(currentLevel, levelFilteredFeatureCollection);
-    return levelFilteredFeatureCollection;
-  },
-};
+  geoJSONByLevel.set(currentLevel, levelFilteredFeatureCollection);
+  return levelFilteredFeatureCollection;
+}
 
-export function getLevelNames(): string[] {
+function getLevelNames(): string[] {
   const currentBuildingIndoorData = BuildingService.getBuildingGeoJSON();
   const allLevelNames = new Array<string>();
 
@@ -65,13 +62,17 @@ export function getLevelNames(): string[] {
   return allLevelNames.sort();
 }
 
-export function getCurrentLevelDescription(): string {
+function getCurrentLevelDescription(): string {
   const currentLevel = geoMap.getCurrentLevel();
   const levelAccessibilityInformation = AccessibilityService.getForLevel(
     currentLevel,
-    LevelService.getCurrentLevelGeoJSON()
+    getCurrentLevelGeoJSON()
   );
   return "Current level: " + currentLevel + " " + levelAccessibilityInformation;
 }
 
-//TODO create export default object
+export default {
+  getCurrentLevelGeoJSON,
+  getLevelNames,
+  getCurrentLevelDescription,
+};
