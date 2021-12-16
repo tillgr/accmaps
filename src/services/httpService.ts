@@ -4,30 +4,28 @@ import { GeoJSON } from "leaflet";
 let indoorDataGeoJSON: GeoJSON.FeatureCollection<any, any>;
 let buildingDataGeoJSON: GeoJSON.FeatureCollection<any, any>;
 
-export const HttpService = {
-  fetchOverpassData(): Promise<boolean> {
-    return Promise.all([fetchIndoorData(), fetchBuildingData()]).then(
-      (
-        values: [
-          GeoJSON.FeatureCollection<any, any>,
-          GeoJSON.FeatureCollection<any, any>
-        ]
-      ) => {
-        indoorDataGeoJSON = values[0];
-        buildingDataGeoJSON = values[1];
-        return true;
-      }
-    );
-  },
+function fetchOverpassData(): Promise<boolean> {
+  return Promise.all([fetchIndoorData(), fetchBuildingData()]).then(
+    (
+      values: [
+        GeoJSON.FeatureCollection<any, any>,
+        GeoJSON.FeatureCollection<any, any>
+      ]
+    ) => {
+      indoorDataGeoJSON = values[0];
+      buildingDataGeoJSON = values[1];
+      return true;
+    }
+  );
+}
 
-  getIndoorData(): GeoJSON.FeatureCollection<any, any> {
-    return indoorDataGeoJSON;
-  },
+function getIndoorData(): GeoJSON.FeatureCollection<any, any> {
+  return indoorDataGeoJSON;
+}
 
-  getBuildingData(): GeoJSON.FeatureCollection<any, any> {
-    return buildingDataGeoJSON;
-  },
-};
+function getBuildingData(): GeoJSON.FeatureCollection<any, any> {
+  return buildingDataGeoJSON;
+}
 
 function fetchIndoorData() {
   return getOverpassData(OVERPASS_DATA_URLS.INDOOR);
@@ -58,4 +56,8 @@ function getOverpassData(overpassQuery: string) {
   });
 }
 
-//TODO create export default object
+export default {
+  fetchOverpassData,
+  getIndoorData,
+  getBuildingData,
+};

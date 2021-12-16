@@ -1,5 +1,5 @@
 import { GeoMap } from "./components/geoMap";
-import { HttpService } from "./services/httpService";
+import HttpService from "./services/httpService";
 import LoadingIndicator from "./components/ui/loadingIndicator";
 import { DEFAULT_BUILDING_SEARCH_STRING } from "./data/constants";
 
