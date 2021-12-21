@@ -44,6 +44,16 @@ export class IndoorLayer {
     layer?: Layer
   ) => {
     const marker = FeatureService.getAccessibilityMarker(feature);
+    const roomNo = feature.properties.ref
+
+    //only rooms; no toilets/..
+    if (roomNo && feature.properties.indoor == "room"
+        && !feature.properties.amenity
+        && !feature.properties.handrail
+        && !feature.properties.stairs) {
+      layer.bindTooltip(roomNo, {permanent: true, className: "room-label", offset: [0, 0], direction: 'center'});
+    }
+
     if (marker) {
       geoMap.add(marker);
       this.accessibilityMarkers.push(marker);
