@@ -48,3 +48,18 @@ nav {
   width: 800px;
   max-width: 75vw;
 }
+
+.room-label {
+  margin-left: 0;
+
+  color: #f0f8ff;
+  background: none;
+
+  border: none;
+  box-shadow: none;
+  text-shadow: 0 0 10px #000;
+
+  &:before{
+    content: none;
+  }
+}

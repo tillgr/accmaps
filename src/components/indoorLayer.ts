@@ -43,6 +43,11 @@ export class IndoorLayer {
     feature: GeoJSON.Feature<any, any>,
     layer?: Layer
   ) => {
+    this.addMarker(feature, layer);
+    this.showRoomNumber(feature, layer);
+  };
+
+  private addMarker(feature: GeoJSON.Feature<any, any>, layer: Layer): void {
     const marker = FeatureService.getAccessibilityMarker(feature);
     if (marker) {
       geoMap.add(marker);
@@ -54,11 +59,34 @@ export class IndoorLayer {
     }
 
     layer.on("click", (e: LeafletMouseEvent) => {
-      this.clickOnFeature(e);
+      this.handleClick(e);
     });
-  };
+  }
 
-  private clickOnFeature = (e: LeafletMouseEvent) => {
+  private showRoomNumber(
+    feature: GeoJSON.Feature<any, any>,
+    layer: Layer
+  ): void {
+    const {
+      indoor,
+      stairs,
+      ref: roomNo,
+      handrail,
+      amenity,
+    } = feature.properties;
+
+    //only rooms; no toilets/..
+    if (roomNo && indoor == "room" && !amenity && !handrail && !stairs) {
+      layer.bindTooltip(roomNo, {
+        permanent: true,
+        className: "room-label",
+        offset: [0, 0],
+        direction: "center",
+      });
+    }
+  }
+
+  private handleClick = (e: LeafletMouseEvent) => {
     const { feature, _path } = e.sourceTarget;
 
     const accessibilityDescription =
