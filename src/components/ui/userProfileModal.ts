@@ -50,7 +50,7 @@ function hide(): void {
 }
 
 function setUserProfile(userGroup: UserGroupEnum): void {
-  UserService.set(userGroup);
+  UserService.setProfile(userGroup);
   /*  localStorage.setItem("userService", userGroup.toString());*/
   hide();
 }

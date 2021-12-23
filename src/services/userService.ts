@@ -10,7 +10,7 @@ function getCurrentProfile(): UserGroupEnum {
   return profile;
 }
 
-function set(profile: UserGroupEnum): void {
+function setProfile(profile: UserGroupEnum): void {
   localStorage.setItem(profileKey, profile.toString());
   /*
    * Hack: reload window location to properly update all profile-specific information.
@@ -21,5 +21,5 @@ function set(profile: UserGroupEnum): void {
 
 export default {
   getCurrentProfile,
-  set,
+  setProfile,
 };
