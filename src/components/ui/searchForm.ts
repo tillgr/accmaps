@@ -1,6 +1,6 @@
 import { geoMap } from "../../main";
 
-function handleChange(): void {
+function render(): void {
   const buildingSearchSubmit = document.getElementById("buildingSearchSubmit");
   const buildingSearchInput = document.getElementById("buildingSearch");
 
@@ -17,5 +17,5 @@ function handleChange(): void {
 }
 
 export default {
-  handleChange,
+  render,
 };

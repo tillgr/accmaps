@@ -18,13 +18,13 @@ import { BuildingInterface } from "../models/buildingInterface";
 import levelControl from "./ui/levelControl";
 import DescriptionArea from "./ui/descriptionArea";
 import BuildingService from "../services/buildingService";
+import buildingService from "../services/buildingService";
 import LoadingIndicator from "./ui/loadingIndicator";
 import LevelService from "../services/levelService";
 import { IndoorLayer } from "./indoorLayer";
 import { geoMap } from "../main";
 import AccessibilityService from "../services/accessibilityService";
 import accessibility from "../utils/makeAccessible";
-import buildingService from "../services/buildingService";
 
 export class GeoMap {
   currentSearchString = "";
@@ -149,5 +149,9 @@ export class GeoMap {
 
   getCurrentLevel(): string {
     return this.currentLevel;
+  }
+
+  runIndoorSearch({ value: searchString }: HTMLInputElement): void {
+    console.log(searchString);
   }
 }
