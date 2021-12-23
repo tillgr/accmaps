@@ -8,6 +8,7 @@ import { UserGroupEnum } from "../../../models/userGroupEnum";
 import { UserFeatureEnum } from "../../../models/userFeatureEnum";
 
 import { Modal } from "bootstrap";
+import userService from "../../../services/userService";
 
 const userProfileModal = new Modal(
   document.getElementById("userProfileModal"),
@@ -25,7 +26,7 @@ const checkboxState: Map<UserFeatureEnum, boolean> =
   SelectedFeatureService.getCurrentSelectedFeatures();
 
 function render(): void {
-  const selectedUserProfile = localStorage.getItem("userService");
+  const selectedUserProfile = userService.getCurrentProfile();
   if (selectedUserProfile !== null) {
     hideAll();
     document.getElementById("changeUserProfileBtn").onclick = show;
@@ -115,8 +116,7 @@ function hideAll(): void {
 }
 
 function setUserProfile(userGroup: UserGroupEnum): void {
-  UserService.set(userGroup);
-  localStorage.setItem("userService", userGroup.toString());
+  UserService.setProfile(userGroup);
   hideAll();
 }
 
