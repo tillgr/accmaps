@@ -1,6 +1,7 @@
 import { GeoMap } from "./components/geoMap";
 import HttpService from "./services/httpService";
 import LoadingIndicator from "./components/ui/loadingIndicator";
+import Legend from "./components/ui/legend";
 import { DEFAULT_BUILDING_SEARCH_STRING } from "./data/constants";
 
 export let geoMap: GeoMap = null;
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .showBuilding(buildingSearchString)
         .then(() => LoadingIndicator.end())
         .catch((error) => LoadingIndicator.error(error));
+      Legend.create(); 
     })
     .catch((error) => {
       LoadingIndicator.error(error);
