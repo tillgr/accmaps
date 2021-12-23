@@ -3,6 +3,7 @@ import { UserGroups } from "../../data/userGroups";
 import { UserGroupEnum } from "../../models/userGroupEnum";
 
 import { Modal } from "bootstrap";
+import userService from "../../services/userService";
 
 const userProfileModal = new Modal(
   document.getElementById("userProfileModal"),
@@ -11,10 +12,10 @@ const userProfileModal = new Modal(
 userProfileModal.hide();
 
 function render(): void {
-  const selectedUserProfile = localStorage.getItem("userService");
+  const selectedUserProfile = userService.getCurrentProfile();
   if (selectedUserProfile !== null) {
     hide();
-    document.getElementById("changeUserProfileBtn").onclick = show;
+    document.getElementById("changeUserProfileBtn").onclick = () => show();
   } else {
     show();
   }
@@ -50,7 +51,7 @@ function hide(): void {
 
 function setUserProfile(userGroup: UserGroupEnum): void {
   UserService.set(userGroup);
-  localStorage.setItem("userService", userGroup.toString());
+  /*  localStorage.setItem("userService", userGroup.toString());*/
   hide();
 }
 
