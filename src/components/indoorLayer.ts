@@ -59,7 +59,7 @@ export class IndoorLayer {
     }
 
     layer.on("click", (e: LeafletMouseEvent) => {
-      this.clickOnFeature(e);
+      this.handleClick(e);
     });
   }
 
@@ -86,7 +86,7 @@ export class IndoorLayer {
     }
   }
 
-  private clickOnFeature = (e: LeafletMouseEvent) => {
+  private handleClick = (e: LeafletMouseEvent) => {
     const { feature, _path } = e.sourceTarget;
 
     const accessibilityDescription =
