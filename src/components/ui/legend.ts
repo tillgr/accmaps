@@ -9,6 +9,8 @@ function create(): void {
     addLegendRecord(tbodyRef, COLORS.TOILET, "Toilet");
     addLegendRecord(tbodyRef, COLORS.STAIR, "Stairs");
     addLegendRecord(tbodyRef, COLORS.ROOM_SELECTED, "Selected");
+
+    document.getElementById('legendHeaderButton').addEventListener("click", onCollapse);
 }
 
 function addLegendRecord(ref: HTMLTableSectionElement, color: string, text: string): void{
@@ -22,6 +24,15 @@ function addLegendRecord(ref: HTMLTableSectionElement, color: string, text: stri
     cell = row.insertCell();
     var textNode = document.createTextNode("\u00A0"+text);
     cell.appendChild(textNode);
+}
+
+function onCollapse(){
+    let icon = document.getElementById('legendCollapseIcon')
+    if (icon.innerHTML.startsWith("n")){
+        icon.innerHTML = "remove"
+    } else {
+        icon.innerHTML = "north_east"
+    }
 }
 
 export default {
