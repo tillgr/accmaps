@@ -5,10 +5,13 @@ import DescriptionArea from "./ui/descriptionArea";
 import { highlightSelectedPath } from "../utils/highlightSelectedPath";
 import FeatureService from "../services/featureService";
 import { geoMap } from "../main";
+import LevelService from "../services/levelService";
+import { COLORS } from "../data/constants";
 
 export class IndoorLayer {
   private readonly indoorLayerGroup: LayerGroup;
   accessibilityMarkers: Marker[] = [];
+  selectedFeatures: GeoJSON.Feature[] = [];
 
   constructor(geoJSON: GeoJSON.FeatureCollection) {
     this.removeAccessibilityMarkers();
@@ -22,9 +25,9 @@ export class IndoorLayer {
     this.indoorLayerGroup.clearLayers();
   }
 
-  updateLayer(geoJSON: GeoJSON.FeatureCollection): void {
+  updateLayer(): void {
     this.clearIndoorLayer();
-    this.drawIndoorLayerByGeoJSON(geoJSON);
+    this.drawIndoorLayerByGeoJSON(LevelService.getCurrentLevelGeoJSON());
   }
 
   private drawIndoorLayerByGeoJSON(geoJSON: GeoJSON.FeatureCollection) {
@@ -45,6 +48,7 @@ export class IndoorLayer {
   ) => {
     this.addMarker(feature, layer);
     this.showRoomNumber(feature, layer);
+    this.selectFeatures(feature, layer);
   };
 
   private addMarker(feature: GeoJSON.Feature<any, any>, layer: Layer): void {
@@ -117,5 +121,12 @@ export class IndoorLayer {
 
   getIndoorLayerGroup(): LayerGroup {
     return this.indoorLayerGroup;
+  }
+
+  selectFeatures(feature: GeoJSON.Feature<any, any>, layer: Layer): void {
+    if (this.selectedFeatures.includes(feature)) {
+      // @ts-ignore
+      layer.options.fillColor = COLORS.ROOM_SELECTED;
+    }
   }
 }

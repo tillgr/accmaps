@@ -141,7 +141,7 @@ export class GeoMap {
 
   handleLevelChange(newLevel: string): void {
     this.currentLevel = newLevel;
-    this.indoorLayer.updateLayer(LevelService.getCurrentLevelGeoJSON());
+    this.indoorLayer.updateLayer();
 
     const message = LevelService.getCurrentLevelDescription();
     DescriptionArea.update(message);
@@ -151,24 +151,14 @@ export class GeoMap {
     return this.currentLevel;
   }
 
-  runIndoorSearch({ value: searchString }: HTMLInputElement): void {
-    console.log(searchString);
+  handleIndoorSearch({ value: searchString }: HTMLInputElement): void {
+    if (searchString) {
+      const results = buildingService.runIndoorSearch(searchString);
 
-    const result = buildingService.handleIndoorSearch(searchString);
+      this.indoorLayer.selectedFeatures = results;
+      this.indoorLayer.updateLayer();
 
-    console.log(result);
-
-    const pane = this.indoorLayer.getIndoorLayerGroup().getLayers();
-    /*pane[0]._layers.filter(
-      (f) => f.feature.properties.id === result.properties.id
-    );*/
-    console.log(pane);
-    //currentBuilding
-    //features
-    //filter
-    //return
-    //hightlight
-
-    //buildingService -> promise(room)
+      this.handleLevelChange(results[0].properties.level);
+    } else alert("not found!");
   }
 }

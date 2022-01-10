@@ -5,13 +5,13 @@ function render(): void {
   const indoorSearchInput = document.getElementById("indoorSearchInput");
 
   indoorSearchSubmit.addEventListener("click", () => {
-    geoMap.runIndoorSearch(<HTMLInputElement>indoorSearchInput);
+    geoMap.handleIndoorSearch(<HTMLInputElement>indoorSearchInput);
   });
 
   indoorSearchInput.addEventListener("keyup", (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      geoMap.runIndoorSearch(<HTMLInputElement>indoorSearchInput);
+      geoMap.handleIndoorSearch(<HTMLInputElement>indoorSearchInput);
     }
   });
 }
