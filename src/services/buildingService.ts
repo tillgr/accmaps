@@ -112,6 +112,18 @@ function nominatimSearch(searchString: string): Promise<BuildingInterface> {
   });
 }
 
+function handleIndoorSearch(searchString: string): any {
+  const geoJSON = getBuildingGeoJSON();
+
+  const result = geoJSON.features.filter(
+    (f) =>
+      f.properties.ref &&
+      f.properties.ref.toLowerCase() === searchString.toLowerCase()
+  );
+
+  return result;
+}
+
 /*Filter*/
 export function filterByBounds(
   geoJSON: GeoJsonObject,
@@ -237,4 +249,5 @@ export default {
   getBuildingGeoJSON,
   getBuildingDescription,
   handleSearch,
+  handleIndoorSearch,
 };

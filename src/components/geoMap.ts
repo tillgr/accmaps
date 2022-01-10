@@ -153,5 +153,22 @@ export class GeoMap {
 
   runIndoorSearch({ value: searchString }: HTMLInputElement): void {
     console.log(searchString);
+
+    const result = buildingService.handleIndoorSearch(searchString);
+
+    console.log(result);
+
+    const pane = this.indoorLayer.getIndoorLayerGroup().getLayers();
+    /*pane[0]._layers.filter(
+      (f) => f.feature.properties.id === result.properties.id
+    );*/
+    console.log(pane);
+    //currentBuilding
+    //features
+    //filter
+    //return
+    //hightlight
+
+    //buildingService -> promise(room)
   }
 }

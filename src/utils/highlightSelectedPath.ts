@@ -3,7 +3,7 @@ import { COLORS } from "../data/constants";
 let path: HTMLElement = null; //currentlySelectedFeaturePath
 let fill = ""; //currentlySelectedFeatureOriginalFillColor
 
-export function highlightSelectedFeature(currentPath: HTMLElement): void {
+export function highlightSelectedPath(currentPath: HTMLElement): void {
   //change
   if (path !== null) {
     path.setAttribute("fill", fill);

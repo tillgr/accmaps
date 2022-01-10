@@ -2,7 +2,7 @@ import * as L from "leaflet";
 import { GeoJSON, Layer, LayerGroup, LeafletMouseEvent, Marker } from "leaflet";
 import DescriptionArea from "./ui/descriptionArea";
 
-import { highlightSelectedFeature } from "../utils/highlightSelectedFeature";
+import { highlightSelectedPath } from "../utils/highlightSelectedPath";
 import FeatureService from "../services/featureService";
 import { geoMap } from "../main";
 
@@ -92,7 +92,7 @@ export class IndoorLayer {
     const accessibilityDescription =
       FeatureService.getAccessibilityDescription(feature);
     DescriptionArea.update(accessibilityDescription);
-    highlightSelectedFeature(<HTMLElement>_path);
+    highlightSelectedPath(<HTMLElement>_path);
   };
 
   private removeAccessibilityMarkers = () => {
