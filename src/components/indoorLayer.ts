@@ -12,6 +12,8 @@ export class IndoorLayer {
   private readonly indoorLayerGroup: LayerGroup;
   accessibilityMarkers: Marker[] = [];
   selectedFeatures: GeoJSON.Feature[] = [];
+  colors: string[] = [];
+  selectedLayers: number[] = [];
 
   constructor(geoJSON: GeoJSON.FeatureCollection) {
     this.removeAccessibilityMarkers();
@@ -48,7 +50,7 @@ export class IndoorLayer {
   ) => {
     this.addMarker(feature, layer);
     this.showRoomNumber(feature, layer);
-    this.selectFeatures(feature, layer);
+    this.selectFeature(feature, layer);
   };
 
   private addMarker(feature: GeoJSON.Feature<any, any>, layer: Layer): void {
@@ -96,6 +98,25 @@ export class IndoorLayer {
     const accessibilityDescription =
       FeatureService.getAccessibilityDescription(feature);
     DescriptionArea.update(accessibilityDescription);
+
+    this.selectedFeatures.map((f) => {
+      const index = this.selectedFeatures.indexOf(f);
+
+      const color = this.colors[index];
+      const layerId = this.selectedLayers[index];
+      console.log("color id", layerId);
+
+      // @ts-ignore
+      const layer = this.indoorLayerGroup.getLayers()[0]._layers[layerId];
+      console.log("color instance", layer);
+      // @ts-ignore
+      const domElement = layer["_path"];
+
+      domElement.style.fill = color;
+
+      //layer.options.fillColor = color;
+    });
+
     highlightSelectedPath(<HTMLElement>_path);
   };
 
@@ -123,8 +144,17 @@ export class IndoorLayer {
     return this.indoorLayerGroup;
   }
 
-  selectFeatures(feature: GeoJSON.Feature<any, any>, layer: Layer): void {
+  selectFeature(feature: GeoJSON.Feature<any, any>, layer: Layer): void {
     if (this.selectedFeatures.includes(feature)) {
+      const index = this.selectedFeatures.indexOf(feature);
+      // @ts-ignore
+      this.colors[index] = layer.options.fillColor;
+
+      const layerId = this.indoorLayerGroup.getLayerId(layer);
+      this.selectedLayers[index] = layerId;
+
+      console.log("result", layerId);
+
       // @ts-ignore
       layer.options.fillColor = COLORS.ROOM_SELECTED;
     }

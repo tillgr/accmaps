@@ -158,7 +158,21 @@ export class GeoMap {
       this.indoorLayer.selectedFeatures = results;
       this.indoorLayer.updateLayer();
 
-      this.handleLevelChange(results[0].properties.level);
+      console.log(this.indoorLayer.selectedFeatures);
+      console.log(this.indoorLayer.colors);
+      console.log(this.indoorLayer.selectedLayers);
+
+      const selectedLevel = results[0].properties.level;
+      //set levelControl to new level
+      const levelControl = document.getElementById("levelControl");
+      const list = levelControl.children;
+      for (let item of list) {
+        if (item.firstChild.textContent === selectedLevel.toString()) {
+          item.classList.add("active");
+        } else item.classList.remove("active");
+      }
+
+      this.handleLevelChange(selectedLevel);
     } else alert("not found!");
   }
 }
