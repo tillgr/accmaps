@@ -158,10 +158,6 @@ export class GeoMap {
       this.indoorLayer.selectedFeatures = results;
       this.indoorLayer.updateLayer();
 
-      console.log(this.indoorLayer.selectedFeatures);
-      console.log(this.indoorLayer.colors);
-      console.log(this.indoorLayer.selectedLayers);
-
       const selectedLevel = results[0].properties.level;
       //set levelControl to new level
       const levelControl = document.getElementById("levelControl");
