@@ -17,13 +17,14 @@ function create(): void {
 function remove(): void {
   document.getElementById("levelControl").innerHTML = "";
 
-  if (geoMap.indoorLayer) {
+  /*if (geoMap.indoorLayer) {
     geoMap.removeIndoorLayerFromMap();
-  }
+  }*/
 }
 
 function render(allLevelNames: string[]): void {
   const levelControl = document.getElementById("levelControl");
+  console.log(allLevelNames);
 
   allLevelNames.forEach((level: string) => {
     const changeToLevel = "change to level " + level;
@@ -49,10 +50,20 @@ function render(allLevelNames: string[]): void {
 
     levelControl.appendChild(levelBtn);
   });
-
   levelControl.classList.add("scale-in");
+}
+
+function focusOnLevel(selectedLevel: string): void {
+  const levelControl = document.getElementById("levelControl");
+  const list = levelControl.children;
+  for (let item of list) {
+    if (item.firstChild.textContent === selectedLevel) {
+      item.classList.add("active");
+    } else item.classList.remove("active");
+  }
 }
 
 export default {
   handleChange,
+  focusOnLevel,
 };

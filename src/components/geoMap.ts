@@ -25,6 +25,7 @@ import { IndoorLayer } from "./indoorLayer";
 import { geoMap } from "../main";
 import AccessibilityService from "../services/accessibilityService";
 import accessibility from "../utils/makeAccessible";
+import FeatureService from "../services/featureService";
 
 export class GeoMap {
   currentSearchString = "";
@@ -156,18 +157,9 @@ export class GeoMap {
       const results = buildingService.runIndoorSearch(searchString);
 
       this.indoorLayer.selectedFeatures = results;
-      this.indoorLayer.updateLayer();
 
-      const selectedLevel = results[0].properties.level;
-      //set levelControl to new level
-      const levelControl = document.getElementById("levelControl");
-      const list = levelControl.children;
-      for (let item of list) {
-        if (item.firstChild.textContent === selectedLevel.toString()) {
-          item.classList.add("active");
-        } else item.classList.remove("active");
-      }
-
+      const selectedLevel = results[0].properties.level.toString();
+      levelControl.focusOnLevel(selectedLevel);
       this.handleLevelChange(selectedLevel);
     } else alert("not found!");
   }
