@@ -91,13 +91,14 @@ export class IndoorLayer {
   }
 
   private handleClick = (e: LeafletMouseEvent) => {
-    const { feature, _path } = e.sourceTarget;
+    const { feature } = e.sourceTarget;
 
     const accessibilityDescription =
       FeatureService.getAccessibilityDescription(feature);
     DescriptionArea.update(accessibilityDescription);
 
-    highlightSelectedPath(<HTMLElement>_path);
+    this.selectedFeatures = [feature];
+    this.updateLayer();
   };
 
   private removeAccessibilityMarkers = () => {
