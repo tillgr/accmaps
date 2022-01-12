@@ -16,15 +16,10 @@ function create(): void {
 
 function remove(): void {
   document.getElementById("levelControl").innerHTML = "";
-
-  /*if (geoMap.indoorLayer) {
-    geoMap.removeIndoorLayerFromMap();
-  }*/
 }
 
 function render(allLevelNames: string[]): void {
   const levelControl = document.getElementById("levelControl");
-  console.log(allLevelNames);
 
   allLevelNames.forEach((level: string) => {
     const changeToLevel = "change to level " + level;
