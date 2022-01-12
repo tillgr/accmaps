@@ -1,6 +1,8 @@
 @import "bootstrap_imports";
 @import "map";
 
+$legendWidth: 150px;
+
 nav {
   z-index: 99;
 }
@@ -12,10 +14,18 @@ nav {
   right: 0;
 }
 
-#descriptionAreaWrapper {
+#legendWrapper {
   position: absolute;
   bottom: 140px;
   left: 0;
+  z-index: 21;
+  width: $legendWidth;
+}
+
+#descriptionAreaWrapper {
+  position: absolute;
+  bottom: 140px;
+  left: calc(#{$legendWidth} + 10px);
   right: 0;
   z-index: 20;
 }
@@ -52,4 +62,9 @@ nav {
   &:before{
     content: none;
   }
+}
+
+.more-less {
+  float: right;
+  color: #333;
 }
