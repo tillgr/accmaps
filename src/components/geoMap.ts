@@ -25,8 +25,6 @@ import { IndoorLayer } from "./indoorLayer";
 import { geoMap } from "../main";
 import AccessibilityService from "../services/accessibilityService";
 import accessibility from "../utils/makeAccessible";
-import FeatureService from "../services/featureService";
-import levelService from "../services/levelService";
 
 export class GeoMap {
   currentSearchString = "";
@@ -156,7 +154,7 @@ export class GeoMap {
   handleIndoorSearch({ value: searchString }: HTMLInputElement): void {
     if (searchString) {
       const results = buildingService.runIndoorSearch(searchString);
-      this.indoorLayer.selectedFeatures = results;
+      this.indoorLayer.setSelectedFeatures(results);
 
       const selectedLevel = results[0].properties.level.toString();
       levelControl.focusOnLevel(selectedLevel);

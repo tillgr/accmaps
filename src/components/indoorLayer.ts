@@ -1,11 +1,9 @@
 import * as L from "leaflet";
 import { GeoJSON, Layer, LayerGroup, LeafletMouseEvent, Marker } from "leaflet";
 import DescriptionArea from "./ui/descriptionArea";
-
-import { highlightSelectedPath } from "../utils/highlightSelectedPath";
 import FeatureService from "../services/featureService";
-import { geoMap } from "../main";
 import LevelService from "../services/levelService";
+import { geoMap } from "../main";
 import { COLORS } from "../data/constants";
 
 export class IndoorLayer {
@@ -130,5 +128,9 @@ export class IndoorLayer {
       // @ts-ignore
       layer.options.fillColor = COLORS.ROOM_SELECTED;
     }
+  }
+
+  setSelectedFeatures(features: GeoJSON.Feature[]): void {
+    this.selectedFeatures = features;
   }
 }
