@@ -100,8 +100,8 @@ export class GeoMap {
   }
 
   centerMapToBuilding(): void {
-    const currentBuildingBBox = this.buildingsBySearchString.get(
-      this.currentSearchString
+    const currentBuildingBBox = geoMap.buildingsBySearchString.get(
+      geoMap.currentSearchString
     ).boundingBox;
 
     if (currentBuildingBBox !== null) {
@@ -119,7 +119,7 @@ export class GeoMap {
         )
       );
 
-      this.mapInstance.flyToBounds(currentBuildingBBox_corrected);
+      geoMap.mapInstance.flyToBounds(currentBuildingBBox_corrected);
     }
   }
 
