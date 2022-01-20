@@ -99,7 +99,7 @@ export class GeoMap {
     DescriptionArea.update(message);
   }
 
-  centerMapToBuilding = () => {
+  centerMapToBuilding = (): void => {
     const currentBuildingBBox = this.buildingsBySearchString.get(
       this.currentSearchString
     ).boundingBox;
@@ -121,7 +121,7 @@ export class GeoMap {
 
       this.mapInstance.flyToBounds(currentBuildingBBox_corrected);
     }
-  }
+  };
 
   runBuildingSearch(buildingSearchInput: HTMLInputElement): void {
     LoadingIndicator.start();
