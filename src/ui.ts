@@ -1,4 +1,4 @@
-import UserProfileModal from "./components/ui/userProfileModal";
+import UserProfileModal from "./components/ui/userProfileModal/userProfileModal";
 import SearchForm from "./components/ui/searchForm";
 
 document.addEventListener("DOMContentLoaded", function () {

@@ -49,6 +49,7 @@
     <div class="card-body" id="descriptionArea" role="status"></div>
 </div>
 
+<!--user profile modal-->
 <div class="modal fade settings" id="userProfileModal" tabindex="-1"
      aria-labelledby="userProfileModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -67,6 +68,7 @@
     </div>
 </div>
 
+<!--feature selection-->
 <div class="modal fade settings" id="userFeatureSelectionModal" tabindex="-1"
      aria-labelledby="userFeatureSelectionModal" aria-hidden="true">
     <div class="modal-dialog">
@@ -96,6 +98,35 @@
     </div>
 </div>
 
+<!--display settings-->
+<div class="modal fade settings" id="visualSettingsModal" tabindex="-1"
+     aria-labelledby="visualSettingsModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#userProfileModal"
+                        aria-label="Back">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                    </svg>
+                </button>
+                <h5 class="modal-title" id="visualSettingsLabel">Select Features</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6>color blindness</h6>
+                <div class="collection" id="colorBlindnessList"></div>
+
+                <h6>contrast settings</h6>
+                <div class="collection" id="contrastSettingsList"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary saveFeatures">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="./dist/main.js"></script>
 <script src="./dist/style.js"></script>
 
