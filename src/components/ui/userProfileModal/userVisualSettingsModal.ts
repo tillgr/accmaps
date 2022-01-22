@@ -1,6 +1,7 @@
 import { Modal } from "bootstrap";
 import { colorProfiles } from "../../../data/colorProfiles";
 import { capitalize } from "../../../utils/capitalize";
+import userProfileModal from "./userProfileModal";
 
 const userVisualSettingsModal = new Modal(
   document.getElementById("userVisualSettingsModal"),
@@ -32,7 +33,7 @@ function render(): void {
   renderColorBlindnessList();
   renderContrastSettingsList();
 
-  const saveFeaturesButton = document.getElementById("saveFeatures");
+  const saveFeaturesButton = document.getElementById("saveVisualSettings");
   saveFeaturesButton.onclick = () => onSave();
 }
 function renderColorBlindnessList(): void {
@@ -96,8 +97,10 @@ function handleChange() {
 }
 
 function onSave() {
-  return;
-  //TODO
+  //featureService.setCurrentFeatures(checkboxState);
+  userProfileModal.hideAll();
+
+  //TODO Save to local storage
 }
 
 function hide(): void {

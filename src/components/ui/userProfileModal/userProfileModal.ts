@@ -6,6 +6,7 @@ import { UserSettings } from "../../../data/userSettings";
 import { UserGroupEnum } from "../../../models/userGroupEnum";
 import { Modal } from "bootstrap";
 import visualSettingsModal from "./userVisualSettingsModal";
+import userVisualSettingsModal from "./userVisualSettingsModal";
 
 const userProfileModal = new Modal(
   document.getElementById("userProfileModal"),
@@ -79,6 +80,7 @@ function show(): void {
 function hideAll(): void {
   userProfileModal.hide();
   featureSelectionModal.hide();
+  userVisualSettingsModal.hide();
 }
 
 function setUserProfile(userGroup: UserGroupEnum): void {

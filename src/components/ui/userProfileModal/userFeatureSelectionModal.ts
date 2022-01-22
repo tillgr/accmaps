@@ -24,7 +24,7 @@ function render(): void {
     }
   });
 
-  const saveFeaturesButton = document.getElementById("saveFeatures");
+  const saveFeaturesButton = document.getElementById("saveFeatureSelection");
   saveFeaturesButton.onclick = () => onSave();
 }
 
