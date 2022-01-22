@@ -1,15 +1,17 @@
 import { UserGroupEnum } from "../models/userGroupEnum";
 
-let currentProfile: UserGroupEnum =
-  <UserGroupEnum>parseInt(localStorage.getItem("userService")) ??
-  UserGroupEnum.noImpairments;
+const profileKey = "userProfile";
 
 function getCurrentProfile(): UserGroupEnum {
-  return currentProfile;
+  const profile =
+    <UserGroupEnum>parseInt(localStorage.getItem(profileKey)) ??
+    UserGroupEnum.noImpairments;
+
+  return profile;
 }
 
-function set(profile: UserGroupEnum): void {
-  currentProfile = profile;
+function setProfile(profile: UserGroupEnum): void {
+  localStorage.setItem(profileKey, profile.toString());
   /*
    * Hack: reload window location to properly update all profile-specific information.
    * Relevant data is stored in localStorage and remains persistent after reload.
@@ -19,5 +21,5 @@ function set(profile: UserGroupEnum): void {
 
 export default {
   getCurrentProfile,
-  set,
+  setProfile,
 };

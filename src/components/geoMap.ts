@@ -59,10 +59,10 @@ export class GeoMap {
     this.mapInstance.removeLayer(layerGroup);
   }
 
-  removeIndoorLayerFromMap(): void {
+  removeIndoorLayerFromMap = (): void => {
     const group = this.indoorLayer.getIndoorLayerGroup();
     geoMap.remove(group);
-  }
+  };
 
   makeAccessible(): void {
     accessibility.removeShadowPane();
