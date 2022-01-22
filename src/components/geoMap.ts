@@ -59,10 +59,10 @@ export class GeoMap {
     this.mapInstance.removeLayer(layerGroup);
   }
 
-  removeIndoorLayerFromMap(): void {
+  removeIndoorLayerFromMap = (): void => {
     const group = this.indoorLayer.getIndoorLayerGroup();
     geoMap.remove(group);
-  }
+  };
 
   makeAccessible(): void {
     accessibility.removeShadowPane();
@@ -99,7 +99,7 @@ export class GeoMap {
     DescriptionArea.update(message);
   }
 
-  centerMapToBuilding(): void {
+  centerMapToBuilding = (): void => {
     const currentBuildingBBox = this.buildingsBySearchString.get(
       this.currentSearchString
     ).boundingBox;
@@ -121,7 +121,7 @@ export class GeoMap {
 
       this.mapInstance.flyToBounds(currentBuildingBBox_corrected);
     }
-  }
+  };
 
   runBuildingSearch(buildingSearchInput: HTMLInputElement): void {
     LoadingIndicator.start();

@@ -1,6 +1,8 @@
 @import "bootstrap_imports";
 @import "map";
 
+$legendWidth: 150px;
+
 nav {
   z-index: 99;
 }
@@ -12,10 +14,25 @@ nav {
   right: 0;
 }
 
-#descriptionAreaWrapper {
+#legendWrapper {
   position: absolute;
   bottom: 140px;
   left: 0;
+  z-index: 21;
+  width: $legendWidth;
+}
+
+#centeringButton {
+  position: absolute;
+  top: 100px;
+  right: 16px;
+  z-index: 25;
+}
+
+#descriptionAreaWrapper {
+  position: absolute;
+  bottom: 140px;
+  left: calc(#{$legendWidth} + 10px);
   right: 0;
   z-index: 20;
 }
@@ -56,4 +73,9 @@ nav {
 
 .settings .modal-body .collection:not(:last-child) {
   margin-bottom: 1rem;
+}
+
+.more-less {
+  float: right;
+  color: #333;
 }

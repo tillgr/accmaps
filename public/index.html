@@ -41,9 +41,29 @@
 
 <div id="map" aria-disabled="true"></div>
 
+<button type="button" class="btn btn-light d-flex p-1 shadow" aria-label="Set view to the focused building" id="centeringButton">
+    <span class="material-icons" role="presentation">center_focus_weak</span>
+</button>
+
 <nav aria-label="Change displayed level" id="levelControlWrapper">
     <ul class="pagination justify-content-center" id="levelControl"></ul>
 </nav>
+
+<div class="card border border-2 mx-3 shadow" id="legendWrapper">
+    <a class="btn btn-light w-100" role="button" data-bs-toggle="collapse" data-bs-target="#legend" aria-expanded="false" 
+    aria-controls="legend" id="legendHeaderButton">
+        <div class="card-title h5 d-flex justify-content-between">
+            Legend
+            <span class="material-icons more-less" role="presentation" id="legendCollapseIcon">north_east</span>
+        </div>
+    </a>
+    <div class="collapse card-body" id="legend" role="status">
+            <table id="legendTable">
+                <tbody>
+                </tbody>
+            </table>
+    </div>
+</div>
 
 <div class="card mx-3 shadow" id="descriptionAreaWrapper">
     <div class="card-body" id="descriptionArea" role="status"></div>
