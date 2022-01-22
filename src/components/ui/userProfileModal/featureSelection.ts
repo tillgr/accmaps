@@ -1,6 +1,6 @@
 import { Modal } from "bootstrap";
 import { UserFeatureEnum } from "../../../models/userFeatureEnum";
-import SelectedFeatureService from "../../../services/selectedFeaturesService";
+import featureService from "../../../services/featureService";
 import { UserFeatureSelection } from "../../../data/userFeatureSelection";
 import userProfileModal from "./userProfileModal";
 
@@ -10,7 +10,7 @@ const userFeatureSelectionModal = new Modal(
 );
 
 const checkboxState: Map<UserFeatureEnum, boolean> =
-  SelectedFeatureService.getCurrentFeatures();
+  featureService.getCurrentFeatures();
 
 function render(): void {
   //create checkboxes and headings
@@ -24,10 +24,8 @@ function render(): void {
     }
   });
 
-  setFeatures(checkboxState);
-
   const saveFeaturesButton = document.getElementById("saveFeatures");
-  saveFeaturesButton.onclick = () => setFeatures(checkboxState);
+  saveFeaturesButton.onclick = () => onSave();
 }
 
 function renderCheckbox(v: any, k: any): HTMLDivElement {
@@ -61,8 +59,8 @@ function hide(): void {
   userFeatureSelectionModal.hide();
 }
 
-function setFeatures(checkboxState: Map<UserFeatureEnum, boolean>): void {
-  SelectedFeatureService.setCurrentFeatures(checkboxState);
+function onSave(): void {
+  featureService.setCurrentFeatures(checkboxState);
   userProfileModal.hideAll();
 }
 

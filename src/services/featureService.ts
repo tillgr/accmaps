@@ -10,6 +10,8 @@ import {
   WALL_WEIGHT_PAVING,
 } from "../data/constants";
 import { UserGroupEnum } from "../models/userGroupEnum";
+import { UserFeatureEnum } from "../models/userFeatureEnum";
+import { UserFeatureSelection } from "../data/userFeatureSelection";
 
 const polygonCenter = require("geojson-polygon-center");
 
@@ -101,8 +103,35 @@ function getWallWeight(feature: GeoJSON.Feature<any>) {
     : WALL_WEIGHT;
 }
 
+export function getCurrentFeatures(): Map<UserFeatureEnum, boolean> {
+  const currentlySelectedFeatures: Map<UserFeatureEnum, boolean> =
+    localStorage.getItem("currentlySelectedFeatures")
+      ? new Map(JSON.parse(localStorage.currentlySelectedFeatures))
+      : (() => {
+          const defaultSelectedFeatures = new Map();
+          UserFeatureSelection.forEach((v, k) => {
+            defaultSelectedFeatures.set(k, v.isCheckedDefault);
+          });
+          //console.log(defaultSelectedFeatures);
+          return defaultSelectedFeatures;
+        })();
+
+  return currentlySelectedFeatures;
+}
+
+export function setCurrentFeatures(
+  checkboxState: Map<UserFeatureEnum, boolean>
+): void {
+  //currentlySelectedFeatures = checkboxState;
+  localStorage.currentlySelectedFeatures = JSON.stringify(
+    Array.from(checkboxState.entries())
+  );
+}
+
 export default {
   getAccessibilityDescription,
   getAccessibilityMarker,
   getFeatureStyle,
+  getCurrentFeatures,
+  setCurrentFeatures,
 };
