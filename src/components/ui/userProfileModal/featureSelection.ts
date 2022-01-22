@@ -15,33 +15,12 @@ const checkboxState: Map<UserFeatureEnum, boolean> =
 function render(): void {
   //create checkboxes and headings
   UserFeatureSelection.forEach((v, k) => {
-    const checkbox_div = document.createElement("div");
-    const checkbox = document.createElement("input");
-    const label = document.createElement("label");
-
-    checkbox_div.className = "form-check";
-
-    checkbox.className = "form-check-input";
-    checkbox.type = "checkbox";
-    checkbox.id = v.id;
-
-    checkbox.checked = checkboxState.get(k) ?? v.isCheckedDefault;
-    checkboxState.set(k, v.isCheckedDefault);
-    checkbox.onchange = () => {
-      checkboxState.set(k, checkbox.checked);
-    };
-
-    label.className = "form-check-label";
-    label.htmlFor = v.id;
-    label.innerText = v.name;
-
-    checkbox_div.appendChild(checkbox);
-    checkbox_div.appendChild(label);
-
     if (v.accessibleFeature) {
-      document.getElementById("userAccessibleFeatureList").append(checkbox_div);
+      document
+        .getElementById("userAccessibleFeatureList")
+        .append(renderCheckbox(v, k));
     } else {
-      document.getElementById("userFeatureList").append(checkbox_div);
+      document.getElementById("userFeatureList").append(renderCheckbox(v, k));
     }
   });
 
@@ -49,6 +28,33 @@ function render(): void {
 
   const saveFeaturesButton = document.getElementById("saveFeatures");
   saveFeaturesButton.onclick = () => setFeatures(checkboxState);
+}
+
+function renderCheckbox(v: any, k: any): HTMLDivElement {
+  const checkbox_div = document.createElement("div");
+  const checkbox = document.createElement("input");
+  const label = document.createElement("label");
+
+  checkbox_div.className = "form-check";
+
+  checkbox.className = "form-check-input";
+  checkbox.type = "checkbox";
+  checkbox.id = v.id;
+
+  checkbox.checked = checkboxState.get(k) ?? v.isCheckedDefault;
+  checkboxState.set(k, v.isCheckedDefault);
+  checkbox.onchange = () => {
+    checkboxState.set(k, checkbox.checked);
+  };
+
+  label.className = "form-check-label";
+  label.htmlFor = v.id;
+  label.innerText = v.name;
+
+  checkbox_div.appendChild(checkbox);
+  checkbox_div.appendChild(label);
+
+  return checkbox_div;
 }
 
 function hide(): void {
