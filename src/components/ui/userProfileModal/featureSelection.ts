@@ -10,7 +10,7 @@ const userFeatureSelectionModal = new Modal(
 );
 
 const checkboxState: Map<UserFeatureEnum, boolean> =
-  SelectedFeatureService.getCurrentSelectedFeatures();
+  SelectedFeatureService.getCurrentFeatures();
 
 function render(): void {
   //create checkboxes and headings
@@ -45,8 +45,10 @@ function render(): void {
     }
   });
 
-  const saveButtonFeatureList = document.getElementById("saveFeatures");
-  saveButtonFeatureList.onclick = () => setFeatures(checkboxState);
+  setFeatures(checkboxState);
+
+  const saveFeaturesButton = document.getElementById("saveFeatures");
+  saveFeaturesButton.onclick = () => setFeatures(checkboxState);
 }
 
 function hide(): void {
@@ -54,7 +56,7 @@ function hide(): void {
 }
 
 function setFeatures(checkboxState: Map<UserFeatureEnum, boolean>): void {
-  SelectedFeatureService.set(checkboxState); //TODO ???
+  SelectedFeatureService.setCurrentFeatures(checkboxState);
   userProfileModal.hideAll();
 }
 
