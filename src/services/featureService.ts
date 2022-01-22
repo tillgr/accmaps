@@ -122,7 +122,6 @@ export function getCurrentFeatures(): Map<UserFeatureEnum, boolean> {
 export function setCurrentFeatures(
   checkboxState: Map<UserFeatureEnum, boolean>
 ): void {
-  //currentlySelectedFeatures = checkboxState;
   localStorage.currentlySelectedFeatures = JSON.stringify(
     Array.from(checkboxState.entries())
   );

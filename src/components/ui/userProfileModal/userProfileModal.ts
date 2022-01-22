@@ -1,10 +1,11 @@
 import UserService from "../../../services/userService";
 import userService from "../../../services/userService";
-import featureSelectionModal from "./featureSelection";
+import featureSelectionModal from "./userFeatureSelectionModal";
 import { UserGroups } from "../../../data/userGroups";
 import { UserSettings } from "../../../data/userSettings";
 import { UserGroupEnum } from "../../../models/userGroupEnum";
 import { Modal } from "bootstrap";
+import visualSettingsModal from "./userVisualSettingsModal";
 
 const userProfileModal = new Modal(
   document.getElementById("userProfileModal"),
@@ -68,6 +69,7 @@ function renderSettings(): void {
 }
 function renderLinkedModals() {
   featureSelectionModal.render();
+  visualSettingsModal.render();
 }
 
 function show(): void {
