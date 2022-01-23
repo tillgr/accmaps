@@ -100,7 +100,7 @@ function onSave() {
   //featureService.setCurrentFeatures(checkboxState);
   userProfileModal.hideAll();
 
-  //TODO Save to local storage
+  //TODO Save to local storage (full state)
 }
 
 function hide(): void {
