@@ -13,10 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const buildingSearchString =
         localStorage.getItem("currentBuildingSearchString") ??
         DEFAULT_BUILDING_SEARCH_STRING;
-      geoMap
-        .showBuilding(buildingSearchString)
-        .then(() => LoadingIndicator.end())
-        .catch((error) => LoadingIndicator.error(error));
+      geoMap.runBuildingSearch(buildingSearchString);
     })
     .catch((error) => {
       LoadingIndicator.error(error);
