@@ -5,13 +5,15 @@ function render(): void {
   const buildingSearchInput = document.getElementById("buildingSearch");
 
   buildingSearchSubmit.addEventListener("click", () => {
-    geoMap.runBuildingSearch(<HTMLInputElement>buildingSearchInput);
+    // @ts-ignore
+    geoMap.runBuildingSearch(buildingSearchInput.value);
   });
 
   buildingSearchInput.addEventListener("keyup", (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      geoMap.runBuildingSearch(<HTMLInputElement>buildingSearchInput);
+      // @ts-ignore
+      geoMap.runBuildingSearch(buildingSearchInput.value);
     }
   });
 }

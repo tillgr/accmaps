@@ -123,11 +123,10 @@ export class GeoMap {
     }
   }
 
-  runBuildingSearch(buildingSearchInput: HTMLInputElement): void {
+  runBuildingSearch(searchQuery: string): void {
     LoadingIndicator.start();
-    const searchString = buildingSearchInput.value;
 
-    this.showBuilding(searchString)
+    this.showBuilding(searchQuery)
       .then(() => {
         LoadingIndicator.end();
         const navBar = document.getElementById("navbarSupportedContent");
