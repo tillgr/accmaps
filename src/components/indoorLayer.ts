@@ -1,14 +1,15 @@
 import * as L from "leaflet";
 import { GeoJSON, Layer, LayerGroup, LeafletMouseEvent, Marker } from "leaflet";
 import DescriptionArea from "./ui/descriptionArea";
-
-import { highlightSelectedFeature } from "../utils/highlightSelectedFeature";
 import FeatureService from "../services/featureService";
+import LevelService from "../services/levelService";
 import { geoMap } from "../main";
+import { COLORS } from "../data/constants";
 
 export class IndoorLayer {
   private readonly indoorLayerGroup: LayerGroup;
   accessibilityMarkers: Marker[] = [];
+  selectedFeatures: GeoJSON.Feature[] = [];
 
   constructor(geoJSON: GeoJSON.FeatureCollection) {
     this.removeAccessibilityMarkers();
@@ -22,9 +23,9 @@ export class IndoorLayer {
     this.indoorLayerGroup.clearLayers();
   }
 
-  updateLayer(geoJSON: GeoJSON.FeatureCollection): void {
+  updateLayer(): void {
     this.clearIndoorLayer();
-    this.drawIndoorLayerByGeoJSON(geoJSON);
+    this.drawIndoorLayerByGeoJSON(LevelService.getCurrentLevelGeoJSON());
   }
 
   private drawIndoorLayerByGeoJSON(geoJSON: GeoJSON.FeatureCollection) {
@@ -45,6 +46,7 @@ export class IndoorLayer {
   ) => {
     this.addMarker(feature, layer);
     this.showRoomNumber(feature, layer);
+    this.selectFeature(feature, layer);
   };
 
   private addMarker(feature: GeoJSON.Feature<any, any>, layer: Layer): void {
@@ -87,12 +89,14 @@ export class IndoorLayer {
   }
 
   private handleClick = (e: LeafletMouseEvent) => {
-    const { feature, _path } = e.sourceTarget;
+    const { feature } = e.sourceTarget;
 
     const accessibilityDescription =
       FeatureService.getAccessibilityDescription(feature);
     DescriptionArea.update(accessibilityDescription);
-    highlightSelectedFeature(<HTMLElement>_path);
+
+    this.selectedFeatures = [feature];
+    this.updateLayer();
   };
 
   private removeAccessibilityMarkers = () => {
@@ -117,5 +121,16 @@ export class IndoorLayer {
 
   getIndoorLayerGroup(): LayerGroup {
     return this.indoorLayerGroup;
+  }
+
+  selectFeature(feature: GeoJSON.Feature<any, any>, layer: Layer): void {
+    if (this.selectedFeatures.includes(feature)) {
+      // @ts-ignore
+      layer.options.fillColor = COLORS.ROOM_SELECTED;
+    }
+  }
+
+  setSelectedFeatures(features: GeoJSON.Feature[]): void {
+    this.selectedFeatures = features;
   }
 }

@@ -112,6 +112,25 @@ function nominatimSearch(searchString: string): Promise<BuildingInterface> {
   });
 }
 
+function runIndoorSearch(searchString: string): GeoJSON.Feature[] {
+  const geoJSON = getBuildingGeoJSON();
+
+  const results = geoJSON.features.filter((f) =>
+    filterByString(f, searchString)
+  );
+
+  return results;
+}
+
+function filterByString(f: GeoJSON.Feature, searchString: string) {
+  const s = searchString.toLowerCase();
+  return (
+    (f.properties.ref && f.properties.ref.toLowerCase().startsWith(s)) || //room number
+    (f.properties.indoor && f.properties.indoor.toLowerCase().startsWith(s)) || //type
+    (f.properties.amenity && f.properties.amenity.toLowerCase().startsWith(s)) //toilet type
+  );
+}
+
 /*Filter*/
 export function filterByBounds(
   geoJSON: GeoJsonObject,
@@ -237,4 +256,5 @@ export default {
   getBuildingGeoJSON,
   getBuildingDescription,
   handleSearch,
+  runIndoorSearch,
 };

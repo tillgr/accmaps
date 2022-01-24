@@ -18,13 +18,14 @@ import { BuildingInterface } from "../models/buildingInterface";
 import levelControl from "./ui/levelControl";
 import DescriptionArea from "./ui/descriptionArea";
 import BuildingService from "../services/buildingService";
+import buildingService from "../services/buildingService";
 import LoadingIndicator from "./ui/loadingIndicator";
 import LevelService from "../services/levelService";
 import { IndoorLayer } from "./indoorLayer";
 import { geoMap } from "../main";
 import AccessibilityService from "../services/accessibilityService";
 import accessibility from "../utils/makeAccessible";
-import buildingService from "../services/buildingService";
+import searchForm from "./ui/searchForm";
 
 export class GeoMap {
   currentSearchString = "";
@@ -91,6 +92,10 @@ export class GeoMap {
 
   handleBuildingChange(): void {
     levelControl.handleChange();
+
+    if (this.indoorLayer) {
+      this.indoorLayer.getIndoorLayerGroup().clearLayers();
+    }
     this.indoorLayer = new IndoorLayer(LevelService.getCurrentLevelGeoJSON());
 
     AccessibilityService.reset();
@@ -123,16 +128,17 @@ export class GeoMap {
     }
   };
 
-  runBuildingSearch(buildingSearchInput: HTMLInputElement): void {
+  runBuildingSearch(searchQuery: string): void {
     LoadingIndicator.start();
-    const searchString = buildingSearchInput.value;
 
-    this.showBuilding(searchString)
+    this.showBuilding(searchQuery)
       .then(() => {
         LoadingIndicator.end();
         const navBar = document.getElementById("navbarSupportedContent");
         navBar.classList.remove("show");
         navBar.classList.add("hide");
+
+        searchForm.setBuildingSearchInput(searchQuery);
       })
       .catch((errorMessage: string) => {
         LoadingIndicator.error(errorMessage);
@@ -141,7 +147,7 @@ export class GeoMap {
 
   handleLevelChange(newLevel: string): void {
     this.currentLevel = newLevel;
-    this.indoorLayer.updateLayer(LevelService.getCurrentLevelGeoJSON());
+    this.indoorLayer.updateLayer();
 
     const message = LevelService.getCurrentLevelDescription();
     DescriptionArea.update(message);
@@ -149,5 +155,17 @@ export class GeoMap {
 
   getCurrentLevel(): string {
     return this.currentLevel;
+  }
+
+  handleIndoorSearch(searchString: string): void {
+    if (searchString) {
+      const results = buildingService.runIndoorSearch(searchString);
+      this.indoorLayer.setSelectedFeatures(results);
+
+      const selectedLevel = results[0].properties.level.toString();
+      levelControl.focusOnLevel(selectedLevel);
+
+      this.handleLevelChange(selectedLevel);
+    } else alert("not found!");
   }
 }

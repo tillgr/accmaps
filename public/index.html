@@ -11,7 +11,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <img src="/images/icons-192.png" alt="" width="32" height="32" class="d-inline-block align-text-top">
+            <img src="./images/icons-192.png" alt="" width="32" height="32" class="d-inline-block align-text-top">
             Accessible Maps mobile</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,11 +25,25 @@
                         Profile</a>
                 </li>
             </ul>
-            <div class="d-flex" id="buildingSearchWrapper">
-                <input class="form-control me-2" type="search" placeholder="Search for buildings"
-                       aria-label="Search for buildings"
-                       id="buildingSearch">
-                <button class="btn btn-outline-secondary" id="buildingSearchSubmit">Search</button>
+            <div class="d-flex" id="searchWrapper">
+                <div class="input-group" id="buildingSearchWrapper">
+                    <input class="form-control" type="search" placeholder="Search for buildings"
+                           aria-label="Search for buildings"
+                           id="buildingSearch" disabled>
+                    <button class="btn btn-danger" id="clearBuildingSearch">x</button>
+                    <button class="btn btn-secondary me-2" id="buildingSearchSubmit" disabled>Search</button>
+                </div>
+                <div class="input-group" id="indoorSearchWrapper">
+                    <input class="form-control" type="search" placeholder="Search indoor"
+                           aria-label="Search indoor"
+                           id="indoorSearchInput" name="indoorSearchInput">
+                    <button class="btn btn-danger" id="clearIndoorSearch">x</button>
+
+                    <button class="btn btn-secondary me-2" id="indoorSearchSubmit"
+                            name="indoorSearchSubmit">
+                        Search
+                    </button>
+                </div>
             </div>
             <div class="spinner-border ms-3 d-none" role="status" id="loadingIndicator">
                 <span class="visually-hidden">Loading...</span>
@@ -70,6 +84,12 @@
 <div class="card mx-3 shadow" id="descriptionAreaWrapper">
     <div class="card-body" id="descriptionArea" role="status"></div>
 </div>
+<!--<div class="card mx-3 shadow" id="indoorSearchWrapper">
+    <input class="form-control me-2 bg" type="search" placeholder="Search indoor"
+           aria-label="Search indoor"
+           id="indoorSearchInput" name="indoorSearchInput">
+    <button class="btn btn-outline-secondary bg-black" id="indoorSearchSubmit" name="indoorSearchSubmit">Search</button>
+</div>-->
 
 <!--user profile modal-->
 <div class="modal fade settings" id="userProfileModal" tabindex="-1"

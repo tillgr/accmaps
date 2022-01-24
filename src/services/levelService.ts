@@ -27,6 +27,7 @@ function getCurrentLevelGeoJSON(): GeoJSON.FeatureCollection<any> {
 }
 
 function getLevelNames(): string[] {
+  //TODO bug: beim zweiten mal fetchen fehlt die etage -1
   const currentBuildingIndoorData = BuildingService.getBuildingGeoJSON();
   const allLevelNames = new Array<string>();
 
