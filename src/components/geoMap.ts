@@ -92,6 +92,10 @@ export class GeoMap {
 
   handleBuildingChange(): void {
     levelControl.handleChange();
+
+    if (this.indoorLayer) {
+      this.indoorLayer.getIndoorLayerGroup().clearLayers();
+    }
     this.indoorLayer = new IndoorLayer(LevelService.getCurrentLevelGeoJSON());
 
     AccessibilityService.reset();
@@ -134,7 +138,6 @@ export class GeoMap {
         navBar.classList.remove("show");
         navBar.classList.add("hide");
 
-        searchForm.handleBuildingSearch();
         searchForm.setBuildingSearchInput(searchQuery);
       })
       .catch((errorMessage: string) => {
