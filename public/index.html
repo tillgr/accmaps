@@ -25,18 +25,19 @@
                         Profile</a>
                 </li>
             </ul>
-            <div class="d-flex flex-column">
-                <div class="d-flex" id="buildingSearchWrapper">
-                    <input class="form-control me-2" type="search" placeholder="Search for buildings"
+            <div class="d-flex">
+                <div class="input-group" id="buildingSearchWrapper">
+                    <input class="form-control" type="search" placeholder="Search for buildings"
                            aria-label="Search for buildings"
                            id="buildingSearch">
-                    <button class="btn btn-outline-secondary" id="buildingSearchSubmit">Search</button>
+                    <button class="btn btn-danger" id="clearBuildingSearch">x</button>
+                    <button class="btn btn-outline-secondary me-2" id="buildingSearchSubmit">Search</button>
                 </div>
-                <div class="d-flex" id="indoorSearchWrapper">
-                    <input class="form-control me-2" type="search" placeholder="Search indoor"
+                <div class="input-group" id="indoorSearchWrapper">
+                    <input class="form-control" type="search" placeholder="Search indoor"
                            aria-label="Search indoor"
                            id="indoorSearchInput" name="indoorSearchInput">
-                    <button class="btn btn-outline-secondary" id="indoorSearchSubmit"
+                    <button class="btn btn-outline-secondary me-2" id="indoorSearchSubmit"
                             name="indoorSearchSubmit">
                         Search
                     </button>

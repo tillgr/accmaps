@@ -25,6 +25,7 @@ import { IndoorLayer } from "./indoorLayer";
 import { geoMap } from "../main";
 import AccessibilityService from "../services/accessibilityService";
 import accessibility from "../utils/makeAccessible";
+import searchForm from "./ui/searchForm";
 
 export class GeoMap {
   currentSearchString = "";
@@ -132,6 +133,9 @@ export class GeoMap {
         const navBar = document.getElementById("navbarSupportedContent");
         navBar.classList.remove("show");
         navBar.classList.add("hide");
+
+        searchForm.handleBuildingSearch();
+        searchForm.setBuildingSearchInput(searchQuery);
       })
       .catch((errorMessage: string) => {
         LoadingIndicator.error(errorMessage);
