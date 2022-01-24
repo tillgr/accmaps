@@ -58,9 +58,8 @@ function renderCheckbox(profile: string): HTMLDivElement {
 
   checkbox.checked = profile === selectedColorProfile;
 
-  checkbox.onchange = (e) => {
-    // @ts-ignore
-    state.selectedColorProfile = e.currentTarget.id;
+  checkbox.onchange = (e: Event) => {
+    state.selectedColorProfile = (<HTMLElement>e.currentTarget).id;
 
     handleChange();
   };
