@@ -41,7 +41,8 @@
 
 <div id="map" aria-disabled="true"></div>
 
-<button type="button" class="btn btn-light d-flex p-1 shadow" aria-label="Set view to the focused building" id="centeringButton">
+<button type="button" class="btn btn-light d-flex p-1 shadow" aria-label="Set view to the focused building"
+        id="centeringButton">
     <span class="material-icons" role="presentation">center_focus_weak</span>
 </button>
 
@@ -50,18 +51,19 @@
 </nav>
 
 <div class="card border border-2 mx-3 shadow" id="legendWrapper">
-    <a class="btn btn-light w-100" role="button" data-bs-toggle="collapse" data-bs-target="#legend" aria-expanded="false" 
-    aria-controls="legend" id="legendHeaderButton">
+    <a class="btn btn-light w-100" role="button" data-bs-toggle="collapse" data-bs-target="#legend"
+       aria-expanded="false"
+       aria-controls="legend" id="legendHeaderButton">
         <div class="card-title h5 d-flex justify-content-between">
             Legend
             <span class="material-icons more-less" role="presentation" id="legendCollapseIcon">north_east</span>
         </div>
     </a>
     <div class="collapse card-body" id="legend" role="status">
-            <table id="legendTable">
-                <tbody>
-                </tbody>
-            </table>
+        <table id="legendTable">
+            <tbody>
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -96,8 +98,10 @@
             <div class="modal-header">
                 <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#userProfileModal"
                         aria-label="Back">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
                     </svg>
                 </button>
                 <h5 class="modal-title" id="userFeatureModalLabel">Select Features</h5>
@@ -124,10 +128,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#userVisualSettingsModal"
+                <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#userProfileModal"
                         aria-label="Back">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
                     </svg>
                 </button>
                 <h5 class="modal-title" id="visualSettingsLabel">Visual Settings</h5>
