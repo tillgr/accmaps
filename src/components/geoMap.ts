@@ -154,7 +154,7 @@ export class GeoMap {
     return this.currentLevel;
   }
 
-  handleIndoorSearch({ value: searchString }: HTMLInputElement): void {
+  handleIndoorSearch(searchString: string): void {
     if (searchString) {
       const results = buildingService.runIndoorSearch(searchString);
       this.indoorLayer.setSelectedFeatures(results);

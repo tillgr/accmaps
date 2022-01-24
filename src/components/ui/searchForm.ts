@@ -1,40 +1,52 @@
 import { geoMap } from "../../main";
-const buildingSearchInput = document.getElementById("buildingSearch");
-const buildingSearchSubmit = document.getElementById("buildingSearchSubmit");
-const clearBuildingSearch = document.getElementById("clearBuildingSearch");
-const indoorSearchSubmit = document.getElementById("indoorSearchSubmit");
-const indoorSearchInput = document.getElementById("indoorSearchInput");
-const indoorSearchWrapper = document.getElementById("indoorSearchWrapper");
+const buildingSearchInput = <HTMLInputElement>(
+  document.getElementById("buildingSearch")
+);
+const buildingSearchSubmit = <HTMLButtonElement>(
+  document.getElementById("buildingSearchSubmit")
+);
+const clearBuildingSearch = <HTMLButtonElement>(
+  document.getElementById("clearBuildingSearch")
+);
+const indoorSearchSubmit = <HTMLButtonElement>(
+  document.getElementById("indoorSearchSubmit")
+);
+const indoorSearchInput = <HTMLInputElement>(
+  document.getElementById("indoorSearchInput")
+);
+const indoorSearchWrapper = <HTMLDivElement>(
+  document.getElementById("indoorSearchWrapper")
+);
 
 function render(): void {
   buildingSearchSubmit.addEventListener("click", () => {
-    // @ts-ignore
     geoMap.runBuildingSearch(buildingSearchInput.value);
   });
   buildingSearchInput.addEventListener("keyup", (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      // @ts-ignore
       geoMap.runBuildingSearch(buildingSearchInput.value);
     }
   });
   clearBuildingSearch.addEventListener("click", () => {
-    // @ts-ignore
-    buildingSearchInput.value = "";
-    // @ts-ignore
-    indoorSearchInput.value = "";
+    console.log(buildingSearchInput.value);
 
-    handleBuildingSearch(); //TODO fix toggle
+    buildingSearchInput.value === ""
+      ? showError()
+      : () => {
+          handleBuildingSearch();
+          indoorSearchInput.value = "";
+        };
   });
 
   indoorSearchSubmit.addEventListener("click", () => {
-    geoMap.handleIndoorSearch(<HTMLInputElement>indoorSearchInput);
+    geoMap.handleIndoorSearch(indoorSearchInput.value);
   });
 
   indoorSearchInput.addEventListener("keyup", (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      geoMap.handleIndoorSearch(<HTMLInputElement>indoorSearchInput);
+      geoMap.handleIndoorSearch(indoorSearchInput.value);
     }
   });
 
@@ -56,13 +68,11 @@ function handleBuildingSearch(): void {
   toggleDisabled(indoorSearchSubmit);
 }
 
-function toggleDisabled(element: HTMLElement): void {
-  // @ts-ignore
+function toggleDisabled(element: HTMLButtonElement | HTMLInputElement): void {
   element.disabled = !element.disabled;
 }
 
 function setBuildingSearchInput(query: string): void {
-  // @ts-ignore
   buildingSearchInput.value = query;
 }
 

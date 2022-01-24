@@ -127,6 +127,7 @@ export class IndoorLayer {
     if (this.selectedFeatures.includes(feature)) {
       // @ts-ignore
       layer.options.fillColor = COLORS.ROOM_SELECTED;
+      console.log(layer);
     }
   }
 
