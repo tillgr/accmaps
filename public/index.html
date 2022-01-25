@@ -26,20 +26,18 @@
                 </li>
             </ul>
             <div class="d-flex justify-content-end" id="searchWrapper">
-                <div class="input-group" id="buildingSearchWrapper">
-                    <input class="form-control" type="search" placeholder="Search for buildings"
+                <div class="input-group me-2" id="buildingSearchWrapper">
+                    <input class="form-control hide-clear-icon" type="search" placeholder="Search for buildings"
                            aria-label="Search for buildings"
-                           id="buildingSearch" disabled>
+                           id="buildingSearchInput" disabled>
                     <button class="btn btn-danger" id="clearBuildingSearch">x</button>
-                    <button class="btn btn-secondary me-2" id="buildingSearchSubmit" disabled>Search</button>
+                    <button class="btn btn-secondary hidden" id="buildingSearchSubmit" disabled>Search</button>
                 </div>
                 <div class="input-group" id="indoorSearchWrapper">
                     <input class="form-control" type="search" placeholder="Search indoor"
                            aria-label="Search indoor"
                            id="indoorSearchInput" name="indoorSearchInput">
-                    <button class="btn btn-danger" id="clearIndoorSearch">x</button>
-
-                    <button class="btn btn-secondary me-2" id="indoorSearchSubmit"
+                    <button class="btn btn-secondary" id="indoorSearchSubmit"
                             name="indoorSearchSubmit">
                         Search
                     </button>

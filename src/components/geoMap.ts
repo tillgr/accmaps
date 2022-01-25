@@ -131,18 +131,20 @@ export class GeoMap {
   runBuildingSearch(searchQuery: string): void {
     LoadingIndicator.start();
 
-    this.showBuilding(searchQuery)
-      .then(() => {
-        LoadingIndicator.end();
-        const navBar = document.getElementById("navbarSupportedContent");
-        navBar.classList.remove("show");
-        navBar.classList.add("hide");
+    if (searchQuery) {
+      this.showBuilding(searchQuery)
+        .then(() => {
+          LoadingIndicator.end();
+          const navBar = document.getElementById("navbarSupportedContent");
+          navBar.classList.remove("show");
+          navBar.classList.add("hide");
 
-        searchForm.setBuildingSearchInput(searchQuery);
-      })
-      .catch((errorMessage: string) => {
-        LoadingIndicator.error(errorMessage);
-      });
+          searchForm.setBuildingSearchInput(searchQuery);
+        })
+        .catch((errorMessage: string) => {
+          LoadingIndicator.error(errorMessage);
+        });
+    } else LoadingIndicator.error("Please enter a search term!");
   }
 
   handleLevelChange(newLevel: string): void {
@@ -160,12 +162,13 @@ export class GeoMap {
   handleIndoorSearch(searchString: string): void {
     if (searchString) {
       const results = buildingService.runIndoorSearch(searchString);
-      this.indoorLayer.setSelectedFeatures(results);
+      if (results.length != 0) {
+        this.indoorLayer.setSelectedFeatures(results);
 
-      const selectedLevel = results[0].properties.level.toString();
-      levelControl.focusOnLevel(selectedLevel);
-
-      this.handleLevelChange(selectedLevel);
-    } else alert("not found!");
+        const selectedLevel = results[0].properties.level.toString();
+        levelControl.focusOnLevel(selectedLevel);
+        this.handleLevelChange(selectedLevel);
+      } else LoadingIndicator.error("Not found!");
+    } else LoadingIndicator.error("Please enter a search term!");
   }
 }

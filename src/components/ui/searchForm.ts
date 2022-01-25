@@ -1,6 +1,6 @@
 import { geoMap } from "../../main";
 const buildingSearchInput = <HTMLInputElement>(
-  document.getElementById("buildingSearch")
+  document.getElementById("buildingSearchInput")
 );
 const buildingSearchSubmit = <HTMLButtonElement>(
   document.getElementById("buildingSearchSubmit")
@@ -14,8 +14,11 @@ const indoorSearchSubmit = <HTMLButtonElement>(
 const indoorSearchInput = <HTMLInputElement>(
   document.getElementById("indoorSearchInput")
 );
-const clearIndoorSearch = <HTMLButtonElement>(
-  document.getElementById("clearIndoorSearch")
+const buildingSearchWrapper = <HTMLButtonElement>(
+  document.getElementById("buildingSearchWrapper")
+);
+const indoorSearchWrapper = <HTMLButtonElement>(
+  document.getElementById("indoorSearchWrapper")
 );
 
 const state: {
@@ -31,8 +34,10 @@ const state: {
 function render(): void {
   buildingSearchSubmit.addEventListener("click", () => {
     state.buildingSearchQuery = buildingSearchInput.value;
-    toggleSearchState();
-
+    if (buildingSearchInput.value) {
+      state.currentSearchState = "indoor";
+      handleChange();
+    }
     geoMap.runBuildingSearch(buildingSearchInput.value);
   });
   buildingSearchInput.addEventListener("keyup", (e) => {
@@ -40,24 +45,22 @@ function render(): void {
       e.preventDefault();
 
       state.buildingSearchQuery = buildingSearchInput.value;
-      toggleSearchState();
-
+      if (buildingSearchInput.value) {
+        state.currentSearchState = "indoor";
+        handleChange();
+      }
       geoMap.runBuildingSearch(buildingSearchInput.value);
     }
   });
   clearBuildingSearch.addEventListener("click", () => {
-    if (buildingSearchInput.value !== "") {
-      buildingSearchInput.value = "";
-      state.buildingSearchQuery = buildingSearchInput.value;
+    buildingSearchInput.value = "";
+    state.buildingSearchQuery = buildingSearchInput.value;
 
-      indoorSearchInput.value = "";
-      state.indoorSearchQuery = indoorSearchInput.value;
+    indoorSearchInput.value = "";
+    state.indoorSearchQuery = indoorSearchInput.value;
 
-      state.currentSearchState = "building";
-      toggleSearchState();
-
-      console.log(state);
-    } else showError();
+    state.currentSearchState = "building";
+    handleChange();
   });
 
   indoorSearchSubmit.addEventListener("click", () => {
@@ -71,52 +74,44 @@ function render(): void {
       e.preventDefault();
 
       state.indoorSearchQuery = indoorSearchInput.value;
-      toggleSearchState();
 
       geoMap.handleIndoorSearch(indoorSearchInput.value);
     }
   });
-
-  clearIndoorSearch.addEventListener("click", () => {
-    if (indoorSearchInput.value !== "") {
-      indoorSearchInput.value = "";
-      state.indoorSearchQuery = indoorSearchInput.value;
-
-      console.log(state);
-    } else showError();
-  });
-}
-
-function toggleSearchState() {
-  console.log("before", state);
-
-  state.currentSearchState === "indoor"
-    ? (state.currentSearchState = "building")
-    : (state.currentSearchState = "indoor");
-
-  console.log("after", state);
-  handleChange();
 }
 
 function handleChange() {
-  const isIndoor = state.currentSearchState === "indoor";
-  const isBuilding = state.currentSearchState === "building";
+  const indoor = state.currentSearchState === "indoor";
+  const building = !indoor;
 
-  setDisabled(buildingSearchInput, isBuilding);
-  setDisabled(buildingSearchSubmit, isBuilding);
-  setDisabled(indoorSearchInput, isIndoor);
-  setDisabled(indoorSearchSubmit, isIndoor);
+  //disabled if belonging state is false
+  setDisabledAttribute(buildingSearchInput, !building);
+  setDisabledAttribute(buildingSearchSubmit, !building);
+  setDisabledAttribute(indoorSearchInput, !indoor);
+  setDisabledAttribute(indoorSearchSubmit, !indoor);
+
+  handleVisibility();
 }
 
-function showError() {
-  console.log("error!");
+function handleVisibility() {
+  const indoor = state.currentSearchState === "indoor";
+
+  if (indoor) {
+    indoorSearchWrapper.classList.remove("hidden");
+    buildingSearchSubmit.classList.add("hidden");
+    buildingSearchWrapper.classList.remove("w-100");
+  } else {
+    indoorSearchWrapper.classList.add("hidden");
+    buildingSearchSubmit.classList.remove("hidden");
+    buildingSearchWrapper.classList.add("w-100");
+  }
 }
 
-function setDisabled(
+function setDisabledAttribute(
   element: HTMLButtonElement | HTMLInputElement,
-  value: boolean
+  newState: boolean
 ): void {
-  element.disabled = value;
+  element.disabled = newState;
 }
 
 function setBuildingSearchInput(query: string): void {
