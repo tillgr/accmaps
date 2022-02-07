@@ -1,0 +1,71 @@
+{
+  "selectedMapObjectPrefix": "Ausgewähltes Kartenobjekt: ",
+  "selectedBuildingPrefix": "Ausgewähltes Gebäude: ",
+
+  "changeLevel": "Wechsle zu Etage ",
+  "currentLevel": "Ausgewählte Etage: ",
+
+  "searchBuildingFound": "Gebäude gefunden.",
+  "searchEmpty": "Bitte einen Suchbegriff eingeben!",
+  "searchNotFound": "Nicht gefunden!",
+
+  "buildingNotFound": "Gebäude konnte nicht gefunden werden",
+  "buildingNotSITconform": "Gebäude wurde gefunden, gehört jedoch nicht zum Datensatz von SIT-konformen Gebäuden",
+  "buildingErrorFetching": "Ein Fehler ist beim Laden der Gebäudedaten aufgetreten: ",
+
+  "legendRoom": "Raum",
+  "legendToilet": "Toiletten",
+  "legendStairs": "Treppen",
+  "legendSelected": "Ausgewählt",
+
+  "userProfileVisImpairments": "Nutzer mit visuellen Einschränkungen",
+  "userProfileNoSpecialNeeds": "Nutzer ohne Einschränkungen",
+  "userProfileWheelchair": "Rollstuhlfahrer",
+
+  "userProfileVisualSettings": "Grafische Einstellungen",
+  "userProfileFeatureSelection": "Auswahl von anzuzeigenden Objekten",
+
+  "userProfileEntranceExit": "Ein- und Ausgänge",
+  "userProfileToilets": "Toiletten",
+  "userProfileElevators": "Aufzüge",
+  "userProfileStairs": "Treppen",
+  "userProfileEmergencyExit": "Notausgänge",
+  "userProfileServices": "Service",
+  "userProfileRamps": "Rampen",
+  "userProfileTactileLines": "Taktile Linien",
+  "userProfileDisabledParking": "Behindertenparkplatz",
+  "userProfileAccessibleToilets": "Behindertentoiletten",
+
+  "featureAccessibilityTactileBoard": "Taktiles Informationstafel / Taktile Karte",
+  "featureAccessibilitySpeech": "Sprachausgabe verfügbar",
+  "featureAccessibilityAccessibleToilet": "Behindertentoilette",
+  "featureAccessibilityElevator": "Aufzug",
+
+  "featureAccessibilityToilet": "toilette",
+  "featureAccessibilityMale": "Männer",
+  "featureAccessibilityFemale": "Frauen",
+  "featureAccessibilityUnisex": "Unisex",
+
+  "featureAccessibilityMain": "Haupt",
+  "featureAccessibilitySecondary": "Neben",
+  "featureAccessibilityEntrance": "eingang",
+  "featureAccessibilityExit": "Ausgang",
+  "featureAccessibilityInformationBoard": "Informationstafel / Karte",
+
+  "buildingAccessibilityWheelchairTrue": "Rollstuhlzugang möglich",
+  "buildingAccessibilityWheelchairLimited": "Eingeschränkter Rollstuhlzugang",
+  "buildingAccessibilityWheelchairFalse": "Kein Rollstuhlzugang",
+
+  "buildingAccessibilityToiletsTrue": "Behindertentoiletten vorhanden",
+  "buildingAccessibilityToiletsFalse": "Keine Behindertentoiletten vorhanden",
+  "buildingAccessibilityTactilePavingTrue": "Taktiles Pflaster vorhanden",
+  "buildingAccessibilityTactilePavingFalse": "Kein taktiles Pflaster vorhanden",
+  "buildingAccessibilityElevatorTrue": "Rollstuhlgeeigneter Fahrstuhl vorhanden",
+  "buildingAccessibilityElevatorFalse": "Kein Rollstuhlgeeigneter Fahrstuhl vorhanden",
+  "buildingAccessibilityTactileWritingTrue": "Objekte mit taktiler Beschriftung verfügbar",
+  "buildingAccessibilityTactileWritingFalse": "Keine Objekte mit taktiler Beschriftung verfügbar",
+  "buildingAccessibilityElevatorSpeechTrue": "Aufzüge mit Sprachausgabe vorhanden",
+  "buildingAccessibilityElevatorSpeechFalse": "Keine Aufzüge mit Sprachausgabe vorhanden"
+
+
+}
