@@ -10,7 +10,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="#" id="navbarBrandText">
             <img src="./images/icons-192.png" alt="" width="32" height="32" class="d-inline-block align-text-top">
             Accessible Maps mobile</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -21,8 +21,9 @@
             <ul class="navbar-nav ms-0 ms-lg-4 me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link active" href="javascript:void(0)" id="changeUserProfileBtn">
-                        <span class="material-icons align-text-top me-1" aria-hidden="true">people</span> Change user
-                        Profile</a>
+                        <span class="material-icons align-text-top me-1" aria-hidden="true">people</span>
+                        Change user Profile
+                    </a>
                 </li>
             </ul>
             <div class="d-flex justify-content-end" id="searchWrapper">
@@ -37,8 +38,7 @@
                     <input class="form-control" type="search" placeholder="Search indoor"
                            aria-label="Search indoor"
                            id="indoorSearchInput" name="indoorSearchInput">
-                    <button class="btn btn-secondary" id="indoorSearchSubmit"
-                            name="indoorSearchSubmit">
+                    <button class="btn btn-secondary" id="indoorSearchSubmit" name="indoorSearchSubmit">
                         Search
                     </button>
                 </div>
@@ -66,7 +66,7 @@
     <a class="btn btn-light w-100" role="button" data-bs-toggle="collapse" data-bs-target="#legend"
        aria-expanded="false"
        aria-controls="legend" id="legendHeaderButton">
-        <div class="card-title h5 d-flex justify-content-between">
+        <div class="card-title h5 d-flex justify-content-between" id="legendLabel">
             Legend
             <span class="material-icons more-less" role="presentation" id="legendCollapseIcon">north_east</span>
         </div>
@@ -93,9 +93,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h6>Profiles quick switch</h6>
+                <h6 id="profileQuickSwitchHeader">Profiles quick switch</h6>
                 <div class="collection" id="userProfileList"></div>
-                <h6>Settings</h6>
+                <h6 id="settingsHeader">Settings</h6>
                 <div class="collection" id="userSettingsList"></div>
             </div>
         </div>
@@ -120,14 +120,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h6>Feature selection</h6>
+                <h6 id="featureSelectionHeader">Feature selection</h6>
                 <div class="collection" id="userFeatureList"></div>
 
-                <h6>Accessible feature selection</h6>
+                <h6 id="accessibleFeatureSelectionHeader">Accessible feature selection</h6>
                 <div class="collection" id="userAccessibleFeatureList"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" id="closeButtonLabel">Close</button>
                 <button type="button" class="btn btn-primary" id="saveFeatureSelection">Save changes</button>
             </div>
         </div>
@@ -152,14 +152,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h6>Color blindness</h6>
+                <h6 id="colorBlindnessHeader">Color blindness</h6>
                 <div class="collection" id="colorBlindnessList"></div>
 
-                <h6>Contrast settings</h6>
+                <h6 id="contrastSettingsHeader">Contrast settings</h6>
                 <div class="collection" id="contrastSettingsList"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" id="closeVisualSettings">Close</button>
                 <button type="button" class="btn btn-primary" id="saveVisualSettings">Save changes</button>
             </div>
         </div>

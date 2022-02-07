@@ -1,5 +1,6 @@
 import { GeoMap } from "./components/geoMap";
 import HttpService from "./services/httpService";
+import Language from "./services/languageService";
 import LoadingIndicator from "./components/ui/loadingIndicator";
 import Legend from "./components/ui/legend";
 import CenterBtn from "./components/ui/centeringButton";
@@ -20,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
       searchForm.setBuildingSearchInput(buildingSearchString);
       Legend.create();
       CenterBtn.create();
+      Language.translate();
     })
     .catch((error) => {
       LoadingIndicator.error(error);
