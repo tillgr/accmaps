@@ -1,4 +1,25 @@
 {
+  "navbarBrandText": "Accessible Maps mobile",
+  "changeUserProfileBtn": "Nutzerprofil ändern",
+  "buildingSearchSubmit": "Suchen",
+  "indoorSearchSubmit": "Suchen",
+
+  "legendLabel": "Legende",
+
+  "userProfileModalLabel": "Nutzerprofil auswählen",
+  "profileQuickSwitchHeader": "Profil quick switch",
+  "settingsHeader": "Einstellungen",
+  "userFeatureModalLabel": "Features auswählen",
+  "featureSelectionHeader": "Auswahl anzuzeigender Features",
+  "accessibleFeatureSelectionHeader": "Auswahl barrierefreier Features",
+  "closeButtonLabel": "Schließen",
+  "saveFeatureSelection": "Änderungen speichern",
+  "visualSettingsLabel": "Aussehen anpassen",
+  "colorBlindnessHeader": "Farbenblindheit",
+  "contrastSettingsHeader": "Kontrasteinstellungen",
+  "closeVisualSettings": "Schließen",
+  "saveVisualSettings": "Änderungen speichern",
+
   "selectedMapObjectPrefix": "Ausgewähltes Kartenobjekt: ",
   "selectedBuildingPrefix": "Ausgewähltes Gebäude: ",
 

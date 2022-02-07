@@ -2,33 +2,33 @@ import * as string from '../../public/strings/lang.en.json';
 
 /* translates all strings of index.html */
 function translate(): void {
-  /*Top navigation bar*/
-  document.getElementById("navbarBrandText").innerHTML = "Accessible Maps mobile";
-  document.getElementById("changeUserProfileBtn").innerHTML = "Change user Profile";
-  document.getElementById("buildingSearchSubmit").innerHTML = "Search";
-  document.getElementById("indoorSearchSubmit").innerHTML = "Search";
+  /*top navigation bar*/
+  document.getElementById("navbarBrandText").innerHTML = string.navbarBrandText;
+  document.getElementById("changeUserProfileBtn").innerHTML = string.changeUserProfileBtn;
+  document.getElementById("buildingSearchSubmit").innerHTML = string.buildingSearchSubmit;
+  document.getElementById("indoorSearchSubmit").innerHTML = string.indoorSearchSubmit;
 
   /*legend*/
-  document.getElementById("legendLabel").innerHTML = "Legend";
+  document.getElementById("legendLabel").innerHTML = string.legendLabel;
 
   /*settings modal*/
-  document.getElementById("userProfileModalLabel").innerHTML = "Select User Profile";
-  document.getElementById("profileQuickSwitchHeader").innerHTML = "Profiles quick switch";
-  document.getElementById("settingsHeader").innerHTML = "Settings";
+  document.getElementById("userProfileModalLabel").innerHTML = string.userProfileModalLabel;
+  document.getElementById("profileQuickSwitchHeader").innerHTML = string.profileQuickSwitchHeader;
+  document.getElementById("settingsHeader").innerHTML = string.settingsHeader;
 
   /*visual settings*/
-  document.getElementById("userFeatureModalLabel").innerHTML = "Select Features";
-  document.getElementById("featureSelectionHeader").innerHTML = "Feature selection";
-  document.getElementById("accessibleFeatureSelectionHeader").innerHTML = "Accessible feature selection";
-  document.getElementById("closeButtonLabel").innerHTML = "Close";
-  document.getElementById("saveFeatureSelection").innerHTML = "Save changes";
+  document.getElementById("userFeatureModalLabel").innerHTML = string.userFeatureModalLabel;
+  document.getElementById("featureSelectionHeader").innerHTML = string.featureSelectionHeader;
+  document.getElementById("accessibleFeatureSelectionHeader").innerHTML = string.accessibleFeatureSelectionHeader;
+  document.getElementById("closeButtonLabel").innerHTML = string.closeButtonLabel;
+  document.getElementById("saveFeatureSelection").innerHTML = string.saveFeatureSelection;
 
   /*feature selection*/
-  document.getElementById("visualSettingsLabel").innerHTML = "Visual Settings";
-  document.getElementById("colorBlindnessHeader").innerHTML = "Color blindness";
-  document.getElementById("contrastSettingsHeader").innerHTML = "Contrast settings";
-  document.getElementById("closeVisualSettings").innerHTML = "Close";
-  document.getElementById("saveVisualSettings").innerHTML = "Save changes";
+  document.getElementById("visualSettingsLabel").innerHTML = string.visualSettingsLabel;
+  document.getElementById("colorBlindnessHeader").innerHTML = string.colorBlindnessHeader;
+  document.getElementById("contrastSettingsHeader").innerHTML = string.contrastSettingsHeader;
+  document.getElementById("closeVisualSettings").innerHTML = string.closeVisualSettings;
+  document.getElementById("saveVisualSettings").innerHTML = string.saveVisualSettings;
 }
 
 export default {
