@@ -1,4 +1,28 @@
+import { LanguageSettingsEnum } from "../models/languageSettingsEnum";
+import { LanguageSettings } from "../data/languageSettings";
 import * as string from '../../public/strings/lang.en.json';
+
+const defaultLanguage = LanguageSettingsEnum.english;
+const languageKey = "language";
+
+function getCurrentLanguage(): LanguageSettingsEnum {
+  const language = <LanguageSettingsEnum>parseInt(localStorage.getItem(languageKey)) ?? defaultLanguage;
+  return language;
+}
+
+function getLanguageResource(): string {
+  const language = LanguageSettings.get(getCurrentLanguage())
+  return language.resourceFile;
+}
+
+function setLanguage(language: LanguageSettingsEnum): void {
+  localStorage.setItem(languageKey, language.toString());
+  /*
+   * Hack: reload window location to properly update all profile-specific information.
+   * Relevant data is stored in localStorage and remains persistent after reload.
+   */
+  setTimeout(window.location.reload.bind(window.location), 200);
+}
 
 /* translates all strings of index.html */
 function translate(): void {
@@ -32,5 +56,8 @@ function translate(): void {
 }
 
 export default {
+  getCurrentLanguage,
+  getLanguageResource,
+  setLanguage,
   translate,
 };
