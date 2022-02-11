@@ -1,6 +1,8 @@
 import { LanguageSettingsEnum } from "../models/languageSettingsEnum";
 import { LanguageSettings } from "../data/languageSettings";
+//sprachdateien:
 import * as string from '../../public/strings/lang.en.json';
+import * as stringDe from '../../public/strings/lang.de.json';
 
 const defaultLanguage = LanguageSettingsEnum.english;
 const languageKey = "language";
@@ -26,33 +28,39 @@ function setLanguage(language: LanguageSettingsEnum): void {
 
 /* translates all strings of index.html */
 function translate(): void {
+  /*in jeder Datei würden die Sprachdateien und eine Konstante (usedLanguage) definiert werden und damit
+  die gewählte Sprache ausgewählt werden anschließend werden die
+  gewünschten Strings über usedLanguage.[gesuchter string] abgefragt
+  */
+  const usedLanguage = getCurrentLanguage()==LanguageSettingsEnum.english ? string : stringDe;
+
   /*top navigation bar*/
-  document.getElementById("navbarBrandText").innerHTML = string.navbarBrandText;
-  document.getElementById("changeUserProfileBtn").innerHTML = string.changeUserProfileBtn;
-  document.getElementById("buildingSearchSubmit").innerHTML = string.buildingSearchSubmit;
-  document.getElementById("indoorSearchSubmit").innerHTML = string.indoorSearchSubmit;
+  document.getElementById("navbarBrandText").innerHTML = usedLanguage.navbarBrandText;
+  document.getElementById("changeUserProfileBtn").innerHTML = usedLanguage.changeUserProfileBtn;
+  document.getElementById("buildingSearchSubmit").innerHTML = usedLanguage.buildingSearchSubmit;
+  document.getElementById("indoorSearchSubmit").innerHTML = usedLanguage.indoorSearchSubmit;
 
   /*legend*/
-  document.getElementById("legendLabel").innerHTML = string.legendLabel;
+  document.getElementById("legendLabel").innerHTML = usedLanguage.legendLabel;
 
   /*settings modal*/
-  document.getElementById("userProfileModalLabel").innerHTML = string.userProfileModalLabel;
-  document.getElementById("profileQuickSwitchHeader").innerHTML = string.profileQuickSwitchHeader;
-  document.getElementById("settingsHeader").innerHTML = string.settingsHeader;
+  document.getElementById("userProfileModalLabel").innerHTML = usedLanguage.userProfileModalLabel;
+  document.getElementById("profileQuickSwitchHeader").innerHTML = usedLanguage.profileQuickSwitchHeader;
+  document.getElementById("settingsHeader").innerHTML = usedLanguage.settingsHeader;
 
   /*visual settings*/
-  document.getElementById("userFeatureModalLabel").innerHTML = string.userFeatureModalLabel;
-  document.getElementById("featureSelectionHeader").innerHTML = string.featureSelectionHeader;
-  document.getElementById("accessibleFeatureSelectionHeader").innerHTML = string.accessibleFeatureSelectionHeader;
-  document.getElementById("closeButtonLabel").innerHTML = string.closeButtonLabel;
-  document.getElementById("saveFeatureSelection").innerHTML = string.saveFeatureSelection;
+  document.getElementById("userFeatureModalLabel").innerHTML = usedLanguage.userFeatureModalLabel;
+  document.getElementById("featureSelectionHeader").innerHTML = usedLanguage.featureSelectionHeader;
+  document.getElementById("accessibleFeatureSelectionHeader").innerHTML = usedLanguage.accessibleFeatureSelectionHeader;
+  document.getElementById("closeButtonLabel").innerHTML = usedLanguage.closeButtonLabel;
+  document.getElementById("saveFeatureSelection").innerHTML = usedLanguage.saveFeatureSelection;
 
   /*feature selection*/
-  document.getElementById("visualSettingsLabel").innerHTML = string.visualSettingsLabel;
-  document.getElementById("colorBlindnessHeader").innerHTML = string.colorBlindnessHeader;
-  document.getElementById("contrastSettingsHeader").innerHTML = string.contrastSettingsHeader;
-  document.getElementById("closeVisualSettings").innerHTML = string.closeVisualSettings;
-  document.getElementById("saveVisualSettings").innerHTML = string.saveVisualSettings;
+  document.getElementById("visualSettingsLabel").innerHTML = usedLanguage.visualSettingsLabel;
+  document.getElementById("colorBlindnessHeader").innerHTML = usedLanguage.colorBlindnessHeader;
+  document.getElementById("contrastSettingsHeader").innerHTML = usedLanguage.contrastSettingsHeader;
+  document.getElementById("closeVisualSettings").innerHTML = usedLanguage.closeVisualSettings;
+  document.getElementById("saveVisualSettings").innerHTML = usedLanguage.saveVisualSettings;
 }
 
 export default {
