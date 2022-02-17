@@ -4,7 +4,7 @@ import Language from "./services/languageService";
 import LoadingIndicator from "./components/ui/loadingIndicator";
 import Legend from "./components/ui/legend";
 import CenterBtn from "./components/ui/centeringButton";
-import { DEFAULT_BUILDING_SEARCH_STRING } from "./data/constants";
+import { DEFAULT_BUILDING_SEARCH_STRING } from "./data/constants.json";
 import searchForm from "./components/ui/searchForm";
 
 export let geoMap: GeoMap = null;
