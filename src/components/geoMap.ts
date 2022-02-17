@@ -26,6 +26,7 @@ import { geoMap } from "../main";
 import AccessibilityService from "../services/accessibilityService";
 import accessibility from "../utils/makeAccessible";
 import searchForm from "./ui/searchForm";
+import * as string from '../../public/strings/lang.en.json';
 
 export class GeoMap {
   currentSearchString = "";
@@ -86,7 +87,7 @@ export class GeoMap {
         this.handleBuildingChange();
         this.centerMapToBuilding();
 
-        return new Promise((resolve) => resolve("Building found."));
+        return new Promise((resolve) => resolve(string.searchBuildingFound));
       });
   }
 
@@ -144,7 +145,7 @@ export class GeoMap {
         .catch((errorMessage: string) => {
           LoadingIndicator.error(errorMessage);
         });
-    } else LoadingIndicator.error("Please enter a search term!");
+    } else LoadingIndicator.error(string.searchEmpty);
   }
 
   handleLevelChange(newLevel: string): void {
@@ -168,7 +169,7 @@ export class GeoMap {
         const selectedLevel = results[0].properties.level.toString();
         levelControl.focusOnLevel(selectedLevel);
         this.handleLevelChange(selectedLevel);
-      } else LoadingIndicator.error("Not found!");
-    } else LoadingIndicator.error("Please enter a search term!");
+      } else LoadingIndicator.error(string.searchNotFound);
+    } else LoadingIndicator.error(string.searchEmpty);
   }
 }

@@ -1,5 +1,6 @@
 import { UserGroupEnum } from "../models/userGroupEnum";
 import { AccessibilityPropertiesInterface } from "../models/accessibilityPropertiesInterface";
+import * as string from '../../public/strings/lang.en.json';
 
 export const levelAccessibilityProperties: AccessibilityPropertiesInterface[] =
   [
@@ -9,16 +10,16 @@ export const levelAccessibilityProperties: AccessibilityPropertiesInterface[] =
         f.properties.amenity === "toilets" &&
         f.properties.wheelchair !== undefined &&
         f.properties.wheelchair !== "no",
-      msgTrue: "there are accessible toilets",
-      msgFalse: "no accessible toilets available",
+      msgTrue: string.buildingAccessibilityToiletsTrue,
+      msgFalse: string.buildingAccessibilityToiletsFalse,
       userGroups: [UserGroupEnum.wheelchairUsers],
     },
     {
       accessibilityFunction: (f) =>
         f.properties.tactile_paving !== undefined &&
         f.properties.tactile_paving === "yes",
-      msgTrue: "tactile paving available",
-      msgFalse: "no tactile paving available",
+      msgTrue: string.buildingAccessibilityTactilePavingTrue,
+      msgFalse: string.buildingAccessibilityTactilePavingFalse,
       userGroups: [UserGroupEnum.blindPeople],
     },
     {
@@ -27,8 +28,8 @@ export const levelAccessibilityProperties: AccessibilityPropertiesInterface[] =
         f.properties.highway === "elevator" &&
         f.properties.wheelchair !== undefined &&
         f.properties.wheelchair !== "no",
-      msgTrue: "accessible elevator available",
-      msgFalse: "no accessible elevator available",
+      msgTrue: string.buildingAccessibilityElevatorTrue,
+      msgFalse: string.buildingAccessibilityElevatorFalse,
       userGroups: [UserGroupEnum.wheelchairUsers],
     },
     {
@@ -58,8 +59,8 @@ export const levelAccessibilityProperties: AccessibilityPropertiesInterface[] =
             (f.properties["tactile_writing:moon:" + lng] !== undefined &&
               f.properties["tactile_writing:moon:" + lng] === "yes")
         ),
-      msgTrue: "there are objects with tactile writing on them",
-      msgFalse: "there are no objects with tactile writing on them",
+      msgTrue: string.buildingAccessibilityTactileWritingTrue,
+      msgFalse: string.buildingAccessibilityTactileWritingFalse,
       userGroups: [UserGroupEnum.blindPeople],
     },
     {
@@ -70,8 +71,8 @@ export const levelAccessibilityProperties: AccessibilityPropertiesInterface[] =
           f.properties["speech_output:en"] === "yes") ||
           (f.properties["speech_output:de"] !== undefined &&
             f.properties["speech_output:de"] === "yes")),
-      msgTrue: "there are elevators with speech output",
-      msgFalse: "there are no elevators with speech output",
+      msgTrue: string.buildingAccessibilityElevatorSpeechTrue,
+      msgFalse: string.buildingAccessibilityElevatorSpeechFalse,
       userGroups: [UserGroupEnum.blindPeople],
     },
   ];

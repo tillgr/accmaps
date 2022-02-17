@@ -1,14 +1,15 @@
 import { COLORS } from "../../data/constants";
+import * as string from '../../../public/strings/lang.en.json';
 
 const legend = document.getElementById("legend");
 
 function create(): void {
     let tbodyRef = document.getElementById('legendTable').getElementsByTagName('tbody')[0];
 
-    addLegendRecord(tbodyRef, COLORS.ROOM, "Room");
-    addLegendRecord(tbodyRef, COLORS.TOILET, "Toilet");
-    addLegendRecord(tbodyRef, COLORS.STAIR, "Stairs");
-    addLegendRecord(tbodyRef, COLORS.ROOM_SELECTED, "Selected");
+    addLegendRecord(tbodyRef, COLORS.ROOM, string.legendRoom);
+    addLegendRecord(tbodyRef, COLORS.TOILET, string.legendToilet);
+    addLegendRecord(tbodyRef, COLORS.STAIR, string.legendStairs);
+    addLegendRecord(tbodyRef, COLORS.ROOM_SELECTED, string.legendSelected);
 
     document.getElementById('legendHeaderButton').addEventListener("click", onCollapse);
 }

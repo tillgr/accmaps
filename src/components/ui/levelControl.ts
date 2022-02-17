@@ -1,6 +1,7 @@
 import { INDOOR_LEVEL } from "../../data/constants";
 import LevelService from "../../services/levelService";
 import { geoMap } from "../../main";
+import * as string from '../../../public/strings/lang.en.json';
 
 function handleChange(): void {
   //reCreate
@@ -22,7 +23,7 @@ function render(allLevelNames: string[]): void {
   const levelControl = document.getElementById("levelControl");
 
   allLevelNames.forEach((level: string) => {
-    const changeToLevel = "change to level " + level;
+    const changeToLevel = string.changeLevel + level;
     const levelBtn = document.createElement("li");
     levelBtn.className = "page-item";
     levelBtn.innerHTML = '<a class="page-link" href="#">' + level + "</a>";
