@@ -1,4 +1,4 @@
-import { COLORS } from "../../data/constants";
+import { COLORS } from "../../data/constants.json";
 import * as string from '../../../public/strings/lang.en.json';
 
 const legend = document.getElementById("legend");

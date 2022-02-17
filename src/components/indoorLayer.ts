@@ -4,7 +4,7 @@ import DescriptionArea from "./ui/descriptionArea";
 import FeatureService from "../services/featureService";
 import LevelService from "../services/levelService";
 import { geoMap } from "../main";
-import { COLORS } from "../data/constants";
+import { COLORS } from "../data/constants.json";
 
 export class IndoorLayer {
   private readonly indoorLayerGroup: LayerGroup;
