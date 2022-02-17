@@ -56,7 +56,15 @@ nav {
 }
 
 #searchWrapper{
-  width: 808px;
+  /*width: 808px;*/
+  width: 1000px;
+}
+#searchWrapper label{
+  /*display: flex;*/
+  /*flex-wrap: nowrap;*/
+  /*color: white;*/
+  /*align-items: center;*/
+  /*margin-right: 10px;*/
 }
 
 .hidden{
