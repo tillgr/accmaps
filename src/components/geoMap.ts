@@ -13,7 +13,7 @@ import {
   MAP_START_LNG,
   OSM_ATTRIBUTION,
   OSM_TILE_SERVER,
-} from "../data/constants";
+} from "../data/constants.json";
 import { BuildingInterface } from "../models/buildingInterface";
 import levelControl from "./ui/levelControl";
 import DescriptionArea from "./ui/descriptionArea";
@@ -42,7 +42,7 @@ export class GeoMap {
     });
 
     this.mapInstance = new LeafletMap("map", {
-      center: new LatLng(MAP_START_LAT, MAP_START_LNG),
+      center: new LatLng(parseFloat(MAP_START_LAT), parseFloat(MAP_START_LNG)),
       zoom: 19,
     })
       .on("moveend", this.makeAccessible)

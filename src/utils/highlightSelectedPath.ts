@@ -1,4 +1,4 @@
-import { COLORS } from "../data/constants";
+import { COLORS } from "../data/constants.json";
 
 let path: HTMLElement = null; //currentlySelectedFeaturePath
 let fill = ""; //currentlySelectedFeatureOriginalFillColor

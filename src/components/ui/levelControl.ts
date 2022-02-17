@@ -1,4 +1,4 @@
-import { INDOOR_LEVEL } from "../../data/constants";
+import { INDOOR_LEVEL } from "../../data/constants.json";
 import LevelService from "../../services/levelService";
 import { geoMap } from "../../main";
 import * as string from '../../../public/strings/lang.en.json';
