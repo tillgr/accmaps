@@ -20,29 +20,39 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-0 ms-lg-4 me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" href="javascript:void(0)" id="changeUserProfileBtn">
+                    <a class="nav-link active flex-nowrap d-flex" href="javascript:void(0)" id="changeUserProfileBtn">
                         <span class="material-icons align-text-top me-1" aria-hidden="true">people</span> Change user
                         Profile</a>
                 </li>
             </ul>
             <div class="d-flex justify-content-end" id="searchWrapper">
-                <div class="input-group me-2" id="buildingSearchWrapper">
-                    <input class="form-control hide-clear-icon" type="search" placeholder="Search for buildings"
-                           aria-label="Search for buildings"
-                           id="buildingSearchInput" disabled>
-                    <button class="btn btn-danger" id="clearBuildingSearch">x</button>
-                    <button class="btn btn-secondary hidden" id="buildingSearchSubmit" disabled>Search</button>
+                <div class="form-group row flex-nowrap" id="buildingSearchWrapper">
+                    <label class="d-flex flex-nowrap text-white align-items-center justify-content-end col-4"
+                           for="buildingSearchInput">Current Building:</label>
+                    <div class="input-group col-8">
+                        <input class="form-control hide-clear-icon" type="text" placeholder="Search for buildings"
+                               aria-label="Search for buildings"
+                               id="buildingSearchInput" disabled>
+                        <button class="btn btn-danger" id="clearBuildingSearch">x</button>
+                        <button class="btn btn-secondary hidden" id="buildingSearchSubmit" disabled>Search</button>
+                    </div>
                 </div>
-                <div class="input-group" id="indoorSearchWrapper">
-                    <input class="form-control" type="search" placeholder="Search indoor"
-                           aria-label="Search indoor"
-                           id="indoorSearchInput" name="indoorSearchInput">
-                    <button class="btn btn-secondary" id="indoorSearchSubmit"
-                            name="indoorSearchSubmit">
-                        Search
-                    </button>
+
+                <div class="from-group row flex-nowrap" id="indoorSearchWrapper">
+                    <label class="d-flex flex-nowrap text-white align-items-center justify-content-end col-4"
+                           for="indoorSearchInput">Current Room:</label>
+                    <div class="input-group col-8">
+                        <input class="form-control" type="text" placeholder="Search indoor"
+                               aria-label="Search indoor"
+                               id="indoorSearchInput" name="indoorSearchInput">
+                        <button class="btn btn-secondary" id="indoorSearchSubmit"
+                                name="indoorSearchSubmit">
+                            Search
+                        </button>
+                    </div>
                 </div>
             </div>
+
             <div class="spinner-border ms-3 d-none" role="status" id="loadingIndicator">
                 <span class="visually-hidden">Loading...</span>
             </div>

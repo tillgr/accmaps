@@ -51,12 +51,12 @@ nav {
   font-size: 120%;
 }
 
-#buildingSearchWrapper, #indoorSearchWrapper {
-  width: 400px;
+#searchWrapper{
+  width: 1168px;
 }
 
-#searchWrapper{
-  width: 808px;
+#buildingSearchWrapper, #indoorSearchWrapper {
+  width: 500px;
 }
 
 .hidden{
@@ -64,6 +64,7 @@ nav {
   width: 0 !important;
   height: 0;
   padding: 0;
+  margin: 0 !important;
 }
 
 .room-label {
