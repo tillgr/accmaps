@@ -26,25 +26,33 @@
                 </li>
             </ul>
             <div class="d-flex justify-content-end" id="searchWrapper">
-                <div class="input-group me-4" id="buildingSearchWrapper">
-                    <label class="d-flex me-3 flex-nowrap text-white align-items-center" for="buildingSearchInput">Current Building:</label>
-                    <input class="form-control hide-clear-icon" type="search" placeholder="Search for buildings"
-                           aria-label="Search for buildings"
-                           id="buildingSearchInput" disabled>
-                    <button class="btn btn-danger" id="clearBuildingSearch">x</button>
-                    <button class="btn btn-secondary hidden" id="buildingSearchSubmit" disabled>Search</button>
+                <div class="form-group row flex-nowrap me-1" id="buildingSearchWrapper">
+                    <label class="d-flex flex-nowrap text-white align-items-center justify-content-end col-3"
+                           for="buildingSearchInput">Current Building:</label>
+                    <div class="input-group col-9">
+                        <input class="form-control hide-clear-icon" type="text" placeholder="Search for buildings"
+                               aria-label="Search for buildings"
+                               id="buildingSearchInput" disabled>
+                        <button class="btn btn-danger" id="clearBuildingSearch">x</button>
+                        <button class="btn btn-secondary hidden" id="buildingSearchSubmit" disabled>Search</button>
+                    </div>
                 </div>
-                <div class="input-group" id="indoorSearchWrapper">
-                    <label class="d-flex me-3 flex-nowrap text-white align-items-center" for="indoorSearchInput">Current Room:</label>
-                    <input class="form-control" type="search" placeholder="Search indoor"
-                           aria-label="Search indoor"
-                           id="indoorSearchInput" name="indoorSearchInput">
-                    <button class="btn btn-secondary" id="indoorSearchSubmit"
-                            name="indoorSearchSubmit">
-                        Search
-                    </button>
+
+                <div class="from-group row flex-nowrap" id="indoorSearchWrapper">
+                    <label class="d-flex flex-nowrap text-white align-items-center justify-content-end col-3"
+                           for="indoorSearchInput">Current Room:</label>
+                    <div class="input-group col-9">
+                        <input class="form-control" type="text" placeholder="Search indoor"
+                               aria-label="Search indoor"
+                               id="indoorSearchInput" name="indoorSearchInput">
+                        <button class="btn btn-secondary" id="indoorSearchSubmit"
+                                name="indoorSearchSubmit">
+                            Search
+                        </button>
+                    </div>
                 </div>
             </div>
+
             <div class="spinner-border ms-3 d-none" role="status" id="loadingIndicator">
                 <span class="visually-hidden">Loading...</span>
             </div>
