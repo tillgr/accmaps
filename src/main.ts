@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
       searchForm.setBuildingSearchInput(buildingSearchString);
       Legend.create();
       CenterBtn.create();
-      Language.translate();
+      //Language.translate();
     })
     .catch((error) => {
       LoadingIndicator.error(error);
