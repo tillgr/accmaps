@@ -10,13 +10,14 @@ export class IndoorLayer {
   private readonly indoorLayerGroup: LayerGroup;
   accessibilityMarkers: Marker[] = [];
   selectedFeatures: GeoJSON.Feature[] = [];
+  layerInstance: Layer;
 
   constructor(geoJSON: GeoJSON.FeatureCollection) {
     this.removeAccessibilityMarkers();
 
     this.indoorLayerGroup = new LayerGroup();
     this.drawIndoorLayerByGeoJSON(geoJSON);
-    geoMap.add(this.indoorLayerGroup);
+    this.layerInstance = geoMap.add(this.indoorLayerGroup);
   }
 
   clearIndoorLayer(): void {

@@ -1,6 +1,7 @@
 import {
   LatLng,
   LatLngBounds,
+  Layer,
   LayerGroup,
   Map as LeafletMap,
   Marker,
@@ -26,6 +27,7 @@ import { geoMap } from "../main";
 import AccessibilityService from "../services/accessibilityService";
 import accessibility from "../utils/makeAccessible";
 import searchForm from "./ui/searchForm";
+import levelService from "../services/levelService";
 
 export class GeoMap {
   currentSearchString = "";
@@ -52,17 +54,18 @@ export class GeoMap {
     this.add(osmTileLayer);
   }
 
-  add(obj: LayerGroup | Marker | TileLayer): void {
-    obj.addTo(this.mapInstance);
+  add(obj: LayerGroup | Marker | TileLayer): Layer {
+    return obj.addTo(this.mapInstance);
   }
 
-  remove(layerGroup: LayerGroup | Marker): void {
-    this.mapInstance.removeLayer(layerGroup);
+  remove(obj: Layer | Marker): void {
+    this.mapInstance.removeLayer(obj);
   }
 
   removeIndoorLayerFromMap = (): void => {
-    const group = this.indoorLayer.getIndoorLayerGroup();
-    geoMap.remove(group);
+    /*const group = this.indoorLayer.layerInstance;
+    geoMap.remove(group);*/
+    this.mapInstance.removeLayer(this.indoorLayer.getIndoorLayerGroup());
   };
 
   makeAccessible(): void {
@@ -92,11 +95,14 @@ export class GeoMap {
 
   handleBuildingChange(): void {
     levelControl.handleChange();
+    levelService.clearData();
 
     if (this.indoorLayer) {
-      this.indoorLayer.getIndoorLayerGroup().clearLayers();
+      this.removeIndoorLayerFromMap();
     }
+
     this.indoorLayer = new IndoorLayer(LevelService.getCurrentLevelGeoJSON());
+    this.handleLevelChange("0");
 
     AccessibilityService.reset();
 

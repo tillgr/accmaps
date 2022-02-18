@@ -7,6 +7,10 @@ import { geoMap } from "../main";
 
 const geoJSONByLevel = new Map<string, any>();
 
+function clearData(): void {
+  geoJSONByLevel.clear();
+}
+
 function getCurrentLevelGeoJSON(): GeoJSON.FeatureCollection<any> {
   const currentBuildingIndoorData = BuildingService.getBuildingGeoJSON();
   const currentLevel = geoMap.getCurrentLevel();
@@ -76,4 +80,5 @@ export default {
   getCurrentLevelGeoJSON,
   getLevelNames,
   getCurrentLevelDescription,
+  clearData,
 };
