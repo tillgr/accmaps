@@ -34,6 +34,7 @@ export class GeoMap {
   buildingsBySearchString = new Map<string, BuildingInterface>();
   mapInstance: LeafletMap = null;
   currentLevel = INDOOR_LEVEL;
+  accessibilityMarkers: Marker[] = [];
   indoorLayer: IndoorLayer;
 
   constructor() {
@@ -68,6 +69,13 @@ export class GeoMap {
     this.mapInstance.removeLayer(this.indoorLayer.getIndoorLayerGroup());
   };
 
+  removeAccessibilityMarkers = (): void => {
+    for (let i = 0; i < this.accessibilityMarkers.length; i++) {
+      geoMap.remove(this.accessibilityMarkers[i]);
+    }
+    this.accessibilityMarkers = [];
+  };
+
   makeAccessible(): void {
     accessibility.removeShadowPane();
     accessibility.silenceTileImages();
@@ -98,6 +106,7 @@ export class GeoMap {
     levelService.clearData();
 
     if (this.indoorLayer) {
+      this.removeAccessibilityMarkers();
       this.removeIndoorLayerFromMap();
     }
 

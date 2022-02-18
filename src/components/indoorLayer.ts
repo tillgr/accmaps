@@ -8,12 +8,12 @@ import { COLORS } from "../data/constants";
 
 export class IndoorLayer {
   private readonly indoorLayerGroup: LayerGroup;
-  accessibilityMarkers: Marker[] = [];
   selectedFeatures: GeoJSON.Feature[] = [];
   layerInstance: Layer;
 
   constructor(geoJSON: GeoJSON.FeatureCollection) {
-    this.removeAccessibilityMarkers();
+    console.log(geoMap.accessibilityMarkers);
+    geoMap.removeAccessibilityMarkers();
 
     this.indoorLayerGroup = new LayerGroup();
     this.drawIndoorLayerByGeoJSON(geoJSON);
@@ -30,7 +30,7 @@ export class IndoorLayer {
   }
 
   private drawIndoorLayerByGeoJSON(geoJSON: GeoJSON.FeatureCollection) {
-    this.removeAccessibilityMarkers();
+    geoMap.removeAccessibilityMarkers();
 
     const layer = new L.GeoJSON(geoJSON, {
       style: FeatureService.getFeatureStyle,
@@ -50,11 +50,14 @@ export class IndoorLayer {
     this.selectFeature(feature, layer);
   };
 
-  private addMarker(feature: GeoJSON.Feature<any, any>, layer: Layer): void {
+  private addMarker = (
+    feature: GeoJSON.Feature<any, any>,
+    layer: Layer
+  ): void => {
     const marker = FeatureService.getAccessibilityMarker(feature);
     if (marker) {
       geoMap.add(marker);
-      this.accessibilityMarkers.push(marker);
+      geoMap.accessibilityMarkers.push(marker);
 
       marker.on("click", () => {
         layer.fire("click");
@@ -64,7 +67,7 @@ export class IndoorLayer {
     layer.on("click", (e: LeafletMouseEvent) => {
       this.handleClick(e);
     });
-  }
+  };
 
   private showRoomNumber(
     feature: GeoJSON.Feature<any, any>,
@@ -98,13 +101,6 @@ export class IndoorLayer {
 
     this.selectedFeatures = [feature];
     this.updateLayer();
-  };
-
-  private removeAccessibilityMarkers = () => {
-    for (let i = 0; i < this.accessibilityMarkers.length; i++) {
-      geoMap.remove(this.accessibilityMarkers[i]);
-    }
-    this.accessibilityMarkers = [];
   };
 
   makeFeaturesAccessible(): void {
