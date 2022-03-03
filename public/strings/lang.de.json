@@ -3,6 +3,8 @@
   "changeUserProfileBtn": "Nutzerprofil ändern",
   "buildingSearchSubmit": "Suchen",
   "indoorSearchSubmit": "Suchen",
+  "buildingSearchPlaceholder": "Nach Gebäuden suchen",
+  "indoorSearchPlaceholder": "Im Gebäude suchen",
 
   "legendLabel": "Legende",
 

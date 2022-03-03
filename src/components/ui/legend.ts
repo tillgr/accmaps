@@ -1,8 +1,5 @@
 import { COLORS } from "../../data/constants";
-import * as string from "../../../public/strings/lang.en.json";
 import { lang } from "../../services/languageService";
-
-const legend = document.getElementById("legend");
 
 function create(): void {
   const tbodyRef = document

@@ -1,17 +1,17 @@
 import { UserGroupEnum } from "../models/userGroupEnum";
-import * as string from '../../public/strings/lang.en.json';
+import { lang } from "../services/languageService";
 
 const UserGroups: Map<UserGroupEnum, any> = new Map<UserGroupEnum, any>();
 UserGroups.set(UserGroupEnum.blindPeople, {
-  name: string.userProfileVisImpairments,
+  name: lang.userProfileVisImpairments,
   icon: "visibility_off",
 });
 UserGroups.set(UserGroupEnum.noImpairments, {
-  name: string.userProfileNoSpecialNeeds,
+  name: lang.userProfileNoSpecialNeeds,
   icon: "people",
 });
 UserGroups.set(UserGroupEnum.wheelchairUsers, {
-  name: string.userProfileWheelchair,
+  name: lang.userProfileWheelchair,
   icon: "accessible",
 });
 

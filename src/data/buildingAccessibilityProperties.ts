@@ -1,6 +1,6 @@
 import { AccessibilityPropertiesInterface } from "../models/accessibilityPropertiesInterface";
 import { UserGroupEnum } from "../models/userGroupEnum";
-import * as string from '../../public/strings/lang.en.json';
+import { lang } from "../services/languageService";
 
 const allGroups = [
   UserGroupEnum.blindPeople,
@@ -14,13 +14,13 @@ export const buildingAccessibilityProperties: AccessibilityPropertiesInterface[]
       accessibilityFunction: (f) =>
         f.properties.wheelchair !== undefined &&
         f.properties.wheelchair === "yes",
-      msgTrue: string.buildingAccessibilityWheelchairTrue,
+      msgTrue: lang.buildingAccessibilityWheelchairTrue,
       msgFalse: (f) =>
         f.properties.wheelchair === undefined
           ? null
           : f.properties.wheelchair === "limited"
-          ? string.buildingAccessibilityWheelchairLimited
-          : string.buildingAccessibilityWheelchairFalse,
+          ? lang.buildingAccessibilityWheelchairLimited
+          : lang.buildingAccessibilityWheelchairFalse,
       userGroups: [UserGroupEnum.wheelchairUsers],
     },
     {
@@ -41,7 +41,7 @@ export const buildingAccessibilityProperties: AccessibilityPropertiesInterface[]
       accessibilityFunction: (f) =>
         f.properties["toilets:wheelchair"] !== undefined &&
         f.properties["toilets:wheelchair"] === "yes",
-      msgTrue: string.buildingAccessibilityToiletsTrue,
+      msgTrue: lang.buildingAccessibilityToiletsTrue,
       msgFalse: null,
       userGroups: [UserGroupEnum.wheelchairUsers],
     },

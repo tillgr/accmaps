@@ -7,7 +7,7 @@ import { buildingAccessibilityProperties } from "../data/buildingAccessibilityPr
 import { GeoJsonObject, Position } from "geojson";
 import { getArrayDepth } from "../utils/getArrayDepth";
 import { geoMap } from "../main";
-import * as string from '../../public/strings/lang.en.json';
+import { lang } from "./languageService";
 
 const toBBox = require("geojson-bounding-box");
 
@@ -65,7 +65,7 @@ function nominatimSearch(searchString: string): Promise<BuildingInterface> {
             nominatimResponse.length === 0 ||
             nominatimResponse[0] === undefined
           ) {
-            return reject(string.buildingNotFound);
+            return reject(lang.buildingNotFound);
           }
 
           const BBox = nominatimResponse[0]["boundingbox"];
@@ -77,7 +77,7 @@ function nominatimSearch(searchString: string): Promise<BuildingInterface> {
 
           if (buildingFeature === null) {
             return reject(
-              string.buildingNotSITconform
+              lang.buildingNotSITconform
             );
           }
 
@@ -225,7 +225,7 @@ function getBuildingGeoJSON(): GeoJSON.FeatureCollection<any> {
     );
   }
 
-  console.error(string.buildingNotFound);
+  console.error(lang.buildingNotFound);
   return null;
 }
 
@@ -238,7 +238,7 @@ function getBuildingDescription(): string {
 
   if (currentBuildingFeature.properties.name !== undefined) {
     description +=
-      string.selectedBuildingPrefix + currentBuildingFeature.properties.name;
+      lang.selectedBuildingPrefix + currentBuildingFeature.properties.name;
 
     if (currentBuildingFeature.properties.loc_ref !== undefined) {
       description += " (" + currentBuildingFeature.properties.loc_ref + ")";

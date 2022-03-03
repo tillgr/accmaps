@@ -1,4 +1,5 @@
 import { geoMap } from "../../main";
+import { lang } from "../../services/languageService";
 const buildingSearchInput = <HTMLInputElement>(
   document.getElementById("buildingSearchInput")
 );
@@ -78,6 +79,11 @@ function render(): void {
       geoMap.handleIndoorSearch(indoorSearchInput.value);
     }
   });
+
+  document.getElementById("buildingSearchSubmit").innerText = lang.buildingSearchSubmit;
+  document.getElementById("indoorSearchSubmit").innerText = lang.indoorSearchSubmit;
+  document.getElementById("buildingSearchInput").setAttribute("placeholder", lang.buildingSearchPlaceholder);
+  document.getElementById("indoorSearchInput").setAttribute("placeholder", lang.indoorSearchPlaceholder);
 }
 
 function handleChange() {

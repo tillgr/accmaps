@@ -1,6 +1,6 @@
 import { OVERPASS_DATA_URLS } from "../data/constants";
 import { GeoJSON } from "leaflet";
-import * as string from '../../public/strings/lang.en.json';
+import { lang } from "./languageService";
 
 let indoorDataGeoJSON: GeoJSON.FeatureCollection<any, any>;
 let buildingDataGeoJSON: GeoJSON.FeatureCollection<any, any>;
@@ -46,7 +46,7 @@ function getOverpassData(overpassQuery: string) {
           resolve(returnValue);
         } else if (xhr.status > 400) {
           reject(
-            string.buildingErrorFetching + xhr.statusText
+            lang.buildingErrorFetching + xhr.statusText
           );
         }
       }
