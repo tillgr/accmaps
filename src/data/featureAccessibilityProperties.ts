@@ -1,6 +1,7 @@
 import { AccessibilityPropertiesInterface } from "../models/accessibilityPropertiesInterface";
 import { UserGroupEnum } from "../models/userGroupEnum";
 import * as string from '../../public/strings/lang.en.json';
+import { ICONS } from "../data/constants.json";
 
 const allGroups = [
   UserGroupEnum.blindPeople,
@@ -22,7 +23,7 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
         msgTrue: string.featureAccessibilityTactileBoard,
         msgFalse: null,
         userGroups: [UserGroupEnum.blindPeople],
-        iconFilename: 'information.svg'
+        iconFilename: ICONS.INFO
     },
     {
         accessibilityFunction: (f) => f.properties['speech_output:de'] !== undefined || f.properties['speech_output:en'] !== undefined || f.properties['speech_output'] !== undefined,
@@ -37,21 +38,21 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
         msgTrue: string.featureAccessibilityAccessibleToilet,
         msgFalse: null,
         userGroups: [UserGroupEnum.wheelchairUsers],
-        iconFilename: 'toilets_wheelchair.svg'
+        iconFilename: ICONS.TOILETS_WHEELCHAIR
     },
     {
         accessibilityFunction: (f) => (f.properties.highway !== undefined && f.properties.highway === 'elevator' && f.properties.wheelchair !== undefined && ['yes', 'designated'].includes(f.properties.wheelchair)),
         msgTrue: string.featureAccessibilityElevator,
         msgFalse: null,
         userGroups: [UserGroupEnum.wheelchairUsers],
-        iconFilename: 'elevator2_freepik.svg'
+        iconFilename: ICONS.ELEVATOR
     },
     {
         accessibilityFunction: (f) => (f.properties.wheelchair !== undefined && ['yes', 'designated'].includes(f.properties.wheelchair)),
         msgTrue: string.buildingAccessibilityWheelchairTrue,
         msgFalse: string.buildingAccessibilityWheelchairFalse,
         userGroups: [UserGroupEnum.wheelchairUsers],
-        iconFilename: 'wheelchair.png'
+        iconFilename: ICONS.WHEELCHAIR
     },
     {
         accessibilityFunction: (f) => (f.properties['wheelchair:description:en'] !== undefined),
@@ -73,7 +74,7 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
         msgTrue: (f) => ((f.properties.male !== undefined) ? string.featureAccessibilityMale : (f.properties.female !== undefined) ? string.featureAccessibilityFemale : string.featureAccessibilityUnisex) + string.featureAccessibilityToilet,
         msgFalse: null,
         userGroups: [UserGroupEnum.noImpairments, UserGroupEnum.blindPeople],
-        iconFilename: 'toilets.svg'
+        iconFilename: ICONS.TOILETS
     },
     /* entrances (general) */
     {
@@ -81,7 +82,7 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
         msgTrue: (f) => ((f.properties.entrance === 'main') ? string.featureAccessibilityMain : (f.properties.entrance === 'secondary') ? string.featureAccessibilitySecondary : '') + string.featureAccessibilityEntrance,
         msgFalse: null,
         userGroups: allGroups,
-        iconFilename: 'entrance.svg'
+        iconFilename: ICONS.ENTRANCE
     },
     /* emergency exits (general) */
     {
@@ -90,7 +91,7 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
         msgTrue: string.featureAccessibilityExit,
         msgFalse: null,
         userGroups: allGroups,
-        iconFilename: 'emergency_exit.svg'
+        iconFilename: ICONS.EMERGENCY_EXIT
     },
     /* information boards (general, except blind people) */
     {
@@ -98,7 +99,7 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
         msgTrue: string.featureAccessibilityInformationBoard,
         msgFalse: null,
         userGroups: [UserGroupEnum.noImpairments, UserGroupEnum.wheelchairUsers],
-        iconFilename: 'information.svg'
+        iconFilename: ICONS.INFO
     },
 
     /* stairs (general, except wheelchair users) */
@@ -107,6 +108,6 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
         msgTrue: string.userProfileStairs,
         msgFalse: null,
         userGroups: [UserGroupEnum.noImpairments, UserGroupEnum.blindPeople],
-        iconFilename: 'stairs.svg'
+        iconFilename: ICONS.STAIRS
     },
 ];

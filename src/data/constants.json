@@ -23,5 +23,15 @@
         "STAIR": "#dddddd",
         "ROOM": "#025558",
         "ROOM_SELECTED": "#FF6F03"
+    },
+    "ICONS": {
+        "INFO": "information.svg",
+        "TOILETS_WHEELCHAIR": "toilets_wheelchair.svg",
+        "ELEVATOR": "elevator2_freepik.svg",
+        "WHEELCHAIR": "wheelchair.png",
+        "TOILETS": "toilets.svg",
+        "ENTRANCE": "entrance.svg",
+        "EMERGENCY_EXIT": "emergency_exit.svg",
+        "STAIRS": "stairs.svg"
     }
 }
