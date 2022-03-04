@@ -5,6 +5,8 @@
   "indoorSearchSubmit": "Search",
   "buildingSearchPlaceholder": "Search for buildings",
   "indoorSearchPlaceholder": "Search indoor",
+  "clearBuildingSearch": "Clear search field",
+  "centeringButton": "Set view to the focused building",
 
   "legendLabel": "Legend",
 
@@ -21,6 +23,7 @@
   "contrastSettingsHeader": "Contrast settings",
   "closeVisualSettings": "Close",
   "saveVisualSettings": "Save changes",
+  "languageHeader": "Language",
 
   "selectedMapObjectPrefix": "Selected map object: ",
   "selectedBuildingPrefix": "Selected building: ",

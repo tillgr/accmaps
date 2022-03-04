@@ -83,7 +83,10 @@ function render(): void {
   document.getElementById("buildingSearchSubmit").innerText = lang.buildingSearchSubmit;
   document.getElementById("indoorSearchSubmit").innerText = lang.indoorSearchSubmit;
   document.getElementById("buildingSearchInput").setAttribute("placeholder", lang.buildingSearchPlaceholder);
+  document.getElementById("buildingSearchInput").setAttribute("aria-label", lang.buildingSearchPlaceholder);
   document.getElementById("indoorSearchInput").setAttribute("placeholder", lang.indoorSearchPlaceholder);
+  document.getElementById("indoorSearchInput").setAttribute("aria-label", lang.indoorSearchPlaceholder);
+  document.getElementById("clearBuildingSearch").setAttribute("aria-label", lang.clearBuildingSearch);
 }
 
 function handleChange() {
