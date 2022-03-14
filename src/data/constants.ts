@@ -21,15 +21,6 @@ const DEFAULT_BUILDING_SEARCH_STRING = "APB";
 const OSM_ATTRIBUTION =
   'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
-/*const COLORS = {
-    WALL: '#000000',
-    WALL_SELECTED: '#068288',
-    TOILET: '#dfed64',
-    STAIR: '#dddddd',
-    ROOM: '#025558',
-    ROOM_SELECTED: '#FF6F03',
-}*/
-
 export {
   NOMINATIM_SERVER,
   MAPQUEST_API_KEY,
@@ -44,5 +35,4 @@ export {
   FILL_OPACITY,
   WALL_WEIGHT,
   WALL_WEIGHT_PAVING,
-  //COLORS
 };

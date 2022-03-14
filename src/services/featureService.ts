@@ -3,7 +3,6 @@ import { featureDescriptionHelper } from "../utils/featureDescriptionHelper";
 import { featureAccessibilityProperties } from "../data/featureAccessibilityProperties";
 import UserService from "../services/userService";
 import {
-  //COLORS,
   FILL_OPACITY,
   MARKERS_IMG_DIR,
   WALL_WEIGHT,
@@ -74,7 +73,6 @@ function getFeatureStyle(feature: GeoJSON.Feature<any>): any {
   let fill = "#fff";
 
   if (feature.properties.amenity === "toilets") {
-    //fill = COLORS.TOILET;
     fill = colors.toiletColor;
   } else if (
     feature.properties.stairs ||
@@ -82,17 +80,14 @@ function getFeatureStyle(feature: GeoJSON.Feature<any>): any {
       (feature.properties.highway == "elevator" ||
         feature.properties.highway == "escalator"))
   ) {
-    //fill = COLORS.STAIR;
     fill = colors.stairsColor;
   } else if (feature.properties.indoor === "room") {
-    //fill = COLORS.ROOM;
     fill = colors.roomColor;
   }
 
   return {
     fillColor: fill,
     weight: getWallWeight(feature),
-    //color: COLORS.WALL,
     color: colors.wallColor,
     fillOpacity: FILL_OPACITY,
   };
@@ -117,7 +112,6 @@ export function getCurrentFeatures(): Map<UserFeatureEnum, boolean> {
           UserFeatureSelection.forEach((v, k) => {
             defaultSelectedFeatures.set(k, v.isCheckedDefault);
           });
-          //console.log(defaultSelectedFeatures);
           return defaultSelectedFeatures;
         })();
 

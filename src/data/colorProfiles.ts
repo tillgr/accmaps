@@ -1,6 +1,6 @@
 export const colorProfiles = [
   "none",
-  "red-green",
-  "blue-yellow",
-  "black-white",
+  "red_green",
+  "blue_yellow",
+  "black_white",
 ];

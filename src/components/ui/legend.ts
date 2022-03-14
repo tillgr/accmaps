@@ -1,4 +1,3 @@
-//import { COLORS } from "../../data/constants";
 import { colors } from "../../services/colorService";
 
 const legend = document.getElementById("legend");
@@ -7,11 +6,6 @@ function create(): void {
   const tbodyRef = document
     .getElementById("legendTable")
     .getElementsByTagName("tbody")[0];
-
-  /*addLegendRecord(tbodyRef, COLORS.ROOM, "Room");
-    addLegendRecord(tbodyRef, COLORS.TOILET, "Toilet");
-    addLegendRecord(tbodyRef, COLORS.STAIR, "Stairs");
-    addLegendRecord(tbodyRef, COLORS.ROOM_SELECTED, "Selected");*/
 
   addLegendRecord(tbodyRef, colors.roomColor, "Room");
   addLegendRecord(tbodyRef, colors.toiletColor, "Toilet");

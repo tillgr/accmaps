@@ -1,12 +1,12 @@
 import * as _default from "../../public/strings/colorProfiles/default.json";
-import * as gray from "../../public/strings/colorProfiles/gray.json";
+import * as black_white from "../../public/strings/colorProfiles/black_white.json";
 import * as red_green from "../../public/strings/colorProfiles/red_green.json";
-import * as yellow_blue from "../../public/strings/colorProfiles/yellow_blue.json";
+import * as blue_yellow from "../../public/strings/colorProfiles/blue_yellow.json";
 
 const profileKey = "colorProfile";
 
 function getCurrentProfile(): string {
-  return localStorage.getItem(profileKey) ?? "default";
+  return localStorage.getItem(profileKey) ?? "none";
 }
 
 function setProfile(profile: string): void {
@@ -22,14 +22,14 @@ function getCurrentColors() {
   const profile = getCurrentProfile();
 
   switch (profile) {
-    case "default":
+    case "none":
       return _default;
-    case "gray":
-      return gray;
+    case "black_white":
+      return black_white;
     case "red_green":
       return red_green;
-    case "yellow_blue":
-      return yellow_blue;
+    case "blue_yellow":
+      return blue_yellow;
   }
 }
 

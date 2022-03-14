@@ -4,7 +4,6 @@ import DescriptionArea from "./ui/descriptionArea";
 import FeatureService from "../services/featureService";
 import LevelService from "../services/levelService";
 import { geoMap } from "../main";
-//import { COLORS } from "../data/constants";
 import { colors } from "../services/colorService";
 
 export class IndoorLayer {
@@ -124,7 +123,6 @@ export class IndoorLayer {
     if (this.selectedFeatures.includes(feature)) {
       // @ts-ignore
       layer.options.fillColor = colors.roomColorS;
-      //layer.options.fillColor = COLORS.ROOM_SELECTED;
     }
   }
 

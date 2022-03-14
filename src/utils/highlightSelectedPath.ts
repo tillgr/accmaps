@@ -1,4 +1,3 @@
-//import { COLORS } from "../data/constants";
 import { colors } from "../services/colorService";
 
 let path: HTMLElement = null; //currentlySelectedFeaturePath
@@ -22,6 +21,5 @@ export function highlightSelectedPath(currentPath: HTMLElement): void {
   fill = path.getAttribute("fill");
 
   //change
-  //path.setAttribute("fill", COLORS.ROOM_SELECTED);
   path.setAttribute("fill", colors.roomColorS);
 }

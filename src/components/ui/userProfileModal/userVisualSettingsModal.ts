@@ -2,6 +2,7 @@ import { Modal } from "bootstrap";
 import { colorProfiles } from "../../../data/colorProfiles";
 import { capitalize } from "../../../utils/capitalize";
 import userProfileModal from "./userProfileModal";
+import colorService from "../../../services/colorService";
 
 const userVisualSettingsModal = new Modal(
   document.getElementById("userVisualSettingsModal"),
@@ -100,6 +101,8 @@ function onSave() {
   userProfileModal.hideAll();
 
   //TODO Save to local storage (full state)
+
+  colorService.setProfile(state.selectedColorProfile);
 }
 
 function hide(): void {
