@@ -3,7 +3,7 @@ import { featureDescriptionHelper } from "../utils/featureDescriptionHelper";
 import { featureAccessibilityProperties } from "../data/featureAccessibilityProperties";
 import UserService from "../services/userService";
 import {
-  COLORS,
+  //COLORS,
   FILL_OPACITY,
   MARKERS_IMG_DIR,
   WALL_WEIGHT,
@@ -12,6 +12,7 @@ import {
 import { UserGroupEnum } from "../models/userGroupEnum";
 import { UserFeatureEnum } from "../models/userFeatureEnum";
 import { UserFeatureSelection } from "../data/userFeatureSelection";
+import { colors } from "./colorService";
 
 const polygonCenter = require("geojson-polygon-center");
 
@@ -73,22 +74,26 @@ function getFeatureStyle(feature: GeoJSON.Feature<any>): any {
   let fill = "#fff";
 
   if (feature.properties.amenity === "toilets") {
-    fill = COLORS.TOILET;
+    //fill = COLORS.TOILET;
+    fill = colors.toiletColor;
   } else if (
     feature.properties.stairs ||
     (feature.properties.highway &&
       (feature.properties.highway == "elevator" ||
         feature.properties.highway == "escalator"))
   ) {
-    fill = COLORS.STAIR;
+    //fill = COLORS.STAIR;
+    fill = colors.stairsColor;
   } else if (feature.properties.indoor === "room") {
-    fill = COLORS.ROOM;
+    //fill = COLORS.ROOM;
+    fill = colors.roomColor;
   }
 
   return {
     fillColor: fill,
     weight: getWallWeight(feature),
-    color: COLORS.WALL,
+    //color: COLORS.WALL,
+    color: colors.wallColor,
     fillOpacity: FILL_OPACITY,
   };
 }

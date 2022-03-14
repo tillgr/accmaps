@@ -4,7 +4,8 @@ import DescriptionArea from "./ui/descriptionArea";
 import FeatureService from "../services/featureService";
 import LevelService from "../services/levelService";
 import { geoMap } from "../main";
-import { COLORS } from "../data/constants";
+//import { COLORS } from "../data/constants";
+import { colors } from "../services/colorService";
 
 export class IndoorLayer {
   private readonly indoorLayerGroup: LayerGroup;
@@ -122,7 +123,8 @@ export class IndoorLayer {
   selectFeature(feature: GeoJSON.Feature<any, any>, layer: Layer): void {
     if (this.selectedFeatures.includes(feature)) {
       // @ts-ignore
-      layer.options.fillColor = COLORS.ROOM_SELECTED;
+      layer.options.fillColor = colors.roomColorS;
+      //layer.options.fillColor = COLORS.ROOM_SELECTED;
     }
   }
 
