@@ -1,9 +1,12 @@
 import UserService from "../../../services/userService";
 import userService from "../../../services/userService";
+import languageService from "../../../services/languageService";
 import featureSelectionModal from "./userFeatureSelectionModal";
 import { UserGroups } from "../../../data/userGroups";
 import { UserSettings } from "../../../data/userSettings";
 import { UserGroupEnum } from "../../../models/userGroupEnum";
+import { LanguageSettings } from "../../../data/languageSettings";
+import { LanguageSettingsEnum } from "../../../models/languageSettingsEnum";
 import { Modal } from "bootstrap";
 import visualSettingsModal from "./userVisualSettingsModal";
 import userVisualSettingsModal from "./userVisualSettingsModal";
@@ -26,6 +29,7 @@ function render(): void {
 
   renderProfiles(); //profile quick switch
   renderSettings(); //settings
+  renderLanguages(); //language selection
 
   renderLinkedModals();
 }
@@ -68,6 +72,24 @@ function renderSettings(): void {
     document.getElementById("userSettingsList").append(button);
   });
 }
+
+function renderLanguages(): void {
+  LanguageSettings.forEach((v, k) => {
+    const button = document.createElement("a");
+    button.href = "#map";
+
+    button.className = "list-group-item d-flex justify-content-between align-items-start";
+    button.innerHTML = v.name;
+    button.onclick = () => setLanguage(k);
+
+    if (languageService.getCurrentLanguage() === k) {
+      button.classList.add("active");
+    }
+
+    document.getElementById("languageList").append(button);
+  });
+}
+
 function renderLinkedModals() {
   featureSelectionModal.render();
   visualSettingsModal.render();
@@ -85,6 +107,11 @@ function hideAll(): void {
 
 function setUserProfile(userGroup: UserGroupEnum): void {
   UserService.setProfile(userGroup);
+  hideAll();
+}
+
+function setLanguage(language: LanguageSettingsEnum): void {
+  languageService.setLanguage(language);
   hideAll();
 }
 

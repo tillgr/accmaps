@@ -4,6 +4,7 @@ import { extractLevels } from "../utils/extractLevels";
 import { hasCurrentLevel } from "../utils/hasCurrentLevel";
 import AccessibilityService from "./accessibilityService";
 import { geoMap } from "../main";
+import { lang } from "./languageService";
 
 const geoJSONByLevel = new Map<string, any>();
 
@@ -73,7 +74,7 @@ function getCurrentLevelDescription(): string {
     currentLevel,
     getCurrentLevelGeoJSON()
   );
-  return "Current level: " + currentLevel + " " + levelAccessibilityInformation;
+  return lang.currentLevel + currentLevel + " " + levelAccessibilityInformation;
 }
 
 export default {

@@ -2,6 +2,7 @@ import { GeoJSON, Icon, LatLng, Marker } from "leaflet";
 import { featureDescriptionHelper } from "../utils/featureDescriptionHelper";
 import { featureAccessibilityProperties } from "../data/featureAccessibilityProperties";
 import UserService from "../services/userService";
+import { lang } from "./languageService";
 import {
   COLORS,
   FILL_OPACITY,
@@ -30,7 +31,7 @@ function getAccessibilityDescription(feature: GeoJSON.Feature): string {
     featureAccessibilityProperties
   );
 
-  return "Selected map object: " + popUpText;
+  return lang.selectedMapObjectPrefix + popUpText;
 }
 
 function getAccessibilityMarker(feature: GeoJSON.Feature): Marker {
