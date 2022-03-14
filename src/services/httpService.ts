@@ -1,4 +1,4 @@
-import { OVERPASS_DATA_URLS } from "../data/constants";
+import { OVERPASS_DATA_URLS } from "../data/constants.json";
 import { GeoJSON } from "leaflet";
 import { lang } from "./languageService";
 

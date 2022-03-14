@@ -1,5 +1,5 @@
 import { Modal } from "bootstrap";
-import { colorProfiles } from "../../../data/colorProfiles";
+import * as colorProfiles from "../../../data/colorProfiles.json";
 import { capitalize } from "../../../utils/capitalize";
 import userProfileModal from "./userProfileModal";
 

@@ -1,4 +1,4 @@
-import { COLORS } from "../../data/constants";
+import { COLORS } from "../../data/constants.json";
 import { lang } from "../../services/languageService";
 
 function create(): void {
