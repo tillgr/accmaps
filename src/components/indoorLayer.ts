@@ -12,7 +12,6 @@ export class IndoorLayer {
   layerInstance: Layer;
 
   constructor(geoJSON: GeoJSON.FeatureCollection) {
-    console.log(geoMap.accessibilityMarkers);
     geoMap.removeAccessibilityMarkers();
 
     this.indoorLayerGroup = new LayerGroup();

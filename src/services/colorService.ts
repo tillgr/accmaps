@@ -1,16 +1,12 @@
-import { UserGroupEnum } from "../models/userGroupEnum";
+const profileKey = "colorProfile";
 
-const profileKey = "userProfile";
-
-function getCurrentProfile(): UserGroupEnum {
-  const profile = localStorage.getItem(profileKey)
-    ? <UserGroupEnum>parseInt(localStorage.getItem(profileKey))
-    : UserGroupEnum.noImpairments;
+function getCurrentProfile(): string {
+  const profile = localStorage.getItem(profileKey) ?? "default";
 
   return profile;
 }
 
-function setProfile(profile: UserGroupEnum): void {
+function setProfile(profile: string): void {
   localStorage.setItem(profileKey, profile.toString());
   /*
    * Hack: reload window location to properly update all profile-specific information.
@@ -19,7 +15,13 @@ function setProfile(profile: UserGroupEnum): void {
   setTimeout(window.location.reload.bind(window.location), 200);
 }
 
+function getCurrentColors(): any {
+  return null;
+}
+
 export default {
   getCurrentProfile,
   setProfile,
 };
+
+export const colors = getCurrentColors();
