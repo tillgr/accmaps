@@ -21,7 +21,8 @@ const state: {
     lineThickness: number;
   };
 } = {
-  selectedColorProfile: colorProfiles[0],
+  //selectedColorProfile: colorProfiles[0],
+  selectedColorProfile: colorService.getCurrentProfile(),
   colorProfiles: colorProfiles,
   contrastSettings: {
     environmentOpacity: 0.5,
