@@ -1,6 +1,8 @@
-[  
+{
+    "COLOR_PROFS": [  
     "none",
     "red-green",
     "blue-yellow",
     "black-white"
-]
+    ]
+}

@@ -1,5 +1,5 @@
 import { Modal } from "bootstrap";
-import * as colorProfiles from "../../../data/colorProfiles.json";
+import { COLOR_PROFS } from "../../../data/colorProfiles.json";
 import { capitalize } from "../../../utils/capitalize";
 import userProfileModal from "./userProfileModal";
 
@@ -20,8 +20,8 @@ const state: {
     lineThickness: number;
   };
 } = {
-  selectedColorProfile: colorProfiles[0],
-  colorProfiles: colorProfiles,
+  selectedColorProfile: COLOR_PROFS[0],
+  colorProfiles: COLOR_PROFS,
   contrastSettings: {
     environmentOpacity: 0.5,
     colorStrength: 0.5,
