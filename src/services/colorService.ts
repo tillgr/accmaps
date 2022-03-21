@@ -4,18 +4,16 @@ import * as red_green from "../../public/strings/colorProfiles/red_green.json";
 import * as blue_yellow from "../../public/strings/colorProfiles/blue_yellow.json";
 
 const profileKey = "colorProfile";
+const opacityKey = "environmentOpacity";
+const strengthKey = "colorStrength";
+const thicknessKey = "lineThickness";
 
 function getCurrentProfile(): string {
   return localStorage.getItem(profileKey) ?? "none";
 }
 
-function setProfile(profile: string): void {
+function setCurrentProfile(profile: string): void {
   localStorage.setItem(profileKey, profile);
-  /*
-   * Hack: reload window location to properly update all profile-specific information.
-   * Relevant data is stored in localStorage and remains persistent after reload.
-   */
-  setTimeout(window.location.reload.bind(window.location), 200);
 }
 
 function getCurrentColors() {
@@ -33,9 +31,45 @@ function getCurrentColors() {
   }
 }
 
+function setEnvOpacity(opacity: number): void {
+  localStorage.setItem(opacityKey, opacity.toString());
+}
+
+function getEnvOpacity(): number {
+  return localStorage.getItem(opacityKey)
+    ? +localStorage.getItem(opacityKey)
+    : 50;
+}
+
+function setColorStrength(strength: number): void {
+  localStorage.setItem(strengthKey, strength.toString());
+}
+
+function getColorStrength(): number {
+  return +localStorage.getItem(strengthKey)
+    ? +localStorage.getItem(strengthKey)
+    : 50;
+}
+
+function setLineThickness(thickness: number): void {
+  localStorage.setItem(thicknessKey, thickness.toString());
+}
+
+function getLineThickness(): number {
+  return localStorage.getItem(thicknessKey)
+    ? +localStorage.getItem(thicknessKey)
+    : 50;
+}
+
 export default {
   getCurrentProfile,
-  setProfile,
+  setCurrentProfile,
+  getEnvOpacity,
+  setEnvOpacity,
+  getColorStrength,
+  setColorStrength,
+  getLineThickness,
+  setLineThickness,
 };
 
 export const colors = getCurrentColors();

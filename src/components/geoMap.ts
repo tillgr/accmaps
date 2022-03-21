@@ -64,8 +64,6 @@ export class GeoMap {
   }
 
   removeIndoorLayerFromMap = (): void => {
-    /*const group = this.indoorLayer.layerInstance;
-    geoMap.remove(group);*/
     this.mapInstance.removeLayer(this.indoorLayer.getIndoorLayerGroup());
   };
 

@@ -21,13 +21,12 @@ const state: {
     lineThickness: number;
   };
 } = {
-  //selectedColorProfile: colorProfiles[0],
   selectedColorProfile: colorService.getCurrentProfile(),
   colorProfiles: colorProfiles,
   contrastSettings: {
-    environmentOpacity: 0.5,
-    colorStrength: 0.5,
-    lineThickness: 0.5,
+    environmentOpacity: colorService.getEnvOpacity(),
+    colorStrength: colorService.getColorStrength(),
+    lineThickness: colorService.getLineThickness(),
   },
 };
 
@@ -85,10 +84,20 @@ function renderContrastSettingsList(): void {
 }
 
 function renderRangeInput(name: string): HTMLDivElement {
+  type prop = keyof typeof state.contrastSettings;
   const range_div = document.createElement("div");
   range_div.innerHTML = `<label for="${name}" class="form-label">${capitalize(
     name
-  )}</label><input type="range" class="form-range" id="${name}">`;
+  )}</label><input type="range" class="form-range" id="${name}" value="${
+    state.contrastSettings[name as prop]
+  }">`;
+
+  range_div.onchange = (e: Event) => {
+    type prop = keyof typeof state.contrastSettings;
+    const prop = (<HTMLElement>e.target).id;
+
+    state.contrastSettings[prop as prop] = +(<HTMLInputElement>e.target).value;
+  };
   return range_div;
 }
 
@@ -101,9 +110,16 @@ function onSave() {
   //featureService.setCurrentFeatures(checkboxState);
   userProfileModal.hideAll();
 
-  //TODO Save to local storage (full state)
+  colorService.setCurrentProfile(state.selectedColorProfile);
+  colorService.setEnvOpacity(state.contrastSettings.environmentOpacity);
+  colorService.setColorStrength(state.contrastSettings.colorStrength);
+  colorService.setLineThickness(state.contrastSettings.lineThickness);
 
-  colorService.setProfile(state.selectedColorProfile);
+  /*
+   * Hack: reload window location to properly update all profile-specific information.
+   * Relevant data is stored in localStorage and remains persistent after reload.
+   */
+  setTimeout(window.location.reload.bind(window.location), 200);
 }
 
 function hide(): void {
