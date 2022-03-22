@@ -28,6 +28,7 @@ import AccessibilityService from "../services/accessibilityService";
 import accessibility from "../utils/makeAccessible";
 import searchForm from "./ui/searchForm";
 import levelService from "../services/levelService";
+import colorService from "../services/colorService";
 
 export class GeoMap {
   currentSearchString = "";
@@ -51,7 +52,10 @@ export class GeoMap {
       .on("load", this.makeAccessible)
       .on("zoomend", this.makeAccessible);
 
-    this.mapInstance.whenReady(this.makeAccessible);
+    this.mapInstance.whenReady(() => {
+      this.makeAccessible();
+      this.applyStyleFilters();
+    });
     this.add(osmTileLayer);
   }
 
@@ -184,4 +188,15 @@ export class GeoMap {
       } else LoadingIndicator.error("Not found!");
     } else LoadingIndicator.error("Please enter a search term!");
   }
+
+  applyStyleFilters = (): void => {
+    this.mapInstance.getPane("tilePane").style.filter = `opacity(${
+      colorService.getEnvOpacity() / 100
+    })`;
+    this.mapInstance.getPane("overlayPane").style.filter = `saturate(${
+      (colorService.getColorStrength() * 2) / 100
+    })`;
+
+    //wall weight rendered per feature -> feature service
+  };
 }

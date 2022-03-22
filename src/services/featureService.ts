@@ -11,7 +11,7 @@ import {
 import { UserGroupEnum } from "../models/userGroupEnum";
 import { UserFeatureEnum } from "../models/userFeatureEnum";
 import { UserFeatureSelection } from "../data/userFeatureSelection";
-import { colors } from "./colorService";
+import colorService, { colors } from "./colorService";
 
 const polygonCenter = require("geojson-polygon-center");
 
@@ -87,7 +87,7 @@ function getFeatureStyle(feature: GeoJSON.Feature<any>): any {
 
   return {
     fillColor: fill,
-    weight: getWallWeight(feature),
+    weight: getWallWeight(feature) * (colorService.getLineThickness() / 10 + 1),
     color: colors.wallColor,
     fillOpacity: FILL_OPACITY,
   };

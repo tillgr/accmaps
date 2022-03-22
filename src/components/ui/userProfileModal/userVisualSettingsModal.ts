@@ -88,7 +88,7 @@ function renderRangeInput(name: string): HTMLDivElement {
   const range_div = document.createElement("div");
   range_div.innerHTML = `<label for="${name}" class="form-label">${capitalize(
     name
-  )}</label><input type="range" class="form-range" id="${name}" value="${
+  )}</label><input type="range" class="form-range" id="${name}" step="10" min="0" max="100" value="${
     state.contrastSettings[name as prop]
   }">`;
 

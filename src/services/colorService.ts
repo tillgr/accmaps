@@ -38,7 +38,7 @@ function setEnvOpacity(opacity: number): void {
 function getEnvOpacity(): number {
   return localStorage.getItem(opacityKey)
     ? +localStorage.getItem(opacityKey)
-    : 50;
+    : 100;
 }
 
 function setColorStrength(strength: number): void {
