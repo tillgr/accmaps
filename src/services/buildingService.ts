@@ -237,8 +237,8 @@ function getBuildingDescription(): string {
   let description = "";
 
   if (currentBuildingFeature.properties.name !== undefined) {
-    description +=
-      lang.selectedBuildingPrefix + currentBuildingFeature.properties.name;
+    // description += lang.selectedBuildingPrefix + currentBuildingFeature.properties.name;
+    description += currentBuildingFeature.properties.name;
 
     if (currentBuildingFeature.properties.loc_ref !== undefined) {
       description += " (" + currentBuildingFeature.properties.loc_ref + ")";

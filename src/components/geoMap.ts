@@ -117,7 +117,7 @@ export class GeoMap {
     AccessibilityService.reset();
 
     const message = BuildingService.getBuildingDescription();
-    DescriptionArea.update(message);
+    DescriptionArea.update(message, "selectedBuilding");
   }
 
   centerMapToBuilding = (): void => {

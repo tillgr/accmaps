@@ -7,16 +7,9 @@ nav {
   z-index: 99;
 }
 
-#levelControlWrapper {
-  position: absolute;
-  bottom: 20px;
-  left: 0;
-  right: 0;
-}
-
 #legendWrapper {
   position: absolute;
-  bottom: 140px;
+  bottom: 242px;
   left: 0;
   z-index: 21;
   width: $legendWidth;
@@ -29,12 +22,50 @@ nav {
   z-index: 25;
 }
 
-#descriptionAreaWrapper {
+.descriptionAreaWrapper{
+  z-index: 99;
   position: absolute;
-  bottom: 140px;
-  left: calc(#{$legendWidth} + 10px);
+  height: $mapBottom;
+  bottom: 0;
+  left: 0;
   right: 0;
-  z-index: 20;
+
+  //display: flex;
+  flex-direction: row;
+
+  #levelControlWrapper {
+    //display: inline-block;
+    display: block;
+    float: left;
+    padding: 1rem;
+    width: fit-content; //gets overwritten after rendering all child nodes (in levelControl.ts)
+
+    #levelControl {
+      flex-direction: column-reverse;
+      height: 190px;
+      margin-bottom: 0;
+
+      //fallback in case a building has a lot of levels
+      flex-wrap: wrap;
+
+      a.page-link {
+        text-align: center;
+      }
+
+      //overwrite default item radii
+      .page-item:first-child .page-link {
+        border-radius: 0 0 0.25rem 0.25rem;
+      }
+      .page-item:last-child .page-link {
+        border-radius: 0.25rem 0.25rem 0 0;
+      }
+    }
+  }
+
+  .description {
+    display: inline-block;
+    padding: 1em;
+  }
 }
 
 #toastWrapper {
