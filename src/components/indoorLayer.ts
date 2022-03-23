@@ -1,27 +1,59 @@
 import * as L from "leaflet";
 import { GeoJSON, Layer, LayerGroup, LeafletMouseEvent, Marker } from "leaflet";
+import 'leaflet.markercluster';
 import DescriptionArea from "./ui/descriptionArea";
 import FeatureService from "../services/featureService";
 import LevelService from "../services/levelService";
 import { geoMap } from "../main";
 import { COLORS } from "../data/constants.json";
+import MarkerClusterGroup = L.MarkerClusterGroup;
 
 export class IndoorLayer {
   private readonly indoorLayerGroup: LayerGroup;
+  markers: MarkerClusterGroup;
   selectedFeatures: GeoJSON.Feature[] = [];
   layerInstance: Layer;
 
   constructor(geoJSON: GeoJSON.FeatureCollection) {
-    console.log(geoMap.accessibilityMarkers);
-    geoMap.removeAccessibilityMarkers();
+    // console.log(geoMap.accessibilityMarkers);
+    // geoMap.removeAccessibilityMarkers();
+    this.markers = L.markerClusterGroup({
+      iconCreateFunction: function (cluster) {
+        const markers = cluster.getAllChildMarkers();
+        const currentIcon = markers[0].getIcon().options.iconUrl;
+        let html = "";
+        let sameIcon = true;
+
+        for (let i = 0; i < markers.length; i++) {
+          if(currentIcon != markers[i].getIcon().options.iconUrl){
+            sameIcon = false;
+          }
+        }
+
+        if (sameIcon) {
+          // if all markers in the cluster group have the same icon: assign that icon to group
+          html = "<img src='" + markers[0].getIcon().options.iconUrl + "' alt>";
+        } else {
+          // if markers in the cluster group have different icons: use the "additional"-icon
+          html = "<img src='/images/additional.svg' alt>"
+        }
+        return L.divIcon({ html: html, className: 'icon-cluster', iconSize: L.point(48, 48) });
+      },
+    });
 
     this.indoorLayerGroup = new LayerGroup();
+
+    geoMap.removeAccessibilityMarkers();
+    geoMap.remove(this.markers)
     this.drawIndoorLayerByGeoJSON(geoJSON);
     this.layerInstance = geoMap.add(this.indoorLayerGroup);
+    // geoMap.add(this.indoorLayerGroup);
+    geoMap.add(this.markers);
   }
 
   clearIndoorLayer(): void {
     this.indoorLayerGroup.clearLayers();
+    this.markers.clearLayers();
   }
 
   updateLayer(): void {
@@ -31,6 +63,7 @@ export class IndoorLayer {
 
   private drawIndoorLayerByGeoJSON(geoJSON: GeoJSON.FeatureCollection) {
     geoMap.removeAccessibilityMarkers();
+    geoMap.remove(this.markers)
 
     const layer = new L.GeoJSON(geoJSON, {
       style: FeatureService.getFeatureStyle,
@@ -46,8 +79,8 @@ export class IndoorLayer {
     layer?: Layer
   ) => {
     this.addMarker(feature, layer);
-    this.showRoomNumber(feature, layer);
     this.selectFeature(feature, layer);
+    this.showRoomNumber(feature, layer);
   };
 
   private addMarker = (
@@ -56,13 +89,16 @@ export class IndoorLayer {
   ): void => {
     const marker = FeatureService.getAccessibilityMarker(feature);
     if (marker) {
-      geoMap.add(marker);
+      //geoMap.add(marker);
       geoMap.accessibilityMarkers.push(marker);
+      this.markers.addLayer(marker);
 
       marker.on("click", () => {
         layer.fire("click");
       });
     }
+
+    geoMap.add(this.markers);
 
     layer.on("click", (e: LeafletMouseEvent) => {
       this.handleClick(e);
@@ -87,7 +123,7 @@ export class IndoorLayer {
         permanent: true,
         className: "room-label",
         offset: [0, 0],
-        direction: "center",
+        direction: "center"
       });
     }
   }
@@ -101,6 +137,9 @@ export class IndoorLayer {
 
     this.selectedFeatures = [feature];
     this.updateLayer();
+
+    //makes sure room labels dont appear after clicking on a room
+    geoMap.updateRoomLabels();
   };
 
   makeFeaturesAccessible(): void {

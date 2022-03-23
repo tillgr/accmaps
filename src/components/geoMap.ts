@@ -8,6 +8,8 @@ import {
   TileLayer,
 } from "leaflet";
 
+import 'leaflet.markercluster';
+
 import {
   INDOOR_LEVEL,
   MAP_START_LAT,
