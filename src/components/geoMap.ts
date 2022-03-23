@@ -50,7 +50,8 @@ export class GeoMap {
     })
       .on("moveend", this.makeAccessible)
       .on("load", this.makeAccessible)
-      .on("zoomend", this.makeAccessible);
+      .on("zoomend", this.makeAccessible)
+      .on("zoomend", this.updateRoomLabels);
 
     this.mapInstance.whenReady(this.makeAccessible);
     this.add(osmTileLayer);
@@ -143,6 +144,19 @@ export class GeoMap {
       this.mapInstance.flyToBounds(currentBuildingBBox_corrected);
     }
   };
+
+  updateRoomLabels = (): void => {
+    const zoomLevel = this.mapInstance.getZoom();
+    const hideIcons = (zoomLevel < 20);
+
+    //updating the indoor layer makes sure the tooltips are centered after "unhiding" them
+    this.indoorLayer.updateLayer();
+
+    for (let i = 0; i < document.getElementsByClassName("room-label").length; i++) {
+      document.getElementsByClassName('room-label')[i].toggleAttribute("hidden", hideIcons);
+    }
+  }
+
 
   runBuildingSearch(searchQuery: string): void {
     LoadingIndicator.start();
