@@ -1,3 +1,6 @@
+import { colors } from "../../services/colorService";
+
+const legend = document.getElementById("legend");
 import { COLORS } from "../../data/constants.json";
 import { lang } from "../../services/languageService";
 
@@ -6,10 +9,10 @@ function create(): void {
     .getElementById("legendTable")
     .getElementsByTagName("tbody")[0];
 
-  addLegendRecord(tbodyRef, COLORS.ROOM, lang.legendRoom);
-  addLegendRecord(tbodyRef, COLORS.TOILET, lang.legendToilet);
-  addLegendRecord(tbodyRef, COLORS.STAIR, lang.legendStairs);
-  addLegendRecord(tbodyRef, COLORS.ROOM_SELECTED, lang.legendSelected);
+  addLegendRecord(tbodyRef, colors.roomColor, lang.legendRoom);
+  addLegendRecord(tbodyRef, colors.toiletColor, lang.legendToilet);
+  addLegendRecord(tbodyRef, colors.stairsColor, lang.legendStairs);
+  addLegendRecord(tbodyRef, colors.roomColorS, lang.legendSelected);
 
   document
     .getElementById("legendHeaderButton")

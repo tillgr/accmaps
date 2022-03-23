@@ -3,9 +3,9 @@ import { UserGroupEnum } from "../models/userGroupEnum";
 const profileKey = "userProfile";
 
 function getCurrentProfile(): UserGroupEnum {
-  const profile =
-    <UserGroupEnum>parseInt(localStorage.getItem(profileKey)) ??
-    UserGroupEnum.noImpairments;
+  const profile = localStorage.getItem(profileKey)
+    ? <UserGroupEnum>parseInt(localStorage.getItem(profileKey))
+    : UserGroupEnum.noImpairments;
 
   return profile;
 }
