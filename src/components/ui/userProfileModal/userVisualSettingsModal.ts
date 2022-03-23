@@ -22,7 +22,7 @@ const state: {
   };
 } = {
   selectedColorProfile: colorService.getCurrentProfile(),
-  colorProfiles: colorProfiles,
+  colorProfiles: COLOR_PROFS,
   contrastSettings: {
     environmentOpacity: colorService.getEnvOpacity(),
     colorStrength: colorService.getColorStrength(),
