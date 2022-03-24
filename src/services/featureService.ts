@@ -88,7 +88,7 @@ function getFeatureStyle(feature: GeoJSON.Feature<any>): any {
 
   return {
     fillColor: fill,
-    weight: getWallWeight(feature) * (colorService.getLineThickness() / 10 + 1),
+    weight: getWallWeight(feature) + colorService.getLineThickness() / 20,
     color: colors.wallColor,
     fillOpacity: FILL_OPACITY,
   };
