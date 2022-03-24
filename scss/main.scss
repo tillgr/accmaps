@@ -65,6 +65,12 @@ nav {
   .description {
     display: inline-block;
     padding: 1em;
+
+    #selectedBuilding {
+      color: $primary;
+      font-weight: 700;
+      margin-bottom: 0.5rem
+    }
   }
 }
 
