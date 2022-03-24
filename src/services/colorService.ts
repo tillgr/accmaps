@@ -73,4 +73,3 @@ export default {
 };
 
 export const colors = getCurrentColors();
-console.log(colors);

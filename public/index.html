@@ -26,21 +26,22 @@
                     </a>
                 </li>
             </ul>
-            <div class="d-flex justify-content-end" id="searchWrapper">
+            <div class="d-flex justify-content-end flex-sm-column flex-lg-row flex-lg-wrap" id="searchWrapper">
                 <div class="form-group row flex-nowrap" id="buildingSearchWrapper">
-                    <label class="d-flex flex-nowrap text-white align-items-center justify-content-end col-4"
+                    <label class="d-flex flex-nowrap text-white align-items-center justify-content-lg-end col-4 justify-content-sm-start"
                            for="buildingSearchInput">Current Building:</label>
                     <div class="input-group col-8">
                         <input class="form-control hide-clear-icon" type="text" placeholder="Search for buildings"
                                aria-label="Search for buildings"
                                id="buildingSearchInput" disabled>
-                        <button class="btn btn-danger" id="clearBuildingSearch"  aria-label="Clear search field">x</button>
+                        <button class="btn btn-danger" id="clearBuildingSearch" aria-label="Clear search field">x
+                        </button>
                         <button class="btn btn-secondary hidden" id="buildingSearchSubmit" disabled>Search</button>
                     </div>
                 </div>
 
-                <div class="from-group row flex-nowrap" id="indoorSearchWrapper">
-                    <label class="d-flex flex-nowrap text-white align-items-center justify-content-end col-4"
+                <div class="from-group row flex-nowrap ms-lg-5" id="indoorSearchWrapper">
+                    <label class="d-flex flex-nowrap text-white align-items-center justify-content-lg-end col-4 justify-content-sm-start"
                            for="indoorSearchInput">Current Room:</label>
                     <div class="input-group col-8">
                         <input class="form-control" type="text" placeholder="Search indoor"
@@ -171,7 +172,8 @@
                 <div class="collection" id="contrastSettingsList"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal" id="closeVisualSettings">Close</button>
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" id="closeVisualSettings">Close
+                </button>
                 <button type="button" class="btn btn-primary" id="saveVisualSettings">Save changes</button>
             </div>
         </div>

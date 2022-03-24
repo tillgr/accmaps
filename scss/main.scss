@@ -51,8 +51,14 @@ nav {
   font-size: 120%;
 }
 
-#searchWrapper{
-  width: 1168px;
+#changeUserProfileBtnLabel{
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 1469px){
+  #indoorSearchWrapper{
+    margin-top: 5px;
+  }
 }
 
 #buildingSearchWrapper, #indoorSearchWrapper {
