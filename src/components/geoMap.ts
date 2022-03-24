@@ -30,6 +30,7 @@ import searchForm from "./ui/searchForm";
 import levelService from "../services/levelService";
 import colorService from "../services/colorService";
 import { lang } from "../services/languageService";
+import FeatureService from "../services/featureService";
 
 export class GeoMap {
   currentSearchString = "";
@@ -186,6 +187,11 @@ export class GeoMap {
         const selectedLevel = results[0].properties.level.toString();
         levelControl.focusOnLevel(selectedLevel);
         this.handleLevelChange(selectedLevel);
+
+        const feature = results[0];
+        const accessibilityDescription =
+          FeatureService.getAccessibilityDescription(feature);
+        DescriptionArea.update(accessibilityDescription);
       } else LoadingIndicator.error(lang.searchNotFound);
     } else LoadingIndicator.error(lang.searchEmpty);
   }
