@@ -6,48 +6,58 @@ const UserFeatureSelection: Map<UserFeatureEnum, any> = new Map<
   UserFeatureEnum,
   any
 >();
-/*initial data for modal*/
+/*initial data for modal, also feature selections for different profiles*/
 UserFeatureSelection.set(UserFeatureEnum.entrancesExits, {
   name: lang.userProfileEntranceExit,
   id: "entrancesExits",
   accessibleFeature: false,
-  userGroups: [UserGroupEnum.noImpairments],
-  isCheckedDefault: true,
+  userGroups: [
+    UserGroupEnum.noImpairments,
+    UserGroupEnum.wheelchairUsers,
+    UserGroupEnum.blindPeople,
+  ],
 });
 UserFeatureSelection.set(UserFeatureEnum.toilets, {
   name: lang.userProfileToilets,
   id: "toilets",
   accessibleFeature: false,
-  userGroups: [UserGroupEnum.noImpairments],
-  isCheckedDefault: true,
+  userGroups: [UserGroupEnum.noImpairments, UserGroupEnum.blindPeople],
 });
 UserFeatureSelection.set(UserFeatureEnum.elevators, {
   name: lang.userProfileElevators,
   id: "elevators",
   accessibleFeature: false,
-  userGroups: [UserGroupEnum.noImpairments],
-  isCheckedDefault: true,
+  userGroups: [
+    UserGroupEnum.noImpairments,
+    UserGroupEnum.wheelchairUsers,
+    UserGroupEnum.blindPeople,
+  ],
 });
 UserFeatureSelection.set(UserFeatureEnum.stairs, {
   name: lang.userProfileStairs,
   id: "stairs",
   accessibleFeature: false,
-  userGroups: [UserGroupEnum.noImpairments],
-  isCheckedDefault: true,
+  userGroups: [UserGroupEnum.noImpairments, UserGroupEnum.blindPeople],
 });
 UserFeatureSelection.set(UserFeatureEnum.emergencyExits, {
   name: lang.userProfileEmergencyExit,
   id: "emergencyExits",
   accessibleFeature: false,
-  userGroups: [UserGroupEnum.noImpairments],
-  isCheckedDefault: true,
+  userGroups: [
+    UserGroupEnum.noImpairments,
+    UserGroupEnum.wheelchairUsers,
+    UserGroupEnum.blindPeople,
+  ],
 });
 UserFeatureSelection.set(UserFeatureEnum.service, {
   name: lang.userProfileServices,
   id: "service",
   accessibleFeature: false,
-  userGroups: [UserGroupEnum.noImpairments],
-  isCheckedDefault: true,
+  userGroups: [
+    UserGroupEnum.noImpairments,
+    UserGroupEnum.wheelchairUsers,
+    UserGroupEnum.blindPeople,
+  ],
 });
 
 UserFeatureSelection.set(UserFeatureEnum.ramps, {
@@ -55,28 +65,24 @@ UserFeatureSelection.set(UserFeatureEnum.ramps, {
   id: "ramps",
   accessibleFeature: true,
   userGroups: [UserGroupEnum.wheelchairUsers],
-  isCheckedDefault: false,
 });
 UserFeatureSelection.set(UserFeatureEnum.tactileLines, {
   name: lang.userProfileTactileLines,
   id: "tactileLines",
   accessibleFeature: true,
   userGroups: [UserGroupEnum.blindPeople],
-  isCheckedDefault: false,
 });
 UserFeatureSelection.set(UserFeatureEnum.disabledParking, {
   name: lang.userProfileDisabledParking,
   id: "disabledParking",
   accessibleFeature: true,
-  userGroups: [UserGroupEnum.wheelchairUsers],
-  isCheckedDefault: false,
+  userGroups: [UserGroupEnum.wheelchairUsers, UserGroupEnum.blindPeople],
 });
 UserFeatureSelection.set(UserFeatureEnum.accessibleToilets, {
   name: lang.userProfileAccessibleToilets,
   id: "accessibleToilets",
   accessibleFeature: true,
-  userGroups: [UserGroupEnum.wheelchairUsers],
-  isCheckedDefault: false,
+  userGroups: [UserGroupEnum.wheelchairUsers, UserGroupEnum.blindPeople],
 });
 
 export { UserFeatureSelection };
