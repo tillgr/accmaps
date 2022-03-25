@@ -2,11 +2,13 @@ import { UserFeatureEnum } from "../models/userFeatureEnum";
 import { UserGroupEnum } from "../models/userGroupEnum";
 import { lang } from "../services/languageService";
 
+/**Initial data for modal, also list of profiles per selectable userFeature*/
+
 const UserFeatureSelection: Map<UserFeatureEnum, any> = new Map<
   UserFeatureEnum,
   any
 >();
-/*initial data for modal, also feature selections for different profiles*/
+
 UserFeatureSelection.set(UserFeatureEnum.entrancesExits, {
   name: lang.userProfileEntranceExit,
   id: "entrancesExits",
