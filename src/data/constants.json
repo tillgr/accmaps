@@ -32,6 +32,7 @@
         "TOILETS": "toilets.svg",
         "ENTRANCE": "entrance.svg",
         "EMERGENCY_EXIT": "emergency_exit.svg",
-        "STAIRS": "stairs.svg"
+        "STAIRS": "stairs.svg",
+        "ADDITIONAL": "additional.svg"
     }
 }

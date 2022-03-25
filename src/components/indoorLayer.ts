@@ -5,7 +5,7 @@ import DescriptionArea from "./ui/descriptionArea";
 import FeatureService from "../services/featureService";
 import LevelService from "../services/levelService";
 import { geoMap } from "../main";
-import { COLORS } from "../data/constants.json";
+import { COLORS, ICONS } from "../data/constants.json";
 import MarkerClusterGroup = L.MarkerClusterGroup;
 
 export class IndoorLayer {
@@ -35,7 +35,7 @@ export class IndoorLayer {
           html = "<img src='" + markers[0].getIcon().options.iconUrl + "' alt>";
         } else {
           // if markers in the cluster group have different icons: use the "additional"-icon
-          html = "<img src='/images/additional.svg' alt>"
+          html = "<img src='/images/" + ICONS.ADDITIONAL + "' alt>"
         }
         return L.divIcon({ html: html, className: 'icon-cluster', iconSize: L.point(48, 48) });
       },
