@@ -15,6 +15,7 @@ import { UserFeatureSelection } from "../data/userFeatureSelection";
 import colorService, { colors } from "./colorService";
 
 const polygonCenter = require("geojson-polygon-center");
+const currentlySelectedFeatures: Map<any, boolean> = getCurrentFeatures();
 
 function getAccessibilityDescription(feature: GeoJSON.Feature): string {
   let popUpText = feature.properties.ref ?? "(no name)";
@@ -35,7 +36,11 @@ function getAccessibilityDescription(feature: GeoJSON.Feature): string {
 }
 
 function checkForMatchingTags(tags: UserFeatureEnum[]): boolean {
-  return true;
+  const hasMatched = tags.some((t) => {
+    return currentlySelectedFeatures.get(UserFeatureEnum[t]);
+  });
+
+  return hasMatched;
 }
 
 function getAccessibilityMarker(feature: GeoJSON.Feature): Marker {

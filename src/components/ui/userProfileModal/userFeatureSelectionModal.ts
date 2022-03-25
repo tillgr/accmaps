@@ -72,4 +72,5 @@ function onSave(): void {
 export default {
   hide,
   render,
+  checkboxState,
 };
