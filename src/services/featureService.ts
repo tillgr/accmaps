@@ -34,15 +34,20 @@ function getAccessibilityDescription(feature: GeoJSON.Feature): string {
   return lang.selectedMapObjectPrefix + popUpText;
 }
 
+function checkForMatchingTags(tags: UserFeatureEnum[]): boolean {
+  return true;
+}
+
 function getAccessibilityMarker(feature: GeoJSON.Feature): Marker {
   let iconFileName = "";
 
   const isFeatureAccessible = featureAccessibilityProperties.some(
-    ({ accessibilityFunction, iconFilename, userGroups }) => {
+    ({ hasCorrectProperties, iconFilename, userGroups, tags }) => {
       if (
         userGroups.includes(UserService.getCurrentProfile()) &&
-        accessibilityFunction(feature) &&
-        iconFilename !== undefined
+        hasCorrectProperties(feature) &&
+        iconFilename !== undefined &&
+        checkForMatchingTags(tags)
       ) {
         iconFileName = iconFilename;
         return true;

@@ -40,7 +40,6 @@ function renderCheckbox(v: any, k: any): HTMLDivElement {
   checkbox.id = v.id;
 
   checkbox.checked = checkboxState.get(v.id);
-  console.log(k, v);
   checkbox.onchange = () => {
     checkboxState.set(v.id, checkbox.checked);
   };
@@ -62,6 +61,12 @@ function hide(): void {
 function onSave(): void {
   featureService.setCurrentFeatures(checkboxState);
   userProfileModal.hideAll();
+
+  /*
+   * Hack: reload window location to properly update all profile-specific information.
+   * Relevant data is stored in localStorage and remains persistent after reload.
+   */
+  setTimeout(window.location.reload.bind(window.location), 200);
 }
 
 export default {
