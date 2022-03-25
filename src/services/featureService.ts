@@ -13,6 +13,7 @@ import { UserGroupEnum } from "../models/userGroupEnum";
 import { UserFeatureEnum } from "../models/userFeatureEnum";
 import { UserFeatureSelection } from "../data/userFeatureSelection";
 import colorService, { colors } from "./colorService";
+import userService from "../services/userService";
 
 const polygonCenter = require("geojson-polygon-center");
 const currentlySelectedFeatures: Map<any, boolean> = getCurrentFeatures();
@@ -115,16 +116,24 @@ function getWallWeight(feature: GeoJSON.Feature<any>) {
 }
 
 export function getCurrentFeatures(): Map<UserFeatureEnum, boolean> {
+  const currentProfile = userService.getCurrentProfile();
   const currentlySelectedFeatures: Map<UserFeatureEnum, boolean> =
     localStorage.getItem("currentlySelectedFeatures")
       ? new Map(JSON.parse(localStorage.currentlySelectedFeatures))
       : (() => {
-          const defaultSelectedFeatures = new Map();
+          const currentlySelectedFeatures = new Map();
           for (const [k, v] of UserFeatureSelection.entries()) {
-            defaultSelectedFeatures.set(v.id, v.isCheckedDefault);
+            //console.log(v.userGroups.includes(UserGroupEnum[currentProfile]));
+            //console.log(v.userGroups.some((g: any) => g === currentProfile));
+            v.userGroups.some((g: any) => g === currentProfile)
+              ? currentlySelectedFeatures.set(v.id, true)
+              : currentlySelectedFeatures.set(v.id, false);
+
+            //currentlySelectedFeatures.set(v.id, v.isCheckedDefault);
           }
-          return defaultSelectedFeatures;
+          return currentlySelectedFeatures;
         })();
+
   return currentlySelectedFeatures;
 }
 

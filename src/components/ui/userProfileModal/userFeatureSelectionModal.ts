@@ -3,6 +3,7 @@ import { UserFeatureEnum } from "../../../models/userFeatureEnum";
 import featureService from "../../../services/featureService";
 import { UserFeatureSelection } from "../../../data/userFeatureSelection";
 import userProfileModal from "./userProfileModal";
+import userService from "../../../services/userService";
 
 const userFeatureSelectionModal = new Modal(
   document.getElementById("userFeatureSelectionModal"),
@@ -40,6 +41,7 @@ function renderCheckbox(v: any, k: any): HTMLDivElement {
   checkbox.id = v.id;
 
   checkbox.checked = checkboxState.get(v.id);
+
   checkbox.onchange = () => {
     checkboxState.set(v.id, checkbox.checked);
   };
