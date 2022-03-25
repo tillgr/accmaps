@@ -15,13 +15,16 @@ const checkboxState: Map<UserFeatureEnum, boolean> =
 
 function render(): void {
   //create checkboxes and headings
+  const currentProfile = userService.getCurrentProfile();
   UserFeatureSelection.forEach((v, k) => {
-    if (v.accessibleFeature) {
-      document
-        .getElementById("userAccessibleFeatureList")
-        .append(renderCheckbox(v, k));
-    } else {
-      document.getElementById("userFeatureList").append(renderCheckbox(v, k));
+    if (v.userGroups.some((g: any) => g === currentProfile)) {
+      if (v.accessibleFeature) {
+        document
+          .getElementById("userAccessibleFeatureList")
+          .append(renderCheckbox(v, k));
+      } else {
+        document.getElementById("userFeatureList").append(renderCheckbox(v, k));
+      }
     }
   });
 
