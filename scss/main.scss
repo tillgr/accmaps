@@ -66,11 +66,14 @@ nav {
   top: 56px;
 }
 
-@media screen and (max-width: 1469px) and (min-width: 992px){
+@media screen and (max-width: 1469px){
   #indoorSearchWrapper{
-    margin-top: 5px;
+    margin-top: 5px !important;
   }
+}
 
+
+@media screen and (max-width: 1469px) and (min-width: 992px){
   #map{
     top: 92px !important;
   }
