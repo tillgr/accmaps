@@ -107,6 +107,11 @@ nav {
   }
 }
 
+.leaflet-marker-pane img.leaflet-marker-icon {
+  box-shadow: 2px 2px 8px 0 #00000069;
+  border-radius: 8px;
+}
+
 .settings .modal-body .collection:not(:last-child) {
   margin-bottom: 1rem;
 }
