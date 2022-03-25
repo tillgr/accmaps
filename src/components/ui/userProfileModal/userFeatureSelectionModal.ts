@@ -39,10 +39,10 @@ function renderCheckbox(v: any, k: any): HTMLDivElement {
   checkbox.type = "checkbox";
   checkbox.id = v.id;
 
-  checkbox.checked = checkboxState.get(k) ?? v.isCheckedDefault;
-  checkboxState.set(k, v.isCheckedDefault);
+  checkbox.checked = checkboxState.get(v.id);
+  console.log(k, v);
   checkbox.onchange = () => {
-    checkboxState.set(k, checkbox.checked);
+    checkboxState.set(v.id, checkbox.checked);
   };
 
   label.className = "form-check-label";

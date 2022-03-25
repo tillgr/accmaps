@@ -110,21 +110,20 @@ export function getCurrentFeatures(): Map<UserFeatureEnum, boolean> {
       ? new Map(JSON.parse(localStorage.currentlySelectedFeatures))
       : (() => {
           const defaultSelectedFeatures = new Map();
-          UserFeatureSelection.forEach((v, k) => {
-            defaultSelectedFeatures.set(k, v.isCheckedDefault);
-          });
+          for (const [k, v] of UserFeatureSelection.entries()) {
+            defaultSelectedFeatures.set(v.id, v.isCheckedDefault);
+          }
           return defaultSelectedFeatures;
         })();
-
   return currentlySelectedFeatures;
 }
 
 export function setCurrentFeatures(
   checkboxState: Map<UserFeatureEnum, boolean>
 ): void {
-  localStorage.currentlySelectedFeatures = JSON.stringify(
-    Array.from(checkboxState.entries())
-  );
+  localStorage.currentlySelectedFeatures = JSON.stringify([
+    ...checkboxState.entries(),
+  ]);
 }
 
 export default {
