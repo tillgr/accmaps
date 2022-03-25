@@ -13,8 +13,10 @@ import { UserGroupEnum } from "../models/userGroupEnum";
 import { UserFeatureEnum } from "../models/userFeatureEnum";
 import { UserFeatureSelection } from "../data/userFeatureSelection";
 import colorService, { colors } from "./colorService";
+import userService from "../services/userService";
 
 const polygonCenter = require("geojson-polygon-center");
+const currentlySelectedFeatures: Map<any, boolean> = getCurrentFeatures();
 
 function getAccessibilityDescription(feature: GeoJSON.Feature): string {
   let popUpText = feature.properties.ref ?? "(no name)";
@@ -34,15 +36,24 @@ function getAccessibilityDescription(feature: GeoJSON.Feature): string {
   return lang.selectedMapObjectPrefix + popUpText;
 }
 
+function checkForMatchingTags(tags: UserFeatureEnum[]): boolean {
+  const hasMatched = tags.some((t) => {
+    return currentlySelectedFeatures.get(UserFeatureEnum[t]);
+  });
+
+  return hasMatched;
+}
+
 function getAccessibilityMarker(feature: GeoJSON.Feature): Marker {
   let iconFileName = "";
 
   const isFeatureAccessible = featureAccessibilityProperties.some(
-    ({ accessibilityFunction, iconFilename, userGroups }) => {
+    ({ hasCorrectProperties, iconFilename, userGroups, tags }) => {
       if (
         userGroups.includes(UserService.getCurrentProfile()) &&
-        accessibilityFunction(feature) &&
-        iconFilename !== undefined
+        hasCorrectProperties(feature) &&
+        iconFilename !== undefined &&
+        checkForMatchingTags(tags)
       ) {
         iconFileName = iconFilename;
         return true;
@@ -105,15 +116,22 @@ function getWallWeight(feature: GeoJSON.Feature<any>) {
 }
 
 export function getCurrentFeatures(): Map<UserFeatureEnum, boolean> {
+  const currentProfile = userService.getCurrentProfile();
   const currentlySelectedFeatures: Map<UserFeatureEnum, boolean> =
     localStorage.getItem("currentlySelectedFeatures")
       ? new Map(JSON.parse(localStorage.currentlySelectedFeatures))
       : (() => {
-          const defaultSelectedFeatures = new Map();
-          UserFeatureSelection.forEach((v, k) => {
-            defaultSelectedFeatures.set(k, v.isCheckedDefault);
-          });
-          return defaultSelectedFeatures;
+          const currentlySelectedFeatures = new Map();
+          for (const [k, v] of UserFeatureSelection.entries()) {
+            //console.log(v.userGroups.includes(UserGroupEnum[currentProfile]));
+            //console.log(v.userGroups.some((g: any) => g === currentProfile));
+            v.userGroups.some((g: any) => g === currentProfile)
+              ? currentlySelectedFeatures.set(v.id, true)
+              : currentlySelectedFeatures.set(v.id, false);
+
+            //currentlySelectedFeatures.set(v.id, v.isCheckedDefault);
+          }
+          return currentlySelectedFeatures;
         })();
 
   return currentlySelectedFeatures;
@@ -122,9 +140,9 @@ export function getCurrentFeatures(): Map<UserFeatureEnum, boolean> {
 export function setCurrentFeatures(
   checkboxState: Map<UserFeatureEnum, boolean>
 ): void {
-  localStorage.currentlySelectedFeatures = JSON.stringify(
-    Array.from(checkboxState.entries())
-  );
+  localStorage.currentlySelectedFeatures = JSON.stringify([
+    ...checkboxState.entries(),
+  ]);
 }
 
 export default {

@@ -3,6 +3,7 @@ import { UserFeatureEnum } from "../../../models/userFeatureEnum";
 import featureService from "../../../services/featureService";
 import { UserFeatureSelection } from "../../../data/userFeatureSelection";
 import userProfileModal from "./userProfileModal";
+import userService from "../../../services/userService";
 
 const userFeatureSelectionModal = new Modal(
   document.getElementById("userFeatureSelectionModal"),
@@ -39,10 +40,10 @@ function renderCheckbox(v: any, k: any): HTMLDivElement {
   checkbox.type = "checkbox";
   checkbox.id = v.id;
 
-  checkbox.checked = checkboxState.get(k) ?? v.isCheckedDefault;
-  checkboxState.set(k, v.isCheckedDefault);
+  checkbox.checked = checkboxState.get(v.id);
+
   checkbox.onchange = () => {
-    checkboxState.set(k, checkbox.checked);
+    checkboxState.set(v.id, checkbox.checked);
   };
 
   label.className = "form-check-label";
@@ -62,9 +63,16 @@ function hide(): void {
 function onSave(): void {
   featureService.setCurrentFeatures(checkboxState);
   userProfileModal.hideAll();
+
+  /*
+   * Hack: reload window location to properly update all profile-specific information.
+   * Relevant data is stored in localStorage and remains persistent after reload.
+   */
+  setTimeout(window.location.reload.bind(window.location), 200);
 }
 
 export default {
   hide,
   render,
+  checkboxState,
 };

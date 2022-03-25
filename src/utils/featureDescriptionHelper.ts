@@ -13,7 +13,7 @@ export function featureDescriptionHelper(
       return; // only show properties for currently selected user profile
     }
 
-    if (e.accessibilityFunction(feature)) {
+    if (e.hasCorrectProperties(feature)) {
       description +=
         (typeof e.msgTrue === "string" ? e.msgTrue : e.msgTrue(feature)) + ", ";
     } else if (e.msgFalse !== null && typeof e.msgFalse === "string") {

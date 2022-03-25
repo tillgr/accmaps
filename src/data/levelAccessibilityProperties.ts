@@ -5,7 +5,7 @@ import { lang } from "../services/languageService";
 export const levelAccessibilityProperties: AccessibilityPropertiesInterface[] =
   [
     {
-      accessibilityFunction: (f) =>
+      hasCorrectProperties: (f) =>
         f.properties.amenity !== undefined &&
         f.properties.amenity === "toilets" &&
         f.properties.wheelchair !== undefined &&
@@ -15,7 +15,7 @@ export const levelAccessibilityProperties: AccessibilityPropertiesInterface[] =
       userGroups: [UserGroupEnum.wheelchairUsers],
     },
     {
-      accessibilityFunction: (f) =>
+      hasCorrectProperties: (f) =>
         f.properties.tactile_paving !== undefined &&
         f.properties.tactile_paving === "yes",
       msgTrue: lang.buildingAccessibilityTactilePavingTrue,
@@ -23,7 +23,7 @@ export const levelAccessibilityProperties: AccessibilityPropertiesInterface[] =
       userGroups: [UserGroupEnum.blindPeople],
     },
     {
-      accessibilityFunction: (f) =>
+      hasCorrectProperties: (f) =>
         f.properties.highway !== undefined &&
         f.properties.highway === "elevator" &&
         f.properties.wheelchair !== undefined &&
@@ -33,7 +33,7 @@ export const levelAccessibilityProperties: AccessibilityPropertiesInterface[] =
       userGroups: [UserGroupEnum.wheelchairUsers],
     },
     {
-      accessibilityFunction: (f) =>
+      hasCorrectProperties: (f) =>
         ["de", "en"].some(
           (lng) =>
             (f.properties.tactile_writing !== undefined &&
@@ -64,7 +64,7 @@ export const levelAccessibilityProperties: AccessibilityPropertiesInterface[] =
       userGroups: [UserGroupEnum.blindPeople],
     },
     {
-      accessibilityFunction: (f) =>
+      hasCorrectProperties: (f) =>
         f.properties.highway !== undefined &&
         f.properties.highway === "elevator" &&
         ((f.properties["speech_output:en"] !== undefined &&

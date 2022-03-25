@@ -39,7 +39,7 @@ function getAccessibilityInformation(
 
     const foundAccessibilityFeature = geoJSONFeatures.some(
       (feature: GeoJSON.Feature<any, any>) => {
-        return levelAccessibilityProperty.accessibilityFunction(feature);
+        return levelAccessibilityProperty.hasCorrectProperties(feature);
       }
     );
 
