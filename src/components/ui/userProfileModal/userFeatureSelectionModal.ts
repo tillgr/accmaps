@@ -30,6 +30,21 @@ function render(): void {
 
   const saveFeaturesButton = document.getElementById("saveFeatureSelection");
   saveFeaturesButton.onclick = () => onSave();
+
+  removeEmpty();
+}
+
+function removeEmpty() {
+  [
+    document.getElementById("userFeatureList"),
+    document.getElementById("userAccessibleFeatureList"),
+  ].forEach((l) => {
+    if (!l.hasChildNodes()) {
+      l.style.display = "none";
+      // @ts-ignore
+      l.previousElementSibling.style.display = "none";
+    }
+  });
 }
 
 function renderCheckbox(v: any, k: any): HTMLDivElement {
