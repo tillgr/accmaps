@@ -43,7 +43,7 @@ nav {
     display: block;
     float: left;
     padding: 1rem;
-    width: fit-content; //gets overwritten after rendering all child nodes (in levelControl.ts)
+    min-width: fit-content; //gets overwritten after rendering all child nodes (in levelControl.ts)
 
     #levelControl {
       flex-direction: column-reverse;
@@ -93,6 +93,7 @@ nav {
 
 #descriptionArea {
   font-size: 120%;
+  height: fit-content;
 }
 
 #changeUserProfileBtnLabel{
