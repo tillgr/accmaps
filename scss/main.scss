@@ -30,11 +30,10 @@ nav {
   left: 0;
   right: 0;
 
-  //display: flex;
+  display: flex;
   flex-direction: row;
 
   #levelControlWrapper {
-    //display: inline-block;
     display: block;
     float: left;
     padding: 1rem;
@@ -63,7 +62,9 @@ nav {
   }
 
   .description {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     padding: 1em;
 
     #selectedBuilding {
