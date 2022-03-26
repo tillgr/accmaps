@@ -37,6 +37,7 @@ function render(allLevelNames: string[]): void {
 
     levelBtn.addEventListener("click", (e: MouseEvent) => {
       geoMap.handleLevelChange(level);
+      geoMap.updateRoomLabels(); //makes sure room numbers don't appear after level change
 
       for (let i = 0; i < levelControl.children.length; i++) {
         levelControl.children[i].classList.remove("active");
