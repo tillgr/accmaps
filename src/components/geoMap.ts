@@ -152,7 +152,7 @@ export class GeoMap {
 
   updateRoomLabels = (): void => {
     const zoomLevel = this.mapInstance.getZoom();
-    const hideIcons = (zoomLevel < 20);
+    const hideIcons = (zoomLevel < 21);
 
     //updating the indoor layer makes sure the tooltips are centered after "unhiding" them
     this.indoorLayer.updateLayer();
