@@ -2,6 +2,7 @@ import * as _default from "../../public/strings/colorProfiles/default.json";
 import * as black_white from "../../public/strings/colorProfiles/black_white.json";
 import * as red_green from "../../public/strings/colorProfiles/red_green.json";
 import * as blue_yellow from "../../public/strings/colorProfiles/blue_yellow.json";
+import { lang } from "../services/languageService";
 
 const profileKey = "colorProfile";
 const opacityKey = "environmentOpacity";
@@ -28,6 +29,19 @@ function getCurrentColors() {
       return red_green;
     case "blue_yellow":
       return blue_yellow;
+  }
+}
+
+function getCurrentColorTranslation(profile: string): string{
+  switch (profile) {
+    case "none":
+      return lang.colorProfile_none;
+    case "black_white":
+      return lang.colorProfile_black_white;
+    case "red_green":
+      return lang.colorProfile_red_green;
+    case "blue_yellow":
+      return lang.colorProfile_blue_yellow;
   }
 }
 
@@ -64,6 +78,7 @@ function getLineThickness(): number {
 export default {
   getCurrentProfile,
   setCurrentProfile,
+  getCurrentColorTranslation,
   getEnvOpacity,
   setEnvOpacity,
   getColorStrength,

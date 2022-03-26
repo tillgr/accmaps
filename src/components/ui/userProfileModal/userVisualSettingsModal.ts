@@ -71,7 +71,7 @@ function renderCheckbox(profile: string): HTMLDivElement {
 
   label.className = "form-check-label";
   label.htmlFor = profile;
-  label.innerText = profile;
+  label.innerText = colorService.getCurrentColorTranslation(profile);
 
   checkbox_div.appendChild(checkbox);
   checkbox_div.appendChild(label);
