@@ -3,6 +3,10 @@
 
 $legendWidth: 150px;
 
+html{
+  overflow-x: hidden;
+}
+
 nav {
   z-index: 99;
 }
