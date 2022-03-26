@@ -3,6 +3,8 @@ import { UserFeatureEnum } from "../../../models/userFeatureEnum";
 import featureService from "../../../services/featureService";
 import { UserFeatureSelection } from "../../../data/userFeatureSelection";
 import userProfileModal from "./userProfileModal";
+import userService from "../../../services/userService";
+import { lang } from "../../../services/languageService";
 
 const userFeatureSelectionModal = new Modal(
   document.getElementById("userFeatureSelectionModal"),
@@ -14,18 +16,40 @@ const checkboxState: Map<UserFeatureEnum, boolean> =
 
 function render(): void {
   //create checkboxes and headings
+  const currentProfile = userService.getCurrentProfile();
   UserFeatureSelection.forEach((v, k) => {
-    if (v.accessibleFeature) {
-      document
-        .getElementById("userAccessibleFeatureList")
-        .append(renderCheckbox(v, k));
-    } else {
-      document.getElementById("userFeatureList").append(renderCheckbox(v, k));
+    if (v.userGroups.some((g: any) => g === currentProfile)) {
+      if (v.accessibleFeature) {
+        document
+          .getElementById("userAccessibleFeatureList")
+          .append(renderCheckbox(v, k));
+      } else {
+        document.getElementById("userFeatureList").append(renderCheckbox(v, k));
+      }
     }
   });
 
+  document.getElementById("userFeatureModalLabel").innerText = lang.userFeatureModalLabel;
+  document.getElementById("featureSelectionHeader").innerText = lang.featureSelectionHeader;
+  document.getElementById("accessibleFeatureSelectionHeader").innerText = lang.accessibleFeatureSelectionHeader;
+
   const saveFeaturesButton = document.getElementById("saveFeatureSelection");
   saveFeaturesButton.onclick = () => onSave();
+
+  removeEmpty();
+}
+
+function removeEmpty() {
+  [
+    document.getElementById("userFeatureList"),
+    document.getElementById("userAccessibleFeatureList"),
+  ].forEach((l) => {
+    if (!l.hasChildNodes()) {
+      l.style.display = "none";
+      // @ts-ignore
+      l.previousElementSibling.style.display = "none";
+    }
+  });
 }
 
 function renderCheckbox(v: any, k: any): HTMLDivElement {
@@ -39,10 +63,10 @@ function renderCheckbox(v: any, k: any): HTMLDivElement {
   checkbox.type = "checkbox";
   checkbox.id = v.id;
 
-  checkbox.checked = checkboxState.get(k) ?? v.isCheckedDefault;
-  checkboxState.set(k, v.isCheckedDefault);
+  checkbox.checked = checkboxState.get(v.id);
+
   checkbox.onchange = () => {
-    checkboxState.set(k, checkbox.checked);
+    checkboxState.set(v.id, checkbox.checked);
   };
 
   label.className = "form-check-label";
@@ -62,9 +86,16 @@ function hide(): void {
 function onSave(): void {
   featureService.setCurrentFeatures(checkboxState);
   userProfileModal.hideAll();
+
+  /*
+   * Hack: reload window location to properly update all profile-specific information.
+   * Relevant data is stored in localStorage and remains persistent after reload.
+   */
+  setTimeout(window.location.reload.bind(window.location), 200);
 }
 
 export default {
   hide,
   render,
+  checkboxState,
 };

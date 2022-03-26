@@ -82,6 +82,8 @@ function render(): void {
 
   document.getElementById("buildingSearchSubmit").innerText = lang.buildingSearchSubmit;
   document.getElementById("indoorSearchSubmit").innerText = lang.indoorSearchSubmit;
+  document.getElementById("currentBuilding").innerText = lang.currentBuilding;
+  document.getElementById("currentRoom").innerText = lang.currentRoom;
   document.getElementById("buildingSearchInput").setAttribute("placeholder", lang.buildingSearchPlaceholder);
   document.getElementById("buildingSearchInput").setAttribute("aria-label", lang.buildingSearchPlaceholder);
   document.getElementById("indoorSearchInput").setAttribute("placeholder", lang.indoorSearchPlaceholder);

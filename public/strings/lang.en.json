@@ -7,6 +7,8 @@
   "indoorSearchPlaceholder": "Search indoor",
   "clearBuildingSearch": "Clear search field",
   "centeringButton": "Set view to the focused building",
+  "currentBuilding": "Current Building",
+  "currentRoom": "Current Room",
 
   "legendLabel": "Legend",
 
@@ -21,9 +23,15 @@
   "visualSettingsLabel": "Visual Settings",
   "colorBlindnessHeader": "Color blindness",
   "contrastSettingsHeader": "Contrast settings",
+  "environmentOpacity": "Environment opacity",
+  "colorStrength": "Color strength",
+  "lineThickness": "Line thickness",
   "closeVisualSettings": "Close",
   "saveVisualSettings": "Save changes",
   "languageHeader": "Language",
+
+  "saveButton": "Save",
+  "closeButton": "Close",
 
   "selectedMapObjectPrefix": "Selected map object: ",
   "selectedBuildingPrefix": "Selected building: ",

@@ -7,7 +7,14 @@ export function translate(): void {
   document.getElementById("userProfileModalLabel").innerText = lang.userProfileModalLabel;
   document.getElementById("profileQuickSwitchHeader").innerText = lang.profileQuickSwitchHeader;
   document.getElementById("settingsHeader").innerText = lang.settingsHeader;
-  document.getElementById("languageHeader").innerText = lang.profileQuickSwitchHeader;
+  document.getElementById("languageHeader").innerText = lang.languageHeader;
+
+  for (let i = 0; i < document.getElementsByClassName("saveButton").length; i++) {
+    document.getElementsByClassName("saveButton")[i].textContent = lang.saveButton
+  }
+  for (let i = 0; i < document.getElementsByClassName("closeButton").length; i++) {
+    document.getElementsByClassName("closeButton")[i].textContent = lang.closeButton
+  }
 
   document.getElementById("buildingSearchInput")
     .setAttribute("aria-label", lang.closeButtonLabel);

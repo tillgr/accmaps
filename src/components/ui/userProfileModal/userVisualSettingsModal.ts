@@ -1,7 +1,8 @@
 import { Modal } from "bootstrap";
 import { COLOR_PROFS } from "../../../data/colorProfiles.json";
-import { capitalize } from "../../../utils/capitalize";
 import userProfileModal from "./userProfileModal";
+import colorService from "../../../services/colorService";
+import { lang } from "../../../services/languageService";
 
 const userVisualSettingsModal = new Modal(
   document.getElementById("userVisualSettingsModal"),
@@ -15,23 +16,27 @@ const state: {
   selectedColorProfile: string;
   colorProfiles: string[];
   contrastSettings: {
-    environmentOpacity: number;
-    colorStrength: number;
-    lineThickness: number;
+    environmentOpacity: [opacity: number, name: string];
+    colorStrength: [opacity: number, name: string];
+    lineThickness: [opacity: number, name: string];
   };
 } = {
-  selectedColorProfile: COLOR_PROFS[0],
+  selectedColorProfile: colorService.getCurrentProfile(),
   colorProfiles: COLOR_PROFS,
   contrastSettings: {
-    environmentOpacity: 0.5,
-    colorStrength: 0.5,
-    lineThickness: 0.5,
+    environmentOpacity: [colorService.getEnvOpacity(), lang.environmentOpacity],
+    colorStrength: [colorService.getColorStrength(), lang.colorStrength],
+    lineThickness: [colorService.getLineThickness(), lang.lineThickness],
   },
 };
 
 function render(): void {
   renderColorBlindnessList();
   renderContrastSettingsList();
+
+  document.getElementById("visualSettingsLabel").innerText = lang.visualSettingsLabel;
+  document.getElementById("colorBlindnessHeader").innerText = lang.colorBlindnessHeader;
+  document.getElementById("contrastSettingsHeader").innerText = lang.contrastSettingsHeader;
 
   const saveFeaturesButton = document.getElementById("saveVisualSettings");
   saveFeaturesButton.onclick = () => onSave();
@@ -83,10 +88,19 @@ function renderContrastSettingsList(): void {
 }
 
 function renderRangeInput(name: string): HTMLDivElement {
+  type prop = keyof typeof state.contrastSettings;
   const range_div = document.createElement("div");
-  range_div.innerHTML = `<label for="${name}" class="form-label">${capitalize(
-    name
-  )}</label><input type="range" class="form-range" id="${name}">`;
+  range_div.innerHTML = `<label for="${name}" class="form-label">${state.contrastSettings[name as prop][1]}</label>
+    <input type="range" class="form-range" id="${name}" step="10" min="0" max="100" value="${
+      state.contrastSettings[name as prop][0]
+    }">`;
+
+  range_div.onchange = (e: Event) => {
+    type prop = keyof typeof state.contrastSettings;
+    const prop = (<HTMLElement>e.target).id;
+
+    state.contrastSettings[prop as prop][0] = +(<HTMLInputElement>e.target).value;
+  };
   return range_div;
 }
 
@@ -99,7 +113,16 @@ function onSave() {
   //featureService.setCurrentFeatures(checkboxState);
   userProfileModal.hideAll();
 
-  //TODO Save to local storage (full state)
+  colorService.setCurrentProfile(state.selectedColorProfile);
+  colorService.setEnvOpacity(state.contrastSettings.environmentOpacity[0]);
+  colorService.setColorStrength(state.contrastSettings.colorStrength[0]);
+  colorService.setLineThickness(state.contrastSettings.lineThickness[0]);
+
+  /*
+   * Hack: reload window location to properly update all profile-specific information.
+   * Relevant data is stored in localStorage and remains persistent after reload.
+   */
+  setTimeout(window.location.reload.bind(window.location), 200);
 }
 
 function hide(): void {

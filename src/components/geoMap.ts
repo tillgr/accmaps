@@ -8,6 +8,8 @@ import {
   TileLayer,
 } from "leaflet";
 
+import 'leaflet.markercluster';
+
 import {
   INDOOR_LEVEL,
   MAP_START_LAT,
@@ -28,7 +30,9 @@ import AccessibilityService from "../services/accessibilityService";
 import accessibility from "../utils/makeAccessible";
 import searchForm from "./ui/searchForm";
 import levelService from "../services/levelService";
+import colorService from "../services/colorService";
 import { lang } from "../services/languageService";
+import FeatureService from "../services/featureService";
 
 export class GeoMap {
   currentSearchString = "";
@@ -50,9 +54,13 @@ export class GeoMap {
     })
       .on("moveend", this.makeAccessible)
       .on("load", this.makeAccessible)
-      .on("zoomend", this.makeAccessible);
+      .on("zoomend", this.makeAccessible)
+      .on("zoomend", this.updateRoomLabels);
 
-    this.mapInstance.whenReady(this.makeAccessible);
+    this.mapInstance.whenReady(() => {
+      this.makeAccessible();
+      this.applyStyleFilters();
+    });
     this.add(osmTileLayer);
   }
 
@@ -65,8 +73,6 @@ export class GeoMap {
   }
 
   removeIndoorLayerFromMap = (): void => {
-    /*const group = this.indoorLayer.layerInstance;
-    geoMap.remove(group);*/
     this.mapInstance.removeLayer(this.indoorLayer.getIndoorLayerGroup());
   };
 
@@ -144,6 +150,19 @@ export class GeoMap {
     }
   };
 
+  updateRoomLabels = (): void => {
+    const zoomLevel = this.mapInstance.getZoom();
+    const hideIcons = (zoomLevel < 21);
+
+    //updating the indoor layer makes sure the tooltips are centered after "unhiding" them
+    this.indoorLayer.updateLayer();
+
+    for (let i = 0; i < document.getElementsByClassName("room-label").length; i++) {
+      document.getElementsByClassName('room-label')[i].toggleAttribute("hidden", hideIcons);
+    }
+  }
+
+
   runBuildingSearch(searchQuery: string): void {
     LoadingIndicator.start();
 
@@ -184,7 +203,23 @@ export class GeoMap {
         const selectedLevel = results[0].properties.level.toString();
         levelControl.focusOnLevel(selectedLevel);
         this.handleLevelChange(selectedLevel);
+
+        const feature = results[0];
+        const accessibilityDescription =
+          FeatureService.getAccessibilityDescription(feature);
+        DescriptionArea.update(accessibilityDescription);
       } else LoadingIndicator.error(lang.searchNotFound);
     } else LoadingIndicator.error(lang.searchEmpty);
   }
+
+  applyStyleFilters = (): void => {
+    this.mapInstance.getPane("tilePane").style.filter = `opacity(${
+      colorService.getEnvOpacity() / 100
+    })`;
+    this.mapInstance.getPane("overlayPane").style.filter = `saturate(${
+      (colorService.getColorStrength() * 2) / 100
+    })`;
+
+    //wall weight rendered per feature -> feature service
+  };
 }
