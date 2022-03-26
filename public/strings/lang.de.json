@@ -7,11 +7,13 @@
   "indoorSearchPlaceholder": "Im Gebäude suchen",
   "clearBuildingSearch": "Gebäudesuchfeld leeren",
   "centeringButton": "Sicht zum fokussierten Gebäude zentrieren",
+  "currentBuilding": "Ausgewähltes Gebäude",
+  "currentRoom": "Ausgewählter Raum",
 
   "legendLabel": "Legende",
 
   "userProfileModalLabel": "Nutzerprofil auswählen",
-  "profileQuickSwitchHeader": "Profil quick switch",
+  "profileQuickSwitchHeader": "Profil Schnellauswahl",
   "settingsHeader": "Einstellungen",
   "userFeatureModalLabel": "Features auswählen",
   "featureSelectionHeader": "Auswahl anzuzeigender Features",
@@ -21,9 +23,15 @@
   "visualSettingsLabel": "Aussehen anpassen",
   "colorBlindnessHeader": "Farbenblindheit",
   "contrastSettingsHeader": "Kontrasteinstellungen",
+  "environmentOpacity": "Umgebungstransparenz",
+  "colorStrength": "Farbsättigung",
+  "lineThickness": "Linienstärke",
   "closeVisualSettings": "Schließen",
   "saveVisualSettings": "Änderungen speichern",
   "languageHeader": "Sprache",
+
+  "saveButton": "Speichern",
+  "closeButton": "Schließen",
 
   "selectedMapObjectPrefix": "Ausgewähltes Kartenobjekt: ",
   "selectedBuildingPrefix": "Ausgewähltes Gebäude: ",

@@ -4,6 +4,7 @@ import featureService from "../../../services/featureService";
 import { UserFeatureSelection } from "../../../data/userFeatureSelection";
 import userProfileModal from "./userProfileModal";
 import userService from "../../../services/userService";
+import { lang } from "../../../services/languageService";
 
 const userFeatureSelectionModal = new Modal(
   document.getElementById("userFeatureSelectionModal"),
@@ -27,6 +28,10 @@ function render(): void {
       }
     }
   });
+
+  document.getElementById("userFeatureModalLabel").innerText = lang.userFeatureModalLabel;
+  document.getElementById("featureSelectionHeader").innerText = lang.featureSelectionHeader;
+  document.getElementById("accessibleFeatureSelectionHeader").innerText = lang.accessibleFeatureSelectionHeader;
 
   const saveFeaturesButton = document.getElementById("saveFeatureSelection");
   saveFeaturesButton.onclick = () => onSave();

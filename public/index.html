@@ -29,7 +29,7 @@
             <div class="d-flex justify-content-end flex-column flex-sm-column flex-lg-row flex-lg-wrap" id="searchWrapper">
                 <div class="form-group row flex-nowrap" id="buildingSearchWrapper">
                     <label class="d-flex flex-nowrap text-white align-items-center justify-content-lg-end col-4 justify-content-sm-start"
-                           for="buildingSearchInput">Current Building:</label>
+                           for="buildingSearchInput" id="currentBuilding">Current Building:</label>
                     <div class="input-group col-8">
                         <input class="form-control hide-clear-icon" type="text" placeholder="Search for buildings"
                                aria-label="Search for buildings"
@@ -42,7 +42,7 @@
 
                 <div class="from-group row flex-nowrap ms-lg-5" id="indoorSearchWrapper">
                     <label class="d-flex flex-nowrap text-white align-items-center justify-content-lg-end col-4 justify-content-sm-start"
-                           for="indoorSearchInput">Current Room:</label>
+                           for="indoorSearchInput" id="currentRoom">Current Room:</label>
                     <div class="input-group col-8">
                         <input class="form-control" type="text" placeholder="Search indoor"
                                aria-label="Search indoor"
@@ -140,8 +140,10 @@
                 <div class="collection" id="userAccessibleFeatureList"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal" id="closeButtonLabel">Close</button>
-                <button type="button" class="btn btn-primary" id="saveFeatureSelection">Save changes</button>
+                <button type="button" class="btn btn-light closeButton" data-bs-dismiss="modal" id="closeButtonLabel">
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary saveButton" id="saveFeatureSelection">Save changes</button>
             </div>
         </div>
     </div>
@@ -172,9 +174,10 @@
                 <div class="collection" id="contrastSettingsList"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal" id="closeVisualSettings">Close
+                <button type="button" class="btn btn-light closeButton" data-bs-dismiss="modal" id="closeVisualSettings">
+                    Close
                 </button>
-                <button type="button" class="btn btn-primary" id="saveVisualSettings">Save changes</button>
+                <button type="button" class="btn btn-primary saveButton" id="saveVisualSettings">Save changes</button>
             </div>
         </div>
     </div>
