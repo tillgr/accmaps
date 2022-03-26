@@ -22,18 +22,17 @@ nav {
   width: $legendWidth;
 }
 
-/*#centeringButton {
-  position: absolute;
-  top: 68px;
-  right: 16px;
-  z-index: 25;
-}*/
-
 #centeringButton {
-  position: relative;
-  margin-top: 10px;
-  margin-right: 10px;
+  margin-top: 25px;
+  margin-right: 20px;
   z-index: 25;
+}
+
+.leaflet-left .leaflet-control-zoom {
+  margin-left: 20px;
+}
+.leaflet-top .leaflet-control-zoom {
+  margin-top: 25px;
 }
 
 #descriptionAreaWrapper {
