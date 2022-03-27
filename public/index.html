@@ -74,11 +74,11 @@
        aria-expanded="false"
        aria-controls="legend" id="legendHeaderButton" href="#">
         <div class="card-title h5 d-flex justify-content-between" id="legendLabel">
-            <span class="material-icons more-less" role="presentation" id="legendCollapseIcon">north_east</span>
+            <span class="material-icons more-less" id="legendCollapseIcon" aria-hidden="true">north_east</span>
         </div>
     </a>
-    <div class="collapse card-body" id="legend" role="status" aria-label="legend" tabindex="0">
-        <table id="legendTable" aria-label="legend contents">
+    <div class="collapse card-body" id="legend" role="status" aria-labelledby="legendLabel" tabindex="0">
+        <table id="legendTable" role="presentation">
             <tbody>
             </tbody>
         </table>
