@@ -26,7 +26,7 @@ function reset(): void {
 function getAccessibilityInformation(
   geoJSONFeatures: GeoJSON.Feature<any, any>[]
 ): string {
-  let returnString = "[";
+  let returnString = "";
 
   levelAccessibilityProperties.forEach((levelAccessibilityProperty) => {
     if (
@@ -51,9 +51,13 @@ function getAccessibilityInformation(
     returnString += ", ";
   });
 
-  //remove last comma
-  returnString = returnString.slice(0, -2) + "]";
-  return returnString;
+  if (returnString){
+    //remove last comma
+    returnString = "[" + returnString.slice(0, -2) + "]";
+    return returnString;
+  } else {
+    return "";
+  }
 }
 
 export default {

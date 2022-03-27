@@ -2,6 +2,7 @@ import { GeoJSON, Icon, LatLng, Marker } from "leaflet";
 import { featureDescriptionHelper } from "../utils/featureDescriptionHelper";
 import { featureAccessibilityProperties } from "../data/featureAccessibilityProperties";
 import UserService from "../services/userService";
+import BuildingService from "../services/buildingService";
 import { lang } from "./languageService";
 import {
   FILL_OPACITY,

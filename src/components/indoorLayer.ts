@@ -134,7 +134,7 @@ export class IndoorLayer {
 
     const accessibilityDescription =
       FeatureService.getAccessibilityDescription(feature);
-    DescriptionArea.update(accessibilityDescription);
+    DescriptionArea.update(accessibilityDescription, "description");
 
     this.selectedFeatures = [feature];
     this.updateLayer();

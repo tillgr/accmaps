@@ -1,7 +1,7 @@
-function update(message: string): void {
-  const popUpArea = document.getElementById("descriptionArea");
+function update(message: string, elementId = "description"): void {
+  const popUpArea = document.getElementById(elementId);
   popUpArea.innerText = message;
-  popUpArea.focus();
+  document.getElementById("descriptionArea").focus();
 }
 
 export default {

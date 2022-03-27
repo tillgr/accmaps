@@ -65,10 +65,6 @@
 
 <div id="map" aria-disabled="true"></div>
 
-<nav aria-label="Change displayed level" id="levelControlWrapper" role="navigation">
-    <ul class="pagination justify-content-center" id="levelControl"></ul>
-</nav>
-
 <div class="card border border-2 mx-3 shadow" id="legendWrapper">
     <a class="btn btn-light w-100" role="button" data-bs-toggle="collapse" data-bs-target="#legend"
        aria-expanded="false"
@@ -85,8 +81,15 @@
     </div>
 </div>
 
-<div class="card mx-3 shadow" id="descriptionAreaWrapper">
-<div class="card-body" id="descriptionArea" role="complementary" aria-label="descriptionArea" tabindex="0"></div>
+<!--level control and description area-->
+<div class="descriptionAreaWrapper">
+    <div aria-label="Change displayed level" id="levelControlWrapper" role="navigation">
+        <ul class="pagination justify-content-center" id="levelControl"></ul>
+    </div>
+    <div class="description" id="descriptionArea" role="complementary" aria-label="descriptionArea" tabindex="0">
+        <div id="selectedBuilding"></div>
+        <div id="description"></div>
+    </div>
 </div>
 
 <!--user profile modal-->
