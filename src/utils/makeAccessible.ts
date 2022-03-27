@@ -14,6 +14,12 @@ function silenceZoomControls(): void {
   });
 }
 
+function silenceCenteringButton(): void {
+  document
+    .getElementById("centeringButton")
+    .setAttribute("aria-hidden", "true");
+}
+
 function silenceTileImages(): void {
   const mapTiles = document.getElementsByClassName("leaflet-tile");
 
@@ -37,10 +43,18 @@ function silenceLeafletAttribution(): void {
     .setAttribute("aria-hidden", "true");
 }
 
+function silenceMapPane(): void {
+  document
+    .getElementsByClassName("leaflet-pane leaflet-map-pane")[0]
+    .setAttribute("aria-hidden", "true");
+}
+
 export default {
   removeShadowPane,
   silenceLeafletAttribution,
   silenceZoomControls,
   silenceMapMarkers,
   silenceTileImages,
+  silenceMapPane,
+  silenceCenteringButton,
 };

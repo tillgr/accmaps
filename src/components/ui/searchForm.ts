@@ -61,6 +61,7 @@ function render(): void {
     state.indoorSearchQuery = indoorSearchInput.value;
 
     state.currentSearchState = "building";
+    buildingSearchInput.focus();
     handleChange();
   });
 
@@ -80,15 +81,27 @@ function render(): void {
     }
   });
 
-  document.getElementById("buildingSearchSubmit").innerText = lang.buildingSearchSubmit;
-  document.getElementById("indoorSearchSubmit").innerText = lang.indoorSearchSubmit;
+  document.getElementById("buildingSearchSubmit").innerText =
+    lang.buildingSearchSubmit;
+  document.getElementById("indoorSearchSubmit").innerText =
+    lang.indoorSearchSubmit;
   document.getElementById("currentBuilding").innerText = lang.currentBuilding;
   document.getElementById("currentRoom").innerText = lang.currentRoom;
-  document.getElementById("buildingSearchInput").setAttribute("placeholder", lang.buildingSearchPlaceholder);
-  document.getElementById("buildingSearchInput").setAttribute("aria-label", lang.buildingSearchPlaceholder);
-  document.getElementById("indoorSearchInput").setAttribute("placeholder", lang.indoorSearchPlaceholder);
-  document.getElementById("indoorSearchInput").setAttribute("aria-label", lang.indoorSearchPlaceholder);
-  document.getElementById("clearBuildingSearch").setAttribute("aria-label", lang.clearBuildingSearch);
+  document
+    .getElementById("buildingSearchInput")
+    .setAttribute("placeholder", lang.buildingSearchPlaceholder);
+  document
+    .getElementById("buildingSearchInput")
+    .setAttribute("aria-label", lang.buildingSearchPlaceholder);
+  document
+    .getElementById("indoorSearchInput")
+    .setAttribute("placeholder", lang.indoorSearchPlaceholder);
+  document
+    .getElementById("indoorSearchInput")
+    .setAttribute("aria-label", lang.indoorSearchPlaceholder);
+  document
+    .getElementById("clearBuildingSearch")
+    .setAttribute("aria-label", lang.clearBuildingSearch);
 }
 
 function handleChange() {

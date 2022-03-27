@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,7 +26,7 @@
                     </a>
                 </li>
             </ul>
-            <div class="d-flex justify-content-end flex-column flex-sm-column flex-lg-row flex-lg-wrap" id="searchWrapper">
+            <div class="d-flex justify-content-end flex-column flex-sm-column flex-lg-row flex-lg-wrap" id="searchWrapper" role="search">
                 <div class="form-group row flex-nowrap" id="buildingSearchWrapper">
                     <label class="d-flex flex-nowrap text-white align-items-center justify-content-lg-end col-4 justify-content-sm-start"
                            for="buildingSearchInput" id="currentBuilding">Current Building:</label>
@@ -65,20 +65,20 @@
 
 <div id="map" aria-disabled="true"></div>
 
-<nav aria-label="Change displayed level" id="levelControlWrapper">
+<nav aria-label="Change displayed level" id="levelControlWrapper" role="navigation">
     <ul class="pagination justify-content-center" id="levelControl"></ul>
 </nav>
 
 <div class="card border border-2 mx-3 shadow" id="legendWrapper">
     <a class="btn btn-light w-100" role="button" data-bs-toggle="collapse" data-bs-target="#legend"
        aria-expanded="false"
-       aria-controls="legend" id="legendHeaderButton">
+       aria-controls="legend" id="legendHeaderButton" href="#">
         <div class="card-title h5 d-flex justify-content-between" id="legendLabel">
             <span class="material-icons more-less" role="presentation" id="legendCollapseIcon">north_east</span>
         </div>
     </a>
-    <div class="collapse card-body" id="legend" role="status">
-        <table id="legendTable">
+    <div class="collapse card-body" id="legend" role="status" aria-label="legend" tabindex="0">
+        <table id="legendTable" aria-label="legend contents">
             <tbody>
             </tbody>
         </table>
@@ -86,7 +86,7 @@
 </div>
 
 <div class="card mx-3 shadow" id="descriptionAreaWrapper">
-    <div class="card-body" id="descriptionArea" role="status"></div>
+<div class="card-body" id="descriptionArea" role="complementary" aria-label="descriptionArea" tabindex="0"></div>
 </div>
 
 <!--user profile modal-->
