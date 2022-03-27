@@ -8,7 +8,7 @@ import {
   TileLayer,
 } from "leaflet";
 
-import 'leaflet.markercluster';
+import "leaflet.markercluster";
 
 import {
   INDOOR_LEVEL,
@@ -88,7 +88,10 @@ export class GeoMap {
     accessibility.silenceTileImages();
     accessibility.silenceMapMarkers();
     accessibility.silenceLeafletAttribution();
-    accessibility.silenceZoomControls();
+    //accessibility.silenceZoomControls();
+    //accessibility.silenceCenteringButton();
+    accessibility.silenceMapPane();
+    //accessibility.silenceBottomLeafletControls();
   }
 
   showBuilding(searchString: string): Promise<string> {
@@ -152,16 +155,21 @@ export class GeoMap {
 
   updateRoomLabels = (): void => {
     const zoomLevel = this.mapInstance.getZoom();
-    const hideIcons = (zoomLevel < 21);
+    const hideIcons = zoomLevel < 21;
 
     //updating the indoor layer makes sure the tooltips are centered after "unhiding" them
     this.indoorLayer.updateLayer();
 
-    for (let i = 0; i < document.getElementsByClassName("room-label").length; i++) {
-      document.getElementsByClassName('room-label')[i].toggleAttribute("hidden", hideIcons);
+    for (
+      let i = 0;
+      i < document.getElementsByClassName("room-label").length;
+      i++
+    ) {
+      document
+        .getElementsByClassName("room-label")
+        [i].toggleAttribute("hidden", hideIcons);
     }
-  }
-
+  };
 
   runBuildingSearch(searchQuery: string): void {
     LoadingIndicator.start();

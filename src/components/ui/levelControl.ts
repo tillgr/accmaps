@@ -26,10 +26,12 @@ function render(allLevelNames: string[]): void {
     const changeToLevel = lang.changeLevel + level;
     const levelBtn = document.createElement("li");
     levelBtn.className = "page-item";
-    levelBtn.innerHTML = '<a class="page-link" href="#">' + level + "</a>";
+    levelBtn.innerHTML =
+      '<a class="page-link" aria-hidden="true">' + level + "</a>";
     levelBtn.setAttribute("role", "button");
     levelBtn.setAttribute("title", changeToLevel);
     levelBtn.setAttribute("aria-label", changeToLevel);
+    levelBtn.setAttribute("tabindex", "0");
 
     if (level == INDOOR_LEVEL) {
       levelBtn.classList.add("active");
@@ -42,7 +44,19 @@ function render(allLevelNames: string[]): void {
       for (let i = 0; i < levelControl.children.length; i++) {
         levelControl.children[i].classList.remove("active");
       }
-      (<HTMLElement>e.target).parentElement.classList.add("active");
+      //(<HTMLElement>e.target).parentElement.classList.add("active");
+      levelBtn.classList.add("active");
+    });
+
+    levelBtn.addEventListener("keyup", (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        geoMap.handleLevelChange(level);
+
+        for (let i = 0; i < levelControl.children.length; i++) {
+          levelControl.children[i].classList.remove("active");
+        }
+        levelBtn.classList.add("active");
+      }
     });
 
     levelControl.appendChild(levelBtn);

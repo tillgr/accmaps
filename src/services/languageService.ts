@@ -14,6 +14,10 @@ function getCurrentLanguage(): LanguageSettingsEnum {
   return language;
 }
 
+function getCurrentLanguageAcronym(): string {
+  return LanguageSettings.get(getCurrentLanguage()).acronym;
+}
+
 function setLanguage(language: LanguageSettingsEnum): void {
   localStorage.setItem(languageKey, language.toString());
   /*
@@ -24,8 +28,8 @@ function setLanguage(language: LanguageSettingsEnum): void {
 }
 
 export default {
-  //getLanguageResource,
   getCurrentLanguage,
+  getCurrentLanguageAcronym,
   setLanguage,
 };
 

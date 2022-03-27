@@ -1,7 +1,9 @@
-import { lang } from "../services/languageService";
+import languageService, { lang } from "../services/languageService";
 
 /* used to translate strings in the index.html */
 export function translate(): void {
+  document.documentElement.setAttribute("lang", languageService.getCurrentLanguageAcronym());
+
   document.getElementById("navbarBrandText").innerText = lang.navbarBrandText;
   document.getElementById("changeUserProfileBtnLabel").innerText = lang.changeUserProfileBtn;
   document.getElementById("userProfileModalLabel").innerText = lang.userProfileModalLabel;
