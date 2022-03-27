@@ -30,6 +30,11 @@
   "saveVisualSettings": "Save changes",
   "languageHeader": "Language",
 
+  "colorProfile_none": "none",
+  "colorProfile_black_white": "black-white",
+  "colorProfile_red_green": "red-green",
+  "colorProfile_blue_yellow": "blue-yellow",
+
   "saveButton": "Save",
   "closeButton": "Close",
 
