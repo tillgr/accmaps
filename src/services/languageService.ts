@@ -8,14 +8,16 @@ const defaultLanguage = LanguageSettingsEnum.english;
 const languageKey = "language";
 
 function getCurrentLanguage(): LanguageSettingsEnum {
-  const language =
-    <LanguageSettingsEnum>parseInt(localStorage.getItem(languageKey)) ??
-    defaultLanguage;
+  const language = localStorage.getItem(languageKey)
+    ? <LanguageSettingsEnum>parseInt(localStorage.getItem(languageKey))
+    : defaultLanguage;
+
   return language;
 }
 
 function getCurrentLanguageAcronym(): string {
-  return LanguageSettings.get(getCurrentLanguage()).acronym;
+  const language = getCurrentLanguage();
+  return LanguageSettings.get(language).acronym;
 }
 
 function setLanguage(language: LanguageSettingsEnum): void {
