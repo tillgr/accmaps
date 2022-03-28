@@ -1,6 +1,6 @@
 {
   "navbarBrandText": "Accessible Maps mobile",
-  "changeUserProfileBtn": "Nutzerprofil ändern",
+  "changeUserProfileBtn": "Nutzerprofil anpassen",
   "buildingSearchSubmit": "Suchen",
   "indoorSearchSubmit": "Suchen",
   "buildingSearchPlaceholder": "Nach Gebäuden suchen",
@@ -12,15 +12,15 @@
 
   "legendLabel": "Legende",
 
-  "userProfileModalLabel": "Nutzerprofil auswählen",
+  "userProfileModalLabel": "Nutzerprofil anpassen",
   "profileQuickSwitchHeader": "Profil Schnellauswahl",
   "settingsHeader": "Einstellungen",
-  "userFeatureModalLabel": "Features auswählen",
-  "featureSelectionHeader": "Auswahl anzuzeigender Features",
-  "accessibleFeatureSelectionHeader": "Auswahl barrierefreier Features",
+  "userFeatureModalLabel": "Anzuzeigende Objekte auswählen",
+  "featureSelectionHeader": "Auswahl anzuzeigender Objekte",
+  "accessibleFeatureSelectionHeader": "Auswahl barrierefreier Objekte",
   "closeButtonLabel": "Schließen",
   "saveFeatureSelection": "Änderungen speichern",
-  "visualSettingsLabel": "Aussehen anpassen",
+  "visualSettingsLabel": "Grafische Einstellungen",
   "colorBlindnessHeader": "Farbenblindheit",
   "contrastSettingsHeader": "Kontrasteinstellungen",
   "environmentOpacity": "Umgebungstransparenz",

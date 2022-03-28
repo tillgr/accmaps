@@ -1,6 +1,6 @@
 {
   "navbarBrandText": "Accessible Maps mobile",
-  "changeUserProfileBtn": "Change user Profile",
+  "changeUserProfileBtn": "Change user profile",
   "buildingSearchSubmit": "Search",
   "indoorSearchSubmit": "Search",
   "buildingSearchPlaceholder": "Search for buildings",
@@ -12,7 +12,7 @@
 
   "legendLabel": "Legend",
 
-  "userProfileModalLabel": "Select User Profile",
+  "userProfileModalLabel": "Change user profile",
   "profileQuickSwitchHeader": "Profiles quick switch",
   "settingsHeader": "Settings",
   "userFeatureModalLabel": "Select Features",
