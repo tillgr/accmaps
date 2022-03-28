@@ -246,11 +246,6 @@ function getBuildingDescription(): string {
     }
   }
 
-  description += featureDescriptionHelper(
-    currentBuildingFeature,
-    buildingAccessibilityProperties
-  );
-
   return description;
 }
 
