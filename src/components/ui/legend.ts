@@ -1,7 +1,7 @@
 import { colors } from "../../services/colorService";
 
 const legend = document.getElementById("legend");
-import { COLORS } from "../../data/constants.json";
+import { COLORS } from "../../../public/strings/constants.json";
 import { lang } from "../../services/languageService";
 
 function create(): void {

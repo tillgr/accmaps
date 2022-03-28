@@ -1,4 +1,4 @@
-import { OVERPASS_DATA_URLS } from "../data/constants.json";
+import { OVERPASS_DATA_URLS } from "../../public/strings/constants.json";
 import { GeoJSON } from "leaflet";
 import { lang } from "./languageService";
 
@@ -45,9 +45,7 @@ function getOverpassData(overpassQuery: string) {
           const returnValue = JSON.parse(xhr.responseText);
           resolve(returnValue);
         } else if (xhr.status > 400) {
-          reject(
-            lang.buildingErrorFetching + xhr.statusText
-          );
+          reject(lang.buildingErrorFetching + xhr.statusText);
         }
       }
     };

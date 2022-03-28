@@ -1,12 +1,12 @@
 import * as L from "leaflet";
 import { GeoJSON, Layer, LayerGroup, LeafletMouseEvent, Marker } from "leaflet";
-import 'leaflet.markercluster';
+import "leaflet.markercluster";
 import DescriptionArea from "./ui/descriptionArea";
 import FeatureService from "../services/featureService";
 import LevelService from "../services/levelService";
 import { geoMap } from "../main";
 import { colors } from "../services/colorService";
-import { ICONS } from "../data/constants.json";
+import { ICONS } from "../../public/strings/constants.json";
 import MarkerClusterGroup = L.MarkerClusterGroup;
 
 export class IndoorLayer {
@@ -26,7 +26,7 @@ export class IndoorLayer {
         let sameIcon = true;
 
         for (let i = 0; i < markers.length; i++) {
-          if(currentIcon != markers[i].getIcon().options.iconUrl){
+          if (currentIcon != markers[i].getIcon().options.iconUrl) {
             sameIcon = false;
           }
         }
@@ -36,16 +36,20 @@ export class IndoorLayer {
           html = "<img src='" + markers[0].getIcon().options.iconUrl + "' alt>";
         } else {
           // if markers in the cluster group have different icons: use the "additional"-icon
-          html = "<img src='/images/" + ICONS.ADDITIONAL + "' alt>"
+          html = "<img src='/images/" + ICONS.ADDITIONAL + "' alt>";
         }
-        return L.divIcon({ html: html, className: 'icon-cluster', iconSize: L.point(48, 48) });
+        return L.divIcon({
+          html: html,
+          className: "icon-cluster",
+          iconSize: L.point(48, 48),
+        });
       },
     });
 
     this.indoorLayerGroup = new LayerGroup();
 
     geoMap.removeAccessibilityMarkers();
-    geoMap.remove(this.markers)
+    geoMap.remove(this.markers);
     this.drawIndoorLayerByGeoJSON(geoJSON);
     this.layerInstance = geoMap.add(this.indoorLayerGroup);
     // geoMap.add(this.indoorLayerGroup);
@@ -64,7 +68,7 @@ export class IndoorLayer {
 
   private drawIndoorLayerByGeoJSON(geoJSON: GeoJSON.FeatureCollection) {
     geoMap.removeAccessibilityMarkers();
-    geoMap.remove(this.markers)
+    geoMap.remove(this.markers);
 
     const layer = new L.GeoJSON(geoJSON, {
       style: FeatureService.getFeatureStyle,
@@ -124,7 +128,7 @@ export class IndoorLayer {
         permanent: true,
         className: "room-label",
         offset: [0, 0],
-        direction: "center"
+        direction: "center",
       });
     }
   }

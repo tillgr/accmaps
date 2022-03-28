@@ -1,4 +1,4 @@
-import { INDOOR_LEVEL } from "../../data/constants.json";
+import { INDOOR_LEVEL } from "../../../public/strings/constants.json";
 import LevelService from "../../services/levelService";
 import { geoMap } from "../../main";
 import { lang } from "../../services/languageService";
@@ -68,12 +68,16 @@ function render(allLevelNames: string[]): void {
   // see also: https://stackoverflow.com/questions/33891709/when-flexbox-items-wrap-in-column-mode-container-does-not-grow-its-width
   // const wrapper = document.getElementById("levelControlWrapper");
   const wrapper = document.getElementById("levelControlWrapper");
-  const wrapperPadding = parseInt(window.getComputedStyle(wrapper).paddingLeft.replace("px","")) +
-    parseInt(window.getComputedStyle(wrapper).paddingRight.replace("px",""));
+  const wrapperPadding =
+    parseInt(window.getComputedStyle(wrapper).paddingLeft.replace("px", "")) +
+    parseInt(window.getComputedStyle(wrapper).paddingRight.replace("px", ""));
   const firstChild = levelControl.firstElementChild;
   const lastChild = levelControl.lastElementChild;
-  const width = lastChild.getBoundingClientRect().left - firstChild.getBoundingClientRect().left
-    + lastChild.clientWidth + wrapperPadding
+  const width =
+    lastChild.getBoundingClientRect().left -
+    firstChild.getBoundingClientRect().left +
+    lastChild.clientWidth +
+    wrapperPadding;
 
   wrapper.setAttribute("style", "width: " + width.toString() + "px");
 }

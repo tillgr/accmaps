@@ -1,5 +1,5 @@
 import { Modal } from "bootstrap";
-import { COLOR_PROFS } from "../../../data/colorProfiles.json";
+import { COLOR_PROFS } from "../../../../public/strings/colorProfiles.json";
 import userProfileModal from "./userProfileModal";
 import colorService from "../../../services/colorService";
 import { lang } from "../../../services/languageService";
@@ -34,9 +34,12 @@ function render(): void {
   renderColorBlindnessList();
   renderContrastSettingsList();
 
-  document.getElementById("visualSettingsLabel").innerText = lang.visualSettingsLabel;
-  document.getElementById("colorBlindnessHeader").innerText = lang.colorBlindnessHeader;
-  document.getElementById("contrastSettingsHeader").innerText = lang.contrastSettingsHeader;
+  document.getElementById("visualSettingsLabel").innerText =
+    lang.visualSettingsLabel;
+  document.getElementById("colorBlindnessHeader").innerText =
+    lang.colorBlindnessHeader;
+  document.getElementById("contrastSettingsHeader").innerText =
+    lang.contrastSettingsHeader;
 
   const saveFeaturesButton = document.getElementById("saveVisualSettings");
   saveFeaturesButton.onclick = () => onSave();
@@ -90,16 +93,19 @@ function renderContrastSettingsList(): void {
 function renderRangeInput(name: string): HTMLDivElement {
   type prop = keyof typeof state.contrastSettings;
   const range_div = document.createElement("div");
-  range_div.innerHTML = `<label for="${name}" class="form-label">${state.contrastSettings[name as prop][1]}</label>
+  range_div.innerHTML = `<label for="${name}" class="form-label">${
+    state.contrastSettings[name as prop][1]
+  }</label>
     <input type="range" class="form-range" id="${name}" step="10" min="0" max="100" value="${
-      state.contrastSettings[name as prop][0]
-    }">`;
+    state.contrastSettings[name as prop][0]
+  }">`;
 
   range_div.onchange = (e: Event) => {
     type prop = keyof typeof state.contrastSettings;
     const prop = (<HTMLElement>e.target).id;
 
-    state.contrastSettings[prop as prop][0] = +(<HTMLInputElement>e.target).value;
+    state.contrastSettings[prop as prop][0] = +(<HTMLInputElement>e.target)
+      .value;
   };
   return range_div;
 }

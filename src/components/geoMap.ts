@@ -16,7 +16,7 @@ import {
   MAP_START_LNG,
   OSM_ATTRIBUTION,
   OSM_TILE_SERVER,
-} from "../data/constants.json";
+} from "../../public/strings/constants.json";
 import { BuildingInterface } from "../models/buildingInterface";
 import levelControl from "./ui/levelControl";
 import DescriptionArea from "./ui/descriptionArea";

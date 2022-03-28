@@ -9,7 +9,7 @@ import {
   MARKERS_IMG_DIR,
   WALL_WEIGHT,
   WALL_WEIGHT_PAVING,
-} from "../data/constants.json";
+} from "../../public/strings/constants.json";
 import { UserGroupEnum } from "../models/userGroupEnum";
 import { UserFeatureEnum } from "../models/userFeatureEnum";
 import { UserFeatureSelection } from "../data/userFeatureSelection";

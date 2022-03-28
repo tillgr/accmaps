@@ -1,7 +1,10 @@
 import { BuildingInterface } from "../models/buildingInterface";
 import HttpService from "./httpService";
 import { GeoJSON, LatLng, LatLngBounds } from "leaflet";
-import { MAPQUEST_API_KEY, NOMINATIM_SERVER } from "../data/constants.json";
+import {
+  MAPQUEST_API_KEY,
+  NOMINATIM_SERVER,
+} from "../../public/strings/constants.json";
 import { featureDescriptionHelper } from "../utils/featureDescriptionHelper";
 import { buildingAccessibilityProperties } from "../data/buildingAccessibilityProperties";
 import { GeoJsonObject, Position } from "geojson";
@@ -76,9 +79,7 @@ function nominatimSearch(searchString: string): Promise<BuildingInterface> {
           );
 
           if (buildingFeature === null) {
-            return reject(
-              lang.buildingNotSITconform
-            );
+            return reject(lang.buildingNotSITconform);
           }
 
           if (BBox !== undefined) {

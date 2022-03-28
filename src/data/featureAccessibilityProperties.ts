@@ -1,7 +1,7 @@
 import { AccessibilityPropertiesInterface } from "../models/accessibilityPropertiesInterface";
 import { UserGroupEnum } from "../models/userGroupEnum";
 import { lang } from "../services/languageService";
-import { ICONS } from "../data/constants.json";
+import { ICONS } from "../../public/strings/constants.json";
 import { UserFeatureEnum } from "../models/userFeatureEnum";
 
 const allGroups = [
