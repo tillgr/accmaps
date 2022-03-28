@@ -1,13 +1,13 @@
 import { AccessibilityPropertiesInterface } from "../models/accessibilityPropertiesInterface";
-import { UserGroupsEnum } from "../models/userGroupsEnum";
+import { UserGroupEnum } from "../models/userGroupEnum";
 import { lang } from "../services/languageService";
 import { ICONS } from "../../public/strings/constants.json";
-import { UserFeaturesEnum } from "../models/userFeaturesEnum";
+import { UserFeatureEnum } from "../models/userFeatureEnum";
 
 const allGroups = [
-  UserGroupsEnum.blindPeople,
-  UserGroupsEnum.noImpairments,
-  UserGroupsEnum.wheelchairUsers,
+  UserGroupEnum.blindPeople,
+  UserGroupEnum.noImpairments,
+  UserGroupEnum.wheelchairUsers,
 ];
 
 /**
@@ -27,9 +27,9 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
         ),
       msgTrue: lang.featureAccessibilityTactileBoard,
       msgFalse: null,
-      userGroups: [UserGroupsEnum.blindPeople],
+      userGroups: [UserGroupEnum.blindPeople],
       iconFilename: ICONS.INFO,
-      tags: [UserFeaturesEnum.tactileLines],
+      tags: [UserFeatureEnum.tactileLines],
     },
     {
       hasCorrectProperties: (f) =>
@@ -38,7 +38,7 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
         f.properties["speech_output"] !== undefined,
       msgTrue: lang.featureAccessibilitySpeech,
       msgFalse: null,
-      userGroups: [UserGroupsEnum.blindPeople],
+      userGroups: [UserGroupEnum.blindPeople],
     },
 
     /* ================ wheelchair users ================ */
@@ -50,9 +50,9 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
         ["yes", "designated"].includes(f.properties.wheelchair),
       msgTrue: lang.featureAccessibilityAccessibleToilet,
       msgFalse: null,
-      userGroups: [UserGroupsEnum.wheelchairUsers],
+      userGroups: [UserGroupEnum.wheelchairUsers],
       iconFilename: ICONS.TOILETS_WHEELCHAIR,
-      tags: [UserFeaturesEnum.accessibleToilets],
+      tags: [UserFeatureEnum.accessibleToilets],
     },
     {
       hasCorrectProperties: (f) =>
@@ -62,9 +62,9 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
         ["yes", "designated"].includes(f.properties.wheelchair),
       msgTrue: lang.featureAccessibilityElevator,
       msgFalse: null,
-      userGroups: [UserGroupsEnum.wheelchairUsers],
+      userGroups: [UserGroupEnum.wheelchairUsers],
       iconFilename: ICONS.ELEVATOR,
-      tags: [UserFeaturesEnum.elevators],
+      tags: [UserFeatureEnum.elevators],
     },
     {
       hasCorrectProperties: (f) =>
@@ -72,23 +72,23 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
         ["yes", "designated"].includes(f.properties.wheelchair),
       msgTrue: lang.buildingAccessibilityWheelchairTrue,
       msgFalse: lang.buildingAccessibilityWheelchairFalse,
-      userGroups: [UserGroupsEnum.wheelchairUsers],
+      userGroups: [UserGroupEnum.wheelchairUsers],
       iconFilename: ICONS.WHEELCHAIR,
-      tags: [UserFeaturesEnum.ramps, UserFeaturesEnum.service],
+      tags: [UserFeatureEnum.ramps, UserFeatureEnum.service],
     },
     {
       hasCorrectProperties: (f) =>
         f.properties["wheelchair:description:en"] !== undefined,
       msgTrue: (f) => f.properties["wheelchair:description:en"],
       msgFalse: null,
-      userGroups: [UserGroupsEnum.wheelchairUsers],
+      userGroups: [UserGroupEnum.wheelchairUsers],
     },
     {
       hasCorrectProperties: (f) =>
         f.properties["wheelchair:description:de"] !== undefined,
       msgTrue: (f) => f.properties["wheelchair:description:de"],
       msgFalse: null,
-      userGroups: [UserGroupsEnum.wheelchairUsers],
+      userGroups: [UserGroupEnum.wheelchairUsers],
     },
 
     /* ================ general features ================ */
@@ -106,9 +106,9 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
           ? lang.featureAccessibilityFemale
           : lang.featureAccessibilityUnisex) + lang.featureAccessibilityToilet,
       msgFalse: null,
-      userGroups: [UserGroupsEnum.noImpairments, UserGroupsEnum.blindPeople],
+      userGroups: [UserGroupEnum.noImpairments, UserGroupEnum.blindPeople],
       iconFilename: ICONS.TOILETS,
-      tags: [UserFeaturesEnum.toilets],
+      tags: [UserFeatureEnum.toilets],
     },
     /* entrances (general) */
     {
@@ -124,7 +124,7 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
       msgFalse: null,
       userGroups: allGroups,
       iconFilename: ICONS.ENTRANCE,
-      tags: [UserFeaturesEnum.entrancesExits],
+      tags: [UserFeatureEnum.entrancesExits],
     },
     /* emergency exits (general) */
     {
@@ -137,7 +137,7 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
       msgFalse: null,
       userGroups: allGroups,
       iconFilename: ICONS.EMERGENCY_EXIT,
-      tags: [UserFeaturesEnum.emergencyExits],
+      tags: [UserFeatureEnum.emergencyExits],
     },
     /* information boards (general, except blind people) */
     {
@@ -146,12 +146,9 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
         ["board", "map"].includes(f.properties.information),
       msgTrue: lang.featureAccessibilityInformationBoard,
       msgFalse: null,
-      userGroups: [
-        UserGroupsEnum.noImpairments,
-        UserGroupsEnum.wheelchairUsers,
-      ],
+      userGroups: [UserGroupEnum.noImpairments, UserGroupEnum.wheelchairUsers],
       iconFilename: ICONS.INFO,
-      tags: [UserFeaturesEnum.service, UserFeaturesEnum.tactileLines],
+      tags: [UserFeatureEnum.service, UserFeatureEnum.tactileLines],
     },
 
     /* stairs (general, except wheelchair users) */
@@ -162,8 +159,8 @@ export const featureAccessibilityProperties: AccessibilityPropertiesInterface[] 
         (f.properties.stairs !== undefined && f.properties.stairs === "yes"),
       msgTrue: lang.userProfileStairs,
       msgFalse: null,
-      userGroups: [UserGroupsEnum.noImpairments, UserGroupsEnum.blindPeople],
+      userGroups: [UserGroupEnum.noImpairments, UserGroupEnum.blindPeople],
       iconFilename: ICONS.STAIRS,
-      tags: [UserFeaturesEnum.stairs],
+      tags: [UserFeatureEnum.stairs],
     },
   ];

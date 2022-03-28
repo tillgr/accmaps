@@ -4,7 +4,7 @@ import languageService from "../../../services/languageService";
 import featureSelectionModal from "./userFeatureSelectionModal";
 import { UserGroups } from "../../../data/userGroups";
 import { UserSettings } from "../../../data/userSettings";
-import { UserGroupsEnum } from "../../../models/userGroupsEnum";
+import { UserGroupEnum } from "../../../models/userGroupEnum";
 import { LanguageSettings } from "../../../data/languageSettings";
 import { LanguageSettingsEnum } from "../../../models/languageSettingsEnum";
 import { Modal } from "bootstrap";
@@ -78,8 +78,7 @@ function renderLanguages(): void {
     const button = document.createElement("a");
     button.href = "#map";
 
-    button.className =
-      "list-group-item d-flex justify-content-between align-items-start";
+    button.className = "list-group-item d-flex justify-content-between align-items-start";
     button.innerHTML = v.name;
     button.onclick = () => setLanguage(k);
 
@@ -106,7 +105,7 @@ function hideAll(): void {
   userVisualSettingsModal.hide();
 }
 
-function setUserProfile(userGroup: UserGroupsEnum): void {
+function setUserProfile(userGroup: UserGroupEnum): void {
   UserService.setProfile(userGroup);
   hideAll();
 }

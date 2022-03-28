@@ -1,90 +1,90 @@
-import { UserFeaturesEnum } from "../models/userFeaturesEnum";
-import { UserGroupsEnum } from "../models/userGroupsEnum";
+import { UserFeatureEnum } from "../models/userFeatureEnum";
+import { UserGroupEnum } from "../models/userGroupEnum";
 import { lang } from "../services/languageService";
 
 /**Initial data for modal, also list of profiles per selectable userFeature*/
 
-const UserFeatureSelection: Map<UserFeaturesEnum, any> = new Map<
-  UserFeaturesEnum,
+const UserFeatureSelection: Map<UserFeatureEnum, any> = new Map<
+  UserFeatureEnum,
   any
 >();
 
-UserFeatureSelection.set(UserFeaturesEnum.entrancesExits, {
+UserFeatureSelection.set(UserFeatureEnum.entrancesExits, {
   name: lang.userProfileEntranceExit,
   id: "entrancesExits",
   accessibleFeature: false,
   userGroups: [
-    UserGroupsEnum.noImpairments,
-    UserGroupsEnum.wheelchairUsers,
-    UserGroupsEnum.blindPeople,
+    UserGroupEnum.noImpairments,
+    UserGroupEnum.wheelchairUsers,
+    UserGroupEnum.blindPeople,
   ],
 });
-UserFeatureSelection.set(UserFeaturesEnum.toilets, {
+UserFeatureSelection.set(UserFeatureEnum.toilets, {
   name: lang.userProfileToilets,
   id: "toilets",
   accessibleFeature: false,
-  userGroups: [UserGroupsEnum.noImpairments, UserGroupsEnum.blindPeople],
+  userGroups: [UserGroupEnum.noImpairments, UserGroupEnum.blindPeople],
 });
-UserFeatureSelection.set(UserFeaturesEnum.elevators, {
+UserFeatureSelection.set(UserFeatureEnum.elevators, {
   name: lang.userProfileElevators,
   id: "elevators",
   accessibleFeature: false,
   userGroups: [
-    UserGroupsEnum.noImpairments,
-    UserGroupsEnum.wheelchairUsers,
-    UserGroupsEnum.blindPeople,
+    UserGroupEnum.noImpairments,
+    UserGroupEnum.wheelchairUsers,
+    UserGroupEnum.blindPeople,
   ],
 });
-UserFeatureSelection.set(UserFeaturesEnum.stairs, {
+UserFeatureSelection.set(UserFeatureEnum.stairs, {
   name: lang.userProfileStairs,
   id: "stairs",
   accessibleFeature: false,
-  userGroups: [UserGroupsEnum.noImpairments, UserGroupsEnum.blindPeople],
+  userGroups: [UserGroupEnum.noImpairments, UserGroupEnum.blindPeople],
 });
-UserFeatureSelection.set(UserFeaturesEnum.emergencyExits, {
+UserFeatureSelection.set(UserFeatureEnum.emergencyExits, {
   name: lang.userProfileEmergencyExit,
   id: "emergencyExits",
   accessibleFeature: false,
   userGroups: [
-    UserGroupsEnum.noImpairments,
-    UserGroupsEnum.wheelchairUsers,
-    UserGroupsEnum.blindPeople,
+    UserGroupEnum.noImpairments,
+    UserGroupEnum.wheelchairUsers,
+    UserGroupEnum.blindPeople,
   ],
 });
-UserFeatureSelection.set(UserFeaturesEnum.service, {
+UserFeatureSelection.set(UserFeatureEnum.service, {
   name: lang.userProfileServices,
   id: "service",
   accessibleFeature: false,
   userGroups: [
-    UserGroupsEnum.noImpairments,
-    UserGroupsEnum.wheelchairUsers,
-    UserGroupsEnum.blindPeople,
+    UserGroupEnum.noImpairments,
+    UserGroupEnum.wheelchairUsers,
+    UserGroupEnum.blindPeople,
   ],
 });
 
-UserFeatureSelection.set(UserFeaturesEnum.ramps, {
+UserFeatureSelection.set(UserFeatureEnum.ramps, {
   name: lang.userProfileRamps,
   id: "ramps",
   accessibleFeature: true,
-  userGroups: [UserGroupsEnum.wheelchairUsers],
+  userGroups: [UserGroupEnum.wheelchairUsers],
 });
-UserFeatureSelection.set(UserFeaturesEnum.tactileLines, {
+UserFeatureSelection.set(UserFeatureEnum.tactileLines, {
   name: lang.userProfileTactileLines,
   id: "tactileLines",
   accessibleFeature: true,
-  userGroups: [UserGroupsEnum.blindPeople],
+  userGroups: [UserGroupEnum.blindPeople],
 });
-UserFeatureSelection.set(UserFeaturesEnum.disabledParking, {
+UserFeatureSelection.set(UserFeatureEnum.disabledParking, {
   name: lang.userProfileDisabledParking,
   id: "disabledParking",
   accessibleFeature: true,
-  userGroups: [UserGroupsEnum.wheelchairUsers, UserGroupsEnum.blindPeople],
+  userGroups: [UserGroupEnum.wheelchairUsers, UserGroupEnum.blindPeople],
 });
-UserFeatureSelection.set(UserFeaturesEnum.accessibleToilets, {
+UserFeatureSelection.set(UserFeatureEnum.accessibleToilets, {
   name: lang.userProfileAccessibleToilets,
   id: "accessibleToilets",
   accessibleFeature: true,
-  userGroups: [UserGroupsEnum.wheelchairUsers, UserGroupsEnum.blindPeople],
+  userGroups: [UserGroupEnum.wheelchairUsers, UserGroupEnum.blindPeople],
 });
 
 export { UserFeatureSelection };

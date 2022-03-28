@@ -1,11 +1,11 @@
 import { AccessibilityPropertiesInterface } from "../models/accessibilityPropertiesInterface";
-import { UserGroupsEnum } from "../models/userGroupsEnum";
+import { UserGroupEnum } from "../models/userGroupEnum";
 import { lang } from "../services/languageService";
 
 const allGroups = [
-  UserGroupsEnum.blindPeople,
-  UserGroupsEnum.noImpairments,
-  UserGroupsEnum.wheelchairUsers,
+  UserGroupEnum.blindPeople,
+  UserGroupEnum.noImpairments,
+  UserGroupEnum.wheelchairUsers,
 ];
 
 export const buildingAccessibilityProperties: AccessibilityPropertiesInterface[] =
@@ -21,21 +21,21 @@ export const buildingAccessibilityProperties: AccessibilityPropertiesInterface[]
           : f.properties.wheelchair === "limited"
           ? lang.buildingAccessibilityWheelchairLimited
           : lang.buildingAccessibilityWheelchairFalse,
-      userGroups: [UserGroupsEnum.wheelchairUsers],
+      userGroups: [UserGroupEnum.wheelchairUsers],
     },
     {
       hasCorrectProperties: (f) =>
         f.properties["wheelchair:description:de"] !== undefined,
       msgTrue: (f) => f.properties["wheelchair:description:de"],
       msgFalse: null,
-      userGroups: [UserGroupsEnum.wheelchairUsers],
+      userGroups: [UserGroupEnum.wheelchairUsers],
     },
     {
       hasCorrectProperties: (f) =>
         f.properties["wheelchair:description:en"] !== undefined,
       msgTrue: (f) => f.properties["wheelchair:description:en"],
       msgFalse: null,
-      userGroups: [UserGroupsEnum.wheelchairUsers],
+      userGroups: [UserGroupEnum.wheelchairUsers],
     },
     {
       hasCorrectProperties: (f) =>
@@ -43,7 +43,7 @@ export const buildingAccessibilityProperties: AccessibilityPropertiesInterface[]
         f.properties["toilets:wheelchair"] === "yes",
       msgTrue: lang.buildingAccessibilityToiletsTrue,
       msgFalse: null,
-      userGroups: [UserGroupsEnum.wheelchairUsers],
+      userGroups: [UserGroupEnum.wheelchairUsers],
     },
     {
       hasCorrectProperties: (f) => f.properties["opening_hours"] !== undefined,

@@ -1,17 +1,17 @@
-import { UserGroupsEnum } from "../models/userGroupsEnum";
+import { UserGroupEnum } from "../models/userGroupEnum";
 
 const profileKey = "userProfile";
 const featureKey = "currentlySelectedFeatures";
 
-function getCurrentProfile(): UserGroupsEnum {
+function getCurrentProfile(): UserGroupEnum {
   const profile = localStorage.getItem(profileKey)
-    ? <UserGroupsEnum>parseInt(localStorage.getItem(profileKey))
-    : UserGroupsEnum.noImpairments;
+    ? <UserGroupEnum>parseInt(localStorage.getItem(profileKey))
+    : UserGroupEnum.noImpairments;
 
   return profile;
 }
 
-function setProfile(profile: UserGroupsEnum): void {
+function setProfile(profile: UserGroupEnum): void {
   localStorage.setItem(profileKey, profile.toString());
   localStorage.removeItem(featureKey);
   /*

@@ -1,12 +1,12 @@
-import { UserGroupsEnum } from "./userGroupsEnum";
+import { UserGroupEnum } from "./userGroupEnum";
 import { GeoJSON } from "leaflet";
-import { UserFeaturesEnum } from "./userFeaturesEnum";
+import { UserFeatureEnum } from "./userFeatureEnum";
 
 export interface AccessibilityPropertiesInterface {
   hasCorrectProperties: (feature: GeoJSON.Feature<any, any>) => boolean;
   msgTrue: string | ((feature: GeoJSON.Feature<any, any>) => string);
   msgFalse: string | ((feature: GeoJSON.Feature<any, any>) => string) | null;
-  userGroups: UserGroupsEnum[];
+  userGroups: UserGroupEnum[];
   iconFilename?: string;
-  tags?: UserFeaturesEnum[];
+  tags?: UserFeatureEnum[];
 }
