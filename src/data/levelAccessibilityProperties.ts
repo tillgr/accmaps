@@ -1,4 +1,4 @@
-import { UserGroupEnum } from "../models/userGroupEnum";
+import { UserGroupsEnum } from "../models/userGroupsEnum";
 import { AccessibilityPropertiesInterface } from "../models/accessibilityPropertiesInterface";
 import { lang } from "../services/languageService";
 
@@ -12,7 +12,7 @@ export const levelAccessibilityProperties: AccessibilityPropertiesInterface[] =
         f.properties.wheelchair !== "no",
       msgTrue: lang.buildingAccessibilityToiletsTrue,
       msgFalse: lang.buildingAccessibilityToiletsFalse,
-      userGroups: [UserGroupEnum.wheelchairUsers],
+      userGroups: [UserGroupsEnum.wheelchairUsers],
     },
     {
       hasCorrectProperties: (f) =>
@@ -20,7 +20,7 @@ export const levelAccessibilityProperties: AccessibilityPropertiesInterface[] =
         f.properties.tactile_paving === "yes",
       msgTrue: lang.buildingAccessibilityTactilePavingTrue,
       msgFalse: lang.buildingAccessibilityTactilePavingFalse,
-      userGroups: [UserGroupEnum.blindPeople],
+      userGroups: [UserGroupsEnum.blindPeople],
     },
     {
       hasCorrectProperties: (f) =>
@@ -30,7 +30,7 @@ export const levelAccessibilityProperties: AccessibilityPropertiesInterface[] =
         f.properties.wheelchair !== "no",
       msgTrue: lang.buildingAccessibilityElevatorTrue,
       msgFalse: lang.buildingAccessibilityElevatorFalse,
-      userGroups: [UserGroupEnum.wheelchairUsers],
+      userGroups: [UserGroupsEnum.wheelchairUsers],
     },
     {
       hasCorrectProperties: (f) =>
@@ -61,7 +61,7 @@ export const levelAccessibilityProperties: AccessibilityPropertiesInterface[] =
         ),
       msgTrue: lang.buildingAccessibilityTactileWritingTrue,
       msgFalse: lang.buildingAccessibilityTactileWritingFalse,
-      userGroups: [UserGroupEnum.blindPeople],
+      userGroups: [UserGroupsEnum.blindPeople],
     },
     {
       hasCorrectProperties: (f) =>
@@ -73,6 +73,6 @@ export const levelAccessibilityProperties: AccessibilityPropertiesInterface[] =
             f.properties["speech_output:de"] === "yes")),
       msgTrue: lang.buildingAccessibilityElevatorSpeechTrue,
       msgFalse: lang.buildingAccessibilityElevatorSpeechFalse,
-      userGroups: [UserGroupEnum.blindPeople],
+      userGroups: [UserGroupsEnum.blindPeople],
     },
   ];

@@ -10,8 +10,8 @@ import {
   WALL_WEIGHT,
   WALL_WEIGHT_PAVING,
 } from "../../public/strings/constants.json";
-import { UserGroupEnum } from "../models/userGroupEnum";
-import { UserFeatureEnum } from "../models/userFeatureEnum";
+import { UserGroupsEnum } from "../models/userGroupsEnum";
+import { UserFeaturesEnum } from "../models/userFeaturesEnum";
 import { UserFeatureSelection } from "../data/userFeatureSelection";
 import colorService, { colors } from "./colorService";
 import userService from "../services/userService";
@@ -37,9 +37,9 @@ function getAccessibilityDescription(feature: GeoJSON.Feature): string {
   return lang.selectedMapObjectPrefix + popUpText;
 }
 
-function checkForMatchingTags(tags: UserFeatureEnum[]): boolean {
+function checkForMatchingTags(tags: UserFeaturesEnum[]): boolean {
   const hasMatched = tags.some((t) => {
-    return currentlySelectedFeatures.get(UserFeatureEnum[t]);
+    return currentlySelectedFeatures.get(UserFeaturesEnum[t]);
   });
 
   return hasMatched;
@@ -109,22 +109,22 @@ function getFeatureStyle(feature: GeoJSON.Feature<any>): any {
 function getWallWeight(feature: GeoJSON.Feature<any>) {
   //highlight tactile paving lines
   //decides wall weight based on the user profile and feature
-  return UserService.getCurrentProfile() == UserGroupEnum.blindPeople &&
+  return UserService.getCurrentProfile() == UserGroupsEnum.blindPeople &&
     feature.geometry.type === "LineString" &&
     feature.properties.tactile_paving === "yes"
     ? +WALL_WEIGHT_PAVING
     : +WALL_WEIGHT;
 }
 
-export function getCurrentFeatures(): Map<UserFeatureEnum, boolean> {
+export function getCurrentFeatures(): Map<UserFeaturesEnum, boolean> {
   const currentProfile = userService.getCurrentProfile();
-  const currentlySelectedFeatures: Map<UserFeatureEnum, boolean> =
+  const currentlySelectedFeatures: Map<UserFeaturesEnum, boolean> =
     localStorage.getItem("currentlySelectedFeatures")
       ? new Map(JSON.parse(localStorage.currentlySelectedFeatures))
       : (() => {
           const currentlySelectedFeatures = new Map();
           for (const [k, v] of UserFeatureSelection.entries()) {
-            //console.log(v.userGroups.includes(UserGroupEnum[currentProfile]));
+            //console.log(v.userGroups.includes(UserGroupsEnum[currentProfile]));
             //console.log(v.userGroups.some((g: any) => g === currentProfile));
             v.userGroups.some((g: any) => g === currentProfile)
               ? currentlySelectedFeatures.set(v.id, true)
@@ -139,7 +139,7 @@ export function getCurrentFeatures(): Map<UserFeatureEnum, boolean> {
 }
 
 export function setCurrentFeatures(
-  checkboxState: Map<UserFeatureEnum, boolean>
+  checkboxState: Map<UserFeaturesEnum, boolean>
 ): void {
   localStorage.currentlySelectedFeatures = JSON.stringify([
     ...checkboxState.entries(),

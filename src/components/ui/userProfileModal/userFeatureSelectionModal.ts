@@ -1,5 +1,5 @@
 import { Modal } from "bootstrap";
-import { UserFeatureEnum } from "../../../models/userFeatureEnum";
+import { UserFeaturesEnum } from "../../../models/userFeaturesEnum";
 import featureService from "../../../services/featureService";
 import { UserFeatureSelection } from "../../../data/userFeatureSelection";
 import userProfileModal from "./userProfileModal";
@@ -11,7 +11,7 @@ const userFeatureSelectionModal = new Modal(
   { backdrop: "static", keyboard: false }
 );
 
-const checkboxState: Map<UserFeatureEnum, boolean> =
+const checkboxState: Map<UserFeaturesEnum, boolean> =
   featureService.getCurrentFeatures();
 
 function render(): void {
@@ -29,9 +29,12 @@ function render(): void {
     }
   });
 
-  document.getElementById("userFeatureModalLabel").innerText = lang.userFeatureModalLabel;
-  document.getElementById("featureSelectionHeader").innerText = lang.featureSelectionHeader;
-  document.getElementById("accessibleFeatureSelectionHeader").innerText = lang.accessibleFeatureSelectionHeader;
+  document.getElementById("userFeatureModalLabel").innerText =
+    lang.userFeatureModalLabel;
+  document.getElementById("featureSelectionHeader").innerText =
+    lang.featureSelectionHeader;
+  document.getElementById("accessibleFeatureSelectionHeader").innerText =
+    lang.accessibleFeatureSelectionHeader;
 
   const saveFeaturesButton = document.getElementById("saveFeatureSelection");
   saveFeaturesButton.onclick = () => onSave();
