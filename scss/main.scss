@@ -11,6 +11,12 @@ nav {
   z-index: 99;
 }
 
+@media screen and (max-width: 1469px){
+  nav{
+    height: 107px;
+  }
+}
+
 #legendWrapper {
   position: absolute;
   bottom: 242px;
@@ -119,7 +125,7 @@ nav {
 
 @media screen and (max-width: 1469px) and (min-width: 992px){
   #map{
-    top: 92px !important;
+    top: 107px !important;
   }
 /*
   #centeringButton{
