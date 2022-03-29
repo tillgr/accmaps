@@ -193,6 +193,7 @@ export class GeoMap {
   handleLevelChange(newLevel: string): void {
     this.currentLevel = newLevel;
     this.indoorLayer.updateLayer();
+    this.updateRoomLabels(); //makes sure room numbers are correctly rendered again
 
     const message = LevelService.getCurrentLevelDescription();
     DescriptionArea.update(message);
